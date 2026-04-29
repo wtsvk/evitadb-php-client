@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package io.evitadb.externalApi.grpc.generated;
+option java_multiple_files = true;
+option php_namespace = "Wtsvk\\EvitaDbClient\\Protocol";
+option php_metadata_namespace = "Wtsvk\\EvitaDbClient\\Protocol\\GPBMetadata";
+option csharp_namespace = "EvitaDB";
+
+import "GrpcEnums.proto";
+
+// This mutation allows to set `parent` in the `entity`.
+message GrpcSetParentMutation {
+  // Optional new primary key of parent entity. If null, this entity is at the root of hierarchy.
+  int32 primaryKey = 1;
+}
+
+// This mutation allows to remove `parent` from the `entity`.
+message GrpcRemoveParentMutation {
+
+}
+
+// This mutation allows to set scope of the entity to ARCHIVED or LIVE state.
+message GrpcSetEntityScopeMutation {
+  // The new scope of the entity.
+  GrpcEntityScope scope = 1;
+}

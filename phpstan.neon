@@ -1,0 +1,11 @@
+parameters:
+    level: 10
+    paths:
+        - src
+        - tests
+    excludePaths:
+        - src/Protocol
+    ignoreErrors:
+        - identifier: throws.unusedType
+includes:
+    - phar://phpstan.phar/conf/bleedingEdge.neon

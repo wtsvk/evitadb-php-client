@@ -1,0 +1,135 @@
+name: Auto-update EvitaDB version
+
+on:
+  schedule:
+    # Daily 06:00 UTC — checks for new evitadb/evitadb tags
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  check-and-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get latest stable EvitaDB version
+        id: latest
+        run: |
+          VERSION=$(curl -sL "https://hub.docker.com/v2/repositories/evitadb/evitadb/tags?page_size=50" \
+            | jq -r '[.results[] | select(.name | test("^[0-9]+\\.[0-9]+\\.[0-9]+$"))] | .[0].name')
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Latest: $VERSION"
+
+      - name: Get current package EvitaDB version
+        id: current
+        run: |
+          CURRENT=$(jq -r '.extra["evitadb-version"]' composer.json)
+          echo "version=$CURRENT" >> "$GITHUB_OUTPUT"
+          echo "Current: $CURRENT"
+
+      - name: Skip if up to date
+        if: steps.latest.outputs.version == steps.current.outputs.version
+        run: |
+          echo "Already on latest: ${{ steps.current.outputs.version }}"
+          exit 0
+
+      - name: Check if PR already open
+        id: pr_check
+        if: steps.latest.outputs.version != steps.current.outputs.version
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH="auto-update/evitadb-${{ steps.latest.outputs.version }}"
+          if gh pr list --head "$BRANCH" --state open --json number --jq '.[].number' | grep -q .; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update composer.json metadata
+        if: steps.latest.outputs.version != steps.current.outputs.version && steps.pr_check.outputs.exists == 'false'
+        run: |
+          jq --indent 4 ".extra[\"evitadb-version\"] = \"${{ steps.latest.outputs.version }}\"" composer.json > /tmp/cj
+          mv /tmp/cj composer.json
+
+      - name: Update README compatibility table
+        # Each EvitaDB target bump = package minor bump (per README's semver policy:
+        # patches are wrapper-only fixes). New row goes at the top of the table.
+        if: steps.latest.outputs.version != steps.current.outputs.version && steps.pr_check.outputs.exists == 'false'
+        env:
+          LATEST: ${{ steps.latest.outputs.version }}
+        run: |
+          CURRENT_PKG=$(awk -F'|' '/^\|[ ]*[0-9]+\.[0-9]+\.x/ { gsub(/[ ]/, "", $2); print $2; exit }' README.md)
+          IFS='.' read -r MAJOR MINOR _ <<< "$CURRENT_PKG"
+          NEW_MINOR=$((MINOR + 1))
+          NEW_PKG="${MAJOR}.${NEW_MINOR}.x"
+          NEW_ROW="| ${NEW_PKG}   | ${LATEST} |"
+
+          echo "Bumping compatibility table: $CURRENT_PKG -> $NEW_PKG (EvitaDB $LATEST)"
+
+          awk -v row="$NEW_ROW" '
+            /^\|[-]+\|[-]+\|$/ && !inserted {
+              print
+              print row
+              inserted = 1
+              next
+            }
+            { print }
+          ' README.md > /tmp/readme && mv /tmp/readme README.md
+
+      - name: Regenerate proto files and PHP stubs
+        if: steps.latest.outputs.version != steps.current.outputs.version && steps.pr_check.outputs.exists == 'false'
+        # Run the entire regen pipeline INSIDE namely/protoc-all so we get a known-good
+        # protoc + grpc_php_plugin without copying ELF binaries onto the host (which is
+        # fragile across glibc versions). The Docker socket is mounted so sync-protos.sh
+        # can pull evitadb/evitadb via the host's docker daemon. Files written inside the
+        # container are root-owned; chown them back to the runner uid before the next step.
+        run: |
+          docker run --rm \
+            -v "$PWD:/work" \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -w /work \
+            -e HOST_UID="$(id -u)" \
+            -e HOST_GID="$(id -g)" \
+            --entrypoint bash \
+            namely/protoc-all:1.51_2 -c '
+              set -e
+              export DEBIAN_FRONTEND=noninteractive
+              rm -f /etc/apt/sources.list.d/nodesource* || true
+              apt-get update -qq >/dev/null 2>&1
+              apt-get install -qq -y jq docker.io unzip >/dev/null 2>&1
+
+              bash scripts/sync-protos.sh
+              bash scripts/build-proto.sh
+
+              chown -R "$HOST_UID:$HOST_GID" proto/ src/Protocol/
+            '
+
+      - name: Open PR
+        if: steps.latest.outputs.version != steps.current.outputs.version && steps.pr_check.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH="auto-update/evitadb-${{ steps.latest.outputs.version }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add -A
+          git commit -m "Bump EvitaDB to ${{ steps.latest.outputs.version }}"
+          git push origin "$BRANCH"
+          BODY=$(cat <<EOF
+          Automated PR — protos and stubs regenerated for EvitaDB **${{ steps.latest.outputs.version }}** (was ${{ steps.current.outputs.version }}).
+
+          Review the diff, verify CI passes, then merge. After merge, \`publish-packagist.yml\` will tag a new release and notify Packagist.
+          EOF
+          )
+          gh pr create \
+            --title "Bump EvitaDB to ${{ steps.latest.outputs.version }}" \
+            --body "$BODY" \
+            --base main \
+            --head "$BRANCH"

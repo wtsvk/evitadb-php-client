@@ -1,0 +1,477 @@
+syntax = "proto3";
+
+package io.evitadb.externalApi.grpc.generated;
+option java_multiple_files = true;
+option php_namespace = "Wtsvk\\EvitaDbClient\\Protocol";
+option php_metadata_namespace = "Wtsvk\\EvitaDbClient\\Protocol\\GPBMetadata";
+option csharp_namespace = "EvitaDB";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+import "GrpcEnums.proto";
+
+// Representation of IntegerNumberRange structures with optional from and to values.
+message GrpcIntegerNumberRange {
+  // The lower bound of the range.
+  google.protobuf.Int32Value from = 1;
+  // The upper bound of the range.
+  google.protobuf.Int32Value to = 2;
+}
+
+// Representation of LongNumberRange structures with optional from and to values.
+message GrpcLongNumberRange {
+  // The lower bound of the range.
+  google.protobuf.Int64Value from = 1;
+  // The upper bound of the range.
+  google.protobuf.Int64Value to = 2;
+}
+
+// Representation of BigDecimalNumberRange structures with optional from and to values.
+message GrpcBigDecimalNumberRange {
+  // The lower bound of the range.
+  GrpcBigDecimal from = 1;
+  // The upper bound of the range.
+  GrpcBigDecimal to = 2;
+  // The number of decimal places to compare.
+  int32 decimalPlacesToCompare = 3;
+}
+
+// Representation of DateTimeRange structures with optional from and to values.
+message GrpcDateTimeRange {
+  // The lower bound of the range.
+  GrpcOffsetDateTime from = 1;
+  // The upper bound of the range.
+  GrpcOffsetDateTime to = 2;
+}
+
+// Representation of Java's BigDecimal class with arbitrary precision.
+message GrpcBigDecimal {
+  // The string serialized value.
+  string valueString = 1;
+}
+
+// Structure for representing Locale objects specified by language tag.
+message GrpcLocale {
+  // The language tag of the locale.
+  string languageTag = 1;
+}
+
+// Structure for representing Currency objects specified by currency code.
+message GrpcCurrency {
+  // The currency code of the currency.
+  string code = 1;
+}
+
+// Structure for representing UUID objects.
+message GrpcUuid {
+  // Value that supports storing a UUID.
+  int64 mostSignificantBits = 1;
+  int64 leastSignificantBits = 2;
+}
+
+// Structure for representing Predecessor objects.
+message GrpcPredecessor {
+  // true if predecessor is a head, false otherwise
+  bool head = 1;
+  // Value that supports storing a Predecessor.
+  google.protobuf.Int32Value predecessorId = 2;
+}
+
+// Structure for universal representation of DateTime objects with an offset.
+message GrpcOffsetDateTime {
+  // The date and time of the object internally represented by unix timestamp.
+  google.protobuf.Timestamp timestamp = 1;
+  // The offset of the object in seconds.
+  // Templates for offset:
+  //   Z - for UTC
+  //  +h
+  //  +hh
+  //  +hh:mm
+  //  -hh:mm
+  //  +hhmm
+  //  -hhmm
+  //  +hh:mm:ss
+  //  -hh:mm:ss
+  //  +hhmmss
+  //  -hhmms
+  string offset = 2;
+}
+
+// Wrapper for representing an array of strings.
+message GrpcStringArray {
+  // Value that supports storing a string array.
+  repeated string value = 1;
+}
+
+// Wrapper for representing an array of integers.
+message GrpcIntegerArray {
+  // Value that supports storing an integer array.
+  repeated int32 value = 1;
+}
+
+// Wrapper for representing an array of longs.
+message GrpcLongArray {
+  // Value that supports storing a long array.
+  repeated int64 value = 1;
+}
+
+// Wrapper for representing an array of booleans.
+message GrpcBooleanArray {
+  // Value that supports storing a boolean array.
+  repeated bool value = 1;
+}
+
+// Wrapper for representing an array of BigDecimals.
+message GrpcBigDecimalArray {
+  // Value that supports storing a BigDecimal array.
+  repeated GrpcBigDecimal value = 1;
+}
+
+// Wrapper for representing an array of DateTimeRanges.
+message GrpcDateTimeRangeArray {
+  // Value that supports storing a DateTimeRange array.
+  repeated GrpcDateTimeRange value = 1;
+}
+
+// Wrapper for representing an array of IntegerNumberRanges.
+message GrpcIntegerNumberRangeArray {
+  // Value that supports storing an IntegerNumberRange array.
+  repeated GrpcIntegerNumberRange value = 1;
+}
+
+// Wrapper for representing an array of LongNumberRanges.
+message GrpcLongNumberRangeArray {
+  // Value that supports storing a LongNumberRange array.
+  repeated GrpcLongNumberRange value = 1;
+}
+
+// Wrapper for representing an array of BigDecimalNumberRanges.
+message GrpcBigDecimalNumberRangeArray {
+  // Value that supports storing a BigDecimalNumberRange array.
+  repeated GrpcBigDecimalNumberRange value = 1;
+}
+
+// Wrapper for representing an array of OffsetDateTimes.
+message GrpcOffsetDateTimeArray {
+  // Value that supports storing an OffsetDateTime array.
+  repeated GrpcOffsetDateTime value = 1;
+}
+
+// Wrapper for representing an array of Locales.
+message GrpcLocaleArray {
+  // Value that supports storing a Locale array.
+  repeated GrpcLocale value = 1;
+}
+
+// Wrapper for representing an array of Currencies.
+message GrpcCurrencyArray {
+  // Value that supports storing a Currency array.
+  repeated GrpcCurrency value = 1;
+}
+
+// Wrapper for representing an array of UUIDs.
+message GrpcUuidArray {
+  // Value that supports storing a UUID array.
+  repeated GrpcUuid value = 1;
+}
+
+// Wrapper for representing an array of FacetStatisticsDepth enums.
+message GrpcFacetStatisticsDepthArray {
+  // Value that supports storing a FacetStatisticsDepth array.
+  repeated GrpcFacetStatisticsDepth value = 1;
+}
+
+// Wrapper for representing an array of QueryPriceModeArray enums.
+message GrpcQueryPriceModeArray {
+  // Value that supports storing a QueryPriceMode array.
+  repeated GrpcQueryPriceMode value = 1;
+}
+
+// Wrapper for representing an array of PriceContentMode enums.
+message GrpcPriceContentModeArray {
+  // Value that supports storing a PriceContentMode array.
+  repeated GrpcPriceContentMode value = 1;
+}
+
+// Wrapper for representing an array of AttributeSpecialValue enums.
+message GrpcAttributeSpecialValueArray {
+  // Value that supports storing an AttributeSpecialValue array.
+  repeated GrpcAttributeSpecialValue value = 1;
+}
+
+// Wrapper for representing an array of OrderDirection enums.
+message GrpcOrderDirectionArray {
+  // Value that supports storing an OrderDirection array.
+  repeated GrpcOrderDirection value = 1;
+}
+
+// Wrapper for representing an array of EmptyHierarchicalEntityBehaviour enums.
+message GrpcEmptyHierarchicalEntityBehaviourArray {
+  // Value that supports storing an EmptyHierarchicalEntityBehaviour array.
+  repeated GrpcEmptyHierarchicalEntityBehaviour value = 1;
+}
+
+// Wrapper for representing an array of StatisticsBase enums.
+message GrpcStatisticsBaseArray {
+  // Value that supports storing a StatisticsBase array.
+  repeated GrpcStatisticsBase value = 1;
+}
+
+// Wrapper for representing an array of StatisticsType enums.
+message GrpcStatisticsTypeArray {
+  // Value that supports storing a StatisticsType array.
+  repeated GrpcStatisticsType value = 1;
+}
+
+// Wrapper for representing an array of HistogramBehavior enums.
+message GrpcHistogramBehaviorTypeArray {
+  // Value that supports storing a HistogramBehavior array.
+  repeated GrpcHistogramBehavior value = 1;
+}
+
+// Wrapper for representing an array of Scope enums.
+message GrpcEntityScopeArray {
+  // Value that supports storing a Scope array.
+  repeated GrpcEntityScope value = 1;
+}
+
+// Structure that holds one of the supported data type values, its type and version of stored value.
+message GrpcEvitaValue {
+  // The stored value. May by only one of the following at the time.
+  oneof value {
+    // String value.
+    string stringValue = 1;
+    // Integer value.
+    int32 integerValue = 2;
+    // Long value.
+    int64 longValue = 3;
+    // Boolean value.
+    bool booleanValue = 4;
+    // BigDecimal value.
+    GrpcBigDecimal bigDecimalValue = 5;
+    // DateTimeRange value.
+    GrpcDateTimeRange dateTimeRangeValue = 6;
+    // IntegerNumberRange value.
+    GrpcIntegerNumberRange integerNumberRangeValue = 7;
+    // LongNumberRange value.
+    GrpcLongNumberRange longNumberRangeValue = 8;
+    // BigDecimalNumberRange value.
+    GrpcBigDecimalNumberRange bigDecimalNumberRangeValue = 9;
+    // OffsetDateTime value.
+    GrpcOffsetDateTime offsetDateTimeValue = 10;
+    // Locale value.
+    GrpcLocale localeValue = 11;
+    // Currency value.
+    GrpcCurrency currencyValue = 12;
+    // UUID value.
+    GrpcUuid uuidValue = 13;
+    // Predecessor value.
+    GrpcPredecessor predecessorValue = 14;
+
+    // Array of string values.
+    GrpcStringArray stringArrayValue = 50;
+    // Array of integer values.
+    GrpcIntegerArray integerArrayValue = 51;
+    // Array of long values.
+    GrpcLongArray longArrayValue = 52;
+    // Array of boolean values.
+    GrpcBooleanArray booleanArrayValue = 53;
+    // Array of BigDecimal values.
+    GrpcBigDecimalArray bigDecimalArrayValue = 54;
+    // Array of DateTimeRange values.
+    GrpcDateTimeRangeArray dateTimeRangeArrayValue = 55;
+    // Array of IntegerNumberRange values.
+    GrpcIntegerNumberRangeArray integerNumberRangeArrayValue = 56;
+    // Array of LongNumberRange values.
+    GrpcLongNumberRangeArray longNumberRangeArrayValue = 57;
+    // Array of BigDecimalNumberRange values.
+    GrpcBigDecimalNumberRangeArray bigDecimalNumberRangeArrayValue = 58;
+    // Array of OffsetDateTime values.
+    GrpcOffsetDateTimeArray offsetDateTimeArrayValue = 59;
+    // Array of Locale values.
+    GrpcLocaleArray localeArrayValue = 60;
+    // Array of Currency values.
+    GrpcCurrencyArray currencyArrayValue = 61;
+    // Array of UUID values.
+    GrpcUuidArray uuidArrayValue = 62;
+  }
+  // The type of the stored value.
+  GrpcEvitaDataType type = 100;
+  // Contains version of this value and gets increased with any entity type update. Allows to execute
+  // optimistic locking i.e. avoiding parallel modifications. May be null if value is used within larger complex object.
+  google.protobuf.Int32Value version = 101;
+}
+
+// Structure that holds AssociatedData value. Might be one of the supported data types or a JSON string that will be
+// internally converted into ComplexDataObject.
+message GrpcEvitaAssociatedDataValue {
+  // The stored value. May by only one of the following at the time.
+  oneof value {
+    // Primitive value.
+    GrpcEvitaValue primitiveValue = 1;
+    // JSON string value, this old approach led to data type loss and is deprecated.
+    string jsonValue = 2 [deprecated = true];
+    // The array of values.
+    GrpcDataItem root = 4;
+  }
+  // The type of the stored value.
+  GrpcEvitaAssociatedDataDataType.GrpcEvitaDataType type = 100;
+  // Contains version of this value and gets increased with any entity type update. Allows to execute
+  //			optimistic locking i.e. avoiding parallel modifications.
+  google.protobuf.Int32Value version = 3;
+}
+
+// Structure that holds a complex object. It can be either a map or an array of values.
+message GrpcDataItem {
+  // The stored value. May by only one of the following at the time.
+  oneof value {
+    // Primitive value.
+    GrpcEvitaValue primitiveValue = 1;
+    // The array of values.
+    GrpcDataItemArray arrayValue = 4;
+    // The map of values.
+    DataItemMap mapValue = 5;
+  }
+}
+
+// Structure that holds a array of values stored inside array of the complex object.
+message GrpcDataItemArray {
+  // The stored array of values.
+  repeated GrpcDataItem children = 1;
+}
+
+// Structure that holds a map of values stored inside map of the complex object.
+message DataItemMap {
+  // The stored named fields with associated values.
+  map<string, GrpcDataItem> data = 1;
+}
+
+// identification of the file available for fetching
+message GrpcFile {
+  // Identification of the file
+  GrpcUuid fileId = 1;
+  // File name
+  string name = 2;
+  // Detailed description of the file
+  google.protobuf.StringValue description = 3;
+  // Content type of the file
+  string contentType = 4;
+  // Size of the file in bytes
+  int64 totalSizeInBytes = 5;
+  // Date and time when the file was created
+  GrpcOffsetDateTime created = 6;
+  // Origin of the file (usually the taskType)
+  google.protobuf.StringValue origin = 7;
+}
+
+// Record representing status of particular asynchronous task
+message GrpcTaskStatus {
+  // Type of the task (shortName of the task)
+  // Available tasks:
+  // - "BackupTask": Task responsible for backing up the catalog data and WAL files into a ZIP file.
+  // - "RestoreTask": This task is used to restore a catalog from a ZIP file.
+  // - "JfrRecorderTask": Task is responsible for recording selected JFR events into an exportable file.
+  // - "MetricTask": Task that listens for JFR events and transforms them into Prometheus metrics.
+  string taskType = 1;
+  // Longer, human-readable name of the task
+  string taskName = 2;
+  // Identification of the task
+  GrpcUuid taskId = 3;
+  // Name of the catalog the task is related to (optional)
+  google.protobuf.StringValue catalogName = 4;
+  // Date and time when the task was issued
+  GrpcOffsetDateTime issued = 5;
+  // Date and time when the task was started
+  GrpcOffsetDateTime started = 6;
+  // Date and time when the task was finished
+  GrpcOffsetDateTime finished = 7;
+  // Simplified state of the status
+  GrpcTaskSimplifiedState simplifiedState = 8;
+  // Progress of the task (0-100)
+  int32 progress = 9;
+  // Configuration settings of the task
+  google.protobuf.StringValue settings = 10;
+  // Result of the task
+  oneof result {
+    // Textual result of the task
+    google.protobuf.StringValue text = 11;
+    // File that was created by the task and is available for fetching
+    GrpcFile file = 12;
+  }
+  // Exception that occurred during the task execution
+  google.protobuf.StringValue exception = 13;
+  // List of task traits
+  repeated GrpcTaskTrait trait = 14;
+  // Date and time when the task was created
+  GrpcOffsetDateTime created = 15;
+}
+
+// Aggregates basic data about the catalog and entity types stored in it.
+message GrpcCatalogStatistics {
+  // name of the catalog
+  GrpcUuid catalogId = 1;
+  // name of the catalog
+  string catalogName = 2;
+  // true if the catalog is corrupted (other data will be not available)
+  bool corrupted = 3 [deprecated = true];
+  // current state of the catalog, null for corrupted catalog
+  GrpcCatalogState catalogState = 4;
+  // version of the catalog, -1 for corrupted catalog
+  int64 catalogVersion = 5;
+  // total number of records in the catalog, -1 for corrupted catalog
+  int64 totalRecords = 6;
+  // total number of indexes in the catalog, -1 for corrupted catalog
+  int64 indexCount = 7;
+  // total size of the catalog on disk in bytes
+  int64 sizeOnDiskInBytes = 8;
+  // statistics for each entity collection in the catalog, empty array for corrupted catalog
+  repeated GrpcEntityCollectionStatistics entityCollectionStatistics = 9;
+  // true if the catalog is read-only, false otherwise
+  bool readOnly = 10;
+  // true if the catalog is unusable, false otherwise
+  bool unusable = 11;
+}
+
+// Aggregates basic data about the entity collection.
+message GrpcEntityCollectionStatistics {
+  // name of the entity collection
+  string entityType = 1;
+  // total number of records in the entity collection
+  int32 totalRecords = 2;
+  // total number of indexes in the entity collection
+  int32 indexCount = 3;
+  // total size of the entity collection on disk in bytes
+  int64 sizeOnDiskInBytes = 4;
+}
+
+// Structure for representing a name in a particular naming convention.
+message GrpcNameVariant {
+  // naming convention the name is in
+  GrpcNamingConvention namingConvention = 1;
+  // the name in the particular naming convention
+  string name = 2;
+}
+
+// uniqueness type associated with particular scope
+message GrpcScopedAttributeUniquenessType {
+  // scope of entities where uniqueness is enforced
+  GrpcEntityScope scope = 1;
+  // type of uniqueness
+  GrpcAttributeUniquenessType uniquenessType = 2;
+}
+
+// uniqueness type associated with particular scope
+message GrpcScopedGlobalAttributeUniquenessType {
+  // scope of entities where uniqueness is enforced
+  GrpcEntityScope scope = 1;
+  // type of uniqueness
+  GrpcGlobalAttributeUniquenessType uniquenessType = 2;
+}
+
+// Message representing a scoped reference index type that combines scope and index type.
+message GrpcScopedReferenceIndexType {
+  // The scope in which the reference index type is applied.
+  GrpcEntityScope scope = 1;
+  // The type of index that should be created and maintained for the reference.
+  GrpcReferenceIndexType indexType = 2;
+}

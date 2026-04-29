@@ -1,0 +1,57 @@
+name: Publish to Packagist
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: |
+      contains(github.event.head_commit.message, 'Bump EvitaDB to') ||
+      contains(github.event.head_commit.message, 'Release')
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine next version
+        id: bump
+        run: |
+          LAST=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -1)
+          LAST=${LAST:-v0.0.0}
+          # Strip leading "v"
+          IFS='.' read -r MAJOR MINOR PATCH <<< "${LAST#v}"
+
+          if echo "${{ github.event.head_commit.message }}" | grep -q "Bump EvitaDB to"; then
+            # Minor bump for new EvitaDB version (0.1.x → 0.2.0)
+            MINOR=$((MINOR + 1))
+            PATCH=0
+          else
+            # Patch bump for wrapper changes (0.1.0 → 0.1.1)
+            PATCH=$((PATCH + 1))
+          fi
+
+          NEXT="v${MAJOR}.${MINOR}.${PATCH}"
+          echo "tag=$NEXT" >> "$GITHUB_OUTPUT"
+          echo "Last: $LAST → Next: $NEXT"
+
+      - name: Create + push tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag ${{ steps.bump.outputs.tag }}
+          git push origin ${{ steps.bump.outputs.tag }}
+
+      - name: Notify Packagist
+        if: vars.PACKAGIST_USER && secrets.PACKAGIST_TOKEN != ''
+        env:
+          PACKAGIST_TOKEN: ${{ secrets.PACKAGIST_TOKEN }}
+        run: |
+          curl -sfX POST -H 'content-type:application/json' \
+            "https://packagist.org/api/update-package?username=${{ vars.PACKAGIST_USER }}&apiToken=$PACKAGIST_TOKEN" \
+            -d '{"repository":{"url":"https://github.com/wtsvk/evitadb-php-client"}}'

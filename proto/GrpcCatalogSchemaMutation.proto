@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package io.evitadb.externalApi.grpc.generated;
+option java_multiple_files = true;
+option php_namespace = "Wtsvk\\EvitaDbClient\\Protocol";
+option php_metadata_namespace = "Wtsvk\\EvitaDbClient\\Protocol\\GPBMetadata";
+option csharp_namespace = "EvitaDB";
+
+import "GrpcAttributeSchemaMutations.proto";
+import "GrpcCatalogSchemaMutations.proto";
+import "GrpcEntitySchemaMutations.proto";
+import "GrpcEntitySchemaMutation.proto";
+
+// Contains all possible catalog schema mutations.
+message GrpcLocalCatalogSchemaMutation {
+  // The used local catalog mutation.
+  oneof mutation {
+    // Mutation is responsible for setting value to a `CatalogSchema.description` in `CatalogSchema`.
+    GrpcModifyCatalogSchemaDescriptionMutation modifyCatalogSchemaDescriptionMutation = 1;
+    // Mutation is responsible for adding one or more modes to a `CatalogSchema.catalogEvolutionMode` in `CatalogSchema`.
+    GrpcAllowEvolutionModeInCatalogSchemaMutation allowEvolutionModeInCatalogSchemaMutation = 2;
+    // Mutation is responsible for removing one or more modes from a `CatalogSchema.evolutionMode` in `CatalogSchema`.
+    GrpcDisallowEvolutionModeInCatalogSchemaMutation disallowEvolutionModeInCatalogSchemaMutation = 3;
+
+    // Mutation is responsible for setting up a new `GlobalAttributeSchema` in the `CatalogSchema`.
+    // Mutation can be used for altering also the existing `GlobalAttributeSchema` alone.
+    GrpcCreateGlobalAttributeSchemaMutation createGlobalAttributeSchemaMutation = 4;
+    // Mutation is responsible for setting value to a `AttributeSchema.defaultValue` in `EntitySchema`.
+    // Mutation can be used for altering also the existing `AttributeSchema` or `GlobalAttributeSchema` alone.
+    GrpcModifyAttributeSchemaDefaultValueMutation modifyAttributeSchemaDefaultValueMutation = 5;
+    // Mutation is responsible for setting value to a `AttributeSchema.defaultValue` in `EntitySchema`.
+    // Mutation can be used for altering also the existing `AttributeSchema` or `GlobalAttributeSchema` alone.
+    GrpcModifyAttributeSchemaDeprecationNoticeMutation modifyAttributeSchemaDeprecationNoticeMutation = 6;
+    // Mutation is responsible for setting value to a `AttributeSchema.description` in `EntitySchema`.
+    // Mutation can be used for altering also the existing `AttributeSchema` or `GlobalAttributeSchema` alone.
+    GrpcModifyAttributeSchemaDescriptionMutation modifyAttributeSchemaDescriptionMutation = 7;
+    // Mutation is responsible for renaming an existing `AttributeSchema` in `EntitySchema` or `GlobalAttributeSchema`
+    // in `CatalogSchema`. Mutation can be used for altering also the existing `AttributeSchema` or `GlobalAttributeSchema` alone.
+    GrpcModifyAttributeSchemaNameMutation modifyAttributeSchemaNameMutation = 8;
+    // Mutation is responsible for setting value to a `AttributeSchema.type` in `EntitySchema`.
+    // Mutation can be used for altering also the existing `AttributeSchema` or `GlobalAttributeSchema` alone.
+    GrpcModifyAttributeSchemaTypeMutation modifyAttributeSchemaTypeMutation = 9;
+    // Mutation is responsible for removing an existing `AttributeSchema` in the `EntitySchema` or `GlobalAttributeSchema`
+    // in the `CatalogSchema`. Mutation can be used for altering also the existing `AttributeSchema` or `GlobalAttributeSchema` alone.
+    GrpcRemoveAttributeSchemaMutation removeAttributeSchemaMutation = 10;
+    // Mutation is responsible for setting value to a `AttributeSchema.filterable` in `EntitySchema`.
+    // Mutation can be used for altering also the existing `AttributeSchema` or `GlobalAttributeSchema` alone.
+    GrpcSetAttributeSchemaFilterableMutation setAttributeSchemaFilterableMutation = 11;
+    // Mutation is responsible for setting value to a `AttributeSchema.localized`in `EntitySchema`.
+    // Mutation can be used for altering also the existing `AttributeSchema` or`GlobalAttributeSchema` alone.
+    GrpcSetAttributeSchemaLocalizedMutation setAttributeSchemaLocalizedMutation = 12;
+    // Mutation is responsible for setting value to a `AttributeSchema.nullable` in `EntitySchema`.
+    // Mutation can be used for altering also the existing `AttributeSchema` or `GlobalAttributeSchema` alone.
+    GrpcSetAttributeSchemaNullableMutation setAttributeSchemaNullableMutation = 13;
+    // Mutation is responsible for setting value to a `AttributeSchema.representative` in `EntitySchema`.
+    // Mutation can be used for altering also the existing `AttributeSchema` or `GlobalAttributeSchema` alone.
+    GrpcSetAttributeSchemaRepresentativeMutation setAttributeSchemaRepresentativeMutation = 14;
+    // Mutation is responsible for setting value to a `AttributeSchema.sortable` in `EntitySchema`.
+    // Mutation can be used for altering also the existing `AttributeSchema` or `GlobalAttributeSchema` alone.
+    GrpcSetAttributeSchemaSortableMutation setAttributeSchemaSortableMutation = 15;
+    // Mutation is responsible for setting value to a `AttributeSchema.unique` in `EntitySchema`.
+    // Mutation can be used for altering also the existing `AttributeSchema` or `GlobalAttributeSchema` alone.
+    GrpcSetAttributeSchemaUniqueMutation setAttributeSchemaUniqueMutation = 16;
+    // Mutation is responsible for setting value to a `GlobalAttributeSchema.uniqueGlobally` in `EntitySchema`.
+    // Mutation can be used for altering also the existing `GlobalAttributeSchema` alone.
+    GrpcSetAttributeSchemaGloballyUniqueMutation setAttributeSchemaGloballyUniqueMutation = 17;
+
+    // Mutation is responsible for setting up a new `EntitySchema` - or more precisely the collection within catalog.
+    GrpcCreateEntitySchemaMutation createEntitySchemaMutation = 30;
+    // Mutation is a holder for a set of `EntitySchemaMutation` that affect a single entity schema within the `CatalogSchema`.
+    GrpcModifyEntitySchemaMutation modifyEntitySchemaMutation = 31;
+    // Mutation is responsible for renaming an existing `EntitySchema`.
+    GrpcModifyEntitySchemaNameMutation modifyEntitySchemaNameMutation = 32;
+    // Mutation is responsible for removing an existing `EntitySchema` - or more precisely the entity collection instance itself.
+    GrpcRemoveEntitySchemaMutation removeEntitySchemaMutation = 33;
+  }
+}
