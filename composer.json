@@ -40,7 +40,7 @@
         }
     },
     "extra": {
-        "evitadb-version": "2026.1.7"
+        "evitadb-version": "2026.1.8"
     },
     "scripts": {
         "phpcs": "./vendor/bin/phpcs",
