@@ -21,6 +21,19 @@ class GrpcCatalogSchemaResponse extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCatalogSchema catalogSchema = 1;</code>
      */
     protected $catalogSchema = null;
+    /**
+     * The current catalog version (data version, incremented with each transaction commit).
+     * Zero for catalogs that are in the warming-up state.
+     *
+     * Generated from protobuf field <code>int64 catalogVersion = 2;</code>
+     */
+    protected $catalogVersion = 0;
+    /**
+     * The current catalog schema version.
+     *
+     * Generated from protobuf field <code>int32 catalogSchemaVersion = 3;</code>
+     */
+    protected $catalogSchemaVersion = 0;
 
     /**
      * Constructor.
@@ -30,6 +43,11 @@ class GrpcCatalogSchemaResponse extends \Google\Protobuf\Internal\Message
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcCatalogSchema $catalogSchema
      *           The current catalog schema.
+     *     @type int|string $catalogVersion
+     *           The current catalog version (data version, incremented with each transaction commit).
+     *           Zero for catalogs that are in the warming-up state.
+     *     @type int $catalogSchemaVersion
+     *           The current catalog schema version.
      * }
      */
     public function __construct($data = NULL) {
@@ -69,6 +87,60 @@ class GrpcCatalogSchemaResponse extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcCatalogSchema::class);
         $this->catalogSchema = $var;
+
+        return $this;
+    }
+
+    /**
+     * The current catalog version (data version, incremented with each transaction commit).
+     * Zero for catalogs that are in the warming-up state.
+     *
+     * Generated from protobuf field <code>int64 catalogVersion = 2;</code>
+     * @return int|string
+     */
+    public function getCatalogVersion()
+    {
+        return $this->catalogVersion;
+    }
+
+    /**
+     * The current catalog version (data version, incremented with each transaction commit).
+     * Zero for catalogs that are in the warming-up state.
+     *
+     * Generated from protobuf field <code>int64 catalogVersion = 2;</code>
+     * @param int|string $var
+     * @return $this
+     */
+    public function setCatalogVersion($var)
+    {
+        GPBUtil::checkInt64($var);
+        $this->catalogVersion = $var;
+
+        return $this;
+    }
+
+    /**
+     * The current catalog schema version.
+     *
+     * Generated from protobuf field <code>int32 catalogSchemaVersion = 3;</code>
+     * @return int
+     */
+    public function getCatalogSchemaVersion()
+    {
+        return $this->catalogSchemaVersion;
+    }
+
+    /**
+     * The current catalog schema version.
+     *
+     * Generated from protobuf field <code>int32 catalogSchemaVersion = 3;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setCatalogSchemaVersion($var)
+    {
+        GPBUtil::checkInt32($var);
+        $this->catalogSchemaVersion = $var;
 
         return $this;
     }

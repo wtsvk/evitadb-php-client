@@ -53,6 +53,7 @@ This package follows independent semver. The targeted EvitaDB version is recorde
 
 | Package | EvitaDB |
 |---------|---------|
+| 0.1.x   | 2026.1.8 |
 | 0.1.x   | 2026.1.7 |
 
 For a specific EvitaDB version, pin the package version that matches.
