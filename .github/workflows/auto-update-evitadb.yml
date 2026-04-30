@@ -58,19 +58,16 @@ jobs:
           mv /tmp/cj composer.json
 
       - name: Update README compatibility table
-        # Each EvitaDB target bump = package minor bump (per README's semver policy:
-        # patches are wrapper-only fixes). New row goes at the top of the table.
         if: steps.latest.outputs.version != steps.current.outputs.version && steps.pr_check.outputs.exists == 'false'
         env:
           LATEST: ${{ steps.latest.outputs.version }}
         run: |
-          CURRENT_PKG=$(awk -F'|' '/^\|[ ]*[0-9]+\.[0-9]+\.x/ { gsub(/[ ]/, "", $2); print $2; exit }' README.md)
-          IFS='.' read -r MAJOR MINOR _ <<< "$CURRENT_PKG"
+          LAST_TAG=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -1)
+          LAST_TAG=${LAST_TAG:-v0.0.0}
+          IFS='.' read -r MAJOR MINOR _ <<< "${LAST_TAG#v}"
           NEW_MINOR=$((MINOR + 1))
           NEW_PKG="${MAJOR}.${NEW_MINOR}.x"
           NEW_ROW="| ${NEW_PKG}   | ${LATEST} |"
-
-          echo "Bumping compatibility table: $CURRENT_PKG -> $NEW_PKG (EvitaDB $LATEST)"
 
           awk -v row="$NEW_ROW" '
             /^\|[-]+\|[-]+\|$/ && !inserted {
@@ -122,14 +119,8 @@ jobs:
           git add -A
           git commit -m "Bump EvitaDB to ${{ steps.latest.outputs.version }}"
           git push origin "$BRANCH"
-          BODY=$(cat <<EOF
-          Automated PR — protos and stubs regenerated for EvitaDB **${{ steps.latest.outputs.version }}** (was ${{ steps.current.outputs.version }}).
-
-          Review the diff, verify CI passes, then merge. After merge, \`publish-packagist.yml\` will tag a new release and notify Packagist.
-          EOF
-          )
           gh pr create \
             --title "Bump EvitaDB to ${{ steps.latest.outputs.version }}" \
-            --body "$BODY" \
+            --body "Automated PR — protos and stubs regenerated for EvitaDB **${{ steps.latest.outputs.version }}** (was ${{ steps.current.outputs.version }}). Review the diff, verify CI passes, then merge." \
             --base main \
             --head "$BRANCH"
