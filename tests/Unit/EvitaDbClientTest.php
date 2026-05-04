@@ -19,13 +19,18 @@ use Wtsvk\EvitaDbClient\Exception\EvitaDbEntityNotFoundException;
 use Wtsvk\EvitaDbClient\Exception\EvitaDbStatusException;
 use Wtsvk\EvitaDbClient\Protocol\EvitaServiceClient;
 use Wtsvk\EvitaDbClient\Protocol\EvitaSessionServiceClient;
+use Wtsvk\EvitaDbClient\Protocol\GrpcCloseRequest;
+use Wtsvk\EvitaDbClient\Protocol\GrpcCommitBehavior;
 use Wtsvk\EvitaDbClient\Protocol\GrpcDefineCatalogResponse;
 use Wtsvk\EvitaDbClient\Protocol\GrpcEntityResponse;
+use Wtsvk\EvitaDbClient\Protocol\GrpcEvitaSessionRequest;
 use Wtsvk\EvitaDbClient\Protocol\GrpcEvitaSessionResponse;
 use Wtsvk\EvitaDbClient\Protocol\GrpcQueryRequest;
 use Wtsvk\EvitaDbClient\Protocol\GrpcQueryResponse;
 use Wtsvk\EvitaDbClient\Protocol\GrpcReadyResponse;
 use Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity;
+use Wtsvk\EvitaDbClient\Transaction\ReadTransactionContext;
+use Wtsvk\EvitaDbClient\Transaction\WriteTransactionContext;
 
 use const Grpc\STATUS_OK;
 
@@ -187,7 +192,7 @@ final class EvitaDbClientTest extends TestCase
         $sessionServiceMock = static::createMock(EvitaSessionServiceClient::class);
         $sessionServiceMock->method('Query')->willReturn($this->createUnaryCall(null, 2, 'unknown'));
         $sessionServiceMock
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('CloseSession')
             ->willReturn($this->createUnaryCall(null, STATUS_OK));
 
@@ -230,6 +235,267 @@ final class EvitaDbClientTest extends TestCase
         $this->client->query(
             catalog: 'testCatalog',
             queryRequest: new GrpcQueryRequest(),
+        );
+    }
+
+    public function testFindEntityReturnsNullWhenEntityIsNull(): void
+    {
+        $this->mockSessionCreation();
+        $this->mockSessionCall('GetEntity', new GrpcEntityResponse(), STATUS_OK);
+        $this->mockSessionClose();
+
+        $result = $this->client->findEntity(
+            catalog: 'testCatalog',
+            entityType: 'Product',
+            primaryKey: 999,
+        );
+
+        $this->assertNull($result);
+    }
+
+    public function testFindEntityReturnsEntityOnSuccess(): void
+    {
+        $this->mockSessionCreation();
+
+        $entity = new GrpcSealedEntity();
+        $response = new GrpcEntityResponse();
+        $response->setEntity($entity);
+        $this->mockSessionCall('GetEntity', $response, STATUS_OK);
+        $this->mockSessionClose();
+
+        $result = $this->client->findEntity(
+            catalog: 'testCatalog',
+            entityType: 'Product',
+            primaryKey: 1,
+        );
+
+        $this->assertSame($entity, $result);
+    }
+
+    public function testTransactionPassesWriteContextToCallable(): void
+    {
+        $this->mockSessionCreation();
+        $this->mockSessionClose();
+
+        $captured = null;
+        $this->client->transaction(
+            catalog: 'testCatalog',
+            fn: static function (WriteTransactionContext $tx) use (&$captured): string {
+                $captured = $tx;
+
+                return 'callable-result';
+            },
+        );
+
+        $this->assertInstanceOf(WriteTransactionContext::class, $captured);
+    }
+
+    public function testReadTransactionPassesReadContextToCallable(): void
+    {
+        $this->mockSessionCreation();
+        $this->mockSessionClose();
+
+        $captured = null;
+        $this->client->readTransaction(
+            catalog: 'testCatalog',
+            fn: static function (ReadTransactionContext $tx) use (&$captured): string {
+                $captured = $tx;
+
+                return 'read-result';
+            },
+        );
+
+        $this->assertInstanceOf(ReadTransactionContext::class, $captured);
+    }
+
+    public function testTransactionReturnsCallableResult(): void
+    {
+        $this->mockSessionCreation();
+        $this->mockSessionClose();
+
+        // stdClass instance has unique runtime identity, so PhpStan can't statically
+        // narrow assertSame to a tautology.
+        $expected = new stdClass();
+
+        $result = $this->client->transaction(
+            catalog: 'testCatalog',
+            fn: static fn (): stdClass => $expected,
+        );
+
+        $this->assertSame($expected, $result);
+    }
+
+    public function testTransactionClosesSessionWithCommitOnSuccess(): void
+    {
+        $this->mockSessionCreation();
+
+        /** @var EvitaSessionServiceClient&MockObject $sessionServiceMock */
+        $sessionServiceMock = static::createMock(EvitaSessionServiceClient::class);
+        $sessionServiceMock
+            ->expects(static::once())
+            ->method('CloseSession')
+            ->with(
+                static::callback(static function (GrpcCloseRequest $request): bool {
+                    return $request->getCommitBehaviour() === GrpcCommitBehavior::WAIT_FOR_CHANGES_VISIBLE;
+                }),
+                static::anything(),
+            )
+            ->willReturn($this->createUnaryCall(null, STATUS_OK));
+
+        $client = new EvitaDbClient(
+            evitaService: $this->evitaService,
+            sessionService: $sessionServiceMock,
+        );
+
+        $client->transaction(
+            catalog: 'testCatalog',
+            fn: static fn (): bool => true,
+        );
+    }
+
+    public function testTransactionClosesSessionWithDiscardOnException(): void
+    {
+        $this->mockSessionCreation();
+
+        /** @var EvitaSessionServiceClient&MockObject $sessionServiceMock */
+        $sessionServiceMock = static::createMock(EvitaSessionServiceClient::class);
+        $sessionServiceMock
+            ->expects(static::once())
+            ->method('CloseSession')
+            ->with(
+                static::callback(static function (GrpcCloseRequest $request): bool {
+                    return $request->getCommitBehaviour() === GrpcCommitBehavior::WAIT_FOR_CONFLICT_RESOLUTION;
+                }),
+                static::anything(),
+            )
+            ->willReturn($this->createUnaryCall(null, STATUS_OK));
+
+        $client = new EvitaDbClient(
+            evitaService: $this->evitaService,
+            sessionService: $sessionServiceMock,
+        );
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('callable failed');
+
+        $client->transaction(
+            catalog: 'testCatalog',
+            fn: static function (): never {
+                throw new RuntimeException('callable failed');
+            },
+        );
+    }
+
+    public function testTransactionWithDryRunSetsFlagOnSessionRequest(): void
+    {
+        $sessionResponse = new GrpcEvitaSessionResponse();
+        $sessionResponse->setSessionId('test-session-id');
+
+        /** @var EvitaServiceClient&MockObject $evitaServiceMock */
+        $evitaServiceMock = static::createMock(EvitaServiceClient::class);
+        $evitaServiceMock
+            ->expects(static::once())
+            ->method('CreateReadWriteSession')
+            ->with(static::callback(static function (GrpcEvitaSessionRequest $request): bool {
+                return $request->getDryRun() === true;
+            }))
+            ->willReturn($this->createUnaryCall($sessionResponse, STATUS_OK));
+
+        $this->mockSessionClose();
+
+        $client = new EvitaDbClient(
+            evitaService: $evitaServiceMock,
+            sessionService: $this->sessionService,
+        );
+
+        $client->transaction(
+            catalog: 'testCatalog',
+            fn: static fn (): bool => true,
+            dryRun: true,
+        );
+    }
+
+    public function testTransactionDefaultsDryRunToFalse(): void
+    {
+        $sessionResponse = new GrpcEvitaSessionResponse();
+        $sessionResponse->setSessionId('test-session-id');
+
+        /** @var EvitaServiceClient&MockObject $evitaServiceMock */
+        $evitaServiceMock = static::createMock(EvitaServiceClient::class);
+        $evitaServiceMock
+            ->expects(static::once())
+            ->method('CreateReadWriteSession')
+            ->with(static::callback(static function (GrpcEvitaSessionRequest $request): bool {
+                return $request->getDryRun() === false;
+            }))
+            ->willReturn($this->createUnaryCall($sessionResponse, STATUS_OK));
+
+        $this->mockSessionClose();
+
+        $client = new EvitaDbClient(
+            evitaService: $evitaServiceMock,
+            sessionService: $this->sessionService,
+        );
+
+        $client->transaction(
+            catalog: 'testCatalog',
+            fn: static fn (): bool => true,
+        );
+    }
+
+    public function testReadTransactionUsesReadOnlySessionType(): void
+    {
+        $sessionResponse = new GrpcEvitaSessionResponse();
+        $sessionResponse->setSessionId('test-session-id');
+
+        /** @var EvitaServiceClient&MockObject $evitaServiceMock */
+        $evitaServiceMock = static::createMock(EvitaServiceClient::class);
+        $evitaServiceMock
+            ->expects(static::once())
+            ->method('CreateReadOnlySession')
+            ->willReturn($this->createUnaryCall($sessionResponse, STATUS_OK));
+        $evitaServiceMock
+            ->expects(static::never())
+            ->method('CreateReadWriteSession');
+
+        $this->mockSessionClose();
+
+        $client = new EvitaDbClient(
+            evitaService: $evitaServiceMock,
+            sessionService: $this->sessionService,
+        );
+
+        $client->readTransaction(
+            catalog: 'testCatalog',
+            fn: static fn (): bool => true,
+        );
+    }
+
+    public function testTransactionUsesReadWriteSessionType(): void
+    {
+        $sessionResponse = new GrpcEvitaSessionResponse();
+        $sessionResponse->setSessionId('test-session-id');
+
+        /** @var EvitaServiceClient&MockObject $evitaServiceMock */
+        $evitaServiceMock = static::createMock(EvitaServiceClient::class);
+        $evitaServiceMock
+            ->expects(static::once())
+            ->method('CreateReadWriteSession')
+            ->willReturn($this->createUnaryCall($sessionResponse, STATUS_OK));
+        $evitaServiceMock
+            ->expects(static::never())
+            ->method('CreateReadOnlySession');
+
+        $this->mockSessionClose();
+
+        $client = new EvitaDbClient(
+            evitaService: $evitaServiceMock,
+            sessionService: $this->sessionService,
+        );
+
+        $client->transaction(
+            catalog: 'testCatalog',
+            fn: static fn (): bool => true,
         );
     }
 

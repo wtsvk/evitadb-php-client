@@ -11,6 +11,8 @@ use Wtsvk\EvitaDbClient\Protocol\GrpcEntityUpsertMutation;
 use Wtsvk\EvitaDbClient\Protocol\GrpcQueryRequest;
 use Wtsvk\EvitaDbClient\Protocol\GrpcQueryResponse;
 use Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity;
+use Wtsvk\EvitaDbClient\Transaction\ReadTransactionContext;
+use Wtsvk\EvitaDbClient\Transaction\WriteTransactionContext;
 
 interface EvitaDbClientInterface
 {
@@ -51,25 +53,41 @@ interface EvitaDbClientInterface
      * @throws EvitaDbConnectionException
      * @throws EvitaDbStatusException
      */
+    public function findEntity(string $catalog, string $entityType, int $primaryKey): ?GrpcSealedEntity;
+
+    /**
+     * @throws EvitaDbConnectionException
+     * @throws EvitaDbStatusException
+     */
     public function query(string $catalog, GrpcQueryRequest $queryRequest): GrpcQueryResponse;
 
     /**
+     * Open a read-write session, run the callable, commit on success.
+     *
+     * On exception inside the callable the session is closed without waiting
+     * for change visibility but pending mutations may still persist server-side
+     * (EvitaDB does not support runtime rollback at close — set $dryRun=true
+     * for guaranteed discard).
+     *
      * @template T
      *
-     * @param  callable(string): T  $fn
+     * @param  callable(WriteTransactionContext): T  $fn
      * @return T
      *
      * @throws EvitaDbConnectionException
      */
-    public function withReadSession(string $catalog, callable $fn): mixed;
+    public function transaction(string $catalog, callable $fn, bool $dryRun = false): mixed;
 
     /**
+     * Open a read-only session and run the callable. The session gives a
+     * consistent snapshot across all reads inside the callable.
+     *
      * @template T
      *
-     * @param  callable(string): T  $fn
+     * @param  callable(ReadTransactionContext): T  $fn
      * @return T
      *
      * @throws EvitaDbConnectionException
      */
-    public function withWriteSession(string $catalog, callable $fn): mixed;
+    public function readTransaction(string $catalog, callable $fn): mixed;
 }

@@ -10,7 +10,6 @@ use stdClass;
 use Throwable;
 use Webmozart\Assert\Assert;
 use Wtsvk\EvitaDbClient\Exception\EvitaDbConnectionException;
-use Wtsvk\EvitaDbClient\Exception\EvitaDbEntityNotFoundException;
 use Wtsvk\EvitaDbClient\Exception\EvitaDbStatusException;
 use Wtsvk\EvitaDbClient\Protocol\EvitaServiceClient;
 use Wtsvk\EvitaDbClient\Protocol\EvitaSessionServiceClient;
@@ -18,11 +17,6 @@ use Wtsvk\EvitaDbClient\Protocol\GrpcCloseRequest;
 use Wtsvk\EvitaDbClient\Protocol\GrpcCommitBehavior;
 use Wtsvk\EvitaDbClient\Protocol\GrpcDefineCatalogRequest;
 use Wtsvk\EvitaDbClient\Protocol\GrpcDefineCatalogResponse;
-use Wtsvk\EvitaDbClient\Protocol\GrpcDefineEntitySchemaRequest;
-use Wtsvk\EvitaDbClient\Protocol\GrpcDeleteEntityRequest;
-use Wtsvk\EvitaDbClient\Protocol\GrpcEntityMutation;
-use Wtsvk\EvitaDbClient\Protocol\GrpcEntityRequest;
-use Wtsvk\EvitaDbClient\Protocol\GrpcEntityResponse;
 use Wtsvk\EvitaDbClient\Protocol\GrpcEntityUpsertMutation;
 use Wtsvk\EvitaDbClient\Protocol\GrpcEvitaSessionRequest;
 use Wtsvk\EvitaDbClient\Protocol\GrpcEvitaSessionResponse;
@@ -30,8 +24,9 @@ use Wtsvk\EvitaDbClient\Protocol\GrpcQueryRequest;
 use Wtsvk\EvitaDbClient\Protocol\GrpcQueryResponse;
 use Wtsvk\EvitaDbClient\Protocol\GrpcReadyResponse;
 use Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity;
-use Wtsvk\EvitaDbClient\Protocol\GrpcUpsertEntityRequest;
-use Wtsvk\EvitaDbClient\Protocol\GrpcUpsertEntityResponse;
+use Wtsvk\EvitaDbClient\Transaction\ReadTransactionContext;
+use Wtsvk\EvitaDbClient\Transaction\SessionScopedContext;
+use Wtsvk\EvitaDbClient\Transaction\WriteTransactionContext;
 
 use function array_merge;
 use function is_int;
@@ -131,202 +126,126 @@ final class EvitaDbClient implements EvitaDbClientInterface
         return $response->getSuccess();
     }
 
-    /**
-     * @throws EvitaDbConnectionException
-     * @throws EvitaDbStatusException
-     */
     public function defineEntitySchema(string $catalog, string $entityType): true
     {
-        return $this->withWriteSession(
+        return $this->transaction(
             catalog: $catalog,
-            fn: function (string $sessionId) use ($entityType): true {
-                $request = new GrpcDefineEntitySchemaRequest();
-                $request->setEntityType($entityType);
-
-                [, $status] = $this->sessionService
-                    ->DefineEntitySchema($request, $this->sessionMeta($sessionId))
-                    ->wait();
-
-                if ($status->code !== STATUS_OK) {
-                    throw new EvitaDbStatusException(
-                        message: sprintf(
-                            'Failed to define entity schema %s: %s (status %d)',
-                            $entityType,
-                            $this->statusDetails($status),
-                            $this->statusCode($status),
-                        ),
-                    );
-                }
-
-                return true;
-            },
+            fn: static fn (WriteTransactionContext $tx): true => $tx->defineEntitySchema($entityType),
         );
     }
 
-    /**
-     * @throws EvitaDbConnectionException
-     * @throws EvitaDbStatusException
-     */
     public function upsertEntity(string $catalog, GrpcEntityUpsertMutation $upsertMutation): ?int
     {
-        return $this->withWriteSession(
+        return $this->transaction(
             catalog: $catalog,
-            fn: function (string $sessionId) use ($upsertMutation): ?int {
-                $entityMutation = new GrpcEntityMutation();
-                $entityMutation->setEntityUpsertMutation($upsertMutation);
-
-                $request = new GrpcUpsertEntityRequest();
-                $request->setEntityMutation($entityMutation);
-
-                [$response, $status] = $this->sessionService
-                    ->UpsertEntity($request, $this->sessionMeta($sessionId))
-                    ->wait();
-
-                if ($status->code !== STATUS_OK || $response === null) {
-                    throw new EvitaDbStatusException(
-                        message: sprintf(
-                            'Failed to upsert entity: %s (status %d)',
-                            $this->statusDetails($status),
-                            $this->statusCode($status),
-                        ),
-                    );
-                }
-
-                Assert::isInstanceOf($response, GrpcUpsertEntityResponse::class);
-
-                return $response->getEntityReference()?->getPrimaryKey();
-            },
+            fn: static fn (WriteTransactionContext $tx): ?int => $tx->upsertEntity($upsertMutation),
         );
     }
 
-    /**
-     * @throws EvitaDbConnectionException
-     * @throws EvitaDbStatusException
-     */
     public function deleteEntity(string $catalog, string $entityType, int $primaryKey): true
     {
-        return $this->withWriteSession(
+        return $this->transaction(
             catalog: $catalog,
-            fn: function (string $sessionId) use ($entityType, $primaryKey): true {
-                $request = new GrpcDeleteEntityRequest();
-                $request->setEntityType($entityType);
-                $request->setPrimaryKeyUnwrapped($primaryKey);
-
-                [, $status] = $this->sessionService
-                    ->DeleteEntity($request, $this->sessionMeta($sessionId))
-                    ->wait();
-
-                if ($status->code !== STATUS_OK) {
-                    throw new EvitaDbStatusException(
-                        message: sprintf(
-                            'Failed to delete entity %s pk=%d: %s (status %d)',
-                            $entityType,
-                            $primaryKey,
-                            $this->statusDetails($status),
-                            $this->statusCode($status),
-                        ),
-                    );
-                }
-
-                return true;
-            },
+            fn: static fn (WriteTransactionContext $tx): true => $tx->deleteEntity($entityType, $primaryKey),
         );
     }
 
-    /**
-     * @throws EvitaDbConnectionException
-     * @throws EvitaDbStatusException When the gRPC call fails.
-     * @throws EvitaDbEntityNotFoundException When the entity does not exist.
-     */
     public function getEntity(string $catalog, string $entityType, int $primaryKey): GrpcSealedEntity
     {
-        return $this->withReadSession(
+        return $this->readTransaction(
             catalog: $catalog,
-            fn: function (string $sessionId) use ($catalog, $entityType, $primaryKey): GrpcSealedEntity {
-                $request = new GrpcEntityRequest();
-                $request->setEntityType($entityType);
-                $request->setPrimaryKey($primaryKey);
-                $request->setRequire('entityFetch(attributeContentAll(), associatedDataContentAll(), priceContentAll(), referenceContentAll())');
+            fn: static fn (ReadTransactionContext $tx): GrpcSealedEntity => $tx->getEntity($entityType, $primaryKey),
+        );
+    }
 
-                [$response, $status] = $this->sessionService
-                    ->GetEntity($request, $this->sessionMeta($sessionId))
-                    ->wait();
+    public function findEntity(string $catalog, string $entityType, int $primaryKey): ?GrpcSealedEntity
+    {
+        return $this->readTransaction(
+            catalog: $catalog,
+            fn: static fn (ReadTransactionContext $tx): ?GrpcSealedEntity => $tx->findEntity($entityType, $primaryKey),
+        );
+    }
 
-                if ($status->code !== STATUS_OK || $response === null) {
-                    throw new EvitaDbStatusException(
-                        message: sprintf(
-                            'GetEntity failed for %s pk=%d: %s (status %d)',
-                            $entityType,
-                            $primaryKey,
-                            $this->statusDetails($status),
-                            $this->statusCode($status),
-                        ),
-                    );
-                }
-
-                Assert::isInstanceOf($response, GrpcEntityResponse::class);
-
-                $entity = $response->getEntity();
-                if ($entity === null) {
-                    throw new EvitaDbEntityNotFoundException(
-                        message: sprintf(
-                            'Entity %s pk=%d not found in catalog %s',
-                            $entityType,
-                            $primaryKey,
-                            $catalog,
-                        ),
-                    );
-                }
-
-                return $entity;
-            },
+    public function query(string $catalog, GrpcQueryRequest $queryRequest): GrpcQueryResponse
+    {
+        return $this->readTransaction(
+            catalog: $catalog,
+            fn: static fn (ReadTransactionContext $tx): GrpcQueryResponse => $tx->query($queryRequest),
         );
     }
 
     /**
+     * Open a read-write session, run the callable, commit on success.
+     *
+     * EvitaDB does not support runtime rollback at session close. On exception
+     * inside the callable the session is closed with WAIT_FOR_CONFLICT_RESOLUTION
+     * (fastest commit) — pending mutations WILL still be applied server-side.
+     * For guaranteed discard (e.g. dry-running migrations or integration tests),
+     * pass $dryRun=true; the session is then opened with the dryRun flag and
+     * EvitaDB rolls back ALL mutations regardless of outcome.
+     *
+     * @template T
+     *
+     * @param  callable(WriteTransactionContext): T  $fn
+     * @return T
+     *
      * @throws EvitaDbConnectionException
-     * @throws EvitaDbStatusException
      */
-    public function query(string $catalog, GrpcQueryRequest $queryRequest): GrpcQueryResponse
+    public function transaction(string $catalog, callable $fn, bool $dryRun = false): mixed
     {
-        return $this->withReadSession(
+        $sessionId = $this->createSession(
             catalog: $catalog,
-            fn: function (string $sessionId) use ($queryRequest): GrpcQueryResponse {
-                [$response, $status] = $this->sessionService
-                    ->Query($queryRequest, $this->sessionMeta($sessionId))
-                    ->wait();
-
-                if ($status->code !== STATUS_OK) {
-                    throw new EvitaDbStatusException(
-                        message: sprintf(
-                            'Query failed: %s (status %d)',
-                            $this->statusDetails($status),
-                            $this->statusCode($status),
-                        ),
-                    );
-                }
-
-                Assert::isInstanceOf($response, GrpcQueryResponse::class);
-
-                return $response;
-            },
+            type: SessionType::ReadWrite,
+            dryRun: $dryRun,
         );
+        $context = new SessionScopedContext(
+            sessionService: $this->sessionService,
+            sessionId: $sessionId,
+            catalog: $catalog,
+        );
+
+        try {
+            $result = $fn($context);
+            $this->closeSession(
+                catalog: $catalog,
+                sessionId: $sessionId,
+                commitBehavior: SessionCommitBehavior::Commit,
+            );
+
+            return $result;
+        } catch (Throwable $e) {
+            $this->closeSession(
+                catalog: $catalog,
+                sessionId: $sessionId,
+                commitBehavior: SessionCommitBehavior::Discard,
+            );
+
+            throw $e;
+        }
     }
 
     /**
      * @template T
      *
-     * @param  callable(string): T  $fn
+     * @param  callable(ReadTransactionContext): T  $fn
      * @return T
      *
      * @throws EvitaDbConnectionException
      */
-    public function withReadSession(string $catalog, callable $fn): mixed
+    public function readTransaction(string $catalog, callable $fn): mixed
     {
-        $sessionId = $this->createSession(catalog: $catalog, type: SessionType::ReadOnly);
+        $sessionId = $this->createSession(
+            catalog: $catalog,
+            type: SessionType::ReadOnly,
+        );
+        $context = new SessionScopedContext(
+            sessionService: $this->sessionService,
+            sessionId: $sessionId,
+            catalog: $catalog,
+        );
 
         try {
-            return $fn($sessionId);
+            return $fn($context);
         } finally {
             $this->closeSession(
                 catalog: $catalog,
@@ -337,32 +256,9 @@ final class EvitaDbClient implements EvitaDbClientInterface
     }
 
     /**
-     * @template T
-     *
-     * @param  callable(string): T  $fn
-     * @return T
-     *
      * @throws EvitaDbConnectionException
      */
-    public function withWriteSession(string $catalog, callable $fn): mixed
-    {
-        $sessionId = $this->createSession(catalog: $catalog, type: SessionType::ReadWrite);
-
-        try {
-            return $fn($sessionId);
-        } finally {
-            $this->closeSession(
-                catalog: $catalog,
-                sessionId: $sessionId,
-                commitBehavior: SessionCommitBehavior::Commit,
-            );
-        }
-    }
-
-    /**
-     * @throws EvitaDbConnectionException
-     */
-    private function createSession(string $catalog, SessionType $type): string
+    private function createSession(string $catalog, SessionType $type, bool $dryRun = false): string
     {
         $call = match ($type) {
             SessionType::ReadOnly => $this->evitaService->CreateReadOnlySession(...),
@@ -372,6 +268,7 @@ final class EvitaDbClient implements EvitaDbClientInterface
         try {
             $request = new GrpcEvitaSessionRequest();
             $request->setCatalogName($catalog);
+            $request->setDryRun($dryRun);
 
             [$response, $status] = $call($request)->wait();
         } catch (Throwable $e) {
