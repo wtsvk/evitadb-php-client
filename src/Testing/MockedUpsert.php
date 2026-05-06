@@ -9,7 +9,6 @@ use Wtsvk\EvitaDbClient\Protocol\GrpcEntityUpsertMutation;
 final readonly class MockedUpsert
 {
     public function __construct(
-        public string $catalog,
         public GrpcEntityUpsertMutation $mutation,
     ) {
     }

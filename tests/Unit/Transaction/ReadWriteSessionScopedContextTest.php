@@ -12,22 +12,30 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use stdClass;
+use Webmozart\Assert\Assert;
+use Wtsvk\EvitaDbClient\EntityFetch;
 use Wtsvk\EvitaDbClient\Exception\EvitaDbEntityNotFoundException;
 use Wtsvk\EvitaDbClient\Exception\EvitaDbStatusException;
 use Wtsvk\EvitaDbClient\Protocol\EvitaSessionServiceClient;
+use Wtsvk\EvitaDbClient\Protocol\GrpcDeleteEntityResponse;
+use Wtsvk\EvitaDbClient\Protocol\GrpcEntityReference;
+use Wtsvk\EvitaDbClient\Protocol\GrpcEntityRequest;
 use Wtsvk\EvitaDbClient\Protocol\GrpcEntityResponse;
 use Wtsvk\EvitaDbClient\Protocol\GrpcEntityUpsertMutation;
 use Wtsvk\EvitaDbClient\Protocol\GrpcQueryRequest;
 use Wtsvk\EvitaDbClient\Protocol\GrpcQueryResponse;
 use Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity;
+use Wtsvk\EvitaDbClient\Protocol\GrpcUpsertEntityRequest;
 use Wtsvk\EvitaDbClient\Protocol\GrpcUpsertEntityResponse;
-use Wtsvk\EvitaDbClient\Transaction\SessionScopedContext;
+use Wtsvk\EvitaDbClient\Transaction\ReadWriteSessionScopedContext;
+
+use function str_contains;
 
 use const Grpc\STATUS_OK;
 
 #[RequiresPhpExtension('grpc')]
 #[RequiresPhpExtension('protobuf')]
-final class SessionScopedContextTest extends TestCase
+final class ReadWriteSessionScopedContextTest extends TestCase
 {
     private const string SESSION_ID = 'sess-uuid-abc';
 
@@ -35,13 +43,13 @@ final class SessionScopedContextTest extends TestCase
 
     private EvitaSessionServiceClient&Stub $sessionService;
 
-    private SessionScopedContext $context;
+    private ReadWriteSessionScopedContext $context;
 
     #[Override]
     protected function setUp(): void
     {
         $this->sessionService = static::createStub(EvitaSessionServiceClient::class);
-        $this->context = new SessionScopedContext(
+        $this->context = new ReadWriteSessionScopedContext(
             sessionService: $this->sessionService,
             sessionId: self::SESSION_ID,
             catalog: self::CATALOG,
@@ -72,7 +80,6 @@ final class SessionScopedContextTest extends TestCase
 
     public function testQueryPassesSessionIdInMetadata(): void
     {
-        // Use a separate mock to verify the sessionid metadata header is passed.
         /** @var EvitaSessionServiceClient&MockObject $mock */
         $mock = static::createMock(EvitaSessionServiceClient::class);
         $mock
@@ -84,7 +91,7 @@ final class SessionScopedContextTest extends TestCase
             )
             ->willReturn($this->createUnaryCall(new GrpcQueryResponse(), STATUS_OK));
 
-        $context = new SessionScopedContext(
+        $context = new ReadWriteSessionScopedContext(
             sessionService: $mock,
             sessionId: self::SESSION_ID,
             catalog: self::CATALOG,
@@ -171,8 +178,6 @@ final class SessionScopedContextTest extends TestCase
 
     public function testDefineEntitySchemaCompletesWithoutThrowingOnSuccess(): void
     {
-        // The method has a `: true` return type, so the meaningful assertion is
-        // "no exception thrown when the gRPC status is OK".
         $this->sessionService
             ->method('DefineEntitySchema')
             ->willReturn($this->createUnaryCall(null, STATUS_OK));
@@ -194,13 +199,31 @@ final class SessionScopedContextTest extends TestCase
         $this->context->defineEntitySchema('Product');
     }
 
-    public function testUpsertEntityReturnsNullWhenNoEntityReference(): void
+    public function testUpsertEntityThrowsExceptionWhenNoResponseSet(): void
     {
         $this->sessionService
             ->method('UpsertEntity')
             ->willReturn($this->createUnaryCall(new GrpcUpsertEntityResponse(), STATUS_OK));
 
-        $this->assertNull($this->context->upsertEntity(new GrpcEntityUpsertMutation()));
+        $this->expectException(EvitaDbStatusException::class);
+        $this->expectExceptionMessage('no entity identification');
+
+        $this->context->upsertEntity(new GrpcEntityUpsertMutation());
+    }
+
+    public function testUpsertEntityReturnsPkFromSealedEntity(): void
+    {
+        $entity = new GrpcSealedEntity();
+        $entity->setPrimaryKey(123);
+
+        $response = new GrpcUpsertEntityResponse();
+        $response->setEntity($entity);
+
+        $this->sessionService
+            ->method('UpsertEntity')
+            ->willReturn($this->createUnaryCall($response, STATUS_OK));
+
+        $this->assertSame(123, $this->context->upsertEntity(new GrpcEntityUpsertMutation()));
     }
 
     public function testUpsertEntityThrowsStatusExceptionOnFailure(): void
@@ -215,13 +238,32 @@ final class SessionScopedContextTest extends TestCase
         $this->context->upsertEntity(new GrpcEntityUpsertMutation());
     }
 
-    public function testDeleteEntityCompletesWithoutThrowingOnSuccess(): void
+    public function testDeleteEntityCompletesWithoutThrowingWhenEntityExists(): void
     {
+        $response = new GrpcDeleteEntityResponse();
+        $ref = new GrpcEntityReference();
+        $ref->setPrimaryKey(42);
+        $response->setEntityReference($ref);
+
         $this->sessionService
             ->method('DeleteEntity')
-            ->willReturn($this->createUnaryCall(null, STATUS_OK));
+            ->willReturn($this->createUnaryCall($response, STATUS_OK));
 
         $this->expectNotToPerformAssertions();
+
+        $this->context->deleteEntity(entityType: 'Product', primaryKey: 42);
+    }
+
+    public function testDeleteEntityThrowsNotFoundWhenResponseIsEmpty(): void
+    {
+        $response = new GrpcDeleteEntityResponse();
+
+        $this->sessionService
+            ->method('DeleteEntity')
+            ->willReturn($this->createUnaryCall($response, STATUS_OK));
+
+        $this->expectException(EvitaDbEntityNotFoundException::class);
+        $this->expectExceptionMessageMatches('/not found in catalog ' . self::CATALOG . '/');
 
         $this->context->deleteEntity(entityType: 'Product', primaryKey: 42);
     }
@@ -240,8 +282,6 @@ final class SessionScopedContextTest extends TestCase
 
     public function testMultipleCallsShareTheSameSessionId(): void
     {
-        // Verify that every operation within the same context uses the same
-        // sessionid metadata header — i.e. they're bound to one session.
         $expectedMeta = ['sessionid' => [self::SESSION_ID]];
 
         /** @var EvitaSessionServiceClient&MockObject $mock */
@@ -262,13 +302,18 @@ final class SessionScopedContextTest extends TestCase
             ->with(static::anything(), $expectedMeta)
             ->willReturn($this->createUnaryCall($entityResponse, STATUS_OK));
 
+        $upsertResponse = new GrpcUpsertEntityResponse();
+        $ref = new GrpcEntityReference();
+        $ref->setPrimaryKey(42);
+        $upsertResponse->setEntityReference($ref);
+
         $mock
             ->expects(static::once())
             ->method('UpsertEntity')
             ->with(static::anything(), $expectedMeta)
-            ->willReturn($this->createUnaryCall(new GrpcUpsertEntityResponse(), STATUS_OK));
+            ->willReturn($this->createUnaryCall($upsertResponse, STATUS_OK));
 
-        $context = new SessionScopedContext(
+        $context = new ReadWriteSessionScopedContext(
             sessionService: $mock,
             sessionId: self::SESSION_ID,
             catalog: self::CATALOG,
@@ -277,6 +322,74 @@ final class SessionScopedContextTest extends TestCase
         $context->query(new GrpcQueryRequest());
         $context->getEntity(entityType: 'Product', primaryKey: 1);
         $context->upsertEntity(new GrpcEntityUpsertMutation());
+    }
+
+    public function testGetEntityWithCustomEntityFetch(): void
+    {
+        $entity = new GrpcSealedEntity();
+        $response = new GrpcEntityResponse();
+        $response->setEntity($entity);
+
+        /** @var EvitaSessionServiceClient&MockObject $mock */
+        $mock = static::createMock(EvitaSessionServiceClient::class);
+        $mock
+            ->expects(static::once())
+            ->method('GetEntity')
+            ->with(
+                static::callback(static function (mixed $request): bool {
+                    Assert::isInstanceOf($request, GrpcEntityRequest::class);
+
+                    return str_contains($request->getRequire(), "attributeContent('name')");
+                }),
+                static::anything(),
+            )
+            ->willReturn($this->createUnaryCall($response, STATUS_OK));
+
+        $context = new ReadWriteSessionScopedContext(
+            sessionService: $mock,
+            sessionId: self::SESSION_ID,
+            catalog: self::CATALOG,
+        );
+
+        $context->getEntity(
+            entityType: 'Product',
+            primaryKey: 1,
+            require: (new EntityFetch())->attributeContent('name'),
+        );
+    }
+
+    public function testUpsertWithEntityFetchSetsRequireString(): void
+    {
+        $upsertResponse = new GrpcUpsertEntityResponse();
+        $ref = new GrpcEntityReference();
+        $ref->setPrimaryKey(1);
+        $upsertResponse->setEntityReference($ref);
+
+        /** @var EvitaSessionServiceClient&MockObject $mock */
+        $mock = static::createMock(EvitaSessionServiceClient::class);
+        $mock
+            ->expects(static::once())
+            ->method('UpsertEntity')
+            ->with(
+                static::callback(static function (mixed $request): bool {
+                    Assert::isInstanceOf($request, GrpcUpsertEntityRequest::class);
+
+                    return str_contains($request->getRequire(), 'attributeContentAll()');
+                }),
+                static::anything(),
+            )
+            ->willReturn($this->createUnaryCall($upsertResponse, STATUS_OK));
+
+        $context = new ReadWriteSessionScopedContext(
+            sessionService: $mock,
+            sessionId: self::SESSION_ID,
+            catalog: self::CATALOG,
+        );
+
+        $context->upsert(
+            upsertMutation: new GrpcEntityUpsertMutation(),
+            require: (new EntityFetch())->attributeContentAll(),
+        );
     }
 
     /**

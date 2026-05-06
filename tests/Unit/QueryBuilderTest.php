@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace Wtsvk\EvitaDbClient\Tests\Unit;
 
+use DateTimeImmutable;
+use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use PHPUnit\Framework\TestCase;
+use Wtsvk\EvitaDbClient\EntityFetch;
 use Wtsvk\EvitaDbClient\QueryBuilder;
+use Wtsvk\EvitaDbClient\SortDirection;
 
 use function iterator_to_array;
 
@@ -22,8 +26,25 @@ final class QueryBuilderTest extends TestCase
 
         $query = $request->getQuery();
         $this->assertStringContainsString("collection('Product')", $query);
-        $this->assertStringContainsString('entityFetch(', $query);
         $this->assertStringContainsString('page(1, 20)', $query);
+    }
+
+    public function testDefaultBuildOmitsEntityFetchSoServerReturnsIdentityOnly(): void
+    {
+        $query = (new QueryBuilder('Product'))->page(1, 20)->build()->getQuery();
+
+        $this->assertStringNotContainsString('entityFetch(', $query);
+    }
+
+    public function testWithEntityFetchAddsEntityFetchToRequire(): void
+    {
+        $query = (new QueryBuilder('Product'))
+            ->withEntityFetch(EntityFetch::all())
+            ->page(1, 20)
+            ->build()
+            ->getQuery();
+
+        $this->assertStringContainsString('entityFetch(', $query);
     }
 
     public function testLocaleFilterIsAdded(): void
@@ -78,14 +99,14 @@ final class QueryBuilderTest extends TestCase
         $this->assertCount(3, iterator_to_array($request->getPositionalQueryParams()));
     }
 
-    public function testFilterByCategoryIdUsesReferenceHaving(): void
+    public function testFilterByReferencePrimaryKeyInSetUsesReferenceHaving(): void
     {
         $request = (new QueryBuilder('Product'))
-            ->filterByCategoryId(42)
+            ->filterByReferencePrimaryKeyInSet('Category', [42])
             ->page(1, 20)
             ->build();
 
-        $this->assertStringContainsString("referenceHaving('Category', entityPrimaryKeyInSet(?))", $request->getQuery());
+        $this->assertStringContainsString("referenceHaving('Category', entityHaving(entityPrimaryKeyInSet(?)))", $request->getQuery());
     }
 
     public function testFilterPriceInPriceListsAddsCorrectFragment(): void
@@ -155,16 +176,6 @@ final class QueryBuilderTest extends TestCase
         $this->assertCount(4, iterator_to_array($request->getPositionalQueryParams()));
     }
 
-    public function testEmptyPriceListsProducesEmptyPlaceholders(): void
-    {
-        $request = (new QueryBuilder('Product'))
-            ->filterPriceInPriceLists([])
-            ->page(1, 20)
-            ->build();
-
-        $this->assertStringContainsString('priceInPriceLists()', $request->getQuery());
-    }
-
     public function testDefaultPageValues(): void
     {
         $request = (new QueryBuilder('Product'))
@@ -183,7 +194,142 @@ final class QueryBuilderTest extends TestCase
         $this->assertSame($builder, $builder->filterPriceInCurrency('EUR'));
         $this->assertSame($builder, $builder->filterPriceBetween(1.0, 2.0));
         $this->assertSame($builder, $builder->filterPriceInPriceLists(['a']));
-        $this->assertSame($builder, $builder->filterByCategoryId(1));
+        $this->assertSame($builder, $builder->filterByReferencePrimaryKeyInSet('Category', [1]));
         $this->assertSame($builder, $builder->page(1, 10));
+        $this->assertSame($builder, $builder->orderByAttributeNatural('name'));
+    }
+
+    public function testInvalidAttributeNameThrowsException(): void
+    {
+        $builder = new QueryBuilder('Product');
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches('/Invalid EvitaQL identifier/');
+
+        $builder->filterByAttribute("name'); DROP TABLE --", 'x');
+    }
+
+    public function testInvalidEntityTypeInConstructorThrows(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches('/Invalid EvitaQL identifier/');
+
+        new QueryBuilder('123invalid');
+    }
+
+    public function testFilterByAttributeGreaterThan(): void
+    {
+        $request = (new QueryBuilder('Product'))
+            ->filterByAttributeGreaterThan('price', 100)
+            ->build();
+
+        $this->assertStringContainsString("attributeGreaterThan('price', ?)", $request->getQuery());
+    }
+
+    public function testFilterByAttributeLessThan(): void
+    {
+        $request = (new QueryBuilder('Product'))
+            ->filterByAttributeLessThan('stock', 10)
+            ->build();
+
+        $this->assertStringContainsString("attributeLessThan('stock', ?)", $request->getQuery());
+    }
+
+    public function testFilterByAttributeBetween(): void
+    {
+        $request = (new QueryBuilder('Product'))
+            ->filterByAttributeBetween('weight', 1.5, 10.5)
+            ->build();
+
+        $this->assertStringContainsString("attributeBetween('weight', ?, ?)", $request->getQuery());
+        $this->assertCount(2, iterator_to_array($request->getPositionalQueryParams()));
+    }
+
+    public function testFilterByAttributeStartsWith(): void
+    {
+        $request = (new QueryBuilder('Product'))
+            ->filterByAttributeStartsWith('code', 'PROD')
+            ->build();
+
+        $this->assertStringContainsString("attributeStartsWith('code', ?)", $request->getQuery());
+    }
+
+    public function testFilterByAttributeInSet(): void
+    {
+        $request = (new QueryBuilder('Product'))
+            ->filterByAttributeInSet('status', ['active', 'pending'])
+            ->build();
+
+        $this->assertStringContainsString("attributeInSet('status', ?, ?)", $request->getQuery());
+        $this->assertCount(2, iterator_to_array($request->getPositionalQueryParams()));
+    }
+
+    public function testFilterByEntityPrimaryKeyInSet(): void
+    {
+        $request = (new QueryBuilder('Product'))
+            ->filterByEntityPrimaryKeyInSet([1, 2, 3])
+            ->build();
+
+        $this->assertStringContainsString('entityPrimaryKeyInSet(?)', $request->getQuery());
+    }
+
+    public function testFilterPriceValidIn(): void
+    {
+        $moment = new DateTimeImmutable('2024-06-15T12:00:00+02:00');
+        $request = (new QueryBuilder('Product'))
+            ->filterPriceValidIn($moment)
+            ->build();
+
+        $this->assertStringContainsString('priceValidIn(?)', $request->getQuery());
+    }
+
+    public function testOrderByAttributeNatural(): void
+    {
+        $request = (new QueryBuilder('Product'))
+            ->orderByAttributeNatural('name', SortDirection::Desc)
+            ->build();
+
+        $this->assertStringContainsString("orderBy(attributeNatural('name', DESC))", $request->getQuery());
+    }
+
+    public function testOrderByPriceNatural(): void
+    {
+        $request = (new QueryBuilder('Product'))
+            ->orderByPriceNatural(SortDirection::Asc)
+            ->build();
+
+        $this->assertStringContainsString('orderBy(priceNatural(ASC))', $request->getQuery());
+    }
+
+    public function testMultipleOrderClauses(): void
+    {
+        $request = (new QueryBuilder('Product'))
+            ->orderByAttributeNatural('name')
+            ->orderByPriceNatural(SortDirection::Desc)
+            ->build();
+
+        $query = $request->getQuery();
+        $this->assertStringContainsString("attributeNatural('name', ASC)", $query);
+        $this->assertStringContainsString('priceNatural(DESC)', $query);
+    }
+
+    public function testWithEntityFetchOverridesDefault(): void
+    {
+        $request = (new QueryBuilder('Product'))
+            ->withEntityFetch((new EntityFetch())->attributeContent('name', 'code'))
+            ->build();
+
+        $query = $request->getQuery();
+        $this->assertStringContainsString("attributeContent('name', 'code')", $query);
+        $this->assertStringNotContainsString('attributeContentAll()', $query);
+    }
+
+    public function testFloatPrecisionDoesNotUseScientificNotation(): void
+    {
+        $request = (new QueryBuilder('Product'))
+            ->filterByAttribute('tiny', 0.0000001)
+            ->build();
+
+        $this->assertCount(1, iterator_to_array($request->getPositionalQueryParams()));
     }
 }
