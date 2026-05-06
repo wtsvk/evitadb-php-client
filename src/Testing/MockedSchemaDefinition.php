@@ -7,7 +7,6 @@ namespace Wtsvk\EvitaDbClient\Testing;
 final readonly class MockedSchemaDefinition
 {
     public function __construct(
-        public string $catalog,
         public string $entityType,
     ) {
     }

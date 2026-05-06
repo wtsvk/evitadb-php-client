@@ -6,14 +6,10 @@ namespace Wtsvk\EvitaDbClient\Testing;
 
 use Closure;
 use Wtsvk\EvitaDbClient\EvitaDbClientInterface;
-use Wtsvk\EvitaDbClient\Exception\EvitaDbEntityNotFoundException;
-use Wtsvk\EvitaDbClient\Exception\EvitaDbStatusException;
-use Wtsvk\EvitaDbClient\Protocol\GrpcEntityUpsertMutation;
 use Wtsvk\EvitaDbClient\Protocol\GrpcQueryRequest;
 use Wtsvk\EvitaDbClient\Protocol\GrpcQueryResponse;
 use Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity;
-
-use function sprintf;
+use Wtsvk\EvitaDbClient\SessionCommitBehavior;
 
 /**
  * In-memory fake of EvitaDbClientInterface for testing consumer applications.
@@ -22,11 +18,14 @@ use function sprintf;
  * store) facets. Operates strictly: any call without a matching stub throws so
  * misconfigurations fail loud rather than silently returning empty data.
  *
+ * This mock is catalog-scoped (like the real EvitaDbClient). The catalog context
+ * is implicit — set at construction time.
+ *
  * Typical usage:
  *
- *     $client = (new EvitaDbMockClient())
- *         ->withEntity(catalog: 'cat', entityType: 'Product', primaryKey: 42, entity: $sealed)
- *         ->onQuery(catalog: 'cat', matcher: $myMatcher, response: $cannedResponse);
+ *     $client = (new EvitaDbMockClient('testCatalog'))
+ *         ->withEntity(entityType: 'Product', primaryKey: 42, entity: $sealed)
+ *         ->onQuery(matcher: $myMatcher, response: $cannedResponse);
  *
  *     $service = new ProductService($client);
  *     $service->doSomething(42);
@@ -35,8 +34,6 @@ use function sprintf;
  */
 final class EvitaDbMockClient implements EvitaDbClientInterface
 {
-    public bool $healthy = true;
-
     /**
      * Counter used to mimic EvitaDB's auto-assigned primary keys returned by
      * upsertEntity(). Starts at 1, increments on each call. Adjust if your test
@@ -55,11 +52,6 @@ final class EvitaDbMockClient implements EvitaDbClientInterface
     public array $deleteCalls = [];
 
     /**
-     * @var list<string>
-     */
-    public array $definedCatalogs = [];
-
-    /**
      * @var list<MockedSchemaDefinition>
      */
     public array $definedEntitySchemas = [];
@@ -74,20 +66,21 @@ final class EvitaDbMockClient implements EvitaDbClientInterface
      */
     private array $queryStubs = [];
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Configuration (fluent)
-    // ─────────────────────────────────────────────────────────────────────────
+    public function __construct(
+        public readonly string $catalog,
+    ) {
+    }
 
     /**
-     * Register an entity that will be returned by getEntity()/findEntity().
+     * Register an entity that will be returned by getEntity()/findEntity()
+     * inside transactions.
      */
     public function withEntity(
-        string $catalog,
         string $entityType,
         int $primaryKey,
         GrpcSealedEntity $entity,
     ): self {
-        $this->entities[$this->entityKey($catalog, $entityType, $primaryKey)] = $entity;
+        $this->entities[$this->entityKey($entityType, $primaryKey)] = $entity;
 
         return $this;
     }
@@ -96,12 +89,11 @@ final class EvitaDbMockClient implements EvitaDbClientInterface
      * Register a query response. The matcher receives the GrpcQueryRequest and
      * decides whether this stub applies. First matching stub wins.
      *
-     * @param  callable(GrpcQueryRequest): bool  $matcher
+     * @param callable(GrpcQueryRequest): bool $matcher
      */
-    public function onQuery(string $catalog, callable $matcher, GrpcQueryResponse $response): self
+    public function onQuery(callable $matcher, GrpcQueryResponse $response): self
     {
         $this->queryStubs[] = new MockedQueryStub(
-            catalog: $catalog,
             matcher: Closure::fromCallable($matcher),
             response: $response,
         );
@@ -109,119 +101,56 @@ final class EvitaDbMockClient implements EvitaDbClientInterface
         return $this;
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // EvitaDbClientInterface — read-side
-    // ─────────────────────────────────────────────────────────────────────────
-
-    public function isHealthy(): bool
-    {
-        return $this->healthy;
+    public function writeTransaction(
+        callable $fn,
+        bool $dryRun = false,
+        ?SessionCommitBehavior $commitBehavior = null,
+    ): mixed {
+        return $fn(new MockReadWriteSessionScopedContext(
+            client: $this,
+            dryRun: $dryRun,
+        ));
     }
 
-    public function getEntity(string $catalog, string $entityType, int $primaryKey): GrpcSealedEntity
+    public function readTransaction(callable $fn): mixed
     {
-        $entity = $this->findEntity(catalog: $catalog, entityType: $entityType, primaryKey: $primaryKey);
-        if ($entity === null) {
-            throw new EvitaDbEntityNotFoundException(
-                message: sprintf(
-                    'Entity %s pk=%d not found in catalog %s',
-                    $entityType,
-                    $primaryKey,
-                    $catalog,
-                ),
-            );
-        }
-
-        return $entity;
+        return $fn(new MockReadOnlySessionScopedContext(client: $this));
     }
 
-    public function findEntity(string $catalog, string $entityType, int $primaryKey): ?GrpcSealedEntity
+    /**
+     * @internal Used by mock context classes to fetch a stubbed entity.
+     */
+    public function findStubbedEntity(string $entityType, int $primaryKey): ?GrpcSealedEntity
     {
-        return $this->entities[$this->entityKey($catalog, $entityType, $primaryKey)] ?? null;
+        return $this->entities[$this->entityKey($entityType, $primaryKey)] ?? null;
     }
 
-    public function query(string $catalog, GrpcQueryRequest $queryRequest): GrpcQueryResponse
+    /**
+     * @internal Used by mock context classes after a successful delete so that
+     * subsequent reads in the same test see the entity as gone, matching how
+     * the real EvitaDB server behaves.
+     */
+    public function removeStubbedEntity(string $entityType, int $primaryKey): void
+    {
+        unset($this->entities[$this->entityKey($entityType, $primaryKey)]);
+    }
+
+    /**
+     * @internal Used by mock context classes to route queries to registered stubs.
+     */
+    public function findStubbedQueryResponse(GrpcQueryRequest $queryRequest): ?GrpcQueryResponse
     {
         foreach ($this->queryStubs as $stub) {
-            if ($stub->catalog !== $catalog) {
-                continue;
-            }
             if (($stub->matcher)($queryRequest)) {
                 return $stub->response;
             }
         }
 
-        throw new EvitaDbStatusException(
-            message: sprintf(
-                'EvitaDbMockClient: no query stub matched for catalog %s. Query: %s',
-                $catalog,
-                $queryRequest->getQuery(),
-            ),
-        );
+        return null;
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // EvitaDbClientInterface — write-side
-    // ─────────────────────────────────────────────────────────────────────────
-
-    public function defineCatalog(string $catalog): bool
+    private function entityKey(string $entityType, int $primaryKey): string
     {
-        $this->definedCatalogs[] = $catalog;
-
-        return true;
-    }
-
-    public function defineEntitySchema(string $catalog, string $entityType): true
-    {
-        $this->definedEntitySchemas[] = new MockedSchemaDefinition(
-            catalog: $catalog,
-            entityType: $entityType,
-        );
-
-        return true;
-    }
-
-    public function upsertEntity(string $catalog, GrpcEntityUpsertMutation $upsertMutation): int
-    {
-        $this->upsertCalls[] = new MockedUpsert(catalog: $catalog, mutation: $upsertMutation);
-
-        return $this->nextPrimaryKey++;
-    }
-
-    public function deleteEntity(string $catalog, string $entityType, int $primaryKey): true
-    {
-        $this->deleteCalls[] = new MockedDelete(
-            catalog: $catalog,
-            entityType: $entityType,
-            primaryKey: $primaryKey,
-        );
-
-        return true;
-    }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // Transaction wrappers
-    // ─────────────────────────────────────────────────────────────────────────
-
-    public function transaction(string $catalog, callable $fn, bool $dryRun = false): mixed
-    {
-        return $fn(new MockSessionScopedContext(
-            client: $this,
-            catalog: $catalog,
-            dryRun: $dryRun,
-        ));
-    }
-
-    public function readTransaction(string $catalog, callable $fn): mixed
-    {
-        return $fn(new MockSessionScopedContext(
-            client: $this,
-            catalog: $catalog,
-        ));
-    }
-
-    private function entityKey(string $catalog, string $entityType, int $primaryKey): string
-    {
-        return $catalog . '|' . $entityType . '|' . $primaryKey;
+        return $entityType . '|' . $primaryKey;
     }
 }

@@ -5,89 +5,54 @@ declare(strict_types=1);
 namespace Wtsvk\EvitaDbClient;
 
 use Wtsvk\EvitaDbClient\Exception\EvitaDbConnectionException;
-use Wtsvk\EvitaDbClient\Exception\EvitaDbEntityNotFoundException;
 use Wtsvk\EvitaDbClient\Exception\EvitaDbStatusException;
-use Wtsvk\EvitaDbClient\Protocol\GrpcEntityUpsertMutation;
-use Wtsvk\EvitaDbClient\Protocol\GrpcQueryRequest;
-use Wtsvk\EvitaDbClient\Protocol\GrpcQueryResponse;
-use Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity;
 use Wtsvk\EvitaDbClient\Transaction\ReadTransactionContext;
 use Wtsvk\EvitaDbClient\Transaction\WriteTransactionContext;
 
 interface EvitaDbClientInterface
 {
-    public function isHealthy(): bool;
-
     /**
-     * @throws EvitaDbConnectionException
-     * @throws EvitaDbStatusException
-     */
-    public function defineCatalog(string $catalog): bool;
-
-    /**
-     * @throws EvitaDbConnectionException
-     * @throws EvitaDbStatusException
-     */
-    public function defineEntitySchema(string $catalog, string $entityType): true;
-
-    /**
-     * @throws EvitaDbConnectionException
-     * @throws EvitaDbStatusException
-     */
-    public function upsertEntity(string $catalog, GrpcEntityUpsertMutation $upsertMutation): ?int;
-
-    /**
-     * @throws EvitaDbConnectionException
-     * @throws EvitaDbStatusException
-     */
-    public function deleteEntity(string $catalog, string $entityType, int $primaryKey): true;
-
-    /**
-     * @throws EvitaDbConnectionException
-     * @throws EvitaDbStatusException
-     * @throws EvitaDbEntityNotFoundException
-     */
-    public function getEntity(string $catalog, string $entityType, int $primaryKey): GrpcSealedEntity;
-
-    /**
-     * @throws EvitaDbConnectionException
-     * @throws EvitaDbStatusException
-     */
-    public function findEntity(string $catalog, string $entityType, int $primaryKey): ?GrpcSealedEntity;
-
-    /**
-     * @throws EvitaDbConnectionException
-     * @throws EvitaDbStatusException
-     */
-    public function query(string $catalog, GrpcQueryRequest $queryRequest): GrpcQueryResponse;
-
-    /**
-     * Open a read-write session, run the callable, commit on success.
+     * Open a read-write session, run the callable, commit on normal return.
      *
-     * On exception inside the callable the session is closed without waiting
-     * for change visibility but pending mutations may still persist server-side
-     * (EvitaDB does not support runtime rollback at close — set $dryRun=true
-     * for guaranteed discard).
+     * On exception inside the callable, the session is intentionally orphaned:
+     * the EvitaDB server's gRPC Close() RPC has no rollback semantics — calling
+     * it always commits. The only way to roll back pending mutations over gRPC
+     * is to let the server's session timeout discard the buffered transaction.
+     * To get a deterministic rollback regardless of outcome, pass $dryRun=true.
+     *
+     * If the callable returns normally but the close call fails (transport
+     * error or non-OK status), an EvitaDbConnectionException / EvitaDbStatusException
+     * propagates — the consumer learns the commit didn't actually happen.
      *
      * @template T
      *
-     * @param  callable(WriteTransactionContext): T  $fn
+     * @param callable(WriteTransactionContext): T $fn
+     * @param SessionCommitBehavior|null $commitBehavior Overrides the client's default commit behavior on success.
      * @return T
      *
      * @throws EvitaDbConnectionException
+     * @throws EvitaDbStatusException
      */
-    public function transaction(string $catalog, callable $fn, bool $dryRun = false): mixed;
+    public function writeTransaction(
+        callable $fn,
+        bool $dryRun = false,
+        ?SessionCommitBehavior $commitBehavior = null,
+    ): mixed;
 
     /**
      * Open a read-only session and run the callable. The session gives a
      * consistent snapshot across all reads inside the callable.
      *
+     * Close failures on the read-only session are swallowed (read-only sessions
+     * have nothing to commit) so they don't mask the actual return value or
+     * an exception already in flight.
+     *
      * @template T
      *
-     * @param  callable(ReadTransactionContext): T  $fn
+     * @param callable(ReadTransactionContext): T $fn
      * @return T
      *
      * @throws EvitaDbConnectionException
      */
-    public function readTransaction(string $catalog, callable $fn): mixed;
+    public function readTransaction(callable $fn): mixed;
 }

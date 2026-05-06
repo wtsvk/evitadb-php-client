@@ -16,10 +16,9 @@ use Wtsvk\EvitaDbClient\Protocol\GrpcQueryResponse;
 final readonly class MockedQueryStub
 {
     /**
-     * @param  Closure(GrpcQueryRequest): bool  $matcher
+     * @param Closure(GrpcQueryRequest): bool $matcher
      */
     public function __construct(
-        public string $catalog,
         public Closure $matcher,
         public GrpcQueryResponse $response,
     ) {
