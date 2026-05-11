@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.4.1] — 2026-05-11 — SAFE mode query fix
+
+### Bug fixes
+
+- **QueryBuilder emits fully parameterized EvitaQL** — all inline literals (single-quoted strings and numeric values) replaced with `?` positional placeholders. Previously every query produced by `QueryBuilder::build()` was rejected by EvitaDB's SAFE-mode `Query` RPC with _"Literal value is forbidden in mode SAFE"_. Fixes [#5](https://github.com/wtsvk/evitadb-php-client/issues/5).
+  - `collection(?)`, `entityLocaleEquals(?)`, `page(?, ?)` — header/pagination literals parameterized in `build()`.
+  - All filter methods (`filterByAttribute`, `filterByAttributeContains`, `filterByAttributeGreaterThan`, `filterByAttributeLessThan`, `filterByAttributeBetween`, `filterByAttributeStartsWith`, `filterByAttributeInSet`, `filterByReferencePrimaryKeyInSet`) — attribute/reference names now emitted as `?` with a positional string param.
+  - `orderByAttributeNatural` — attribute name parameterized; `ASC`/`DESC` remain as EvitaQL keywords (not literals).
+  - `EntityFetch::toEvitaQL()` — all attribute, reference, associated data, and locale names emitted as `?` placeholders. New `getParams()` method exposes collected `GrpcQueryParam` list.
+  - `SessionScopedReads::fetchEntity()` — now passes `EntityFetch` params to `GrpcEntityRequest::setPositionalQueryParams()`.
+- Positional param ordering: header (collection + locale) → filter values → order names → entity fetch names → page numbers. Matches left-to-right `?` order in the rendered EvitaQL string.
+
+### New
+
+- **`EntityFetch::getParams()`** (`@internal`) — returns the `list<GrpcQueryParam>` collected during the last `toEvitaQL()` call. Consumers should not call this directly; it is used internally by `QueryBuilder::build()` and `SessionScopedReads::fetchEntity()`.
+- **`EntityFetchTest`** — new unit test class (13 tests) covering parameterized output, param collection, re-render reset, and validation.
+- **`QueryBuilderTest::testNoInlineLiteralsInGeneratedQuery`** — asserts no single/double quotes or bare integers remain in the generated EvitaQL string.
+- **`QueryBuilderTest::testPositionalParamOrderMatchesPlaceholders`** — verifies exact param order across all query sections.
+
 ## [0.4.0] — 2026-05-06 — Major refactoring
 
 ### Breaking changes

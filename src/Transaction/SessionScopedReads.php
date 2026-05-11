@@ -199,6 +199,10 @@ trait SessionScopedReads
 
         if ($require !== null) {
             $request->setRequire($require->toEvitaQL());
+            $requireParams = $require->getParams();
+            if ($requireParams !== []) {
+                $request->setPositionalQueryParams($requireParams);
+            }
         }
 
         [$response, $rawStatus] = $this->sessionService()

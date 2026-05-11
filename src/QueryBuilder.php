@@ -43,6 +43,11 @@ final class QueryBuilder
     /**
      * @var list<GrpcQueryParam>
      */
+    private array $orderParams = [];
+
+    /**
+     * @var list<GrpcQueryParam>
+     */
     private array $params = [];
 
     private int $pageNumber = 1;
@@ -74,7 +79,8 @@ final class QueryBuilder
     {
         self::assertValidName($name);
 
-        $this->filterParts[] = 'attributeEquals(\'' . $name . '\', ?)';
+        $this->filterParts[] = 'attributeEquals(?, ?)';
+        $this->params[] = $this->paramString($name);
 
         $this->params[] = match (true) {
             is_int($value) => $this->paramInt($value),
@@ -89,7 +95,8 @@ final class QueryBuilder
     {
         self::assertValidName($name);
 
-        $this->filterParts[] = 'attributeContains(\'' . $name . '\', ?)';
+        $this->filterParts[] = 'attributeContains(?, ?)';
+        $this->params[] = $this->paramString($name);
         $this->params[] = $this->paramString($value);
 
         return $this;
@@ -99,7 +106,8 @@ final class QueryBuilder
     {
         self::assertValidName($name);
 
-        $this->filterParts[] = 'attributeGreaterThan(\'' . $name . '\', ?)';
+        $this->filterParts[] = 'attributeGreaterThan(?, ?)';
+        $this->params[] = $this->paramString($name);
         $this->params[] = $this->typedParam($value);
 
         return $this;
@@ -109,7 +117,8 @@ final class QueryBuilder
     {
         self::assertValidName($name);
 
-        $this->filterParts[] = 'attributeLessThan(\'' . $name . '\', ?)';
+        $this->filterParts[] = 'attributeLessThan(?, ?)';
+        $this->params[] = $this->paramString($name);
         $this->params[] = $this->typedParam($value);
 
         return $this;
@@ -119,7 +128,8 @@ final class QueryBuilder
     {
         self::assertValidName($name);
 
-        $this->filterParts[] = 'attributeBetween(\'' . $name . '\', ?, ?)';
+        $this->filterParts[] = 'attributeBetween(?, ?, ?)';
+        $this->params[] = $this->paramString($name);
         $this->params[] = $this->typedParam($from);
         $this->params[] = $this->typedParam($to);
 
@@ -130,7 +140,8 @@ final class QueryBuilder
     {
         self::assertValidName($name);
 
-        $this->filterParts[] = 'attributeStartsWith(\'' . $name . '\', ?)';
+        $this->filterParts[] = 'attributeStartsWith(?, ?)';
+        $this->params[] = $this->paramString($name);
         $this->params[] = $this->paramString($value);
 
         return $this;
@@ -145,7 +156,8 @@ final class QueryBuilder
         Assert::notEmpty($values, 'filterByAttributeInSet requires at least one value.');
 
         $placeholders = implode(', ', array_fill(0, count($values), '?'));
-        $this->filterParts[] = 'attributeInSet(\'' . $name . '\', ' . $placeholders . ')';
+        $this->filterParts[] = 'attributeInSet(?, ' . $placeholders . ')';
+        $this->params[] = $this->paramString($name);
 
         foreach ($values as $value) {
             $this->params[] = is_int($value) ? $this->paramInt($value) : $this->paramString($value);
@@ -175,7 +187,8 @@ final class QueryBuilder
         self::assertValidName($referenceName);
         Assert::notEmpty($pks, 'filterByReferencePrimaryKeyInSet requires at least one primary key.');
 
-        $this->filterParts[] = "referenceHaving('" . $referenceName . "', entityHaving(entityPrimaryKeyInSet(?)))";
+        $this->filterParts[] = 'referenceHaving(?, entityHaving(entityPrimaryKeyInSet(?)))';
+        $this->params[] = $this->paramString($referenceName);
         $this->params[] = $this->paramIntArray($pks);
 
         return $this;
@@ -227,7 +240,8 @@ final class QueryBuilder
     {
         self::assertValidName($name);
 
-        $this->orderParts[] = 'attributeNatural(\'' . $name . '\', ' . $direction->value . ')';
+        $this->orderParts[] = 'attributeNatural(?, ' . $direction->value . ')';
+        $this->orderParams[] = $this->paramString($name);
 
         return $this;
     }
@@ -249,9 +263,14 @@ final class QueryBuilder
 
     public function build(): GrpcQueryRequest
     {
-        $queryParts = ['collection(\'' . $this->entityType . '\')'];
+        $headerParams = [$this->paramString($this->entityType)];
+        $queryParts = ['collection(?)'];
 
-        $filterParts = $this->locale !== null ? ['entityLocaleEquals(\'' . $this->locale . '\')', ...$this->filterParts] : $this->filterParts;
+        $filterParts = $this->filterParts;
+        if ($this->locale !== null) {
+            $filterParts = ['entityLocaleEquals(?)', ...$filterParts];
+            $headerParams[] = $this->paramString($this->locale);
+        }
 
         if ($filterParts !== []) {
             $queryParts[] = 'filterBy(' . implode(', ', $filterParts) . ')';
@@ -262,19 +281,25 @@ final class QueryBuilder
         }
 
         $requireParts = [];
+        $entityFetchParams = [];
         if ($this->entityFetch !== null) {
             $requireParts[] = $this->entityFetch->toEvitaQL();
+            $entityFetchParams = $this->entityFetch->getParams();
         }
-        $requireParts[] = 'page(' . $this->pageNumber . ', ' . $this->pageSize . ')';
+        $requireParts[] = 'page(?, ?)';
 
         $queryParts[] = 'require(' . implode(', ', $requireParts) . ')';
 
         $request = new GrpcQueryRequest();
         $request->setQuery('query(' . implode(', ', $queryParts) . ')');
-
-        if ($this->params !== []) {
-            $request->setPositionalQueryParams($this->params);
-        }
+        $request->setPositionalQueryParams([
+            ...$headerParams,
+            ...$this->params,
+            ...$this->orderParams,
+            ...$entityFetchParams,
+            $this->paramInt($this->pageNumber),
+            $this->paramInt($this->pageSize),
+        ]);
 
         return $request;
     }

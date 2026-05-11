@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Wtsvk\EvitaDbClient;
 
 use Webmozart\Assert\Assert;
+use Wtsvk\EvitaDbClient\Protocol\GrpcQueryParam;
 
-use function array_map;
+use function array_fill;
 use function array_values;
+use function count;
 use function implode;
 
 /**
@@ -55,6 +57,14 @@ final class EntityFetch
      * @var list<string>
      */
     private array $dataInLocales = [];
+
+    /**
+     * Positional query params collected during toEvitaQL() rendering.
+     * Reset on every toEvitaQL() call so the same instance can be re-rendered.
+     *
+     * @var list<GrpcQueryParam>
+     */
+    private array $params = [];
 
     public static function all(): self
     {
@@ -161,22 +171,24 @@ final class EntityFetch
     }
 
     /**
-     * @internal Renders to EvitaQL string for the gRPC layer.
+     * @internal Renders to EvitaQL string with ? placeholders for the gRPC layer.
+     *           Call getParams() after this to obtain the matching positional params.
      */
     public function toEvitaQL(): string
     {
+        $this->params = [];
         $parts = [];
 
         if ($this->attributeAll) {
             $parts[] = 'attributeContentAll()';
         } elseif ($this->attributes !== []) {
-            $parts[] = 'attributeContent(' . implode(', ', $this->quoteNames($this->attributes)) . ')';
+            $parts[] = 'attributeContent(' . $this->placeholders($this->attributes) . ')';
         }
 
         if ($this->associatedDataAll) {
             $parts[] = 'associatedDataContentAll()';
         } elseif ($this->associatedData !== []) {
-            $parts[] = 'associatedDataContent(' . implode(', ', $this->quoteNames($this->associatedData)) . ')';
+            $parts[] = 'associatedDataContent(' . $this->placeholders($this->associatedData) . ')';
         }
 
         if ($this->priceAll) {
@@ -188,7 +200,7 @@ final class EntityFetch
         if ($this->referenceAll) {
             $parts[] = 'referenceContentAll()';
         } elseif ($this->references !== []) {
-            $parts[] = 'referenceContent(' . implode(', ', $this->quoteNames($this->references)) . ')';
+            $parts[] = 'referenceContent(' . $this->placeholders($this->references) . ')';
         }
 
         if ($this->hierarchy) {
@@ -198,22 +210,36 @@ final class EntityFetch
         if ($this->dataInLocalesAll) {
             $parts[] = 'dataInLocalesAll()';
         } elseif ($this->dataInLocales !== []) {
-            $parts[] = 'dataInLocales(' . implode(', ', $this->quoteNames($this->dataInLocales)) . ')';
+            $parts[] = 'dataInLocales(' . $this->placeholders($this->dataInLocales) . ')';
         }
 
         return 'entityFetch(' . implode(', ', $parts) . ')';
     }
 
     /**
-     * @param list<string> $names
-     * @return list<string>
+     * @internal Returns positional params collected during the last toEvitaQL() call.
+     *
+     * @return list<GrpcQueryParam>
      */
-    private function quoteNames(array $names): array
+    public function getParams(): array
     {
-        return array_map(
-            static fn (string $name): string => "'" . $name . "'",
-            $names,
-        );
+        return $this->params;
+    }
+
+    /**
+     * Emits ? placeholders and collects a GrpcQueryParam for each name.
+     *
+     * @param list<string> $names
+     */
+    private function placeholders(array $names): string
+    {
+        foreach ($names as $name) {
+            $param = new GrpcQueryParam();
+            $param->setStringValue($name);
+            $this->params[] = $param;
+        }
+
+        return implode(', ', array_fill(start_index: 0, count: count($names), value: '?'));
     }
 
     private static function assertValidName(string $name): void
