@@ -339,7 +339,7 @@ final class ReadWriteSessionScopedContextTest extends TestCase
                 static::callback(static function (mixed $request): bool {
                     Assert::isInstanceOf($request, GrpcEntityRequest::class);
 
-                    return str_contains($request->getRequire(), "attributeContent('name')");
+                    return str_contains($request->getRequire(), 'attributeContent(?)');
                 }),
                 static::anything(),
             )
