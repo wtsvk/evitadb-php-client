@@ -52,7 +52,7 @@ if (! $conn->isHealthy()) {
 }
 
 // Server-level operations
-$conn->defineCatalog('myCatalog');
+$conn->defineCatalog('myCatalog'); // creates the catalog AND transitions it to ALIVE
 $catalogs = $conn->getCatalogNames();
 
 // Create catalog-scoped clients

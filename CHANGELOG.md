@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.2] — 2026-05-15 — Auto go-live on `defineCatalog()`
+
+### API tweaks
+
+- **`EvitaDbConnection::defineCatalog()` now auto-transitions to `ALIVE`** — on successful creation the connection opens a temporary read-write session and calls `GoLiveAndClose` so the catalog is immediately usable for transactional reads/writes. Previously the catalog was left in `WARMING_UP` state and consumers had to issue the go-live RPC themselves. If the catalog already existed (`success=false`), go-live is skipped. The fast bulk-load `WARMING_UP` write path is not exposed by this client — callers always end up with an `ALIVE` catalog.
+- **`MockEvitaDbConnection::defineCatalog()` mirrors the new contract** — returns `false` on the second call with the same name (simulates the "already existed" branch).
+- **Interface PHPDoc on `EvitaDbConnectionInterface::defineCatalog()`** documents the new behavior.
+
 ## [0.4.1] — 2026-05-11 — SAFE mode query fix
 
 ### Bug fixes

@@ -8,6 +8,7 @@ use Google\Protobuf\Internal\Message;
 use Grpc\UnaryCall;
 use Override;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
@@ -20,6 +21,8 @@ use Wtsvk\EvitaDbClient\Protocol\EvitaSessionServiceClient;
 use Wtsvk\EvitaDbClient\Protocol\GrpcCatalogNamesResponse;
 use Wtsvk\EvitaDbClient\Protocol\GrpcDefineCatalogResponse;
 use Wtsvk\EvitaDbClient\Protocol\GrpcDeleteCatalogIfExistsResponse;
+use Wtsvk\EvitaDbClient\Protocol\GrpcEvitaSessionResponse;
+use Wtsvk\EvitaDbClient\Protocol\GrpcGoLiveAndCloseResponse;
 use Wtsvk\EvitaDbClient\Protocol\GrpcReadyResponse;
 
 use const Grpc\STATUS_OK;
@@ -73,14 +76,36 @@ final class EvitaDbConnectionTest extends TestCase
         $this->assertFalse($this->connection->isHealthy());
     }
 
-    public function testDefineCatalogReturnsTrue(): void
+    public function testDefineCatalogCreatesCatalogAndTransitionsToAlive(): void
     {
-        $response = new GrpcDefineCatalogResponse();
-        $response->setSuccess(true);
+        $defineResponse = new GrpcDefineCatalogResponse();
+        $defineResponse->setSuccess(true);
 
-        $this->mockEvitaCall('DefineCatalog', $response, STATUS_OK);
+        $this->mockEvitaCall('DefineCatalog', $defineResponse, STATUS_OK);
+        $this->mockGoLiveAndClose();
 
         $this->assertTrue($this->connection->defineCatalog('testCatalog'));
+    }
+
+    public function testDefineCatalogSkipsGoLiveWhenCreationDidNotSucceed(): void
+    {
+        $defineResponse = new GrpcDefineCatalogResponse();
+        $defineResponse->setSuccess(false);
+
+        $this->mockEvitaCall('DefineCatalog', $defineResponse, STATUS_OK);
+
+        /** @var EvitaSessionServiceClient&MockObject $sessionServiceMock */
+        $sessionServiceMock = static::createMock(EvitaSessionServiceClient::class);
+        $sessionServiceMock
+            ->expects(static::never())
+            ->method('GoLiveAndClose');
+
+        $connection = new EvitaDbConnection(
+            evitaService: $this->evitaService,
+            sessionService: $sessionServiceMock,
+        );
+
+        $this->assertFalse($connection->defineCatalog('testCatalog'));
     }
 
     public function testDefineCatalogThrowsStatusExceptionOnFailure(): void
@@ -102,6 +127,29 @@ final class EvitaDbConnectionTest extends TestCase
 
         $this->expectException(EvitaDbConnectionException::class);
         $this->expectExceptionMessageMatches('/network down/');
+
+        $this->connection->defineCatalog('testCatalog');
+    }
+
+    public function testDefineCatalogThrowsWhenGoLiveFails(): void
+    {
+        $defineResponse = new GrpcDefineCatalogResponse();
+        $defineResponse->setSuccess(true);
+
+        $this->mockEvitaCall('DefineCatalog', $defineResponse, STATUS_OK);
+
+        $sessionResponse = new GrpcEvitaSessionResponse();
+        $sessionResponse->setSessionId('session-id');
+        $this->evitaService
+            ->method('CreateReadWriteSession')
+            ->willReturn($this->createUnaryCall($sessionResponse, STATUS_OK));
+
+        $this->sessionService
+            ->method('GoLiveAndClose')
+            ->willReturn($this->createUnaryCall(null, 13, 'internal'));
+
+        $this->expectException(EvitaDbStatusException::class);
+        $this->expectExceptionMessageMatches('/Failed to switch catalog/');
 
         $this->connection->defineCatalog('testCatalog');
     }
@@ -151,6 +199,23 @@ final class EvitaDbConnectionTest extends TestCase
         $this->expectNotToPerformAssertions();
 
         $this->connection->catalog('testCatalog');
+    }
+
+    private function mockGoLiveAndClose(): void
+    {
+        $sessionResponse = new GrpcEvitaSessionResponse();
+        $sessionResponse->setSessionId('go-live-session-id');
+
+        $this->evitaService
+            ->method('CreateReadWriteSession')
+            ->willReturn($this->createUnaryCall($sessionResponse, STATUS_OK));
+
+        $goLiveResponse = new GrpcGoLiveAndCloseResponse();
+        $goLiveResponse->setSuccess(true);
+
+        $this->sessionService
+            ->method('GoLiveAndClose')
+            ->willReturn($this->createUnaryCall($goLiveResponse, STATUS_OK));
     }
 
     private function mockEvitaCall(string $method, mixed $response, int $code, string $details = ''): void

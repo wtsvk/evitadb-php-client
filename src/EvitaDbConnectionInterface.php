@@ -12,6 +12,11 @@ interface EvitaDbConnectionInterface
     public function isHealthy(): bool;
 
     /**
+     * Creates the catalog and immediately transitions it from WARMING_UP to ALIVE
+     * (via a temporary write session + GoLiveAndClose RPC) so it is ready to serve
+     * transactional reads/writes. Returns false if the catalog already existed —
+     * in that case go-live is skipped (assumed to have been done previously).
+     *
      * @throws EvitaDbConnectionException
      * @throws EvitaDbStatusException
      */

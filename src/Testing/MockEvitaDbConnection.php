@@ -47,13 +47,20 @@ final class MockEvitaDbConnection implements EvitaDbConnectionInterface
         return $this->healthy;
     }
 
+    /**
+     * Mirrors EvitaDbConnection: a catalog is created and immediately treated as ALIVE
+     * (no separate WARMING_UP phase in the mock). Returns false on the second call with
+     * the same name to simulate the "already exists" branch.
+     */
     public function defineCatalog(string $catalog): bool
     {
         $this->definedCatalogs[] = $catalog;
 
-        if (! in_array($catalog, $this->catalogNames, true)) {
-            $this->catalogNames[] = $catalog;
+        if (in_array($catalog, $this->catalogNames, true)) {
+            return false;
         }
+
+        $this->catalogNames[] = $catalog;
 
         return true;
     }

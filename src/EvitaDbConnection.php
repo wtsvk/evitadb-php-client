@@ -18,6 +18,9 @@ use Wtsvk\EvitaDbClient\Protocol\GrpcDefineCatalogRequest;
 use Wtsvk\EvitaDbClient\Protocol\GrpcDefineCatalogResponse;
 use Wtsvk\EvitaDbClient\Protocol\GrpcDeleteCatalogIfExistsRequest;
 use Wtsvk\EvitaDbClient\Protocol\GrpcDeleteCatalogIfExistsResponse;
+use Wtsvk\EvitaDbClient\Protocol\GrpcEvitaSessionRequest;
+use Wtsvk\EvitaDbClient\Protocol\GrpcEvitaSessionResponse;
+use Wtsvk\EvitaDbClient\Protocol\GrpcGoLiveAndCloseResponse;
 use Wtsvk\EvitaDbClient\Protocol\GrpcReadyResponse;
 
 use function array_merge;
@@ -113,7 +116,69 @@ final class EvitaDbConnection implements EvitaDbConnectionInterface
 
         Assert::isInstanceOf($response, GrpcDefineCatalogResponse::class);
 
+        if ($response->getSuccess()) {
+            $this->goLiveAndClose($catalog);
+        }
+
         return $response->getSuccess();
+    }
+
+    /**
+     * Transitions a newly created catalog from "warming up" to "alive" state.
+     *
+     * Opens a temporary write session, calls GoLiveAndClose (which commits,
+     * transitions the catalog, and closes the session atomically), then returns.
+     *
+     * @throws EvitaDbConnectionException
+     * @throws EvitaDbStatusException
+     */
+    private function goLiveAndClose(string $catalog): void
+    {
+        $sessionRequest = new GrpcEvitaSessionRequest();
+        $sessionRequest->setCatalogName($catalog);
+
+        try {
+            [$sessionResponse, $rawStatus] = $this->evitaService
+                ->CreateReadWriteSession($sessionRequest)
+                ->wait();
+        } catch (Throwable $e) {
+            throw new EvitaDbConnectionException(
+                message: sprintf('Error opening session for goLiveAndClose on %s: %s', $catalog, $e->getMessage()),
+                previous: $e,
+            );
+        }
+
+        $status = GrpcStatus::fromRaw($rawStatus);
+
+        if ($status->code !== STATUS_OK || $sessionResponse === null) {
+            throw new EvitaDbStatusException(
+                message: sprintf('Failed to open session for goLiveAndClose on %s: %s', $catalog, $status),
+            );
+        }
+
+        Assert::isInstanceOf($sessionResponse, GrpcEvitaSessionResponse::class);
+        $sessionId = $sessionResponse->getSessionId();
+
+        try {
+            [$goLiveResponse, $rawStatus] = $this->sessionService
+                ->GoLiveAndClose(new GPBEmpty(), ['sessionid' => [$sessionId]])
+                ->wait();
+        } catch (Throwable $e) {
+            throw new EvitaDbConnectionException(
+                message: sprintf('Error switching catalog %s to alive state: %s', $catalog, $e->getMessage()),
+                previous: $e,
+            );
+        }
+
+        $status = GrpcStatus::fromRaw($rawStatus);
+
+        if ($status->code !== STATUS_OK || $goLiveResponse === null) {
+            throw new EvitaDbStatusException(
+                message: sprintf('Failed to switch catalog %s to alive state: %s', $catalog, $status),
+            );
+        }
+
+        Assert::isInstanceOf($goLiveResponse, GrpcGoLiveAndCloseResponse::class);
     }
 
     /**
