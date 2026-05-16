@@ -35,7 +35,9 @@ class GrpcRegisterSystemChangeCaptureResponse extends \Google\Protobuf\Internal\
      */
     protected $responseType = 0;
     /**
-     * Optional heartbeat information, is non-null only if the response is a heartbeat or acknowledgement
+     * Optional heartbeat information, is non-null only if the response is a heartbeat or acknowledgement.
+     * Field is unset on responses from servers that predate heartbeat support — clients MUST
+     * call hasHeartBeat() before reading.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcHeartBeat heartBeat = 4;</code>
      */
@@ -55,7 +57,9 @@ class GrpcRegisterSystemChangeCaptureResponse extends \Google\Protobuf\Internal\
      *           The type of the response - when subscription is set-up, acknowledgement is sent
      *           Then with each capture event, the type is set to `change`
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcHeartBeat $heartBeat
-     *           Optional heartbeat information, is non-null only if the response is a heartbeat or acknowledgement
+     *           Optional heartbeat information, is non-null only if the response is a heartbeat or acknowledgement.
+     *           Field is unset on responses from servers that predate heartbeat support — clients MUST
+     *           call hasHeartBeat() before reading.
      * }
      */
     public function __construct($data = NULL) {
@@ -164,7 +168,9 @@ class GrpcRegisterSystemChangeCaptureResponse extends \Google\Protobuf\Internal\
     }
 
     /**
-     * Optional heartbeat information, is non-null only if the response is a heartbeat or acknowledgement
+     * Optional heartbeat information, is non-null only if the response is a heartbeat or acknowledgement.
+     * Field is unset on responses from servers that predate heartbeat support — clients MUST
+     * call hasHeartBeat() before reading.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcHeartBeat heartBeat = 4;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcHeartBeat|null
@@ -185,7 +191,9 @@ class GrpcRegisterSystemChangeCaptureResponse extends \Google\Protobuf\Internal\
     }
 
     /**
-     * Optional heartbeat information, is non-null only if the response is a heartbeat or acknowledgement
+     * Optional heartbeat information, is non-null only if the response is a heartbeat or acknowledgement.
+     * Field is unset on responses from servers that predate heartbeat support — clients MUST
+     * call hasHeartBeat() before reading.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcHeartBeat heartBeat = 4;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcHeartBeat $var

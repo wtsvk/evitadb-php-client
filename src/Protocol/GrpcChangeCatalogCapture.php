@@ -53,12 +53,6 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureOperation operation = 6;</code>
      */
     protected $operation = 0;
-    /**
-     * Represents the timestamp of the commit.
-     *
-     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime timestamp = 99;</code>
-     */
-    protected $timestamp = null;
     protected $body;
 
     /**
@@ -85,8 +79,6 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcEntityMutation $entityMutation
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcLocalMutation $localMutation
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcInfrastructureMutation $infrastructureMutation
-     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $timestamp
-     *           Represents the timestamp of the commit.
      * }
      */
     public function __construct($data = NULL) {
@@ -510,42 +502,6 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcInfrastructureMutation::class);
         $this->writeOneof(10, $var);
-
-        return $this;
-    }
-
-    /**
-     * Represents the timestamp of the commit.
-     *
-     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime timestamp = 99;</code>
-     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime|null
-     */
-    public function getTimestamp()
-    {
-        return $this->timestamp;
-    }
-
-    public function hasTimestamp()
-    {
-        return isset($this->timestamp);
-    }
-
-    public function clearTimestamp()
-    {
-        unset($this->timestamp);
-    }
-
-    /**
-     * Represents the timestamp of the commit.
-     *
-     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime timestamp = 99;</code>
-     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $var
-     * @return $this
-     */
-    public function setTimestamp($var)
-    {
-        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime::class);
-        $this->timestamp = $var;
 
         return $this;
     }

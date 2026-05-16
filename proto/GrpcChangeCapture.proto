@@ -36,8 +36,6 @@ message GrpcChangeCaptureSchemaSite {
   repeated GrpcChangeCaptureOperation operation = 2;
   // the name of the intercepted container type
   repeated GrpcChangeCaptureContainerType containerType = 3;
-  // the name of the container (e.g. attribute name, associated data name, reference name)
-  repeated string containerName = 4;
 }
 
 // Record describing the location and form of the CDC data event in the evitaDB that should be captured.
@@ -77,8 +75,6 @@ message GrpcChangeCatalogCapture {
     GrpcLocalMutation localMutation = 9;
     GrpcInfrastructureMutation infrastructureMutation = 10;
   }
-  // Represents the timestamp of the commit.
-  GrpcOffsetDateTime timestamp = 99;
 }
 
 // Record represents a system CDC event that is sent to the subscriber if it matches to the request he made.
@@ -91,22 +87,6 @@ message GrpcChangeSystemCapture {
   GrpcChangeCaptureOperation operation = 3;
   // optional body of the operation when it is requested by the GrpcContent
   GrpcEngineMutation systemMutation = 4;
-  // Represents the timestamp of the commit.
-  GrpcOffsetDateTime timestamp = 5;
-}
-
-// Heartbeat message sent to the subscriber to keep the connection alive.
-message GrpcHeartBeat {
-  // the index of the heartbeat event
-  int64 index = 1;
-  // the timestamp of the heartbeat event on the server
-  GrpcOffsetDateTime timestamp = 2;
-  // the last observed version by the subscriber
-  // in case of system subscription it is engine version
-  // in case of catalog subscription it is catalog version
-  int64 lastObservedVersion = 3;
-  // milliseconds to the next heartbeat (derived from the server configuration)
-  int64 millisToNextHeartbeat = 4;
 }
 
 // The enum defines what catalog area is covered by the capture.
@@ -153,6 +133,20 @@ enum GrpcChangeCaptureContent {
   // update), the size of the event can be significant. Consider whether you need the entire mutation or just the
   // header.
   CHANGE_BODY = 1;
+}
+
+// Heartbeat message sent to the subscriber to keep the connection alive.
+message GrpcHeartBeat {
+  // the index of the heartbeat event
+  int64 index = 1;
+  // the timestamp of the heartbeat event on the server
+  GrpcOffsetDateTime timestamp = 2;
+  // the last observed version by the subscriber
+  // in case of system subscription it is engine version
+  // in case of catalog subscription it is catalog version
+  int64 lastObservedVersion = 3;
+  // milliseconds to the next heartbeat (derived from the server configuration)
+  int64 millisToNextHeartbeat = 4;
 }
 
 // Enum specifying the type of response that is sent to the subscriber.

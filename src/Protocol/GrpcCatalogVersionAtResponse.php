@@ -16,21 +16,15 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcCatalogVersionAtResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The first version of the materialized version block visible in the specified time
+     * The version of the catalog at the specified moment in time.
      *
-     * Generated from protobuf field <code>int64 startVersion = 1;</code>
+     * Generated from protobuf field <code>int64 version = 1;</code>
      */
-    protected $startVersion = 0;
+    protected $version = 0;
     /**
-     * The last version of the materialized version block visible in the specified time
+     * Exact moment when this version was stored (introduced).
      *
-     * Generated from protobuf field <code>int64 endVersion = 2;</code>
-     */
-    protected $endVersion = 0;
-    /**
-     * Exact moment when this materialized version block was introduced to the catalog snapshot
-     *
-     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime introducedAt = 3;</code>
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime introducedAt = 2;</code>
      */
     protected $introducedAt = null;
 
@@ -40,12 +34,10 @@ class GrpcCatalogVersionAtResponse extends \Google\Protobuf\Internal\Message
      * @param array $data {
      *     Optional. Data for populating the Message object.
      *
-     *     @type int|string $startVersion
-     *           The first version of the materialized version block visible in the specified time
-     *     @type int|string $endVersion
-     *           The last version of the materialized version block visible in the specified time
+     *     @type int|string $version
+     *           The version of the catalog at the specified moment in time.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $introducedAt
-     *           Exact moment when this materialized version block was introduced to the catalog snapshot
+     *           Exact moment when this version was stored (introduced).
      * }
      */
     public function __construct($data = NULL) {
@@ -54,61 +46,35 @@ class GrpcCatalogVersionAtResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The first version of the materialized version block visible in the specified time
+     * The version of the catalog at the specified moment in time.
      *
-     * Generated from protobuf field <code>int64 startVersion = 1;</code>
+     * Generated from protobuf field <code>int64 version = 1;</code>
      * @return int|string
      */
-    public function getStartVersion()
+    public function getVersion()
     {
-        return $this->startVersion;
+        return $this->version;
     }
 
     /**
-     * The first version of the materialized version block visible in the specified time
+     * The version of the catalog at the specified moment in time.
      *
-     * Generated from protobuf field <code>int64 startVersion = 1;</code>
+     * Generated from protobuf field <code>int64 version = 1;</code>
      * @param int|string $var
      * @return $this
      */
-    public function setStartVersion($var)
+    public function setVersion($var)
     {
         GPBUtil::checkInt64($var);
-        $this->startVersion = $var;
+        $this->version = $var;
 
         return $this;
     }
 
     /**
-     * The last version of the materialized version block visible in the specified time
+     * Exact moment when this version was stored (introduced).
      *
-     * Generated from protobuf field <code>int64 endVersion = 2;</code>
-     * @return int|string
-     */
-    public function getEndVersion()
-    {
-        return $this->endVersion;
-    }
-
-    /**
-     * The last version of the materialized version block visible in the specified time
-     *
-     * Generated from protobuf field <code>int64 endVersion = 2;</code>
-     * @param int|string $var
-     * @return $this
-     */
-    public function setEndVersion($var)
-    {
-        GPBUtil::checkInt64($var);
-        $this->endVersion = $var;
-
-        return $this;
-    }
-
-    /**
-     * Exact moment when this materialized version block was introduced to the catalog snapshot
-     *
-     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime introducedAt = 3;</code>
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime introducedAt = 2;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime|null
      */
     public function getIntroducedAt()
@@ -127,9 +93,9 @@ class GrpcCatalogVersionAtResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Exact moment when this materialized version block was introduced to the catalog snapshot
+     * Exact moment when this version was stored (introduced).
      *
-     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime introducedAt = 3;</code>
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime introducedAt = 2;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $var
      * @return $this
      */

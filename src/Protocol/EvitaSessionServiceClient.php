@@ -54,6 +54,51 @@ class EvitaSessionServiceClient extends \Grpc\BaseStub {
     }
 
     /**
+     * Procedure that returns the version of the catalog at a specific moment in time.
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcCatalogVersionAtRequest $argument input argument
+     * @param array $metadata metadata
+     * @param array $options call options
+     * @return \Grpc\UnaryCall
+     */
+    public function GetCatalogVersionAt(\Wtsvk\EvitaDbClient\Protocol\GrpcCatalogVersionAtRequest $argument,
+      $metadata = [], $options = []) {
+        return $this->_simpleRequest('/io.evitadb.externalApi.grpc.generated.EvitaSessionService/GetCatalogVersionAt',
+        $argument,
+        ['\Wtsvk\EvitaDbClient\Protocol\GrpcCatalogVersionAtResponse', 'decode'],
+        $metadata, $options);
+    }
+
+    /**
+     * Procedure that returns requested page of past mutations in reversed order that match the request criteria.
+     * @param \Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryPageRequest $argument input argument
+     * @param array $metadata metadata
+     * @param array $options call options
+     * @return \Grpc\UnaryCall
+     */
+    public function GetMutationsHistoryPage(\Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryPageRequest $argument,
+      $metadata = [], $options = []) {
+        return $this->_simpleRequest('/io.evitadb.externalApi.grpc.generated.EvitaSessionService/GetMutationsHistoryPage',
+        $argument,
+        ['\Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryPageResponse', 'decode'],
+        $metadata, $options);
+    }
+
+    /**
+     * Procedure that returns stream of all past mutations in reversed order that match the request criteria.
+     * @param \Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryRequest $argument input argument
+     * @param array $metadata metadata
+     * @param array $options call options
+     * @return \Grpc\ServerStreamingCall
+     */
+    public function GetMutationsHistory(\Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryRequest $argument,
+      $metadata = [], $options = []) {
+        return $this->_serverStreamRequest('/io.evitadb.externalApi.grpc.generated.EvitaSessionService/GetMutationsHistory',
+        $argument,
+        ['\Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryResponse', 'decode'],
+        $metadata, $options);
+    }
+
+    /**
      * Procedure that returns the schema of a specific entity type.
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcEntitySchemaRequest $argument input argument
      * @param array $metadata metadata
@@ -508,21 +553,6 @@ class EvitaSessionServiceClient extends \Grpc\BaseStub {
     }
 
     /**
-     * Applies single mutation to the entity.
-     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcEntityMutation $argument input argument
-     * @param array $metadata metadata
-     * @param array $options call options
-     * @return \Grpc\UnaryCall
-     */
-    public function ApplyMutation(\Wtsvk\EvitaDbClient\Protocol\GrpcEntityMutation $argument,
-      $metadata = [], $options = []) {
-        return $this->_simpleRequest('/io.evitadb.externalApi.grpc.generated.EvitaSessionService/ApplyMutation',
-        $argument,
-        ['\Google\Protobuf\GPBEmpty', 'decode'],
-        $metadata, $options);
-    }
-
-    /**
      * Procedure that opens a transaction.
      * @param \Google\Protobuf\GPBEmpty $argument input argument
      * @param array $metadata metadata
@@ -534,66 +564,6 @@ class EvitaSessionServiceClient extends \Grpc\BaseStub {
         return $this->_simpleRequest('/io.evitadb.externalApi.grpc.generated.EvitaSessionService/GetTransactionId',
         $argument,
         ['\Wtsvk\EvitaDbClient\Protocol\GrpcTransactionResponse', 'decode'],
-        $metadata, $options);
-    }
-
-    /**
-     * Procedure that returns the version of the catalog at a specific moment in time.
-     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcCatalogVersionAtRequest $argument input argument
-     * @param array $metadata metadata
-     * @param array $options call options
-     * @return \Grpc\UnaryCall
-     */
-    public function GetCatalogVersionAt(\Wtsvk\EvitaDbClient\Protocol\GrpcCatalogVersionAtRequest $argument,
-      $metadata = [], $options = []) {
-        return $this->_simpleRequest('/io.evitadb.externalApi.grpc.generated.EvitaSessionService/GetCatalogVersionAt',
-        $argument,
-        ['\Wtsvk\EvitaDbClient\Protocol\GrpcCatalogVersionAtResponse', 'decode'],
-        $metadata, $options);
-    }
-
-    /**
-     * Procedure that returns requested page of past mutations in reversed order that match the request criteria.
-     * @param \Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryPageRequest $argument input argument
-     * @param array $metadata metadata
-     * @param array $options call options
-     * @return \Grpc\UnaryCall
-     */
-    public function GetMutationsHistoryPage(\Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryPageRequest $argument,
-      $metadata = [], $options = []) {
-        return $this->_simpleRequest('/io.evitadb.externalApi.grpc.generated.EvitaSessionService/GetMutationsHistoryPage',
-        $argument,
-        ['\Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryPageResponse', 'decode'],
-        $metadata, $options);
-    }
-
-    /**
-     * Procedure that returns stream of all past mutations in reversed order that match the request criteria.
-     * @param \Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryRequest $argument input argument
-     * @param array $metadata metadata
-     * @param array $options call options
-     * @return \Grpc\ServerStreamingCall
-     */
-    public function GetMutationsHistory(\Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryRequest $argument,
-      $metadata = [], $options = []) {
-        return $this->_serverStreamRequest('/io.evitadb.externalApi.grpc.generated.EvitaSessionService/GetMutationsHistory',
-        $argument,
-        ['\Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryResponse', 'decode'],
-        $metadata, $options);
-    }
-
-    /**
-     * Procedure that returns details of a specific transactions that move catalog to specified versions.
-     * @param \Wtsvk\EvitaDbClient\Protocol\GetTransactionOverviewRequest $argument input argument
-     * @param array $metadata metadata
-     * @param array $options call options
-     * @return \Grpc\UnaryCall
-     */
-    public function GetTransactionOverview(\Wtsvk\EvitaDbClient\Protocol\GetTransactionOverviewRequest $argument,
-      $metadata = [], $options = []) {
-        return $this->_simpleRequest('/io.evitadb.externalApi.grpc.generated.EvitaSessionService/GetTransactionOverview',
-        $argument,
-        ['\Wtsvk\EvitaDbClient\Protocol\GetTransactionOverviewResponse', 'decode'],
         $metadata, $options);
     }
 

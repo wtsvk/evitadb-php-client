@@ -16,7 +16,6 @@ class GrpcHistogramBehavior
 {
     /**
      * Histogram always contains the number of buckets you asked for. This is the default behaviour.
-     * Bucket boundaries are positioned at equal intervals across the value range.
      *
      * Generated from protobuf enum <code>STANDARD = 0;</code>
      */
@@ -25,33 +24,14 @@ class GrpcHistogramBehavior
      * Histogram will never contain more buckets than you asked for, but may contain less when the data is scarce and
      * there would be big gaps (empty buckets) between buckets. This leads to more compact histograms, which provide
      * better user experience.
-     * Bucket boundaries are positioned at equal intervals across the value range.
      *
      * Generated from protobuf enum <code>OPTIMIZED = 1;</code>
      */
     const OPTIMIZED = 1;
-    /**
-     * Histogram always contains the number of buckets you asked for.
-     * Bucket boundaries are positioned based on cumulative frequency distribution, so each bucket covers
-     * approximately equal portion of total records.
-     *
-     * Generated from protobuf enum <code>EQUALIZED = 2;</code>
-     */
-    const EQUALIZED = 2;
-    /**
-     * Histogram will never contain more buckets than you asked for, but may contain less when the data is scarce.
-     * Bucket boundaries are positioned based on cumulative frequency distribution, so each bucket covers
-     * approximately equal portion of total records.
-     *
-     * Generated from protobuf enum <code>EQUALIZED_OPTIMIZED = 3;</code>
-     */
-    const EQUALIZED_OPTIMIZED = 3;
 
     private static $valueToName = [
         self::STANDARD => 'STANDARD',
         self::OPTIMIZED => 'OPTIMIZED',
-        self::EQUALIZED => 'EQUALIZED',
-        self::EQUALIZED_OPTIMIZED => 'EQUALIZED_OPTIMIZED',
     ];
 
     public static function name($value)

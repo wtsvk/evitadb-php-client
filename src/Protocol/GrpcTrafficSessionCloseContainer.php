@@ -45,12 +45,6 @@ class GrpcTrafficSessionCloseContainer extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>int32 mutationCount = 5;</code>
      */
     protected $mutationCount = 0;
-    /**
-     * The number of traffic records that were missed due to buffer overflow.
-     *
-     * Generated from protobuf field <code>int32 trafficRecordsMissedOut = 6;</code>
-     */
-    protected $trafficRecordsMissedOut = 0;
 
     /**
      * Constructor.
@@ -68,8 +62,6 @@ class GrpcTrafficSessionCloseContainer extends \Google\Protobuf\Internal\Message
      *           The overall number of entities fetched in this session (excluding the entities fetched by queries).
      *     @type int $mutationCount
      *           The overall number of mutations executed in this session.
-     *     @type int $trafficRecordsMissedOut
-     *           The number of traffic records that were missed due to buffer overflow.
      * }
      */
     public function __construct($data = NULL) {
@@ -203,32 +195,6 @@ class GrpcTrafficSessionCloseContainer extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkInt32($var);
         $this->mutationCount = $var;
-
-        return $this;
-    }
-
-    /**
-     * The number of traffic records that were missed due to buffer overflow.
-     *
-     * Generated from protobuf field <code>int32 trafficRecordsMissedOut = 6;</code>
-     * @return int
-     */
-    public function getTrafficRecordsMissedOut()
-    {
-        return $this->trafficRecordsMissedOut;
-    }
-
-    /**
-     * The number of traffic records that were missed due to buffer overflow.
-     *
-     * Generated from protobuf field <code>int32 trafficRecordsMissedOut = 6;</code>
-     * @param int $var
-     * @return $this
-     */
-    public function setTrafficRecordsMissedOut($var)
-    {
-        GPBUtil::checkInt32($var);
-        $this->trafficRecordsMissedOut = $var;
 
         return $this;
     }

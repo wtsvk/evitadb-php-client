@@ -34,16 +34,6 @@ class GrpcBucket extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>bool requested = 4;</code>
      */
     protected $requested = false;
-    /**
-     * Relative frequency value used for visualization purposes.
-     * For standard histograms: percentage of total occurrences (0-100).
-     * For equalized histograms: normalized value density (0-100) accounting for both
-     * occurrences and bucket width, scaled so all buckets sum to 100. Higher values
-     * indicate denser data concentration in this bucket.
-     *
-     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal relativeFrequency = 5;</code>
-     */
-    protected $relativeFrequency = null;
 
     /**
      * Constructor.
@@ -58,12 +48,6 @@ class GrpcBucket extends \Google\Protobuf\Internal\Message
      *           between previous bucket threshold (exclusive) and this bucket threshold (inclusive)
      *     @type bool $requested
      *           Contains true if the `bucket` is overlapping the attribute between filtering constraint
-     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal $relativeFrequency
-     *           Relative frequency value used for visualization purposes.
-     *           For standard histograms: percentage of total occurrences (0-100).
-     *           For equalized histograms: normalized value density (0-100) accounting for both
-     *           occurrences and bucket width, scaled so all buckets sum to 100. Higher values
-     *           indicate denser data concentration in this bucket.
      * }
      */
     public function __construct($data = NULL) {
@@ -157,50 +141,6 @@ class GrpcBucket extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkBool($var);
         $this->requested = $var;
-
-        return $this;
-    }
-
-    /**
-     * Relative frequency value used for visualization purposes.
-     * For standard histograms: percentage of total occurrences (0-100).
-     * For equalized histograms: normalized value density (0-100) accounting for both
-     * occurrences and bucket width, scaled so all buckets sum to 100. Higher values
-     * indicate denser data concentration in this bucket.
-     *
-     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal relativeFrequency = 5;</code>
-     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal|null
-     */
-    public function getRelativeFrequency()
-    {
-        return $this->relativeFrequency;
-    }
-
-    public function hasRelativeFrequency()
-    {
-        return isset($this->relativeFrequency);
-    }
-
-    public function clearRelativeFrequency()
-    {
-        unset($this->relativeFrequency);
-    }
-
-    /**
-     * Relative frequency value used for visualization purposes.
-     * For standard histograms: percentage of total occurrences (0-100).
-     * For equalized histograms: normalized value density (0-100) accounting for both
-     * occurrences and bucket width, scaled so all buckets sum to 100. Higher values
-     * indicate denser data concentration in this bucket.
-     *
-     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal relativeFrequency = 5;</code>
-     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal $var
-     * @return $this
-     */
-    public function setRelativeFrequency($var)
-    {
-        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal::class);
-        $this->relativeFrequency = $var;
 
         return $this;
     }
