@@ -21,13 +21,6 @@ class GrpcCatalogVersionAtRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime theMoment = 1;</code>
      */
     protected $theMoment = null;
-    /**
-     * Signalizes whether the returned version should be the closest one before the specified moment
-     * or the closest one after the specified moment
-     *
-     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTimeFlow timeFlow = 2;</code>
-     */
-    protected $timeFlow = 0;
 
     /**
      * Constructor.
@@ -37,9 +30,6 @@ class GrpcCatalogVersionAtRequest extends \Google\Protobuf\Internal\Message
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $theMoment
      *           Chosen moment in time for which the version of the catalog should be returned.
-     *     @type int $timeFlow
-     *           Signalizes whether the returned version should be the closest one before the specified moment
-     *           or the closest one after the specified moment
      * }
      */
     public function __construct($data = NULL) {
@@ -79,34 +69,6 @@ class GrpcCatalogVersionAtRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime::class);
         $this->theMoment = $var;
-
-        return $this;
-    }
-
-    /**
-     * Signalizes whether the returned version should be the closest one before the specified moment
-     * or the closest one after the specified moment
-     *
-     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTimeFlow timeFlow = 2;</code>
-     * @return int
-     */
-    public function getTimeFlow()
-    {
-        return $this->timeFlow;
-    }
-
-    /**
-     * Signalizes whether the returned version should be the closest one before the specified moment
-     * or the closest one after the specified moment
-     *
-     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTimeFlow timeFlow = 2;</code>
-     * @param int $var
-     * @return $this
-     */
-    public function setTimeFlow($var)
-    {
-        GPBUtil::checkEnum($var, \Wtsvk\EvitaDbClient\Protocol\GrpcTimeFlow::class);
-        $this->timeFlow = $var;
 
         return $this;
     }

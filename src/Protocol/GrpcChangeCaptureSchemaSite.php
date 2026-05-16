@@ -33,12 +33,6 @@ class GrpcChangeCaptureSchemaSite extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureContainerType containerType = 3;</code>
      */
     private $containerType;
-    /**
-     * the name of the container (e.g. attribute name, associated data name, reference name)
-     *
-     * Generated from protobuf field <code>repeated string containerName = 4;</code>
-     */
-    private $containerName;
 
     /**
      * Constructor.
@@ -52,8 +46,6 @@ class GrpcChangeCaptureSchemaSite extends \Google\Protobuf\Internal\Message
      *           The intercepted type of operation
      *     @type array<int>|\Google\Protobuf\Internal\RepeatedField $containerType
      *           the name of the intercepted container type
-     *     @type array<string>|\Google\Protobuf\Internal\RepeatedField $containerName
-     *           the name of the container (e.g. attribute name, associated data name, reference name)
      * }
      */
     public function __construct($data = NULL) {
@@ -172,32 +164,6 @@ class GrpcChangeCaptureSchemaSite extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Wtsvk\EvitaDbClient\Protocol\GrpcChangeCaptureContainerType::class);
         $this->containerType = $arr;
-
-        return $this;
-    }
-
-    /**
-     * the name of the container (e.g. attribute name, associated data name, reference name)
-     *
-     * Generated from protobuf field <code>repeated string containerName = 4;</code>
-     * @return \Google\Protobuf\Internal\RepeatedField
-     */
-    public function getContainerName()
-    {
-        return $this->containerName;
-    }
-
-    /**
-     * the name of the container (e.g. attribute name, associated data name, reference name)
-     *
-     * Generated from protobuf field <code>repeated string containerName = 4;</code>
-     * @param array<string>|\Google\Protobuf\Internal\RepeatedField $var
-     * @return $this
-     */
-    public function setContainerName($var)
-    {
-        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
-        $this->containerName = $arr;
 
         return $this;
     }
