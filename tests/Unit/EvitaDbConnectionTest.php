@@ -194,11 +194,12 @@ final class EvitaDbConnectionTest extends TestCase
         $this->connection->deleteCatalog('testCatalog');
     }
 
-    public function testCatalogReturnsClient(): void
+    public function testCatalogReturnsFreshClientPerCall(): void
     {
-        $this->expectNotToPerformAssertions();
-
-        $this->connection->catalog('testCatalog');
+        $this->assertNotSame(
+            $this->connection->catalog('testCatalog'),
+            $this->connection->catalog('testCatalog'),
+        );
     }
 
     private function mockGoLiveAndClose(): void
