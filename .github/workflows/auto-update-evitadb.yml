@@ -109,8 +109,22 @@ jobs:
               chown -R "$HOST_UID:$HOST_GID" proto/ src/Protocol/
             '
 
-      - name: Open PR
+      - name: Check for proto/stub changes
+        id: changes
         if: steps.latest.outputs.version != steps.current.outputs.version && steps.pr_check.outputs.exists == 'false'
+        # composer.json and README.md are always touched by the earlier steps — only
+        # regenerated protos/stubs make the new EvitaDB version worth a PR. Without a
+        # gRPC API change the current package works with the new server as-is.
+        run: |
+          if git status --porcelain proto/ src/Protocol/ | grep -q .; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No proto/stub changes for ${{ steps.latest.outputs.version }} — skipping PR."
+          fi
+
+      - name: Open PR
+        if: steps.latest.outputs.version != steps.current.outputs.version && steps.pr_check.outputs.exists == 'false' && steps.changes.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
