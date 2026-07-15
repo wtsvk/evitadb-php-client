@@ -29,8 +29,6 @@ use Wtsvk\EvitaDbClient\Protocol\GrpcUpsertEntityRequest;
 use Wtsvk\EvitaDbClient\Protocol\GrpcUpsertEntityResponse;
 use Wtsvk\EvitaDbClient\Transaction\ReadWriteSessionScopedContext;
 
-use function str_contains;
-
 use const Grpc\STATUS_OK;
 
 #[RequiresPhpExtension('grpc')]
@@ -339,7 +337,8 @@ final class ReadWriteSessionScopedContextTest extends TestCase
                 static::callback(static function (mixed $request): bool {
                     Assert::isInstanceOf($request, GrpcEntityRequest::class);
 
-                    return str_contains($request->getRequire(), 'attributeContent(?)');
+                    // GetEntity accepts bare content requires only — no entityFetch() wrapper.
+                    return $request->getRequire() === 'attributeContent(?)';
                 }),
                 static::anything(),
             )
@@ -374,7 +373,8 @@ final class ReadWriteSessionScopedContextTest extends TestCase
                 static::callback(static function (mixed $request): bool {
                     Assert::isInstanceOf($request, GrpcUpsertEntityRequest::class);
 
-                    return str_contains($request->getRequire(), 'attributeContentAll()');
+                    // UpsertEntity accepts bare content requires only — no entityFetch() wrapper.
+                    return $request->getRequire() === 'attributeContentAll()';
                 }),
                 static::anything(),
             )

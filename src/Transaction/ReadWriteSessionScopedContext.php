@@ -102,7 +102,7 @@ final readonly class ReadWriteSessionScopedContext implements WriteTransactionCo
         $request->setEntityMutation($entityMutation);
 
         if ($require !== null) {
-            $request->setRequire($require->toEvitaQL());
+            $request->setRequire($require->toEvitaQLContent());
         }
 
         [$response, $rawStatus] = $this->sessionService
