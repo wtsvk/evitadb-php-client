@@ -103,6 +103,10 @@ final readonly class ReadWriteSessionScopedContext implements WriteTransactionCo
 
         if ($require !== null) {
             $request->setRequire($require->toEvitaQLContent());
+            $requireParams = $require->getParams();
+            if ($requireParams !== []) {
+                $request->setPositionalQueryParams($requireParams);
+            }
         }
 
         [$response, $rawStatus] = $this->sessionService

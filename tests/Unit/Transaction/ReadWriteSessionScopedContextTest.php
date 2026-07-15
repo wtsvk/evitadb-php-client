@@ -22,12 +22,16 @@ use Wtsvk\EvitaDbClient\Protocol\GrpcEntityReference;
 use Wtsvk\EvitaDbClient\Protocol\GrpcEntityRequest;
 use Wtsvk\EvitaDbClient\Protocol\GrpcEntityResponse;
 use Wtsvk\EvitaDbClient\Protocol\GrpcEntityUpsertMutation;
+use Wtsvk\EvitaDbClient\Protocol\GrpcQueryParam;
 use Wtsvk\EvitaDbClient\Protocol\GrpcQueryRequest;
 use Wtsvk\EvitaDbClient\Protocol\GrpcQueryResponse;
 use Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity;
 use Wtsvk\EvitaDbClient\Protocol\GrpcUpsertEntityRequest;
 use Wtsvk\EvitaDbClient\Protocol\GrpcUpsertEntityResponse;
 use Wtsvk\EvitaDbClient\Transaction\ReadWriteSessionScopedContext;
+
+use function count;
+use function iterator_to_array;
 
 use const Grpc\STATUS_OK;
 
@@ -389,6 +393,46 @@ final class ReadWriteSessionScopedContextTest extends TestCase
         $context->upsert(
             upsertMutation: new GrpcEntityUpsertMutation(),
             require: (new EntityFetch())->attributeContentAll(),
+        );
+    }
+
+    public function testUpsertWithParameterizedEntityFetchSetsPositionalParams(): void
+    {
+        $upsertResponse = new GrpcUpsertEntityResponse();
+        $ref = new GrpcEntityReference();
+        $ref->setPrimaryKey(1);
+        $upsertResponse->setEntityReference($ref);
+
+        /** @var EvitaSessionServiceClient&MockObject $mock */
+        $mock = static::createMock(EvitaSessionServiceClient::class);
+        $mock
+            ->expects(static::once())
+            ->method('UpsertEntity')
+            ->with(
+                static::callback(static function (mixed $request): bool {
+                    Assert::isInstanceOf($request, GrpcUpsertEntityRequest::class);
+
+                    /** @var list<GrpcQueryParam> $params */
+                    $params = iterator_to_array($request->getPositionalQueryParams());
+
+                    // Every ? placeholder in require must have a matching positional param.
+                    return $request->getRequire() === 'attributeContent(?)'
+                        && count($params) === 1
+                        && $params[0]->getStringValue() === 'name';
+                }),
+                static::anything(),
+            )
+            ->willReturn($this->createUnaryCall($upsertResponse, STATUS_OK));
+
+        $context = new ReadWriteSessionScopedContext(
+            sessionService: $mock,
+            sessionId: self::SESSION_ID,
+            catalog: self::CATALOG,
+        );
+
+        $context->upsert(
+            upsertMutation: new GrpcEntityUpsertMutation(),
+            require: (new EntityFetch())->attributeContent('name'),
         );
     }
 
