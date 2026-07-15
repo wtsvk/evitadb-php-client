@@ -198,7 +198,7 @@ trait SessionScopedReads
         $request->setPrimaryKey($primaryKey);
 
         if ($require !== null) {
-            $request->setRequire($require->toEvitaQL());
+            $request->setRequire($require->toEvitaQLContent());
             $requireParams = $require->getParams();
             if ($requireParams !== []) {
                 $request->setPositionalQueryParams($requireParams);

@@ -162,6 +162,40 @@ final class EntityFetchTest extends TestCase
         $this->assertSame([], $fetch->getParams());
     }
 
+    public function testToEvitaQLWrapsContentInEntityFetch(): void
+    {
+        $fetch = (new EntityFetch())
+            ->attributeContent('name')
+            ->priceContentAll();
+
+        $this->assertSame(
+            'entityFetch(attributeContent(?), priceContentAll())',
+            $fetch->toEvitaQL(),
+        );
+    }
+
+    public function testToEvitaQLContentRendersWithoutWrapper(): void
+    {
+        $fetch = (new EntityFetch())
+            ->attributeContent('name')
+            ->priceContentAll();
+
+        $ql = $fetch->toEvitaQLContent();
+        $params = $fetch->getParams();
+
+        $this->assertSame('attributeContent(?), priceContentAll()', $ql);
+        $this->assertCount(1, $params);
+        $this->assertSame('name', $params[0]->getStringValue());
+    }
+
+    public function testEmptyToEvitaQLContentRendersEmptyString(): void
+    {
+        $fetch = new EntityFetch();
+
+        $this->assertSame('', $fetch->toEvitaQLContent());
+        $this->assertSame([], $fetch->getParams());
+    }
+
     public function testInvalidAttributeNameThrows(): void
     {
         $this->expectException(InvalidArgumentException::class);

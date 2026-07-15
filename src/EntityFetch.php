@@ -59,8 +59,8 @@ final class EntityFetch
     private array $dataInLocales = [];
 
     /**
-     * Positional query params collected during toEvitaQL() rendering.
-     * Reset on every toEvitaQL() call so the same instance can be re-rendered.
+     * Positional query params collected during toEvitaQL() / toEvitaQLContent() rendering.
+     * Reset on every render call so the same instance can be re-rendered.
      *
      * @var list<GrpcQueryParam>
      */
@@ -171,10 +171,23 @@ final class EntityFetch
     }
 
     /**
-     * @internal Renders to EvitaQL string with ? placeholders for the gRPC layer.
+     * @internal Renders to EvitaQL string with ? placeholders for the gRPC layer,
+     *           wrapped in entityFetch() for use inside a full query's require(...).
      *           Call getParams() after this to obtain the matching positional params.
      */
     public function toEvitaQL(): string
+    {
+        return 'entityFetch(' . $this->toEvitaQLContent() . ')';
+    }
+
+    /**
+     * @internal Renders only the inner content constraints (no entityFetch() wrapper)
+     *           for endpoints like GetEntity or UpsertEntity whose require field accepts
+     *           bare content require constraints only — the wrapped form is rejected with
+     *           "Only content require constraints are supported".
+     *           Call getParams() after this to obtain the matching positional params.
+     */
+    public function toEvitaQLContent(): string
     {
         $this->params = [];
         $parts = [];
@@ -213,11 +226,11 @@ final class EntityFetch
             $parts[] = 'dataInLocales(' . $this->placeholders($this->dataInLocales) . ')';
         }
 
-        return 'entityFetch(' . implode(', ', $parts) . ')';
+        return implode(', ', $parts);
     }
 
     /**
-     * @internal Returns positional params collected during the last toEvitaQL() call.
+     * @internal Returns positional params collected during the last render call.
      *
      * @return list<GrpcQueryParam>
      */
