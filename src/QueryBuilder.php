@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Wtsvk\EvitaDbClient;
 
 use DateTimeInterface;
+use Google\Protobuf\Timestamp;
 use Webmozart\Assert\Assert;
 use Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal;
 use Wtsvk\EvitaDbClient\Protocol\GrpcIntegerArray;
+use Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime;
+use Wtsvk\EvitaDbClient\Protocol\GrpcOrderDirection;
 use Wtsvk\EvitaDbClient\Protocol\GrpcQueryParam;
 use Wtsvk\EvitaDbClient\Protocol\GrpcQueryRequest;
 
@@ -231,7 +234,7 @@ final class QueryBuilder
     public function filterPriceValidIn(DateTimeInterface $moment): static
     {
         $this->filterParts[] = 'priceValidIn(?)';
-        $this->params[] = $this->paramString($moment->format('Y-m-d\TH:i:sP'));
+        $this->params[] = $this->paramOffsetDateTime($moment);
 
         return $this;
     }
@@ -240,15 +243,17 @@ final class QueryBuilder
     {
         self::assertValidName($name);
 
-        $this->orderParts[] = 'attributeNatural(?, ' . $direction->value . ')';
+        $this->orderParts[] = 'attributeNatural(?, ?)';
         $this->orderParams[] = $this->paramString($name);
+        $this->orderParams[] = $this->paramOrderDirection($direction);
 
         return $this;
     }
 
     public function orderByPriceNatural(SortDirection $direction = SortDirection::Asc): static
     {
-        $this->orderParts[] = 'priceNatural(' . $direction->value . ')';
+        $this->orderParts[] = 'priceNatural(?)';
+        $this->orderParams[] = $this->paramOrderDirection($direction);
 
         return $this;
     }
@@ -339,6 +344,40 @@ final class QueryBuilder
 
         $param = new GrpcQueryParam();
         $param->setIntegerArrayValue($array);
+
+        return $param;
+    }
+
+    /**
+     * Enum literals (ASC/DESC) are forbidden by the SAFE-mode EvitaQL parser just like
+     * string literals, so the direction must travel as a typed positional param.
+     */
+    private function paramOrderDirection(SortDirection $direction): GrpcQueryParam
+    {
+        $param = new GrpcQueryParam();
+        $param->setOrderDirectionValue(match ($direction) {
+            SortDirection::Asc => GrpcOrderDirection::ASC,
+            SortDirection::Desc => GrpcOrderDirection::DESC,
+        });
+
+        return $param;
+    }
+
+    /**
+     * priceValidIn() expects an OffsetDateTime — the server does not coerce plain strings,
+     * so the moment is sent as GrpcOffsetDateTime (absolute instant + zone offset).
+     */
+    private function paramOffsetDateTime(DateTimeInterface $moment): GrpcQueryParam
+    {
+        $timestamp = new Timestamp();
+        $timestamp->setSeconds($moment->getTimestamp());
+
+        $offsetDateTime = new GrpcOffsetDateTime();
+        $offsetDateTime->setTimestamp($timestamp);
+        $offsetDateTime->setOffset($moment->format('P'));
+
+        $param = new GrpcQueryParam();
+        $param->setOffsetDateTimeValue($offsetDateTime);
 
         return $param;
     }

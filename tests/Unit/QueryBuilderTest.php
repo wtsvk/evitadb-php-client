@@ -10,6 +10,7 @@ use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use PHPUnit\Framework\TestCase;
 use Webmozart\Assert\Assert;
 use Wtsvk\EvitaDbClient\EntityFetch;
+use Wtsvk\EvitaDbClient\Protocol\GrpcOrderDirection;
 use Wtsvk\EvitaDbClient\Protocol\GrpcQueryParam;
 use Wtsvk\EvitaDbClient\QueryBuilder;
 use Wtsvk\EvitaDbClient\SortDirection;
@@ -282,7 +283,7 @@ final class QueryBuilderTest extends TestCase
         $this->assertStringContainsString('entityPrimaryKeyInSet(?)', $request->getQuery());
     }
 
-    public function testFilterPriceValidIn(): void
+    public function testFilterPriceValidInSendsOffsetDateTimeParam(): void
     {
         $moment = new DateTimeImmutable('2024-06-15T12:00:00+02:00');
         $request = (new QueryBuilder('Product'))
@@ -290,6 +291,17 @@ final class QueryBuilderTest extends TestCase
             ->build();
 
         $this->assertStringContainsString('priceValidIn(?)', $request->getQuery());
+
+        /** @var list<GrpcQueryParam> $params */
+        $params = iterator_to_array($request->getPositionalQueryParams());
+        Assert::count($params, 4);
+
+        $offsetDateTime = $params[1]->getOffsetDateTimeValue();
+        $this->assertNotNull($offsetDateTime);
+        $timestamp = $offsetDateTime->getTimestamp();
+        $this->assertNotNull($timestamp);
+        $this->assertSame($moment->getTimestamp(), $timestamp->getSeconds());
+        $this->assertSame('+02:00', $offsetDateTime->getOffset());
     }
 
     public function testOrderByAttributeNatural(): void
@@ -298,8 +310,13 @@ final class QueryBuilderTest extends TestCase
             ->orderByAttributeNatural('name', SortDirection::Desc)
             ->build();
 
-        $this->assertStringContainsString('orderBy(attributeNatural(?, DESC))', $request->getQuery());
-        $this->assertCount(4, iterator_to_array($request->getPositionalQueryParams()));
+        $this->assertStringContainsString('orderBy(attributeNatural(?, ?))', $request->getQuery());
+
+        /** @var list<GrpcQueryParam> $params */
+        $params = iterator_to_array($request->getPositionalQueryParams());
+        Assert::count($params, 5);
+        $this->assertSame('name', $params[1]->getStringValue());
+        $this->assertSame(GrpcOrderDirection::DESC, $params[2]->getOrderDirectionValue());
     }
 
     public function testOrderByPriceNatural(): void
@@ -308,7 +325,12 @@ final class QueryBuilderTest extends TestCase
             ->orderByPriceNatural(SortDirection::Asc)
             ->build();
 
-        $this->assertStringContainsString('orderBy(priceNatural(ASC))', $request->getQuery());
+        $this->assertStringContainsString('orderBy(priceNatural(?))', $request->getQuery());
+
+        /** @var list<GrpcQueryParam> $params */
+        $params = iterator_to_array($request->getPositionalQueryParams());
+        Assert::count($params, 4);
+        $this->assertSame(GrpcOrderDirection::ASC, $params[1]->getOrderDirectionValue());
     }
 
     public function testMultipleOrderClauses(): void
@@ -319,9 +341,14 @@ final class QueryBuilderTest extends TestCase
             ->build();
 
         $query = $request->getQuery();
-        $this->assertStringContainsString('attributeNatural(?, ASC)', $query);
-        $this->assertStringContainsString('priceNatural(DESC)', $query);
-        $this->assertCount(4, iterator_to_array($request->getPositionalQueryParams()));
+        $this->assertStringContainsString('attributeNatural(?, ?)', $query);
+        $this->assertStringContainsString('priceNatural(?)', $query);
+
+        /** @var list<GrpcQueryParam> $params */
+        $params = iterator_to_array($request->getPositionalQueryParams());
+        Assert::count($params, 6);
+        $this->assertSame(GrpcOrderDirection::ASC, $params[2]->getOrderDirectionValue());
+        $this->assertSame(GrpcOrderDirection::DESC, $params[3]->getOrderDirectionValue());
     }
 
     public function testWithEntityFetchOverridesDefault(): void
@@ -366,6 +393,8 @@ final class QueryBuilderTest extends TestCase
         $this->assertStringNotContainsString("'", $query);
         $this->assertStringNotContainsString('"', $query);
         $this->assertDoesNotMatchRegularExpression('/\bpage\(\d/', $query);
+        // Enum literals are rejected by the SAFE-mode parser just like string literals.
+        $this->assertDoesNotMatchRegularExpression('/\b(ASC|DESC)\b/', $query);
     }
 
     public function testPositionalParamOrderMatchesPlaceholders(): void
@@ -380,15 +409,16 @@ final class QueryBuilderTest extends TestCase
 
         /** @var list<GrpcQueryParam> $params */
         $params = iterator_to_array($request->getPositionalQueryParams());
-        Assert::count($params, 8);
+        Assert::count($params, 9);
 
         $this->assertSame('Product', $params[0]->getStringValue());
         $this->assertSame('en', $params[1]->getStringValue());
         $this->assertSame('code', $params[2]->getStringValue());
         $this->assertSame('ABC', $params[3]->getStringValue());
         $this->assertSame('name', $params[4]->getStringValue());
-        $this->assertSame('url', $params[5]->getStringValue());
-        $this->assertSame(3, $params[6]->getIntegerValue());
-        $this->assertSame(15, $params[7]->getIntegerValue());
+        $this->assertSame(GrpcOrderDirection::ASC, $params[5]->getOrderDirectionValue());
+        $this->assertSame('url', $params[6]->getStringValue());
+        $this->assertSame(3, $params[7]->getIntegerValue());
+        $this->assertSame(15, $params[8]->getIntegerValue());
     }
 }
