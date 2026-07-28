@@ -34,6 +34,14 @@ class GrpcRegisterSystemChangeCaptureRequest extends \Google\Protobuf\Internal\M
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureContent content = 3;</code>
      */
     protected $content = 0;
+    /**
+     * OR-ed criteria for the capture. When empty, defaults to ENGINE only on the system stream
+     * (NOTE: this differs from the catalog stream, which defaults to all areas including
+     * INFRASTRUCTURE). HOST on the system stream requires explicit opt-in.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeSystemCaptureCriteria criteria = 4;</code>
+     */
+    private $criteria;
 
     /**
      * Constructor.
@@ -48,6 +56,10 @@ class GrpcRegisterSystemChangeCaptureRequest extends \Google\Protobuf\Internal\M
      *     @type int $content
      *           Requested content of the capture - i.e. whether client wants to receive only the simple notification about the change
      *           or whether he wants to receive the full content of the change
+     *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcChangeSystemCaptureCriteria>|\Google\Protobuf\Internal\RepeatedField $criteria
+     *           OR-ed criteria for the capture. When empty, defaults to ENGINE only on the system stream
+     *           (NOTE: this differs from the catalog stream, which defaults to all areas including
+     *           INFRASTRUCTURE). HOST on the system stream requires explicit opt-in.
      * }
      */
     public function __construct($data = NULL) {
@@ -205,6 +217,36 @@ class GrpcRegisterSystemChangeCaptureRequest extends \Google\Protobuf\Internal\M
     {
         GPBUtil::checkEnum($var, \Wtsvk\EvitaDbClient\Protocol\GrpcChangeCaptureContent::class);
         $this->content = $var;
+
+        return $this;
+    }
+
+    /**
+     * OR-ed criteria for the capture. When empty, defaults to ENGINE only on the system stream
+     * (NOTE: this differs from the catalog stream, which defaults to all areas including
+     * INFRASTRUCTURE). HOST on the system stream requires explicit opt-in.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeSystemCaptureCriteria criteria = 4;</code>
+     * @return \Google\Protobuf\Internal\RepeatedField
+     */
+    public function getCriteria()
+    {
+        return $this->criteria;
+    }
+
+    /**
+     * OR-ed criteria for the capture. When empty, defaults to ENGINE only on the system stream
+     * (NOTE: this differs from the catalog stream, which defaults to all areas including
+     * INFRASTRUCTURE). HOST on the system stream requires explicit opt-in.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeSystemCaptureCriteria criteria = 4;</code>
+     * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcChangeSystemCaptureCriteria>|\Google\Protobuf\Internal\RepeatedField $var
+     * @return $this
+     */
+    public function setCriteria($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcChangeSystemCaptureCriteria::class);
+        $this->criteria = $arr;
 
         return $this;
     }

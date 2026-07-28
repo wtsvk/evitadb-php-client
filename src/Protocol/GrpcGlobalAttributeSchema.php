@@ -172,6 +172,13 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedGlobalAttributeUniquenessType uniqueGloballyInScopes = 18;</code>
      */
     private $uniqueGloballyInScopes;
+    /**
+     * Contains the per-attribute override of the conflict resolution granularity. Defaults to inherited (follow the
+     * resolved conflict resolution).
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 19;</code>
+     */
+    protected $conflictResolutionOverride = 0;
 
     /**
      * Constructor.
@@ -252,6 +259,9 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
      *           entity having certain value of this attribute in entire catalog.
      *           As an example of unique attribute can be URL - there is no sense in having two entities with same URL, and it's
      *           better to have this ensured by the database engine.
+     *     @type int $conflictResolutionOverride
+     *           Contains the per-attribute override of the conflict resolution granularity. Defaults to inherited (follow the
+     *           resolved conflict resolution).
      * }
      */
     public function __construct($data = NULL) {
@@ -895,6 +905,34 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcScopedGlobalAttributeUniquenessType::class);
         $this->uniqueGloballyInScopes = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Contains the per-attribute override of the conflict resolution granularity. Defaults to inherited (follow the
+     * resolved conflict resolution).
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 19;</code>
+     * @return int
+     */
+    public function getConflictResolutionOverride()
+    {
+        return $this->conflictResolutionOverride;
+    }
+
+    /**
+     * Contains the per-attribute override of the conflict resolution granularity. Defaults to inherited (follow the
+     * resolved conflict resolution).
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 19;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setConflictResolutionOverride($var)
+    {
+        GPBUtil::checkEnum($var, \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolutionOverride::class);
+        $this->conflictResolutionOverride = $var;
 
         return $this;
     }

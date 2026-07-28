@@ -201,6 +201,13 @@ class GrpcEntitySchema extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>int64 catalogSchemaVersion = 19;</code>
      */
     protected $catalogSchemaVersion = 0;
+    /**
+     * Contains the entity-level conflict resolution setting. When not set (absent), the entity schema inherits the
+     * resolved conflict resolution from the catalog / transaction options.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolution conflictResolution = 20;</code>
+     */
+    protected $conflictResolution = null;
 
     /**
      * Constructor.
@@ -310,6 +317,9 @@ class GrpcEntitySchema extends \Google\Protobuf\Internal\Message
      *           Prices can be also set as non-indexed individually by setting {&#64;link PriceContract#indexed()} to false.
      *     @type int|string $catalogSchemaVersion
      *           Contains current version of the catalog schema this entity schema belongs to.
+     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolution $conflictResolution
+     *           Contains the entity-level conflict resolution setting. When not set (absent), the entity schema inherits the
+     *           resolved conflict resolution from the catalog / transaction options.
      * }
      */
     public function __construct($data = NULL) {
@@ -1015,6 +1025,44 @@ class GrpcEntitySchema extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkInt64($var);
         $this->catalogSchemaVersion = $var;
+
+        return $this;
+    }
+
+    /**
+     * Contains the entity-level conflict resolution setting. When not set (absent), the entity schema inherits the
+     * resolved conflict resolution from the catalog / transaction options.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolution conflictResolution = 20;</code>
+     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolution|null
+     */
+    public function getConflictResolution()
+    {
+        return $this->conflictResolution;
+    }
+
+    public function hasConflictResolution()
+    {
+        return isset($this->conflictResolution);
+    }
+
+    public function clearConflictResolution()
+    {
+        unset($this->conflictResolution);
+    }
+
+    /**
+     * Contains the entity-level conflict resolution setting. When not set (absent), the entity schema inherits the
+     * resolved conflict resolution from the catalog / transaction options.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolution conflictResolution = 20;</code>
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolution $var
+     * @return $this
+     */
+    public function setConflictResolution($var)
+    {
+        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolution::class);
+        $this->conflictResolution = $var;
 
         return $this;
     }

@@ -18,15 +18,16 @@ class GrpcAssociatedDataSchemaMutations
         \GPBMetadata\Google\Protobuf\Wrappers::initOnce();
         $pool->internalAddGeneratedFile(
             '
-Å	
-\'GrpcAssociatedDataSchemaMutations.proto%io.evitadb.externalApi.grpc.generatedgoogle/protobuf/wrappers.proto"¯
+ë
+\'GrpcAssociatedDataSchemaMutations.proto%io.evitadb.externalApi.grpc.generatedgoogle/protobuf/wrappers.proto"š
 &GrpcCreateAssociatedDataSchemaMutation
 name (	1
 description (2.google.protobuf.StringValue7
 deprecationNotice (2.google.protobuf.StringValuef
 type (2X.io.evitadb.externalApi.grpc.generated.GrpcEvitaAssociatedDataDataType.GrpcEvitaDataType
 	localized (
-nullable ("€
+nullable (i
+conflictResolutionOverride (2E.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride"€
 7GrpcModifyAssociatedDataSchemaDeprecationNoticeMutation
 name (	7
 deprecationNotice (2.google.protobuf.StringValue"t
@@ -46,7 +47,10 @@ class GrpcAssociatedDataSchemaMutations
 	localized ("M
 +GrpcSetAssociatedDataSchemaNullableMutation
 name (	
-nullable (BVPªEvitaDBÊWtsvk\\EvitaDbClient\\Protocolâ(Wtsvk\\EvitaDbClient\\Protocol\\GPBMetadatabproto3'
+nullable ("¸
+=GrpcSetAssociatedDataSchemaConflictResolutionOverrideMutation
+name (	i
+conflictResolutionOverride (2E.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverrideBVPªEvitaDBÊWtsvk\\EvitaDbClient\\Protocolâ(Wtsvk\\EvitaDbClient\\Protocol\\GPBMetadatabproto3'
         , true);
 
         static::$is_initialized = true;

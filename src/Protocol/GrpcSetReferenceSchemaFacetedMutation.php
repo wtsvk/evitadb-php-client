@@ -24,7 +24,7 @@ class GrpcSetReferenceSchemaFacetedMutation extends \Google\Protobuf\Internal\Me
     protected $name = '';
     /**
      * Whether the statistics data for this reference should be maintained and this allowing to get
-     * `facetSummary` for this reference or use `facet_{reference name}_inSet`
+     * `referenceSummary` for this reference or use `facet_{reference name}_inSet`
      * filtering query.
      * Do not mark reference as faceted unless you want it among `FacetStatistics`. Each faceted reference
      * occupies (memory/disk) space in the form of index.
@@ -45,7 +45,7 @@ class GrpcSetReferenceSchemaFacetedMutation extends \Google\Protobuf\Internal\Me
     protected $inherited = false;
     /**
      * Whether the statistics data for this reference should be maintained and this allowing to get
-     * `facetSummary` for this reference or use `facet_{reference name}_inSet`
+     * `referenceSummary` for this reference or use `facet_{reference name}_inSet`
      * filtering query.
      * Do not mark reference as faceted unless you want it among `FacetStatistics`. Each faceted reference
      * occupies (memory/disk) space in the form of index.
@@ -54,6 +54,13 @@ class GrpcSetReferenceSchemaFacetedMutation extends \Google\Protobuf\Internal\Me
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEntityScope facetedInScopes = 4;</code>
      */
     private $facetedInScopes;
+    /**
+     * Per-scope expressions that narrow which entities participate in faceting.
+     * When absent (not set), expressions are inherited for reflected references.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedFacetedPartially facetedPartially = 5;</code>
+     */
+    private $facetedPartially;
 
     /**
      * Constructor.
@@ -65,7 +72,7 @@ class GrpcSetReferenceSchemaFacetedMutation extends \Google\Protobuf\Internal\Me
      *           Name of the reference the mutation is targeting.
      *     @type bool $faceted
      *           Whether the statistics data for this reference should be maintained and this allowing to get
-     *           `facetSummary` for this reference or use `facet_{reference name}_inSet`
+     *           `referenceSummary` for this reference or use `facet_{reference name}_inSet`
      *           filtering query.
      *           Do not mark reference as faceted unless you want it among `FacetStatistics`. Each faceted reference
      *           occupies (memory/disk) space in the form of index.
@@ -77,11 +84,14 @@ class GrpcSetReferenceSchemaFacetedMutation extends \Google\Protobuf\Internal\Me
      *           must be left as false. When set to TRUE the value of `faceted` field is ignored.
      *     @type array<int>|\Google\Protobuf\Internal\RepeatedField $facetedInScopes
      *           Whether the statistics data for this reference should be maintained and this allowing to get
-     *           `facetSummary` for this reference or use `facet_{reference name}_inSet`
+     *           `referenceSummary` for this reference or use `facet_{reference name}_inSet`
      *           filtering query.
      *           Do not mark reference as faceted unless you want it among `FacetStatistics`. Each faceted reference
      *           occupies (memory/disk) space in the form of index.
      *           Reference that was marked as faceted is called Facet.
+     *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcScopedFacetedPartially>|\Google\Protobuf\Internal\RepeatedField $facetedPartially
+     *           Per-scope expressions that narrow which entities participate in faceting.
+     *           When absent (not set), expressions are inherited for reflected references.
      * }
      */
     public function __construct($data = NULL) {
@@ -117,7 +127,7 @@ class GrpcSetReferenceSchemaFacetedMutation extends \Google\Protobuf\Internal\Me
 
     /**
      * Whether the statistics data for this reference should be maintained and this allowing to get
-     * `facetSummary` for this reference or use `facet_{reference name}_inSet`
+     * `referenceSummary` for this reference or use `facet_{reference name}_inSet`
      * filtering query.
      * Do not mark reference as faceted unless you want it among `FacetStatistics`. Each faceted reference
      * occupies (memory/disk) space in the form of index.
@@ -136,7 +146,7 @@ class GrpcSetReferenceSchemaFacetedMutation extends \Google\Protobuf\Internal\Me
 
     /**
      * Whether the statistics data for this reference should be maintained and this allowing to get
-     * `facetSummary` for this reference or use `facet_{reference name}_inSet`
+     * `referenceSummary` for this reference or use `facet_{reference name}_inSet`
      * filtering query.
      * Do not mark reference as faceted unless you want it among `FacetStatistics`. Each faceted reference
      * occupies (memory/disk) space in the form of index.
@@ -189,7 +199,7 @@ class GrpcSetReferenceSchemaFacetedMutation extends \Google\Protobuf\Internal\Me
 
     /**
      * Whether the statistics data for this reference should be maintained and this allowing to get
-     * `facetSummary` for this reference or use `facet_{reference name}_inSet`
+     * `referenceSummary` for this reference or use `facet_{reference name}_inSet`
      * filtering query.
      * Do not mark reference as faceted unless you want it among `FacetStatistics`. Each faceted reference
      * occupies (memory/disk) space in the form of index.
@@ -205,7 +215,7 @@ class GrpcSetReferenceSchemaFacetedMutation extends \Google\Protobuf\Internal\Me
 
     /**
      * Whether the statistics data for this reference should be maintained and this allowing to get
-     * `facetSummary` for this reference or use `facet_{reference name}_inSet`
+     * `referenceSummary` for this reference or use `facet_{reference name}_inSet`
      * filtering query.
      * Do not mark reference as faceted unless you want it among `FacetStatistics`. Each faceted reference
      * occupies (memory/disk) space in the form of index.
@@ -219,6 +229,34 @@ class GrpcSetReferenceSchemaFacetedMutation extends \Google\Protobuf\Internal\Me
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Wtsvk\EvitaDbClient\Protocol\GrpcEntityScope::class);
         $this->facetedInScopes = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Per-scope expressions that narrow which entities participate in faceting.
+     * When absent (not set), expressions are inherited for reflected references.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedFacetedPartially facetedPartially = 5;</code>
+     * @return \Google\Protobuf\Internal\RepeatedField
+     */
+    public function getFacetedPartially()
+    {
+        return $this->facetedPartially;
+    }
+
+    /**
+     * Per-scope expressions that narrow which entities participate in faceting.
+     * When absent (not set), expressions are inherited for reflected references.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedFacetedPartially facetedPartially = 5;</code>
+     * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcScopedFacetedPartially>|\Google\Protobuf\Internal\RepeatedField $var
+     * @return $this
+     */
+    public function setFacetedPartially($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcScopedFacetedPartially::class);
+        $this->facetedPartially = $arr;
 
         return $this;
     }

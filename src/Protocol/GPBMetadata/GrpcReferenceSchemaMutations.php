@@ -21,8 +21,8 @@ class GrpcReferenceSchemaMutations
         \GPBMetadata\Google\Protobuf\Wrappers::initOnce();
         $pool->internalAddGeneratedFile(
             '
-Ö
-"GrpcReferenceSchemaMutations.proto%io.evitadb.externalApi.grpc.generatedGrpcEvitaDataTypes.proto"GrpcAttributeSchemaMutations.proto2GrpcSortableAttributeCompoundSchemaMutations.protogoogle/protobuf/wrappers.proto"¾
+í(
+"GrpcReferenceSchemaMutations.proto%io.evitadb.externalApi.grpc.generatedGrpcEvitaDataTypes.proto"GrpcAttributeSchemaMutations.proto2GrpcSortableAttributeCompoundSchemaMutations.protogoogle/protobuf/wrappers.proto"À	
 !GrpcCreateReferenceSchemaMutation
 name (	1
 description (2.google.protobuf.StringValue7
@@ -38,7 +38,12 @@ filterable	 (B
  (BS
 indexedInScopes (26.io.evitadb.externalApi.grpc.generated.GrpcEntityScopeBO
 facetedInScopes (26.io.evitadb.externalApi.grpc.generated.GrpcEntityScope]
-scopedIndexTypes (2C.io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexType"®
+scopedIndexTypes (2C.io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexTypel
+scopedIndexedComponents (2K.io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexedComponents[
+facetedPartially (2A.io.evitadb.externalApi.grpc.generated.GrpcScopedFacetedPartiallyc
+bucketedInScopes (2I.io.evitadb.externalApi.grpc.generated.GrpcScopedHistogramIndexDefinitione
+bucketedPartiallyInScopes (2B.io.evitadb.externalApi.grpc.generated.GrpcScopedBucketedPartiallyi
+conflictResolutionOverride (2E.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride"Å	
 *GrpcCreateReflectedReferenceSchemaMutation
 name (	1
 description (2.google.protobuf.StringValue7
@@ -54,7 +59,11 @@ filterable	 (B
 indexedInScopes (26.io.evitadb.externalApi.grpc.generated.GrpcEntityScopeB
 facetedInherited (O
 facetedInScopes (26.io.evitadb.externalApi.grpc.generated.GrpcEntityScope]
-scopedIndexTypes (2C.io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexType"Ÿ
+scopedIndexTypes (2C.io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexTypel
+scopedIndexedComponents (2K.io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexedComponents[
+facetedPartially (2A.io.evitadb.externalApi.grpc.generated.GrpcScopedFacetedPartiallyc
+bucketedInScopes (2I.io.evitadb.externalApi.grpc.generated.GrpcScopedHistogramIndexDefinitione
+bucketedPartiallyInScopes (2B.io.evitadb.externalApi.grpc.generated.GrpcScopedBucketedPartially"Ÿ
 *GrpcModifyReferenceAttributeSchemaMutation
 name (	c
 attributeSchemaMutation (2B.io.evitadb.externalApi.grpc.generated.GrpcAttributeSchemaMutation"Ð
@@ -86,17 +95,26 @@ filterable	 (B
 attributeInheritanceBehavior (2G.io.evitadb.externalApi.grpc.generated.GrpcAttributeInheritanceBehavior"
 attributeInheritanceFilter (	"1
 !GrpcRemoveReferenceSchemaMutation
-name (	"®
+name (	"‹
 %GrpcSetReferenceSchemaFacetedMutation
 name (	
 faceted (B
 	inherited (O
-facetedInScopes (26.io.evitadb.externalApi.grpc.generated.GrpcEntityScope"ü
+facetedInScopes (26.io.evitadb.externalApi.grpc.generated.GrpcEntityScope[
+facetedPartially (2A.io.evitadb.externalApi.grpc.generated.GrpcScopedFacetedPartially"ú
+&GrpcSetReferenceSchemaBucketedMutation
+name (	c
+bucketedInScopes (2I.io.evitadb.externalApi.grpc.generated.GrpcScopedHistogramIndexDefinition]
+bucketedPartially (2B.io.evitadb.externalApi.grpc.generated.GrpcScopedBucketedPartially"ê
 %GrpcSetReferenceSchemaIndexedMutation
 name (	
 	inherited (S
 indexedInScopes (26.io.evitadb.externalApi.grpc.generated.GrpcEntityScopeB]
-scopedIndexTypes (2C.io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexTypeBVPªEvitaDBÊWtsvk\\EvitaDbClient\\Protocolâ(Wtsvk\\EvitaDbClient\\Protocol\\GPBMetadatabproto3'
+scopedIndexTypes (2C.io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexTypel
+scopedIndexedComponents (2K.io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexedComponents"³
+8GrpcSetReferenceSchemaConflictResolutionOverrideMutation
+name (	i
+conflictResolutionOverride (2E.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverrideBVPªEvitaDBÊWtsvk\\EvitaDbClient\\Protocolâ(Wtsvk\\EvitaDbClient\\Protocol\\GPBMetadatabproto3'
         , true);
 
         static::$is_initialized = true;

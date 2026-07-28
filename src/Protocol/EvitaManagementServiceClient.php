@@ -49,6 +49,22 @@ class EvitaManagementServiceClient extends \Grpc\BaseStub {
     }
 
     /**
+     * Procedure used to obtain the curated subset of the engine configuration that is safe to expose to any client.
+     * Unlike GetConfiguration this procedure is available also when the engine runs in read-only mode.
+     * @param \Google\Protobuf\GPBEmpty $argument input argument
+     * @param array $metadata metadata
+     * @param array $options call options
+     * @return \Grpc\UnaryCall
+     */
+    public function GetEngineSettings(\Google\Protobuf\GPBEmpty $argument,
+      $metadata = [], $options = []) {
+        return $this->_simpleRequest('/io.evitadb.externalApi.grpc.generated.EvitaManagementService/GetEngineSettings',
+        $argument,
+        ['\Wtsvk\EvitaDbClient\Protocol\GrpcEvitaEngineSettingsResponse', 'decode'],
+        $metadata, $options);
+    }
+
+    /**
      * Procedure used to obtain catalog statistics.
      * @param \Google\Protobuf\GPBEmpty $argument input argument
      * @param array $metadata metadata

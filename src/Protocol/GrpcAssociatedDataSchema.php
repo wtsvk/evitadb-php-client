@@ -68,6 +68,13 @@ class GrpcAssociatedDataSchema extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcNameVariant nameVariant = 7;</code>
      */
     private $nameVariant;
+    /**
+     * Contains the per-associated-data override of the conflict resolution granularity. Defaults to inherited (follow
+     * the resolved conflict resolution).
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 8;</code>
+     */
+    protected $conflictResolutionOverride = 0;
 
     /**
      * Constructor.
@@ -95,6 +102,9 @@ class GrpcAssociatedDataSchema extends \Google\Protobuf\Internal\Message
      *           non-null checks upon upserting of the entity.
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcNameVariant>|\Google\Protobuf\Internal\RepeatedField $nameVariant
      *           Contains associated data name converted to different naming conventions.
+     *     @type int $conflictResolutionOverride
+     *           Contains the per-associated-data override of the conflict resolution granularity. Defaults to inherited (follow
+     *           the resolved conflict resolution).
      * }
      */
     public function __construct($data = NULL) {
@@ -364,6 +374,34 @@ class GrpcAssociatedDataSchema extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcNameVariant::class);
         $this->nameVariant = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Contains the per-associated-data override of the conflict resolution granularity. Defaults to inherited (follow
+     * the resolved conflict resolution).
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 8;</code>
+     * @return int
+     */
+    public function getConflictResolutionOverride()
+    {
+        return $this->conflictResolutionOverride;
+    }
+
+    /**
+     * Contains the per-associated-data override of the conflict resolution granularity. Defaults to inherited (follow
+     * the resolved conflict resolution).
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 8;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setConflictResolutionOverride($var)
+    {
+        GPBUtil::checkEnum($var, \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolutionOverride::class);
+        $this->conflictResolutionOverride = $var;
 
         return $this;
     }

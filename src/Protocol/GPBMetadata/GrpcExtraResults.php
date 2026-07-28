@@ -20,25 +20,37 @@ class GrpcExtraResults
         \Wtsvk\EvitaDbClient\Protocol\GPBMetadata\GrpcEnums::initOnce();
         $pool->internalAddGeneratedFile(
             '
-Ê
-GrpcExtraResults.proto%io.evitadb.externalApi.grpc.generatedGrpcEntity.protoGrpcEvitaDataTypes.protoGrpcEnums.proto"Ò
+–
+GrpcExtraResults.proto%io.evitadb.externalApi.grpc.generatedGrpcEntity.protoGrpcEvitaDataTypes.protoGrpcEnums.proto"þ
 GrpcHistogramB
 min (25.io.evitadb.externalApi.grpc.generated.GrpcBigDecimalB
 max (25.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal
 overallCount (P
-buckets (2?.io.evitadb.externalApi.grpc.generated.GrpcHistogram.GrpcBucketÐ
+buckets (2?.io.evitadb.externalApi.grpc.generated.GrpcHistogram.GrpcBucketT
+minReferencedEntity (27.io.evitadb.externalApi.grpc.generated.GrpcSealedEntityT
+maxReferencedEntity (27.io.evitadb.externalApi.grpc.generated.GrpcSealedEntityÐ
 
 GrpcBucketH
 	threshold (25.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal
 occurrences (
 	requested (P
-relativeFrequency (25.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal"½
+relativeFrequency (25.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal"®
+GrpcReferenceGroupStatistics
+referenceName (	X
+groupEntityReference (2:.io.evitadb.externalApi.grpc.generated.GrpcEntityReferenceL
+groupEntity (27.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity
+count (S
+facetStatistics (2:.io.evitadb.externalApi.grpc.generated.GrpcFacetStatisticsy
+histogramStatistics (2\\.io.evitadb.externalApi.grpc.generated.GrpcReferenceGroupStatistics.HistogramStatisticsEntryp
+HistogramStatisticsEntry
+key (	C
+value (24.io.evitadb.externalApi.grpc.generated.GrpcHistogram:8"Á
 GrpcFacetGroupStatistics
 referenceName (	X
 groupEntityReference (2:.io.evitadb.externalApi.grpc.generated.GrpcEntityReferenceL
 groupEntity (27.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity
 count (S
-facetStatistics (2:.io.evitadb.externalApi.grpc.generated.GrpcFacetStatistics"Ï
+facetStatistics (2:.io.evitadb.externalApi.grpc.generated.GrpcFacetStatistics:"Ï
 GrpcFacetStatisticsX
 facetEntityReference (2:.io.evitadb.externalApi.grpc.generated.GrpcEntityReferenceL
 facetEntity (27.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity
@@ -68,14 +80,15 @@ levelInfos (24.io.evitadb.externalApi.grpc.generated.GrpcLevelInfo"ò
 start (H
 steps (29.io.evitadb.externalApi.grpc.generated.GrpcQueryTelemetry
 	arguments (	
-	spentTime ("€
+	spentTime ("ë
 GrpcExtraResultsk
 attributeHistogram (2O.io.evitadb.externalApi.grpc.generated.GrpcExtraResults.AttributeHistogramEntryL
-priceHistogram (24.io.evitadb.externalApi.grpc.generated.GrpcHistogram]
-facetGroupStatistics (2?.io.evitadb.externalApi.grpc.generated.GrpcFacetGroupStatisticsK
+priceHistogram (24.io.evitadb.externalApi.grpc.generated.GrpcHistograma
+facetGroupStatistics (2?.io.evitadb.externalApi.grpc.generated.GrpcFacetGroupStatisticsBK
 selfHierarchy (24.io.evitadb.externalApi.grpc.generated.GrpcHierarchyY
 	hierarchy (2F.io.evitadb.externalApi.grpc.generated.GrpcExtraResults.HierarchyEntryQ
-queryTelemetry (29.io.evitadb.externalApi.grpc.generated.GrpcQueryTelemetryo
+queryTelemetry (29.io.evitadb.externalApi.grpc.generated.GrpcQueryTelemetrye
+referenceGroupStatistics (2C.io.evitadb.externalApi.grpc.generated.GrpcReferenceGroupStatisticso
 AttributeHistogramEntry
 key (	C
 value (24.io.evitadb.externalApi.grpc.generated.GrpcHistogram:8f

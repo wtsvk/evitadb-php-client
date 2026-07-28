@@ -127,4 +127,20 @@ class GrpcEvitaTrafficRecordingServiceClient extends \Grpc\BaseStub {
         $metadata, $options);
     }
 
+    /**
+     * Procedure that exports a consistent, on-demand snapshot of the currently buffered traffic recording window
+     * to a downloadable zip archive - not gated by any running recording task.
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcExportTrafficRecordingRequest $argument input argument
+     * @param array $metadata metadata
+     * @param array $options call options
+     * @return \Grpc\UnaryCall
+     */
+    public function ExportTrafficRecording(\Wtsvk\EvitaDbClient\Protocol\GrpcExportTrafficRecordingRequest $argument,
+      $metadata = [], $options = []) {
+        return $this->_simpleRequest('/io.evitadb.externalApi.grpc.generated.GrpcEvitaTrafficRecordingService/ExportTrafficRecording',
+        $argument,
+        ['\Wtsvk\EvitaDbClient\Protocol\GetTrafficRecordingStatusResponse', 'decode'],
+        $metadata, $options);
+    }
+
 }

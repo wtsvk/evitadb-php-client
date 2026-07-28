@@ -51,6 +51,14 @@ class GrpcSetReferenceSchemaIndexedMutation extends \Google\Protobuf\Internal\Me
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexType scopedIndexTypes = 4;</code>
      */
     private $scopedIndexTypes;
+    /**
+     * Scoped reference indexed components that specify which parts of a reference relationship
+     * (referenced entity, referenced group entity) are indexed per scope.
+     * When `inherited` is true, this field is ignored.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexedComponents scopedIndexedComponents = 5;</code>
+     */
+    private $scopedIndexedComponents;
 
     /**
      * Constructor.
@@ -75,6 +83,10 @@ class GrpcSetReferenceSchemaIndexedMutation extends \Google\Protobuf\Internal\Me
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcScopedReferenceIndexType>|\Google\Protobuf\Internal\RepeatedField $scopedIndexTypes
      *           Scoped reference index types that define both the scope and the type of index for the reference.
      *           This replaces the deprecated `indexedInScopes` field with more granular control over indexing.
+     *           When `inherited` is true, this field is ignored.
+     *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcScopedReferenceIndexedComponents>|\Google\Protobuf\Internal\RepeatedField $scopedIndexedComponents
+     *           Scoped reference indexed components that specify which parts of a reference relationship
+     *           (referenced entity, referenced group entity) are indexed per scope.
      *           When `inherited` is true, this field is ignored.
      * }
      */
@@ -207,6 +219,36 @@ class GrpcSetReferenceSchemaIndexedMutation extends \Google\Protobuf\Internal\Me
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcScopedReferenceIndexType::class);
         $this->scopedIndexTypes = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Scoped reference indexed components that specify which parts of a reference relationship
+     * (referenced entity, referenced group entity) are indexed per scope.
+     * When `inherited` is true, this field is ignored.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexedComponents scopedIndexedComponents = 5;</code>
+     * @return \Google\Protobuf\Internal\RepeatedField
+     */
+    public function getScopedIndexedComponents()
+    {
+        return $this->scopedIndexedComponents;
+    }
+
+    /**
+     * Scoped reference indexed components that specify which parts of a reference relationship
+     * (referenced entity, referenced group entity) are indexed per scope.
+     * When `inherited` is true, this field is ignored.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexedComponents scopedIndexedComponents = 5;</code>
+     * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcScopedReferenceIndexedComponents>|\Google\Protobuf\Internal\RepeatedField $var
+     * @return $this
+     */
+    public function setScopedIndexedComponents($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcScopedReferenceIndexedComponents::class);
+        $this->scopedIndexedComponents = $arr;
 
         return $this;
     }

@@ -130,6 +130,21 @@ class EvitaSessionServiceClient extends \Grpc\BaseStub {
     }
 
     /**
+     * Procedure used to backup an existing catalog, streaming progress updates.
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcBackupCatalogRequest $argument input argument
+     * @param array $metadata metadata
+     * @param array $options call options
+     * @return \Grpc\ServerStreamingCall
+     */
+    public function BackupCatalogWithProgress(\Wtsvk\EvitaDbClient\Protocol\GrpcBackupCatalogRequest $argument,
+      $metadata = [], $options = []) {
+        return $this->_serverStreamRequest('/io.evitadb.externalApi.grpc.generated.EvitaSessionService/BackupCatalogWithProgress',
+        $argument,
+        ['\Wtsvk\EvitaDbClient\Protocol\GrpcBackupCatalogResponse', 'decode'],
+        $metadata, $options);
+    }
+
+    /**
      * Procedure used to backup an existing catalog.
      * @param \Google\Protobuf\GPBEmpty $argument input argument
      * @param array $metadata metadata
@@ -139,6 +154,21 @@ class EvitaSessionServiceClient extends \Grpc\BaseStub {
     public function FullBackupCatalog(\Google\Protobuf\GPBEmpty $argument,
       $metadata = [], $options = []) {
         return $this->_simpleRequest('/io.evitadb.externalApi.grpc.generated.EvitaSessionService/FullBackupCatalog',
+        $argument,
+        ['\Wtsvk\EvitaDbClient\Protocol\GrpcFullBackupCatalogResponse', 'decode'],
+        $metadata, $options);
+    }
+
+    /**
+     * Procedure used to fully backup an existing catalog, streaming progress updates.
+     * @param \Google\Protobuf\GPBEmpty $argument input argument
+     * @param array $metadata metadata
+     * @param array $options call options
+     * @return \Grpc\ServerStreamingCall
+     */
+    public function FullBackupCatalogWithProgress(\Google\Protobuf\GPBEmpty $argument,
+      $metadata = [], $options = []) {
+        return $this->_serverStreamRequest('/io.evitadb.externalApi.grpc.generated.EvitaSessionService/FullBackupCatalogWithProgress',
         $argument,
         ['\Wtsvk\EvitaDbClient\Protocol\GrpcFullBackupCatalogResponse', 'decode'],
         $metadata, $options);

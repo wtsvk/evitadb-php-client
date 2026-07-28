@@ -10,6 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 
 /**
  * This DTO contains information about single facet group and statistics of the facets that relates to it.
+ * TOBEDONE: remove when FacetSummary constraint is removed
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcFacetGroupStatistics</code>
  */
