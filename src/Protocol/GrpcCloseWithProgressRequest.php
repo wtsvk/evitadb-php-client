@@ -21,6 +21,14 @@ class GrpcCloseWithProgressRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string catalogName = 1;</code>
      */
     protected $catalogName = '';
+    /**
+     * When true, the session's transaction is discarded (rolled back) instead of committed. The client sets this when
+     * an exception escaped the transaction block uncaught, so the server rolls back exactly as an embedded session
+     * would. When false (the default) the surviving changes are committed.
+     *
+     * Generated from protobuf field <code>bool rollback = 2;</code>
+     */
+    protected $rollback = false;
 
     /**
      * Constructor.
@@ -30,6 +38,10 @@ class GrpcCloseWithProgressRequest extends \Google\Protobuf\Internal\Message
      *
      *     @type string $catalogName
      *           Name of the catalog to which the session relates.
+     *     @type bool $rollback
+     *           When true, the session's transaction is discarded (rolled back) instead of committed. The client sets this when
+     *           an exception escaped the transaction block uncaught, so the server rolls back exactly as an embedded session
+     *           would. When false (the default) the surviving changes are committed.
      * }
      */
     public function __construct($data = NULL) {
@@ -59,6 +71,36 @@ class GrpcCloseWithProgressRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->catalogName = $var;
+
+        return $this;
+    }
+
+    /**
+     * When true, the session's transaction is discarded (rolled back) instead of committed. The client sets this when
+     * an exception escaped the transaction block uncaught, so the server rolls back exactly as an embedded session
+     * would. When false (the default) the surviving changes are committed.
+     *
+     * Generated from protobuf field <code>bool rollback = 2;</code>
+     * @return bool
+     */
+    public function getRollback()
+    {
+        return $this->rollback;
+    }
+
+    /**
+     * When true, the session's transaction is discarded (rolled back) instead of committed. The client sets this when
+     * an exception escaped the transaction block uncaught, so the server rolls back exactly as an embedded session
+     * would. When false (the default) the surviving changes are committed.
+     *
+     * Generated from protobuf field <code>bool rollback = 2;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setRollback($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->rollback = $var;
 
         return $this;
     }

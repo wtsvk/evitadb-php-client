@@ -7,8 +7,12 @@ namespace Wtsvk\EvitaDbClient\Protocol;
 use UnexpectedValueException;
 
 /**
- * This enum controls whether FacetSummary should contain only basic statistics about facets - e.g. count only,
+ * This enum controls whether ReferenceSummary should contain only basic statistics about facets - e.g. count only,
  * or whether the selection impact should be computed as well.
+ * Backward compatibility: `COUNTS` is kept at tag 0 (the proto3 default) and `IMPACT` at tag 1 so existing clients
+ * continue to deserialize unchanged. The newer `NONE` option is assigned a fresh tag; older clients that never
+ * request it are unaffected, and since this enum is used only as a request parameter (never as a server-emitted
+ * response), servers never push `NONE` to an unaware client.
  *
  * Protobuf type <code>io.evitadb.externalApi.grpc.generated.GrpcFacetStatisticsDepth</code>
  */
@@ -26,10 +30,20 @@ class GrpcFacetStatisticsDepth
      * Generated from protobuf enum <code>IMPACT = 1;</code>
      */
     const IMPACT = 1;
+    /**
+     * No per-facet statistics are computed. The engine returns facet options without counts or impact — the cheapest
+     * option, appropriate when the UI only needs to enumerate available facets without any numeric indicator.
+     * Proto3 enum values share a file-level namespace, so this value is prefixed (plain `NONE` is used by
+     * `GrpcPriceInnerRecordHandling` elsewhere in this file).
+     *
+     * Generated from protobuf enum <code>STATISTICS_NONE = 2;</code>
+     */
+    const STATISTICS_NONE = 2;
 
     private static $valueToName = [
         self::COUNTS => 'COUNTS',
         self::IMPACT => 'IMPACT',
+        self::STATISTICS_NONE => 'STATISTICS_NONE',
     ];
 
     public static function name($value)

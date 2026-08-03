@@ -9,21 +9,36 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Response for query request executed when searched for a list of entities. The used field is decided by the require block in the query.
+ * Response for a query executed via QueryList, i.e. expecting a flat list of matching entities (no paging
+ * metadata - use plain `Query` via `GrpcQueryResponse` if paging is needed). Exactly one of
+ * `entityReferences`/`sealedEntities`/`binaryEntities` is the active field, chosen the same way as in
+ * `GrpcDataChunk`: no `entityFetch` requirement in the query's `require` block selects `entityReferences`;
+ * an `entityFetch` requirement selects `sealedEntities` (structured form) or `binaryEntities` (binary
+ * storage form), depending on whether the session uses the binary storage format. The other two fields are
+ * always left empty; note the active field is itself also empty when zero entities matched.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcQueryListResponse</code>
  */
 class GrpcQueryListResponse extends \Google\Protobuf\Internal\Message
 {
     /**
+     * Matched entities as references (type + primary key only). See the message-level comment for when this
+     * field (vs. the other two) is the active one.
+     *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEntityReference entityReferences = 1;</code>
      */
     private $entityReferences;
     /**
+     * Matched entities, fully fetched in structured (non-binary) form. See the message-level comment for
+     * when this field (vs. the other two) is the active one.
+     *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcSealedEntity sealedEntities = 2;</code>
      */
     private $sealedEntities;
     /**
+     * Matched entities, fully fetched in the server's binary storage format. See the message-level comment
+     * for when this field (vs. the other two) is the active one.
+     *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcBinaryEntity binaryEntities = 3;</code>
      */
     private $binaryEntities;
@@ -35,8 +50,14 @@ class GrpcQueryListResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcEntityReference>|\Google\Protobuf\Internal\RepeatedField $entityReferences
+     *           Matched entities as references (type + primary key only). See the message-level comment for when this
+     *           field (vs. the other two) is the active one.
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity>|\Google\Protobuf\Internal\RepeatedField $sealedEntities
+     *           Matched entities, fully fetched in structured (non-binary) form. See the message-level comment for
+     *           when this field (vs. the other two) is the active one.
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcBinaryEntity>|\Google\Protobuf\Internal\RepeatedField $binaryEntities
+     *           Matched entities, fully fetched in the server's binary storage format. See the message-level comment
+     *           for when this field (vs. the other two) is the active one.
      * }
      */
     public function __construct($data = NULL) {
@@ -45,6 +66,9 @@ class GrpcQueryListResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     * Matched entities as references (type + primary key only). See the message-level comment for when this
+     * field (vs. the other two) is the active one.
+     *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEntityReference entityReferences = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
      */
@@ -54,6 +78,9 @@ class GrpcQueryListResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     * Matched entities as references (type + primary key only). See the message-level comment for when this
+     * field (vs. the other two) is the active one.
+     *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEntityReference entityReferences = 1;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcEntityReference>|\Google\Protobuf\Internal\RepeatedField $var
      * @return $this
@@ -67,6 +94,9 @@ class GrpcQueryListResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     * Matched entities, fully fetched in structured (non-binary) form. See the message-level comment for
+     * when this field (vs. the other two) is the active one.
+     *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcSealedEntity sealedEntities = 2;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
      */
@@ -76,6 +106,9 @@ class GrpcQueryListResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     * Matched entities, fully fetched in structured (non-binary) form. See the message-level comment for
+     * when this field (vs. the other two) is the active one.
+     *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcSealedEntity sealedEntities = 2;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity>|\Google\Protobuf\Internal\RepeatedField $var
      * @return $this
@@ -89,6 +122,9 @@ class GrpcQueryListResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     * Matched entities, fully fetched in the server's binary storage format. See the message-level comment
+     * for when this field (vs. the other two) is the active one.
+     *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcBinaryEntity binaryEntities = 3;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
      */
@@ -98,6 +134,9 @@ class GrpcQueryListResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     * Matched entities, fully fetched in the server's binary storage format. See the message-level comment
+     * for when this field (vs. the other two) is the active one.
+     *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcBinaryEntity binaryEntities = 3;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcBinaryEntity>|\Google\Protobuf\Internal\RepeatedField $var
      * @return $this

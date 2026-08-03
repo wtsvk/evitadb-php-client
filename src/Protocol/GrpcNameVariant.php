@@ -16,13 +16,13 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcNameVariant extends \Google\Protobuf\Internal\Message
 {
     /**
-     * naming convention the name is in
+     * The naming convention this variant is rendered in (e.g. camelCase, kebab-case, PascalCase).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcNamingConvention namingConvention = 1;</code>
      */
     protected $namingConvention = 0;
     /**
-     * the name in the particular naming convention
+     * The entity/attribute/reference name transformed into the given naming convention.
      *
      * Generated from protobuf field <code>string name = 2;</code>
      */
@@ -35,9 +35,9 @@ class GrpcNameVariant extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type int $namingConvention
-     *           naming convention the name is in
+     *           The naming convention this variant is rendered in (e.g. camelCase, kebab-case, PascalCase).
      *     @type string $name
-     *           the name in the particular naming convention
+     *           The entity/attribute/reference name transformed into the given naming convention.
      * }
      */
     public function __construct($data = NULL) {
@@ -46,7 +46,7 @@ class GrpcNameVariant extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * naming convention the name is in
+     * The naming convention this variant is rendered in (e.g. camelCase, kebab-case, PascalCase).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcNamingConvention namingConvention = 1;</code>
      * @return int
@@ -57,7 +57,7 @@ class GrpcNameVariant extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * naming convention the name is in
+     * The naming convention this variant is rendered in (e.g. camelCase, kebab-case, PascalCase).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcNamingConvention namingConvention = 1;</code>
      * @param int $var
@@ -72,7 +72,7 @@ class GrpcNameVariant extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * the name in the particular naming convention
+     * The entity/attribute/reference name transformed into the given naming convention.
      *
      * Generated from protobuf field <code>string name = 2;</code>
      * @return string
@@ -83,7 +83,7 @@ class GrpcNameVariant extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * the name in the particular naming convention
+     * The entity/attribute/reference name transformed into the given naming convention.
      *
      * Generated from protobuf field <code>string name = 2;</code>
      * @param string $var

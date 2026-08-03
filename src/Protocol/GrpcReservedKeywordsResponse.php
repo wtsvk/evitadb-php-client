@@ -16,7 +16,7 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcReservedKeywordsResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * List of reserved keywords
+     * All reserved keywords, across all classifier types.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcReservedKeyword keywords = 1;</code>
      */
@@ -29,7 +29,7 @@ class GrpcReservedKeywordsResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcReservedKeyword>|\Google\Protobuf\Internal\RepeatedField $keywords
-     *           List of reserved keywords
+     *           All reserved keywords, across all classifier types.
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +38,7 @@ class GrpcReservedKeywordsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * List of reserved keywords
+     * All reserved keywords, across all classifier types.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcReservedKeyword keywords = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -49,7 +49,7 @@ class GrpcReservedKeywordsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * List of reserved keywords
+     * All reserved keywords, across all classifier types.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcReservedKeyword keywords = 1;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcReservedKeyword>|\Google\Protobuf\Internal\RepeatedField $var

@@ -9,6 +9,11 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
+ * Represents the schema of a single catalog - the top-level container that groups related entity collections
+ * together (analogous to a database / schema in a relational system). Holds the catalog name, its schema version,
+ * optional description, evolution mode settings, catalog-wide (global) attributes shared across entity types,
+ * name variants and the conflict resolution policy inherited by entity schemas that don't override it.
+ *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcCatalogSchema</code>
  */
 class GrpcCatalogSchema extends \Google\Protobuf\Internal\Message
@@ -61,6 +66,13 @@ class GrpcCatalogSchema extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcNameVariant nameVariant = 6;</code>
      */
     private $nameVariant;
+    /**
+     * Contains the catalog-level conflict resolution setting. When not set (absent), the catalog schema inherits the
+     * resolved conflict resolution from the transaction options.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolution conflictResolution = 7;</code>
+     */
+    protected $conflictResolution = null;
 
     /**
      * Constructor.
@@ -92,6 +104,9 @@ class GrpcCatalogSchema extends \Google\Protobuf\Internal\Message
      *           some unique attribute value - usually URL.
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcNameVariant>|\Google\Protobuf\Internal\RepeatedField $nameVariant
      *           Contains catalog name converted to different naming conventions.
+     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolution $conflictResolution
+     *           Contains the catalog-level conflict resolution setting. When not set (absent), the catalog schema inherits the
+     *           resolved conflict resolution from the transaction options.
      * }
      */
     public function __construct($data = NULL) {
@@ -314,6 +329,44 @@ class GrpcCatalogSchema extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcNameVariant::class);
         $this->nameVariant = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Contains the catalog-level conflict resolution setting. When not set (absent), the catalog schema inherits the
+     * resolved conflict resolution from the transaction options.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolution conflictResolution = 7;</code>
+     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolution|null
+     */
+    public function getConflictResolution()
+    {
+        return $this->conflictResolution;
+    }
+
+    public function hasConflictResolution()
+    {
+        return isset($this->conflictResolution);
+    }
+
+    public function clearConflictResolution()
+    {
+        unset($this->conflictResolution);
+    }
+
+    /**
+     * Contains the catalog-level conflict resolution setting. When not set (absent), the catalog schema inherits the
+     * resolved conflict resolution from the transaction options.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolution conflictResolution = 7;</code>
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolution $var
+     * @return $this
+     */
+    public function setConflictResolution($var)
+    {
+        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolution::class);
+        $this->conflictResolution = $var;
 
         return $this;
     }

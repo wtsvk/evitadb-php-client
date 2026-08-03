@@ -22,13 +22,13 @@ class GrpcTrafficSourceQueryStatisticsContainer extends \Google\Protobuf\Interna
      */
     protected $sourceQueryId = null;
     /**
-     * The total number of records returned by the query ({&#64;link EvitaResponse#getRecordData()} size)
+     * The number of records actually returned by the query, i.e. the size of the fetched data chunk after pagination.
      *
      * Generated from protobuf field <code>int32 returnedRecordCount = 2;</code>
      */
     protected $returnedRecordCount = 0;
     /**
-     * The total number of records calculated by the query ({&#64;link EvitaResponse#getTotalRecordCount()})
+     * The total number of records matching the query, before pagination is applied.
      *
      * Generated from protobuf field <code>int32 totalRecordCount = 3;</code>
      */
@@ -43,9 +43,9 @@ class GrpcTrafficSourceQueryStatisticsContainer extends \Google\Protobuf\Interna
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcUuid $sourceQueryId
      *           The source query id
      *     @type int $returnedRecordCount
-     *           The total number of records returned by the query ({&#64;link EvitaResponse#getRecordData()} size)
+     *           The number of records actually returned by the query, i.e. the size of the fetched data chunk after pagination.
      *     @type int $totalRecordCount
-     *           The total number of records calculated by the query ({&#64;link EvitaResponse#getTotalRecordCount()})
+     *           The total number of records matching the query, before pagination is applied.
      * }
      */
     public function __construct($data = NULL) {
@@ -90,7 +90,7 @@ class GrpcTrafficSourceQueryStatisticsContainer extends \Google\Protobuf\Interna
     }
 
     /**
-     * The total number of records returned by the query ({&#64;link EvitaResponse#getRecordData()} size)
+     * The number of records actually returned by the query, i.e. the size of the fetched data chunk after pagination.
      *
      * Generated from protobuf field <code>int32 returnedRecordCount = 2;</code>
      * @return int
@@ -101,7 +101,7 @@ class GrpcTrafficSourceQueryStatisticsContainer extends \Google\Protobuf\Interna
     }
 
     /**
-     * The total number of records returned by the query ({&#64;link EvitaResponse#getRecordData()} size)
+     * The number of records actually returned by the query, i.e. the size of the fetched data chunk after pagination.
      *
      * Generated from protobuf field <code>int32 returnedRecordCount = 2;</code>
      * @param int $var
@@ -116,7 +116,7 @@ class GrpcTrafficSourceQueryStatisticsContainer extends \Google\Protobuf\Interna
     }
 
     /**
-     * The total number of records calculated by the query ({&#64;link EvitaResponse#getTotalRecordCount()})
+     * The total number of records matching the query, before pagination is applied.
      *
      * Generated from protobuf field <code>int32 totalRecordCount = 3;</code>
      * @return int
@@ -127,7 +127,7 @@ class GrpcTrafficSourceQueryStatisticsContainer extends \Google\Protobuf\Interna
     }
 
     /**
-     * The total number of records calculated by the query ({&#64;link EvitaResponse#getTotalRecordCount()})
+     * The total number of records matching the query, before pagination is applied.
      *
      * Generated from protobuf field <code>int32 totalRecordCount = 3;</code>
      * @param int $var

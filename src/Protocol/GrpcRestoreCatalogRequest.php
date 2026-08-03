@@ -9,21 +9,26 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Request to restore a catalog.
+ * One chunk of a streamed catalog restore. The client sends a sequence of these messages over the
+ * same gRPC client stream, each carrying one slice of the backup archive; the server concatenates
+ * `backupFile` across all messages, in arrival order, into a single ZIP file. `catalogName` is
+ * expected to be identical on every chunk - only the value from the last message in the stream is
+ * actually used to name the restored catalog.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcRestoreCatalogRequest</code>
  */
 class GrpcRestoreCatalogRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Name of the catalog where the backup will be restored
-     * The name must not clash with any of existing catalogs
+     * Name of the target catalog into which the backup will be restored.
+     * Must not clash with the name of any existing catalog.
      *
      * Generated from protobuf field <code>string catalogName = 1;</code>
      */
     protected $catalogName = '';
     /**
-     * Binary contents of the backup file.
+     * One chunk of the binary backup ZIP archive; concatenate `backupFile` from all messages in the
+     * stream, in order, to reconstruct the full archive.
      *
      * Generated from protobuf field <code>bytes backupFile = 2;</code>
      */
@@ -36,10 +41,11 @@ class GrpcRestoreCatalogRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $catalogName
-     *           Name of the catalog where the backup will be restored
-     *           The name must not clash with any of existing catalogs
+     *           Name of the target catalog into which the backup will be restored.
+     *           Must not clash with the name of any existing catalog.
      *     @type string $backupFile
-     *           Binary contents of the backup file.
+     *           One chunk of the binary backup ZIP archive; concatenate `backupFile` from all messages in the
+     *           stream, in order, to reconstruct the full archive.
      * }
      */
     public function __construct($data = NULL) {
@@ -48,8 +54,8 @@ class GrpcRestoreCatalogRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Name of the catalog where the backup will be restored
-     * The name must not clash with any of existing catalogs
+     * Name of the target catalog into which the backup will be restored.
+     * Must not clash with the name of any existing catalog.
      *
      * Generated from protobuf field <code>string catalogName = 1;</code>
      * @return string
@@ -60,8 +66,8 @@ class GrpcRestoreCatalogRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Name of the catalog where the backup will be restored
-     * The name must not clash with any of existing catalogs
+     * Name of the target catalog into which the backup will be restored.
+     * Must not clash with the name of any existing catalog.
      *
      * Generated from protobuf field <code>string catalogName = 1;</code>
      * @param string $var
@@ -76,7 +82,8 @@ class GrpcRestoreCatalogRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Binary contents of the backup file.
+     * One chunk of the binary backup ZIP archive; concatenate `backupFile` from all messages in the
+     * stream, in order, to reconstruct the full archive.
      *
      * Generated from protobuf field <code>bytes backupFile = 2;</code>
      * @return string
@@ -87,7 +94,8 @@ class GrpcRestoreCatalogRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Binary contents of the backup file.
+     * One chunk of the binary backup ZIP archive; concatenate `backupFile` from all messages in the
+     * stream, in order, to reconstruct the full archive.
      *
      * Generated from protobuf field <code>bytes backupFile = 2;</code>
      * @param string $var

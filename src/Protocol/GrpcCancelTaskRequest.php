@@ -9,7 +9,7 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Request to get cancel task status by id
+ * Request to cancel a task by id
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcCancelTaskRequest</code>
  */
