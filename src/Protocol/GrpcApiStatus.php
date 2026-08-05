@@ -16,26 +16,31 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcApiStatus extends \Google\Protobuf\Internal\Message
 {
     /**
-     * True if the API is enabled
+     * True when this API is turned on in the server configuration. An enabled API can still be
+     * briefly not ready while the server is starting up - see `ready`.
      *
      * Generated from protobuf field <code>bool enabled = 1;</code>
      */
     protected $enabled = false;
     /**
-     * API readiness status
+     * True when the API has finished initialization and is actually able to serve requests.
+     * Always false when `enabled` is false.
      *
      * Generated from protobuf field <code>bool ready = 2;</code>
      */
     protected $ready = false;
     /**
-     * list of base url of the web API
+     * Base URLs the API is reachable on - one per configured host binding (`host`, plus the
+     * `exposeOn` override if set), so this commonly holds more than one URL even though the field
+     * name is singular.
      *
      * Generated from protobuf field <code>repeated string baseUrl = 3;</code>
      */
     private $baseUrl;
     /**
-     * list of specific endpoints of particular API
-     * currently only system API provides list of endpoints
+     * Notable endpoints exposed by this API in addition to its base URLs, each entry naming the
+     * endpoint and giving its URL(s). Currently only the system API populates this list; every
+     * other API reports it empty.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEndpoint endpoints = 4;</code>
      */
@@ -48,14 +53,19 @@ class GrpcApiStatus extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type bool $enabled
-     *           True if the API is enabled
+     *           True when this API is turned on in the server configuration. An enabled API can still be
+     *           briefly not ready while the server is starting up - see `ready`.
      *     @type bool $ready
-     *           API readiness status
+     *           True when the API has finished initialization and is actually able to serve requests.
+     *           Always false when `enabled` is false.
      *     @type array<string>|\Google\Protobuf\Internal\RepeatedField $baseUrl
-     *           list of base url of the web API
+     *           Base URLs the API is reachable on - one per configured host binding (`host`, plus the
+     *           `exposeOn` override if set), so this commonly holds more than one URL even though the field
+     *           name is singular.
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcEndpoint>|\Google\Protobuf\Internal\RepeatedField $endpoints
-     *           list of specific endpoints of particular API
-     *           currently only system API provides list of endpoints
+     *           Notable endpoints exposed by this API in addition to its base URLs, each entry naming the
+     *           endpoint and giving its URL(s). Currently only the system API populates this list; every
+     *           other API reports it empty.
      * }
      */
     public function __construct($data = NULL) {
@@ -64,7 +74,8 @@ class GrpcApiStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * True if the API is enabled
+     * True when this API is turned on in the server configuration. An enabled API can still be
+     * briefly not ready while the server is starting up - see `ready`.
      *
      * Generated from protobuf field <code>bool enabled = 1;</code>
      * @return bool
@@ -75,7 +86,8 @@ class GrpcApiStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * True if the API is enabled
+     * True when this API is turned on in the server configuration. An enabled API can still be
+     * briefly not ready while the server is starting up - see `ready`.
      *
      * Generated from protobuf field <code>bool enabled = 1;</code>
      * @param bool $var
@@ -90,7 +102,8 @@ class GrpcApiStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * API readiness status
+     * True when the API has finished initialization and is actually able to serve requests.
+     * Always false when `enabled` is false.
      *
      * Generated from protobuf field <code>bool ready = 2;</code>
      * @return bool
@@ -101,7 +114,8 @@ class GrpcApiStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * API readiness status
+     * True when the API has finished initialization and is actually able to serve requests.
+     * Always false when `enabled` is false.
      *
      * Generated from protobuf field <code>bool ready = 2;</code>
      * @param bool $var
@@ -116,7 +130,9 @@ class GrpcApiStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * list of base url of the web API
+     * Base URLs the API is reachable on - one per configured host binding (`host`, plus the
+     * `exposeOn` override if set), so this commonly holds more than one URL even though the field
+     * name is singular.
      *
      * Generated from protobuf field <code>repeated string baseUrl = 3;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -127,7 +143,9 @@ class GrpcApiStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * list of base url of the web API
+     * Base URLs the API is reachable on - one per configured host binding (`host`, plus the
+     * `exposeOn` override if set), so this commonly holds more than one URL even though the field
+     * name is singular.
      *
      * Generated from protobuf field <code>repeated string baseUrl = 3;</code>
      * @param array<string>|\Google\Protobuf\Internal\RepeatedField $var
@@ -142,8 +160,9 @@ class GrpcApiStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * list of specific endpoints of particular API
-     * currently only system API provides list of endpoints
+     * Notable endpoints exposed by this API in addition to its base URLs, each entry naming the
+     * endpoint and giving its URL(s). Currently only the system API populates this list; every
+     * other API reports it empty.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEndpoint endpoints = 4;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -154,8 +173,9 @@ class GrpcApiStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * list of specific endpoints of particular API
-     * currently only system API provides list of endpoints
+     * Notable endpoints exposed by this API in addition to its base URLs, each entry naming the
+     * endpoint and giving its URL(s). Currently only the system API populates this list; every
+     * other API reports it empty.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEndpoint endpoints = 4;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcEndpoint>|\Google\Protobuf\Internal\RepeatedField $var

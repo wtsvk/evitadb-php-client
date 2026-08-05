@@ -16,13 +16,16 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcRegisterSystemChangeCaptureRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Starting point for the search (engine version)
+     * Starting point for the search (engine version). If `null`, the capture starts live-tailing from the most
+     * recent / greatest available engine version rather than replaying history from the beginning.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value sinceVersion = 1;</code>
      */
     protected $sinceVersion = null;
     /**
-     * Starting point for the search (index of the mutation within engine version - currently each engine level transaction contains only one mutation)
+     * Continuation point within `sinceVersion` (index of the mutation within the engine version - currently each
+     * engine level transaction contains only one mutation). If `null`, the capture starts at the beginning of
+     * `sinceVersion` rather than resuming mid-transaction.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value sinceIndex = 2;</code>
      */
@@ -34,6 +37,14 @@ class GrpcRegisterSystemChangeCaptureRequest extends \Google\Protobuf\Internal\M
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureContent content = 3;</code>
      */
     protected $content = 0;
+    /**
+     * OR-ed criteria for the capture. When empty, defaults to ENGINE only on the system stream
+     * (NOTE: this differs from the catalog stream, which defaults to all areas including
+     * INFRASTRUCTURE). HOST on the system stream requires explicit opt-in.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeSystemCaptureCriteria criteria = 4;</code>
+     */
+    private $criteria;
 
     /**
      * Constructor.
@@ -42,12 +53,19 @@ class GrpcRegisterSystemChangeCaptureRequest extends \Google\Protobuf\Internal\M
      *     Optional. Data for populating the Message object.
      *
      *     @type \Google\Protobuf\Int64Value $sinceVersion
-     *           Starting point for the search (engine version)
+     *           Starting point for the search (engine version). If `null`, the capture starts live-tailing from the most
+     *           recent / greatest available engine version rather than replaying history from the beginning.
      *     @type \Google\Protobuf\Int32Value $sinceIndex
-     *           Starting point for the search (index of the mutation within engine version - currently each engine level transaction contains only one mutation)
+     *           Continuation point within `sinceVersion` (index of the mutation within the engine version - currently each
+     *           engine level transaction contains only one mutation). If `null`, the capture starts at the beginning of
+     *           `sinceVersion` rather than resuming mid-transaction.
      *     @type int $content
      *           Requested content of the capture - i.e. whether client wants to receive only the simple notification about the change
      *           or whether he wants to receive the full content of the change
+     *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcChangeSystemCaptureCriteria>|\Google\Protobuf\Internal\RepeatedField $criteria
+     *           OR-ed criteria for the capture. When empty, defaults to ENGINE only on the system stream
+     *           (NOTE: this differs from the catalog stream, which defaults to all areas including
+     *           INFRASTRUCTURE). HOST on the system stream requires explicit opt-in.
      * }
      */
     public function __construct($data = NULL) {
@@ -56,7 +74,8 @@ class GrpcRegisterSystemChangeCaptureRequest extends \Google\Protobuf\Internal\M
     }
 
     /**
-     * Starting point for the search (engine version)
+     * Starting point for the search (engine version). If `null`, the capture starts live-tailing from the most
+     * recent / greatest available engine version rather than replaying history from the beginning.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value sinceVersion = 1;</code>
      * @return \Google\Protobuf\Int64Value|null
@@ -79,7 +98,8 @@ class GrpcRegisterSystemChangeCaptureRequest extends \Google\Protobuf\Internal\M
     /**
      * Returns the unboxed value from <code>getSinceVersion()</code>
 
-     * Starting point for the search (engine version)
+     * Starting point for the search (engine version). If `null`, the capture starts live-tailing from the most
+     * recent / greatest available engine version rather than replaying history from the beginning.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value sinceVersion = 1;</code>
      * @return int|string|null
@@ -90,7 +110,8 @@ class GrpcRegisterSystemChangeCaptureRequest extends \Google\Protobuf\Internal\M
     }
 
     /**
-     * Starting point for the search (engine version)
+     * Starting point for the search (engine version). If `null`, the capture starts live-tailing from the most
+     * recent / greatest available engine version rather than replaying history from the beginning.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value sinceVersion = 1;</code>
      * @param \Google\Protobuf\Int64Value $var
@@ -107,7 +128,8 @@ class GrpcRegisterSystemChangeCaptureRequest extends \Google\Protobuf\Internal\M
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int64Value object.
 
-     * Starting point for the search (engine version)
+     * Starting point for the search (engine version). If `null`, the capture starts live-tailing from the most
+     * recent / greatest available engine version rather than replaying history from the beginning.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value sinceVersion = 1;</code>
      * @param int|string|null $var
@@ -119,7 +141,9 @@ class GrpcRegisterSystemChangeCaptureRequest extends \Google\Protobuf\Internal\M
         return $this;}
 
     /**
-     * Starting point for the search (index of the mutation within engine version - currently each engine level transaction contains only one mutation)
+     * Continuation point within `sinceVersion` (index of the mutation within the engine version - currently each
+     * engine level transaction contains only one mutation). If `null`, the capture starts at the beginning of
+     * `sinceVersion` rather than resuming mid-transaction.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value sinceIndex = 2;</code>
      * @return \Google\Protobuf\Int32Value|null
@@ -142,7 +166,9 @@ class GrpcRegisterSystemChangeCaptureRequest extends \Google\Protobuf\Internal\M
     /**
      * Returns the unboxed value from <code>getSinceIndex()</code>
 
-     * Starting point for the search (index of the mutation within engine version - currently each engine level transaction contains only one mutation)
+     * Continuation point within `sinceVersion` (index of the mutation within the engine version - currently each
+     * engine level transaction contains only one mutation). If `null`, the capture starts at the beginning of
+     * `sinceVersion` rather than resuming mid-transaction.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value sinceIndex = 2;</code>
      * @return int|null
@@ -153,7 +179,9 @@ class GrpcRegisterSystemChangeCaptureRequest extends \Google\Protobuf\Internal\M
     }
 
     /**
-     * Starting point for the search (index of the mutation within engine version - currently each engine level transaction contains only one mutation)
+     * Continuation point within `sinceVersion` (index of the mutation within the engine version - currently each
+     * engine level transaction contains only one mutation). If `null`, the capture starts at the beginning of
+     * `sinceVersion` rather than resuming mid-transaction.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value sinceIndex = 2;</code>
      * @param \Google\Protobuf\Int32Value $var
@@ -170,7 +198,9 @@ class GrpcRegisterSystemChangeCaptureRequest extends \Google\Protobuf\Internal\M
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int32Value object.
 
-     * Starting point for the search (index of the mutation within engine version - currently each engine level transaction contains only one mutation)
+     * Continuation point within `sinceVersion` (index of the mutation within the engine version - currently each
+     * engine level transaction contains only one mutation). If `null`, the capture starts at the beginning of
+     * `sinceVersion` rather than resuming mid-transaction.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value sinceIndex = 2;</code>
      * @param int|null $var
@@ -205,6 +235,36 @@ class GrpcRegisterSystemChangeCaptureRequest extends \Google\Protobuf\Internal\M
     {
         GPBUtil::checkEnum($var, \Wtsvk\EvitaDbClient\Protocol\GrpcChangeCaptureContent::class);
         $this->content = $var;
+
+        return $this;
+    }
+
+    /**
+     * OR-ed criteria for the capture. When empty, defaults to ENGINE only on the system stream
+     * (NOTE: this differs from the catalog stream, which defaults to all areas including
+     * INFRASTRUCTURE). HOST on the system stream requires explicit opt-in.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeSystemCaptureCriteria criteria = 4;</code>
+     * @return \Google\Protobuf\Internal\RepeatedField
+     */
+    public function getCriteria()
+    {
+        return $this->criteria;
+    }
+
+    /**
+     * OR-ed criteria for the capture. When empty, defaults to ENGINE only on the system stream
+     * (NOTE: this differs from the catalog stream, which defaults to all areas including
+     * INFRASTRUCTURE). HOST on the system stream requires explicit opt-in.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeSystemCaptureCriteria criteria = 4;</code>
+     * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcChangeSystemCaptureCriteria>|\Google\Protobuf\Internal\RepeatedField $var
+     * @return $this
+     */
+    public function setCriteria($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcChangeSystemCaptureCriteria::class);
+        $this->criteria = $arr;
 
         return $this;
     }

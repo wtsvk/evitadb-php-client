@@ -9,14 +9,16 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Wrapper for representing an array of integers.
+ * Wrapper for representing an array of integers. Also used to carry Byte and Short arrays,
+ * narrowed/widened to int32 on the wire; which Java array type applies is determined by the
+ * accompanying GrpcEvitaDataType (BYTE_ARRAY, SHORT_ARRAY or INTEGER_ARRAY).
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcIntegerArray</code>
  */
 class GrpcIntegerArray extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Value that supports storing an integer array.
+     * The individual integer elements, in their original order.
      *
      * Generated from protobuf field <code>repeated int32 value = 1;</code>
      */
@@ -29,7 +31,7 @@ class GrpcIntegerArray extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type array<int>|\Google\Protobuf\Internal\RepeatedField $value
-     *           Value that supports storing an integer array.
+     *           The individual integer elements, in their original order.
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +40,7 @@ class GrpcIntegerArray extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Value that supports storing an integer array.
+     * The individual integer elements, in their original order.
      *
      * Generated from protobuf field <code>repeated int32 value = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -49,7 +51,7 @@ class GrpcIntegerArray extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Value that supports storing an integer array.
+     * The individual integer elements, in their original order.
      *
      * Generated from protobuf field <code>repeated int32 value = 1;</code>
      * @param array<int>|\Google\Protobuf\Internal\RepeatedField $var

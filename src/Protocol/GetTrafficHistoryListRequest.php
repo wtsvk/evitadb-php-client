@@ -9,20 +9,24 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Request to GetTrafficHistoryList request.
+ * Request for a single bounded batch of past traffic records matching the given criteria.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GetTrafficHistoryListRequest</code>
  */
 class GetTrafficHistoryListRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The limit of records to return
+     * Maximum number of matching traffic records to return in this response. This is a plain result cap - not
+     * page-based or offset-based pagination - and the server enforces no upper bound of its own beyond it. To
+     * continue fetching beyond this limit, issue a new request with `criteria.sinceSessionSequenceId` and
+     * `criteria.sinceRecordSessionOffset` set to the position right after the last record already received.
      *
      * Generated from protobuf field <code>int32 limit = 1;</code>
      */
     protected $limit = 0;
     /**
-     * The criteria of the traffic recording, allows to define constraints on the returned records
+     * The criteria of the traffic recording, allowing constraints on the returned records. If unset, no filters
+     * are applied and all recorded traffic (up to `limit`) is eligible.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficRecordingCaptureCriteria criteria = 2;</code>
      */
@@ -35,9 +39,13 @@ class GetTrafficHistoryListRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type int $limit
-     *           The limit of records to return
+     *           Maximum number of matching traffic records to return in this response. This is a plain result cap - not
+     *           page-based or offset-based pagination - and the server enforces no upper bound of its own beyond it. To
+     *           continue fetching beyond this limit, issue a new request with `criteria.sinceSessionSequenceId` and
+     *           `criteria.sinceRecordSessionOffset` set to the position right after the last record already received.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficRecordingCaptureCriteria $criteria
-     *           The criteria of the traffic recording, allows to define constraints on the returned records
+     *           The criteria of the traffic recording, allowing constraints on the returned records. If unset, no filters
+     *           are applied and all recorded traffic (up to `limit`) is eligible.
      * }
      */
     public function __construct($data = NULL) {
@@ -46,7 +54,10 @@ class GetTrafficHistoryListRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The limit of records to return
+     * Maximum number of matching traffic records to return in this response. This is a plain result cap - not
+     * page-based or offset-based pagination - and the server enforces no upper bound of its own beyond it. To
+     * continue fetching beyond this limit, issue a new request with `criteria.sinceSessionSequenceId` and
+     * `criteria.sinceRecordSessionOffset` set to the position right after the last record already received.
      *
      * Generated from protobuf field <code>int32 limit = 1;</code>
      * @return int
@@ -57,7 +68,10 @@ class GetTrafficHistoryListRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The limit of records to return
+     * Maximum number of matching traffic records to return in this response. This is a plain result cap - not
+     * page-based or offset-based pagination - and the server enforces no upper bound of its own beyond it. To
+     * continue fetching beyond this limit, issue a new request with `criteria.sinceSessionSequenceId` and
+     * `criteria.sinceRecordSessionOffset` set to the position right after the last record already received.
      *
      * Generated from protobuf field <code>int32 limit = 1;</code>
      * @param int $var
@@ -72,7 +86,8 @@ class GetTrafficHistoryListRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The criteria of the traffic recording, allows to define constraints on the returned records
+     * The criteria of the traffic recording, allowing constraints on the returned records. If unset, no filters
+     * are applied and all recorded traffic (up to `limit`) is eligible.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficRecordingCaptureCriteria criteria = 2;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficRecordingCaptureCriteria|null
@@ -93,7 +108,8 @@ class GetTrafficHistoryListRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The criteria of the traffic recording, allows to define constraints on the returned records
+     * The criteria of the traffic recording, allowing constraints on the returned records. If unset, no filters
+     * are applied and all recorded traffic (up to `limit`) is eligible.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficRecordingCaptureCriteria criteria = 2;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficRecordingCaptureCriteria $var

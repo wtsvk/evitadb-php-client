@@ -17,19 +17,23 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcRestoreCatalogUnaryResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * returns the number of bytes read from the backup file
+     * Cumulative number of bytes received for this upload so far, across this and all preceding
+     * chunks (bytes).
      *
      * Generated from protobuf field <code>int64 read = 1;</code>
      */
     protected $read = 0;
     /**
-     * The identification of the file on the server that should be restored
+     * Identifies this upload. Echo this value back as `fileId` in the next
+     * `GrpcRestoreCatalogUnaryRequest` chunk so the server appends to the same upload; on the first
+     * chunk of an upload the server allocates this id and returns it here for the first time.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid fileId = 2;</code>
      */
     protected $fileId = null;
     /**
-     * the task that is used to restore the catalog and getting its progress
+     * The task tracking the restore operation; poll its status (`GetTaskStatus`) to observe restore
+     * progress.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTaskStatus task = 3;</code>
      */
@@ -42,11 +46,15 @@ class GrpcRestoreCatalogUnaryResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type int|string $read
-     *           returns the number of bytes read from the backup file
+     *           Cumulative number of bytes received for this upload so far, across this and all preceding
+     *           chunks (bytes).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcUuid $fileId
-     *           The identification of the file on the server that should be restored
+     *           Identifies this upload. Echo this value back as `fileId` in the next
+     *           `GrpcRestoreCatalogUnaryRequest` chunk so the server appends to the same upload; on the first
+     *           chunk of an upload the server allocates this id and returns it here for the first time.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcTaskStatus $task
-     *           the task that is used to restore the catalog and getting its progress
+     *           The task tracking the restore operation; poll its status (`GetTaskStatus`) to observe restore
+     *           progress.
      * }
      */
     public function __construct($data = NULL) {
@@ -55,7 +63,8 @@ class GrpcRestoreCatalogUnaryResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * returns the number of bytes read from the backup file
+     * Cumulative number of bytes received for this upload so far, across this and all preceding
+     * chunks (bytes).
      *
      * Generated from protobuf field <code>int64 read = 1;</code>
      * @return int|string
@@ -66,7 +75,8 @@ class GrpcRestoreCatalogUnaryResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * returns the number of bytes read from the backup file
+     * Cumulative number of bytes received for this upload so far, across this and all preceding
+     * chunks (bytes).
      *
      * Generated from protobuf field <code>int64 read = 1;</code>
      * @param int|string $var
@@ -81,7 +91,9 @@ class GrpcRestoreCatalogUnaryResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The identification of the file on the server that should be restored
+     * Identifies this upload. Echo this value back as `fileId` in the next
+     * `GrpcRestoreCatalogUnaryRequest` chunk so the server appends to the same upload; on the first
+     * chunk of an upload the server allocates this id and returns it here for the first time.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid fileId = 2;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcUuid|null
@@ -102,7 +114,9 @@ class GrpcRestoreCatalogUnaryResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The identification of the file on the server that should be restored
+     * Identifies this upload. Echo this value back as `fileId` in the next
+     * `GrpcRestoreCatalogUnaryRequest` chunk so the server appends to the same upload; on the first
+     * chunk of an upload the server allocates this id and returns it here for the first time.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid fileId = 2;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcUuid $var
@@ -117,7 +131,8 @@ class GrpcRestoreCatalogUnaryResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * the task that is used to restore the catalog and getting its progress
+     * The task tracking the restore operation; poll its status (`GetTaskStatus`) to observe restore
+     * progress.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTaskStatus task = 3;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcTaskStatus|null
@@ -138,7 +153,8 @@ class GrpcRestoreCatalogUnaryResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * the task that is used to restore the catalog and getting its progress
+     * The task tracking the restore operation; poll its status (`GetTaskStatus`) to observe restore
+     * progress.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTaskStatus task = 3;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcTaskStatus $var

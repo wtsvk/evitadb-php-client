@@ -16,13 +16,17 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcReplaceCatalogRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Name of the catalog that will become the successor of the original catalog (old name)
+     * Name of the source catalog whose content takes over. After a successful replace, this name no longer exists -
+     * the catalog is consumed and its content is now served under `catalogNameToBeReplaced`. If the operation fails,
+     * the state of this catalog is unknown and must be treated as damaged.
      *
      * Generated from protobuf field <code>string catalogNameToBeReplacedWith = 1;</code>
      */
     protected $catalogNameToBeReplacedWith = '';
     /**
-     * Name of the catalog that will be replaced and dropped (new name)
+     * Name of the target catalog to replace. Its existing content is dropped and replaced by the content of
+     * `catalogNameToBeReplacedWith`, while the name itself is preserved and keeps serving requests under it. If the
+     * operation fails, this catalog is guaranteed to remain untouched.
      *
      * Generated from protobuf field <code>string catalogNameToBeReplaced = 2;</code>
      */
@@ -35,9 +39,13 @@ class GrpcReplaceCatalogRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $catalogNameToBeReplacedWith
-     *           Name of the catalog that will become the successor of the original catalog (old name)
+     *           Name of the source catalog whose content takes over. After a successful replace, this name no longer exists -
+     *           the catalog is consumed and its content is now served under `catalogNameToBeReplaced`. If the operation fails,
+     *           the state of this catalog is unknown and must be treated as damaged.
      *     @type string $catalogNameToBeReplaced
-     *           Name of the catalog that will be replaced and dropped (new name)
+     *           Name of the target catalog to replace. Its existing content is dropped and replaced by the content of
+     *           `catalogNameToBeReplacedWith`, while the name itself is preserved and keeps serving requests under it. If the
+     *           operation fails, this catalog is guaranteed to remain untouched.
      * }
      */
     public function __construct($data = NULL) {
@@ -46,7 +54,9 @@ class GrpcReplaceCatalogRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Name of the catalog that will become the successor of the original catalog (old name)
+     * Name of the source catalog whose content takes over. After a successful replace, this name no longer exists -
+     * the catalog is consumed and its content is now served under `catalogNameToBeReplaced`. If the operation fails,
+     * the state of this catalog is unknown and must be treated as damaged.
      *
      * Generated from protobuf field <code>string catalogNameToBeReplacedWith = 1;</code>
      * @return string
@@ -57,7 +67,9 @@ class GrpcReplaceCatalogRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Name of the catalog that will become the successor of the original catalog (old name)
+     * Name of the source catalog whose content takes over. After a successful replace, this name no longer exists -
+     * the catalog is consumed and its content is now served under `catalogNameToBeReplaced`. If the operation fails,
+     * the state of this catalog is unknown and must be treated as damaged.
      *
      * Generated from protobuf field <code>string catalogNameToBeReplacedWith = 1;</code>
      * @param string $var
@@ -72,7 +84,9 @@ class GrpcReplaceCatalogRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Name of the catalog that will be replaced and dropped (new name)
+     * Name of the target catalog to replace. Its existing content is dropped and replaced by the content of
+     * `catalogNameToBeReplacedWith`, while the name itself is preserved and keeps serving requests under it. If the
+     * operation fails, this catalog is guaranteed to remain untouched.
      *
      * Generated from protobuf field <code>string catalogNameToBeReplaced = 2;</code>
      * @return string
@@ -83,7 +97,9 @@ class GrpcReplaceCatalogRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Name of the catalog that will be replaced and dropped (new name)
+     * Name of the target catalog to replace. Its existing content is dropped and replaced by the content of
+     * `catalogNameToBeReplacedWith`, while the name itself is preserved and keeps serving requests under it. If the
+     * operation fails, this catalog is guaranteed to remain untouched.
      *
      * Generated from protobuf field <code>string catalogNameToBeReplaced = 2;</code>
      * @param string $var

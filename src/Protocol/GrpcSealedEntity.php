@@ -141,6 +141,28 @@ class GrpcSealedEntity extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>map<string, .io.evitadb.externalApi.grpc.generated.GrpcPrice> accompanyingPrices = 19;</code>
      */
     private $accompanyingPrices;
+    /**
+     * Lowest selling price (or component price for `SUM` strategy) computed with the same currency / valid-in /
+     * price-list filters as `priceForSale`. Populated when the price-range-for-sale is available on the entity.
+     * The exact semantics depend on the price inner record handling strategy:
+     * - `NONE`: equal to `priceForSale`.
+     * - `LOWEST_PRICE`: equal to `priceForSale` (the cheapest per-inner-record selling price).
+     * - `SUM`: cheapest per-inner-record component price (`priceForSale` is the cumulated sum).
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcPrice priceForSaleMin = 20;</code>
+     */
+    protected $priceForSaleMin = null;
+    /**
+     * Highest selling price (or component price for `SUM` strategy) computed with the same currency / valid-in /
+     * price-list filters as `priceForSale`. Populated when the price-range-for-sale is available on the entity.
+     * The exact semantics depend on the price inner record handling strategy:
+     * - `NONE`: equal to `priceForSale`.
+     * - `LOWEST_PRICE`: most expensive per-inner-record selling price.
+     * - `SUM`: most expensive per-inner-record component price (`priceForSale` is the cumulated sum).
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcPrice priceForSaleMax = 21;</code>
+     */
+    protected $priceForSaleMax = null;
 
     /**
      * Constructor.
@@ -196,6 +218,20 @@ class GrpcSealedEntity extends \Google\Protobuf\Internal\Message
      *           if pagination or strip was used in the input query.
      *     @type array|\Google\Protobuf\Internal\MapField $accompanyingPrices
      *           Contains prices that has been requested to be calculated beside the main price for sale.
+     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcPrice $priceForSaleMin
+     *           Lowest selling price (or component price for `SUM` strategy) computed with the same currency / valid-in /
+     *           price-list filters as `priceForSale`. Populated when the price-range-for-sale is available on the entity.
+     *           The exact semantics depend on the price inner record handling strategy:
+     *           - `NONE`: equal to `priceForSale`.
+     *           - `LOWEST_PRICE`: equal to `priceForSale` (the cheapest per-inner-record selling price).
+     *           - `SUM`: cheapest per-inner-record component price (`priceForSale` is the cumulated sum).
+     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcPrice $priceForSaleMax
+     *           Highest selling price (or component price for `SUM` strategy) computed with the same currency / valid-in /
+     *           price-list filters as `priceForSale`. Populated when the price-range-for-sale is available on the entity.
+     *           The exact semantics depend on the price inner record handling strategy:
+     *           - `NONE`: equal to `priceForSale`.
+     *           - `LOWEST_PRICE`: most expensive per-inner-record selling price.
+     *           - `SUM`: most expensive per-inner-record component price (`priceForSale` is the cumulated sum).
      * }
      */
     public function __construct($data = NULL) {
@@ -780,6 +816,98 @@ class GrpcSealedEntity extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcPrice::class);
         $this->accompanyingPrices = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Lowest selling price (or component price for `SUM` strategy) computed with the same currency / valid-in /
+     * price-list filters as `priceForSale`. Populated when the price-range-for-sale is available on the entity.
+     * The exact semantics depend on the price inner record handling strategy:
+     * - `NONE`: equal to `priceForSale`.
+     * - `LOWEST_PRICE`: equal to `priceForSale` (the cheapest per-inner-record selling price).
+     * - `SUM`: cheapest per-inner-record component price (`priceForSale` is the cumulated sum).
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcPrice priceForSaleMin = 20;</code>
+     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcPrice|null
+     */
+    public function getPriceForSaleMin()
+    {
+        return $this->priceForSaleMin;
+    }
+
+    public function hasPriceForSaleMin()
+    {
+        return isset($this->priceForSaleMin);
+    }
+
+    public function clearPriceForSaleMin()
+    {
+        unset($this->priceForSaleMin);
+    }
+
+    /**
+     * Lowest selling price (or component price for `SUM` strategy) computed with the same currency / valid-in /
+     * price-list filters as `priceForSale`. Populated when the price-range-for-sale is available on the entity.
+     * The exact semantics depend on the price inner record handling strategy:
+     * - `NONE`: equal to `priceForSale`.
+     * - `LOWEST_PRICE`: equal to `priceForSale` (the cheapest per-inner-record selling price).
+     * - `SUM`: cheapest per-inner-record component price (`priceForSale` is the cumulated sum).
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcPrice priceForSaleMin = 20;</code>
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcPrice $var
+     * @return $this
+     */
+    public function setPriceForSaleMin($var)
+    {
+        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcPrice::class);
+        $this->priceForSaleMin = $var;
+
+        return $this;
+    }
+
+    /**
+     * Highest selling price (or component price for `SUM` strategy) computed with the same currency / valid-in /
+     * price-list filters as `priceForSale`. Populated when the price-range-for-sale is available on the entity.
+     * The exact semantics depend on the price inner record handling strategy:
+     * - `NONE`: equal to `priceForSale`.
+     * - `LOWEST_PRICE`: most expensive per-inner-record selling price.
+     * - `SUM`: most expensive per-inner-record component price (`priceForSale` is the cumulated sum).
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcPrice priceForSaleMax = 21;</code>
+     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcPrice|null
+     */
+    public function getPriceForSaleMax()
+    {
+        return $this->priceForSaleMax;
+    }
+
+    public function hasPriceForSaleMax()
+    {
+        return isset($this->priceForSaleMax);
+    }
+
+    public function clearPriceForSaleMax()
+    {
+        unset($this->priceForSaleMax);
+    }
+
+    /**
+     * Highest selling price (or component price for `SUM` strategy) computed with the same currency / valid-in /
+     * price-list filters as `priceForSale`. Populated when the price-range-for-sale is available on the entity.
+     * The exact semantics depend on the price inner record handling strategy:
+     * - `NONE`: equal to `priceForSale`.
+     * - `LOWEST_PRICE`: most expensive per-inner-record selling price.
+     * - `SUM`: most expensive per-inner-record component price (`priceForSale` is the cumulated sum).
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcPrice priceForSaleMax = 21;</code>
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcPrice $var
+     * @return $this
+     */
+    public function setPriceForSaleMax($var)
+    {
+        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcPrice::class);
+        $this->priceForSaleMax = $var;
 
         return $this;
     }

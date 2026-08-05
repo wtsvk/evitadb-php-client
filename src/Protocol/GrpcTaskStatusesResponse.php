@@ -16,25 +16,27 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcTaskStatusesResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The size of the page.
+     * The page size that was actually applied (echoes the request's `pageSize`).
      *
      * Generated from protobuf field <code>int32 pageSize = 1;</code>
      */
     protected $pageSize = 0;
     /**
-     * The number of the page.
+     * The page number that was actually applied (echoes the request's `pageNumber`); 1-indexed, see
+     * `GrpcTaskStatusesRequest.pageNumber` for the paging model.
      *
      * Generated from protobuf field <code>int32 pageNumber = 2;</code>
      */
     protected $pageNumber = 0;
     /**
-     * Collection of task statuses.
+     * Task statuses on this page, matching the filters from the request.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTaskStatus taskStatus = 3;</code>
      */
     private $taskStatus;
     /**
-     * Total number of task statuses.
+     * Total number of task statuses matching the request's filters across all pages, not just this
+     * one.
      *
      * Generated from protobuf field <code>int32 totalNumberOfRecords = 4;</code>
      */
@@ -47,13 +49,15 @@ class GrpcTaskStatusesResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type int $pageSize
-     *           The size of the page.
+     *           The page size that was actually applied (echoes the request's `pageSize`).
      *     @type int $pageNumber
-     *           The number of the page.
+     *           The page number that was actually applied (echoes the request's `pageNumber`); 1-indexed, see
+     *           `GrpcTaskStatusesRequest.pageNumber` for the paging model.
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcTaskStatus>|\Google\Protobuf\Internal\RepeatedField $taskStatus
-     *           Collection of task statuses.
+     *           Task statuses on this page, matching the filters from the request.
      *     @type int $totalNumberOfRecords
-     *           Total number of task statuses.
+     *           Total number of task statuses matching the request's filters across all pages, not just this
+     *           one.
      * }
      */
     public function __construct($data = NULL) {
@@ -62,7 +66,7 @@ class GrpcTaskStatusesResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The size of the page.
+     * The page size that was actually applied (echoes the request's `pageSize`).
      *
      * Generated from protobuf field <code>int32 pageSize = 1;</code>
      * @return int
@@ -73,7 +77,7 @@ class GrpcTaskStatusesResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The size of the page.
+     * The page size that was actually applied (echoes the request's `pageSize`).
      *
      * Generated from protobuf field <code>int32 pageSize = 1;</code>
      * @param int $var
@@ -88,7 +92,8 @@ class GrpcTaskStatusesResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The number of the page.
+     * The page number that was actually applied (echoes the request's `pageNumber`); 1-indexed, see
+     * `GrpcTaskStatusesRequest.pageNumber` for the paging model.
      *
      * Generated from protobuf field <code>int32 pageNumber = 2;</code>
      * @return int
@@ -99,7 +104,8 @@ class GrpcTaskStatusesResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The number of the page.
+     * The page number that was actually applied (echoes the request's `pageNumber`); 1-indexed, see
+     * `GrpcTaskStatusesRequest.pageNumber` for the paging model.
      *
      * Generated from protobuf field <code>int32 pageNumber = 2;</code>
      * @param int $var
@@ -114,7 +120,7 @@ class GrpcTaskStatusesResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Collection of task statuses.
+     * Task statuses on this page, matching the filters from the request.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTaskStatus taskStatus = 3;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -125,7 +131,7 @@ class GrpcTaskStatusesResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Collection of task statuses.
+     * Task statuses on this page, matching the filters from the request.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTaskStatus taskStatus = 3;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcTaskStatus>|\Google\Protobuf\Internal\RepeatedField $var
@@ -140,7 +146,8 @@ class GrpcTaskStatusesResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Total number of task statuses.
+     * Total number of task statuses matching the request's filters across all pages, not just this
+     * one.
      *
      * Generated from protobuf field <code>int32 totalNumberOfRecords = 4;</code>
      * @return int
@@ -151,7 +158,8 @@ class GrpcTaskStatusesResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Total number of task statuses.
+     * Total number of task statuses matching the request's filters across all pages, not just this
+     * one.
      *
      * Generated from protobuf field <code>int32 totalNumberOfRecords = 4;</code>
      * @param int $var

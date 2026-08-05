@@ -9,50 +9,53 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * identification of the file available for fetching
+ * Identification of a file available for fetching from the server (e.g. a backup archive or an
+ * export produced by an asynchronous task).
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcFile</code>
  */
 class GrpcFile extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Identification of the file
+     * Unique identifier of the file, used to reference it in fetch/download requests.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid fileId = 1;</code>
      */
     protected $fileId = null;
     /**
-     * File name
+     * File name, including extension.
      *
      * Generated from protobuf field <code>string name = 2;</code>
      */
     protected $name = '';
     /**
-     * Detailed description of the file
+     * Human-readable description of the file's purpose or contents. Unset when no description was
+     * provided.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue description = 3;</code>
      */
     protected $description = null;
     /**
-     * Content type of the file
+     * MIME content type of the file (e.g. `application/zip`).
      *
      * Generated from protobuf field <code>string contentType = 4;</code>
      */
     protected $contentType = '';
     /**
-     * Size of the file in bytes
+     * Size of the file on disk (bytes).
      *
      * Generated from protobuf field <code>int64 totalSizeInBytes = 5;</code>
      */
     protected $totalSizeInBytes = 0;
     /**
-     * Date and time when the file was created
+     * Date and time when the file was created.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime created = 6;</code>
      */
     protected $created = null;
     /**
-     * Origin of the file (usually the taskType)
+     * Comma-separated identifiers of what produced the file — usually the `taskType` (see
+     * `GrpcTaskStatus.taskType`) of the task that created it. Unset when the origin wasn't recorded.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue origin = 7;</code>
      */
@@ -65,19 +68,21 @@ class GrpcFile extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcUuid $fileId
-     *           Identification of the file
+     *           Unique identifier of the file, used to reference it in fetch/download requests.
      *     @type string $name
-     *           File name
+     *           File name, including extension.
      *     @type \Google\Protobuf\StringValue $description
-     *           Detailed description of the file
+     *           Human-readable description of the file's purpose or contents. Unset when no description was
+     *           provided.
      *     @type string $contentType
-     *           Content type of the file
+     *           MIME content type of the file (e.g. `application/zip`).
      *     @type int|string $totalSizeInBytes
-     *           Size of the file in bytes
+     *           Size of the file on disk (bytes).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $created
-     *           Date and time when the file was created
+     *           Date and time when the file was created.
      *     @type \Google\Protobuf\StringValue $origin
-     *           Origin of the file (usually the taskType)
+     *           Comma-separated identifiers of what produced the file — usually the `taskType` (see
+     *           `GrpcTaskStatus.taskType`) of the task that created it. Unset when the origin wasn't recorded.
      * }
      */
     public function __construct($data = NULL) {
@@ -86,7 +91,7 @@ class GrpcFile extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Identification of the file
+     * Unique identifier of the file, used to reference it in fetch/download requests.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid fileId = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcUuid|null
@@ -107,7 +112,7 @@ class GrpcFile extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Identification of the file
+     * Unique identifier of the file, used to reference it in fetch/download requests.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid fileId = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcUuid $var
@@ -122,7 +127,7 @@ class GrpcFile extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * File name
+     * File name, including extension.
      *
      * Generated from protobuf field <code>string name = 2;</code>
      * @return string
@@ -133,7 +138,7 @@ class GrpcFile extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * File name
+     * File name, including extension.
      *
      * Generated from protobuf field <code>string name = 2;</code>
      * @param string $var
@@ -148,7 +153,8 @@ class GrpcFile extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Detailed description of the file
+     * Human-readable description of the file's purpose or contents. Unset when no description was
+     * provided.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue description = 3;</code>
      * @return \Google\Protobuf\StringValue|null
@@ -171,7 +177,8 @@ class GrpcFile extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getDescription()</code>
 
-     * Detailed description of the file
+     * Human-readable description of the file's purpose or contents. Unset when no description was
+     * provided.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue description = 3;</code>
      * @return string|null
@@ -182,7 +189,8 @@ class GrpcFile extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Detailed description of the file
+     * Human-readable description of the file's purpose or contents. Unset when no description was
+     * provided.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue description = 3;</code>
      * @param \Google\Protobuf\StringValue $var
@@ -199,7 +207,8 @@ class GrpcFile extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\StringValue object.
 
-     * Detailed description of the file
+     * Human-readable description of the file's purpose or contents. Unset when no description was
+     * provided.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue description = 3;</code>
      * @param string|null $var
@@ -211,7 +220,7 @@ class GrpcFile extends \Google\Protobuf\Internal\Message
         return $this;}
 
     /**
-     * Content type of the file
+     * MIME content type of the file (e.g. `application/zip`).
      *
      * Generated from protobuf field <code>string contentType = 4;</code>
      * @return string
@@ -222,7 +231,7 @@ class GrpcFile extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Content type of the file
+     * MIME content type of the file (e.g. `application/zip`).
      *
      * Generated from protobuf field <code>string contentType = 4;</code>
      * @param string $var
@@ -237,7 +246,7 @@ class GrpcFile extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Size of the file in bytes
+     * Size of the file on disk (bytes).
      *
      * Generated from protobuf field <code>int64 totalSizeInBytes = 5;</code>
      * @return int|string
@@ -248,7 +257,7 @@ class GrpcFile extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Size of the file in bytes
+     * Size of the file on disk (bytes).
      *
      * Generated from protobuf field <code>int64 totalSizeInBytes = 5;</code>
      * @param int|string $var
@@ -263,7 +272,7 @@ class GrpcFile extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Date and time when the file was created
+     * Date and time when the file was created.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime created = 6;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime|null
@@ -284,7 +293,7 @@ class GrpcFile extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Date and time when the file was created
+     * Date and time when the file was created.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime created = 6;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $var
@@ -299,7 +308,8 @@ class GrpcFile extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Origin of the file (usually the taskType)
+     * Comma-separated identifiers of what produced the file — usually the `taskType` (see
+     * `GrpcTaskStatus.taskType`) of the task that created it. Unset when the origin wasn't recorded.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue origin = 7;</code>
      * @return \Google\Protobuf\StringValue|null
@@ -322,7 +332,8 @@ class GrpcFile extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getOrigin()</code>
 
-     * Origin of the file (usually the taskType)
+     * Comma-separated identifiers of what produced the file — usually the `taskType` (see
+     * `GrpcTaskStatus.taskType`) of the task that created it. Unset when the origin wasn't recorded.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue origin = 7;</code>
      * @return string|null
@@ -333,7 +344,8 @@ class GrpcFile extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Origin of the file (usually the taskType)
+     * Comma-separated identifiers of what produced the file — usually the `taskType` (see
+     * `GrpcTaskStatus.taskType`) of the task that created it. Unset when the origin wasn't recorded.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue origin = 7;</code>
      * @param \Google\Protobuf\StringValue $var
@@ -350,7 +362,8 @@ class GrpcFile extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\StringValue object.
 
-     * Origin of the file (usually the taskType)
+     * Comma-separated identifiers of what produced the file — usually the `taskType` (see
+     * `GrpcTaskStatus.taskType`) of the task that created it. Unset when the origin wasn't recorded.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue origin = 7;</code>
      * @param string|null $var

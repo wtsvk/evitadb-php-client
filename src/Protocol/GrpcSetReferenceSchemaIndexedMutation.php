@@ -37,7 +37,7 @@ class GrpcSetReferenceSchemaIndexedMutation extends \Google\Protobuf\Internal\Me
      * Each indexed reference occupies (memory/disk) space in the form of index. When reference is not indexed,
      * the entity cannot be looked up by reference attributes or relation existence itself, but the data is loaded
      * alongside other references if requested.
-     * deprecated in favor of `scopedIndexTypes`
+     * Deprecated since 2025.6 - deprecated in favor of `scopedIndexTypes`
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEntityScope indexedInScopes = 3 [deprecated = true];</code>
      * @deprecated
@@ -51,6 +51,14 @@ class GrpcSetReferenceSchemaIndexedMutation extends \Google\Protobuf\Internal\Me
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexType scopedIndexTypes = 4;</code>
      */
     private $scopedIndexTypes;
+    /**
+     * Scoped reference indexed components that specify which parts of a reference relationship
+     * (referenced entity, referenced group entity) are indexed per scope.
+     * When `inherited` is true, this field is ignored.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexedComponents scopedIndexedComponents = 5;</code>
+     */
+    private $scopedIndexedComponents;
 
     /**
      * Constructor.
@@ -71,10 +79,14 @@ class GrpcSetReferenceSchemaIndexedMutation extends \Google\Protobuf\Internal\Me
      *           Each indexed reference occupies (memory/disk) space in the form of index. When reference is not indexed,
      *           the entity cannot be looked up by reference attributes or relation existence itself, but the data is loaded
      *           alongside other references if requested.
-     *           deprecated in favor of `scopedIndexTypes`
+     *           Deprecated since 2025.6 - deprecated in favor of `scopedIndexTypes`
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcScopedReferenceIndexType>|\Google\Protobuf\Internal\RepeatedField $scopedIndexTypes
      *           Scoped reference index types that define both the scope and the type of index for the reference.
      *           This replaces the deprecated `indexedInScopes` field with more granular control over indexing.
+     *           When `inherited` is true, this field is ignored.
+     *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcScopedReferenceIndexedComponents>|\Google\Protobuf\Internal\RepeatedField $scopedIndexedComponents
+     *           Scoped reference indexed components that specify which parts of a reference relationship
+     *           (referenced entity, referenced group entity) are indexed per scope.
      *           When `inherited` is true, this field is ignored.
      * }
      */
@@ -146,7 +158,7 @@ class GrpcSetReferenceSchemaIndexedMutation extends \Google\Protobuf\Internal\Me
      * Each indexed reference occupies (memory/disk) space in the form of index. When reference is not indexed,
      * the entity cannot be looked up by reference attributes or relation existence itself, but the data is loaded
      * alongside other references if requested.
-     * deprecated in favor of `scopedIndexTypes`
+     * Deprecated since 2025.6 - deprecated in favor of `scopedIndexTypes`
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEntityScope indexedInScopes = 3 [deprecated = true];</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -165,7 +177,7 @@ class GrpcSetReferenceSchemaIndexedMutation extends \Google\Protobuf\Internal\Me
      * Each indexed reference occupies (memory/disk) space in the form of index. When reference is not indexed,
      * the entity cannot be looked up by reference attributes or relation existence itself, but the data is loaded
      * alongside other references if requested.
-     * deprecated in favor of `scopedIndexTypes`
+     * Deprecated since 2025.6 - deprecated in favor of `scopedIndexTypes`
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEntityScope indexedInScopes = 3 [deprecated = true];</code>
      * @param array<int>|\Google\Protobuf\Internal\RepeatedField $var
@@ -207,6 +219,36 @@ class GrpcSetReferenceSchemaIndexedMutation extends \Google\Protobuf\Internal\Me
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcScopedReferenceIndexType::class);
         $this->scopedIndexTypes = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Scoped reference indexed components that specify which parts of a reference relationship
+     * (referenced entity, referenced group entity) are indexed per scope.
+     * When `inherited` is true, this field is ignored.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexedComponents scopedIndexedComponents = 5;</code>
+     * @return \Google\Protobuf\Internal\RepeatedField
+     */
+    public function getScopedIndexedComponents()
+    {
+        return $this->scopedIndexedComponents;
+    }
+
+    /**
+     * Scoped reference indexed components that specify which parts of a reference relationship
+     * (referenced entity, referenced group entity) are indexed per scope.
+     * When `inherited` is true, this field is ignored.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexedComponents scopedIndexedComponents = 5;</code>
+     * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcScopedReferenceIndexedComponents>|\Google\Protobuf\Internal\RepeatedField $var
+     * @return $this
+     */
+    public function setScopedIndexedComponents($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcScopedReferenceIndexedComponents::class);
+        $this->scopedIndexedComponents = $arr;
 
         return $this;
     }

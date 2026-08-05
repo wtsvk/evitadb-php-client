@@ -50,7 +50,7 @@ class GrpcCatalogState
      */
     const INACTIVE = 4;
     /**
-     * State signalizing that evitaDB engine is transitioning catalog from {&#64;link #WARMING_UP} to {&#64;link #ALIVE} state.
+     * State signalizing that evitaDB engine is transitioning catalog from `WARMING_UP` to `ALIVE` state.
      * Until the transition is fully completed, the catalog is not able to serve any requests.
      *
      * Generated from protobuf enum <code>GOING_ALIVE = 5;</code>
@@ -66,7 +66,7 @@ class GrpcCatalogState
     const BEING_ACTIVATED = 6;
     /**
      * State signalizing that evitaDB engine is deactivating the catalog. When the operation is completed, the catalog
-     * is moved to {&#64;link #INACTIVE} state.
+     * is moved to `INACTIVE` state.
      *
      * Generated from protobuf enum <code>BEING_DEACTIVATED = 7;</code>
      */
@@ -86,6 +86,29 @@ class GrpcCatalogState
      */
     const BEING_DELETED = 9;
     /**
+     * State signalizing that a catalog previously registered with the engine no longer has an on-disk folder.
+     * The engine records this divergence via `MarkCatalogMissingMutation` so it can be diagnosed and later
+     * recovered via auto-discovery or operator action.
+     *
+     * Generated from protobuf enum <code>MISSING = 10;</code>
+     */
+    const MISSING = 10;
+    /**
+     * State signalizing that the catalog's on-disk storage protocol is older than the engine supports.
+     * Reads and writes are refused until the catalog has been upgraded via `UpgradeCatalogFormatMutation`.
+     *
+     * Generated from protobuf enum <code>OUT_OF_DATE = 11;</code>
+     */
+    const OUT_OF_DATE = 11;
+    /**
+     * State signalizing that the catalog is currently being upgraded from an older storage protocol
+     * to the one the engine supports. Transient state entered while an `UpgradeCatalogFormatMutation`
+     * is running; the completion phase returns the catalog to its prior operational state.
+     *
+     * Generated from protobuf enum <code>BEING_UPGRADED = 12;</code>
+     */
+    const BEING_UPGRADED = 12;
+    /**
      * Unknown state of the catalog. Used when catalog is corrupted.
      *
      * Generated from protobuf enum <code>UNKNOWN_CATALOG_STATE = 2;</code>
@@ -102,6 +125,9 @@ class GrpcCatalogState
         self::BEING_DEACTIVATED => 'BEING_DEACTIVATED',
         self::BEING_CREATED => 'BEING_CREATED',
         self::BEING_DELETED => 'BEING_DELETED',
+        self::MISSING => 'MISSING',
+        self::OUT_OF_DATE => 'OUT_OF_DATE',
+        self::BEING_UPGRADED => 'BEING_UPGRADED',
         self::UNKNOWN_CATALOG_STATE => 'UNKNOWN_CATALOG_STATE',
     ];
 

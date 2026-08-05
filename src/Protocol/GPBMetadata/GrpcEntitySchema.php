@@ -19,8 +19,8 @@ class GrpcEntitySchema
         \GPBMetadata\Google\Protobuf\Wrappers::initOnce();
         $pool->internalAddGeneratedFile(
             '
-˚-
-GrpcEntitySchema.proto%io.evitadb.externalApi.grpc.generatedGrpcEnums.protogoogle/protobuf/wrappers.proto"ˇ
+¬4
+GrpcEntitySchema.proto%io.evitadb.externalApi.grpc.generatedGrpcEnums.protogoogle/protobuf/wrappers.proto"⁄
 GrpcEntitySchema
 name (	
 version (1
@@ -44,7 +44,8 @@ references (2G.io.evitadb.externalApi.grpc.generated.GrpcEntitySchema.Refere
 nameVariant (26.io.evitadb.externalApi.grpc.generated.GrpcNameVariantX
 hierarchyIndexedInScopes (26.io.evitadb.externalApi.grpc.generated.GrpcEntityScopeT
 priceIndexedInScopes (26.io.evitadb.externalApi.grpc.generated.GrpcEntityScope
-catalogSchemaVersion (m
+catalogSchemaVersion (Y
+conflictResolution (2=.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionm
 AttributesEntry
 key (	I
 value (2:.io.evitadb.externalApi.grpc.generated.GrpcAttributeSchema:8v
@@ -56,7 +57,8 @@ references (2G.io.evitadb.externalApi.grpc.generated.GrpcEntitySchema.Refere
 value (2:.io.evitadb.externalApi.grpc.generated.GrpcReferenceSchema:8ç
 SortableAttributeCompoundsEntry
 key (	Y
-value (2J.io.evitadb.externalApi.grpc.generated.GrpcSortableAttributeCompoundSchema:8"ó	
+value (2J.io.evitadb.externalApi.grpc.generated.GrpcSortableAttributeCompoundSchema:8"Ç
+
 GrpcAttributeSchema
 name (	R
 
@@ -80,7 +82,8 @@ filterable (B
 uniqueInScopes (2H.io.evitadb.externalApi.grpc.generated.GrpcScopedAttributeUniquenessTypen
 uniqueGloballyInScopes (2N.io.evitadb.externalApi.grpc.generated.GrpcScopedGlobalAttributeUniquenessTypeR
 filterableInScopes (26.io.evitadb.externalApi.grpc.generated.GrpcEntityScopeP
-sortableInScopes (26.io.evitadb.externalApi.grpc.generated.GrpcEntityScope"Ó
+sortableInScopes (26.io.evitadb.externalApi.grpc.generated.GrpcEntityScopei
+conflictResolutionOverride (2E.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride"Ÿ
 GrpcAssociatedDataSchema
 name (	1
 description (2.google.protobuf.StringValue7
@@ -88,7 +91,8 @@ filterable (B
 type (2X.io.evitadb.externalApi.grpc.generated.GrpcEvitaAssociatedDataDataType.GrpcEvitaDataType
 	localized (
 nullable (K
-nameVariant (26.io.evitadb.externalApi.grpc.generated.GrpcNameVariant"§
+nameVariant (26.io.evitadb.externalApi.grpc.generated.GrpcNameVarianti
+conflictResolutionOverride (2E.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride"∫
 GrpcReferenceSchema
 name (	1
 description (2.google.protobuf.StringValue7
@@ -120,7 +124,13 @@ attributes (2J.io.evitadb.externalApi.grpc.generated.GrpcReferenceSchema.Att
 indexedInherited (S
 indexedInScopes (26.io.evitadb.externalApi.grpc.generated.GrpcEntityScopeBO
 facetedInScopes (26.io.evitadb.externalApi.grpc.generated.GrpcEntityScope]
-scopedIndexTypes (2C.io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexTypem
+scopedIndexTypes (2C.io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexTypel
+scopedIndexedComponents (2K.io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexedComponents"
+indexedComponentsInherited ([
+facetedPartially (2A.io.evitadb.externalApi.grpc.generated.GrpcScopedFacetedPartially[
+bucketed  (2I.io.evitadb.externalApi.grpc.generated.GrpcScopedHistogramIndexDefinition]
+bucketedPartially! (2B.io.evitadb.externalApi.grpc.generated.GrpcScopedBucketedPartiallyi
+conflictResolutionOverride" (2E.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverridem
 AttributesEntry
 key (	I
 value (2:.io.evitadb.externalApi.grpc.generated.GrpcAttributeSchema:8ç

@@ -16,31 +16,39 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcGetProgressResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * contains information whether the progress was found or not
+     * True when a mutation progress was being tracked for `catalogName` at the moment this call was received. If
+     * `false`, none of the fields below carry information - either no mutation is currently in flight for this
+     * catalog, or a previously tracked one already finished (and its progress entry was cleared) before this call
+     * arrived; the call must be made while the operation is still running in order to observe it.
      *
      * Generated from protobuf field <code>bool found = 1;</code>
      */
     protected $found = false;
     /**
-     * The progress of the top-level engine mutation in percents.
+     * Current progress of the tracked mutation (percent, 0-100). Unset iff `found` is `false`. The final streamed
+     * message carries 100; intermediate updates are throttled (only sent on an increase, at most once per second).
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value progressInPercent = 2;</code>
      */
     protected $progressInPercent = null;
     /**
-     * Contains catalog name copied from the request (if the progress is related to a catalog)
+     * Catalog name copied from the request. Empty when `found` is `false`.
      *
      * Generated from protobuf field <code>string catalogName = 3;</code>
      */
     protected $catalogName = '';
     /**
-     * Contains catalog version when operation finishes (only if the mutation relates to a catalog)
+     * Catalog version reached by the operation. Set only on the final streamed message (`progressInPercent` = 100),
+     * and only if the operation produced a catalog version (i.e. relates to a catalog rather than being purely
+     * engine-level); unset on every intermediate update.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value catalogVersion = 4;</code>
      */
     protected $catalogVersion = null;
     /**
-     * Contains catalog schema version when operation finishes (only if the mutation relates to a catalog)
+     * Catalog schema version reached by the operation. Set only on the final streamed message
+     * (`progressInPercent` = 100), and only if the operation produced a catalog schema version (i.e. relates to a
+     * catalog rather than being purely engine-level); unset on every intermediate update.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value catalogSchemaVersion = 5;</code>
      */
@@ -53,15 +61,23 @@ class GrpcGetProgressResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type bool $found
-     *           contains information whether the progress was found or not
+     *           True when a mutation progress was being tracked for `catalogName` at the moment this call was received. If
+     *           `false`, none of the fields below carry information - either no mutation is currently in flight for this
+     *           catalog, or a previously tracked one already finished (and its progress entry was cleared) before this call
+     *           arrived; the call must be made while the operation is still running in order to observe it.
      *     @type \Google\Protobuf\Int32Value $progressInPercent
-     *           The progress of the top-level engine mutation in percents.
+     *           Current progress of the tracked mutation (percent, 0-100). Unset iff `found` is `false`. The final streamed
+     *           message carries 100; intermediate updates are throttled (only sent on an increase, at most once per second).
      *     @type string $catalogName
-     *           Contains catalog name copied from the request (if the progress is related to a catalog)
+     *           Catalog name copied from the request. Empty when `found` is `false`.
      *     @type \Google\Protobuf\Int64Value $catalogVersion
-     *           Contains catalog version when operation finishes (only if the mutation relates to a catalog)
+     *           Catalog version reached by the operation. Set only on the final streamed message (`progressInPercent` = 100),
+     *           and only if the operation produced a catalog version (i.e. relates to a catalog rather than being purely
+     *           engine-level); unset on every intermediate update.
      *     @type \Google\Protobuf\Int32Value $catalogSchemaVersion
-     *           Contains catalog schema version when operation finishes (only if the mutation relates to a catalog)
+     *           Catalog schema version reached by the operation. Set only on the final streamed message
+     *           (`progressInPercent` = 100), and only if the operation produced a catalog schema version (i.e. relates to a
+     *           catalog rather than being purely engine-level); unset on every intermediate update.
      * }
      */
     public function __construct($data = NULL) {
@@ -70,7 +86,10 @@ class GrpcGetProgressResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * contains information whether the progress was found or not
+     * True when a mutation progress was being tracked for `catalogName` at the moment this call was received. If
+     * `false`, none of the fields below carry information - either no mutation is currently in flight for this
+     * catalog, or a previously tracked one already finished (and its progress entry was cleared) before this call
+     * arrived; the call must be made while the operation is still running in order to observe it.
      *
      * Generated from protobuf field <code>bool found = 1;</code>
      * @return bool
@@ -81,7 +100,10 @@ class GrpcGetProgressResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * contains information whether the progress was found or not
+     * True when a mutation progress was being tracked for `catalogName` at the moment this call was received. If
+     * `false`, none of the fields below carry information - either no mutation is currently in flight for this
+     * catalog, or a previously tracked one already finished (and its progress entry was cleared) before this call
+     * arrived; the call must be made while the operation is still running in order to observe it.
      *
      * Generated from protobuf field <code>bool found = 1;</code>
      * @param bool $var
@@ -96,7 +118,8 @@ class GrpcGetProgressResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The progress of the top-level engine mutation in percents.
+     * Current progress of the tracked mutation (percent, 0-100). Unset iff `found` is `false`. The final streamed
+     * message carries 100; intermediate updates are throttled (only sent on an increase, at most once per second).
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value progressInPercent = 2;</code>
      * @return \Google\Protobuf\Int32Value|null
@@ -119,7 +142,8 @@ class GrpcGetProgressResponse extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getProgressInPercent()</code>
 
-     * The progress of the top-level engine mutation in percents.
+     * Current progress of the tracked mutation (percent, 0-100). Unset iff `found` is `false`. The final streamed
+     * message carries 100; intermediate updates are throttled (only sent on an increase, at most once per second).
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value progressInPercent = 2;</code>
      * @return int|null
@@ -130,7 +154,8 @@ class GrpcGetProgressResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The progress of the top-level engine mutation in percents.
+     * Current progress of the tracked mutation (percent, 0-100). Unset iff `found` is `false`. The final streamed
+     * message carries 100; intermediate updates are throttled (only sent on an increase, at most once per second).
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value progressInPercent = 2;</code>
      * @param \Google\Protobuf\Int32Value $var
@@ -147,7 +172,8 @@ class GrpcGetProgressResponse extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int32Value object.
 
-     * The progress of the top-level engine mutation in percents.
+     * Current progress of the tracked mutation (percent, 0-100). Unset iff `found` is `false`. The final streamed
+     * message carries 100; intermediate updates are throttled (only sent on an increase, at most once per second).
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value progressInPercent = 2;</code>
      * @param int|null $var
@@ -159,7 +185,7 @@ class GrpcGetProgressResponse extends \Google\Protobuf\Internal\Message
         return $this;}
 
     /**
-     * Contains catalog name copied from the request (if the progress is related to a catalog)
+     * Catalog name copied from the request. Empty when `found` is `false`.
      *
      * Generated from protobuf field <code>string catalogName = 3;</code>
      * @return string
@@ -170,7 +196,7 @@ class GrpcGetProgressResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Contains catalog name copied from the request (if the progress is related to a catalog)
+     * Catalog name copied from the request. Empty when `found` is `false`.
      *
      * Generated from protobuf field <code>string catalogName = 3;</code>
      * @param string $var
@@ -185,7 +211,9 @@ class GrpcGetProgressResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Contains catalog version when operation finishes (only if the mutation relates to a catalog)
+     * Catalog version reached by the operation. Set only on the final streamed message (`progressInPercent` = 100),
+     * and only if the operation produced a catalog version (i.e. relates to a catalog rather than being purely
+     * engine-level); unset on every intermediate update.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value catalogVersion = 4;</code>
      * @return \Google\Protobuf\Int64Value|null
@@ -208,7 +236,9 @@ class GrpcGetProgressResponse extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getCatalogVersion()</code>
 
-     * Contains catalog version when operation finishes (only if the mutation relates to a catalog)
+     * Catalog version reached by the operation. Set only on the final streamed message (`progressInPercent` = 100),
+     * and only if the operation produced a catalog version (i.e. relates to a catalog rather than being purely
+     * engine-level); unset on every intermediate update.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value catalogVersion = 4;</code>
      * @return int|string|null
@@ -219,7 +249,9 @@ class GrpcGetProgressResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Contains catalog version when operation finishes (only if the mutation relates to a catalog)
+     * Catalog version reached by the operation. Set only on the final streamed message (`progressInPercent` = 100),
+     * and only if the operation produced a catalog version (i.e. relates to a catalog rather than being purely
+     * engine-level); unset on every intermediate update.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value catalogVersion = 4;</code>
      * @param \Google\Protobuf\Int64Value $var
@@ -236,7 +268,9 @@ class GrpcGetProgressResponse extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int64Value object.
 
-     * Contains catalog version when operation finishes (only if the mutation relates to a catalog)
+     * Catalog version reached by the operation. Set only on the final streamed message (`progressInPercent` = 100),
+     * and only if the operation produced a catalog version (i.e. relates to a catalog rather than being purely
+     * engine-level); unset on every intermediate update.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value catalogVersion = 4;</code>
      * @param int|string|null $var
@@ -248,7 +282,9 @@ class GrpcGetProgressResponse extends \Google\Protobuf\Internal\Message
         return $this;}
 
     /**
-     * Contains catalog schema version when operation finishes (only if the mutation relates to a catalog)
+     * Catalog schema version reached by the operation. Set only on the final streamed message
+     * (`progressInPercent` = 100), and only if the operation produced a catalog schema version (i.e. relates to a
+     * catalog rather than being purely engine-level); unset on every intermediate update.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value catalogSchemaVersion = 5;</code>
      * @return \Google\Protobuf\Int32Value|null
@@ -271,7 +307,9 @@ class GrpcGetProgressResponse extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getCatalogSchemaVersion()</code>
 
-     * Contains catalog schema version when operation finishes (only if the mutation relates to a catalog)
+     * Catalog schema version reached by the operation. Set only on the final streamed message
+     * (`progressInPercent` = 100), and only if the operation produced a catalog schema version (i.e. relates to a
+     * catalog rather than being purely engine-level); unset on every intermediate update.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value catalogSchemaVersion = 5;</code>
      * @return int|null
@@ -282,7 +320,9 @@ class GrpcGetProgressResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Contains catalog schema version when operation finishes (only if the mutation relates to a catalog)
+     * Catalog schema version reached by the operation. Set only on the final streamed message
+     * (`progressInPercent` = 100), and only if the operation produced a catalog schema version (i.e. relates to a
+     * catalog rather than being purely engine-level); unset on every intermediate update.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value catalogSchemaVersion = 5;</code>
      * @param \Google\Protobuf\Int32Value $var
@@ -299,7 +339,9 @@ class GrpcGetProgressResponse extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int32Value object.
 
-     * Contains catalog schema version when operation finishes (only if the mutation relates to a catalog)
+     * Catalog schema version reached by the operation. Set only on the final streamed message
+     * (`progressInPercent` = 100), and only if the operation produced a catalog schema version (i.e. relates to a
+     * catalog rather than being purely engine-level); unset on every intermediate update.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value catalogSchemaVersion = 5;</code>
      * @param int|null $var

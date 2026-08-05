@@ -9,7 +9,7 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Request to get single file by id
+ * Request to stream the contents of a single file available for fetching, by its id.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcFetchFileRequest</code>
  */

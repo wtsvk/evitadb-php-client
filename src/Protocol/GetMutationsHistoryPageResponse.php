@@ -9,18 +9,51 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Response to GetMutationsHistoryPage request.
+ * Response to GetMutationsHistoryPage request. Unlike `GrpcPaginatedList`/`GrpcDataChunk` elsewhere in
+ * this API, there is no `totalRecordCount` here - a WAL scan cannot produce one cheaply - so `hasNext` is
+ * computed by the server peeking one record past the requested page rather than from a precomputed count,
+ * and there is no `isLast`/`hasPrevious` counterpart either. See `sinceVersion` below for the anchor-echo
+ * mechanism that keeps a multi-page traversal consistent across concurrent commits.
+ * Pages never split a `(version, index)` group (see `GetMutationsHistoryPageRequest` for what that means -
+ * there is no separate "record level", just the transaction/entity-schema-mutation/local-mutation levels
+ * the CDC model actually has). That guarantee holds at the entity/schema-mutation level only, not at the
+ * transaction level: a page's first group can be a transaction's non-header entity/schema mutation without
+ * that transaction's lead event appearing anywhere in the same page. So the `mutationCount`-based
+ * completeness check available on the unpaged `GetMutationsHistory`/`GetMutationsHistoryForward` RPCs is
+ * not usable across page boundaries here.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GetMutationsHistoryPageResponse</code>
  */
 class GetMutationsHistoryPageResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The list of mutations that match the criteria
+     * The mutations on this page - newest first for GetMutationsHistoryPage, oldest first for
+     * GetMutationsHistoryPageForward. Can be shorter than the requested page size - including empty - and,
+     * since a page never splits a `(version, index)` group, can also carry more entries than `pageSize` when
+     * the last included group fans out into several local-mutation captures; see the message-level comment.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeCatalogCapture changeCapture = 1;</code>
      */
     private $changeCapture;
+    /**
+     * Whether a further page exists beyond this one - see the message-level comment for how this is derived.
+     *
+     * Generated from protobuf field <code>bool hasNext = 2;</code>
+     */
+    protected $hasNext = false;
+    /**
+     * The catalog version this page's traversal is anchored to. If the request left `sinceVersion` unset,
+     * this reports what the implied bound resolved to: "now" (the newest available version) for
+     * GetMutationsHistoryPage, or the oldest known version for GetMutationsHistoryPageForward - no other RPC
+     * reports either directly (`GetCatalogVersionAt` with no moment set reports the *oldest* known version
+     * only, regardless of direction). Pass this value back as `GetMutationsHistoryPageRequest.sinceVersion`
+     * on every subsequent page of the same traversal to keep it anchored to that one version throughout. If
+     * `sinceVersion` is instead left unset on every call, each page resolves the bound independently, so a
+     * commit landing between page fetches moves it and mutations can be skipped or duplicated across pages.
+     *
+     * Generated from protobuf field <code>int64 sinceVersion = 3;</code>
+     */
+    protected $sinceVersion = 0;
 
     /**
      * Constructor.
@@ -29,7 +62,21 @@ class GetMutationsHistoryPageResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcChangeCatalogCapture>|\Google\Protobuf\Internal\RepeatedField $changeCapture
-     *           The list of mutations that match the criteria
+     *           The mutations on this page - newest first for GetMutationsHistoryPage, oldest first for
+     *           GetMutationsHistoryPageForward. Can be shorter than the requested page size - including empty - and,
+     *           since a page never splits a `(version, index)` group, can also carry more entries than `pageSize` when
+     *           the last included group fans out into several local-mutation captures; see the message-level comment.
+     *     @type bool $hasNext
+     *           Whether a further page exists beyond this one - see the message-level comment for how this is derived.
+     *     @type int|string $sinceVersion
+     *           The catalog version this page's traversal is anchored to. If the request left `sinceVersion` unset,
+     *           this reports what the implied bound resolved to: "now" (the newest available version) for
+     *           GetMutationsHistoryPage, or the oldest known version for GetMutationsHistoryPageForward - no other RPC
+     *           reports either directly (`GetCatalogVersionAt` with no moment set reports the *oldest* known version
+     *           only, regardless of direction). Pass this value back as `GetMutationsHistoryPageRequest.sinceVersion`
+     *           on every subsequent page of the same traversal to keep it anchored to that one version throughout. If
+     *           `sinceVersion` is instead left unset on every call, each page resolves the bound independently, so a
+     *           commit landing between page fetches moves it and mutations can be skipped or duplicated across pages.
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +85,10 @@ class GetMutationsHistoryPageResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The list of mutations that match the criteria
+     * The mutations on this page - newest first for GetMutationsHistoryPage, oldest first for
+     * GetMutationsHistoryPageForward. Can be shorter than the requested page size - including empty - and,
+     * since a page never splits a `(version, index)` group, can also carry more entries than `pageSize` when
+     * the last included group fans out into several local-mutation captures; see the message-level comment.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeCatalogCapture changeCapture = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -49,7 +99,10 @@ class GetMutationsHistoryPageResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The list of mutations that match the criteria
+     * The mutations on this page - newest first for GetMutationsHistoryPage, oldest first for
+     * GetMutationsHistoryPageForward. Can be shorter than the requested page size - including empty - and,
+     * since a page never splits a `(version, index)` group, can also carry more entries than `pageSize` when
+     * the last included group fans out into several local-mutation captures; see the message-level comment.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeCatalogCapture changeCapture = 1;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcChangeCatalogCapture>|\Google\Protobuf\Internal\RepeatedField $var
@@ -59,6 +112,72 @@ class GetMutationsHistoryPageResponse extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcChangeCatalogCapture::class);
         $this->changeCapture = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Whether a further page exists beyond this one - see the message-level comment for how this is derived.
+     *
+     * Generated from protobuf field <code>bool hasNext = 2;</code>
+     * @return bool
+     */
+    public function getHasNext()
+    {
+        return $this->hasNext;
+    }
+
+    /**
+     * Whether a further page exists beyond this one - see the message-level comment for how this is derived.
+     *
+     * Generated from protobuf field <code>bool hasNext = 2;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setHasNext($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->hasNext = $var;
+
+        return $this;
+    }
+
+    /**
+     * The catalog version this page's traversal is anchored to. If the request left `sinceVersion` unset,
+     * this reports what the implied bound resolved to: "now" (the newest available version) for
+     * GetMutationsHistoryPage, or the oldest known version for GetMutationsHistoryPageForward - no other RPC
+     * reports either directly (`GetCatalogVersionAt` with no moment set reports the *oldest* known version
+     * only, regardless of direction). Pass this value back as `GetMutationsHistoryPageRequest.sinceVersion`
+     * on every subsequent page of the same traversal to keep it anchored to that one version throughout. If
+     * `sinceVersion` is instead left unset on every call, each page resolves the bound independently, so a
+     * commit landing between page fetches moves it and mutations can be skipped or duplicated across pages.
+     *
+     * Generated from protobuf field <code>int64 sinceVersion = 3;</code>
+     * @return int|string
+     */
+    public function getSinceVersion()
+    {
+        return $this->sinceVersion;
+    }
+
+    /**
+     * The catalog version this page's traversal is anchored to. If the request left `sinceVersion` unset,
+     * this reports what the implied bound resolved to: "now" (the newest available version) for
+     * GetMutationsHistoryPage, or the oldest known version for GetMutationsHistoryPageForward - no other RPC
+     * reports either directly (`GetCatalogVersionAt` with no moment set reports the *oldest* known version
+     * only, regardless of direction). Pass this value back as `GetMutationsHistoryPageRequest.sinceVersion`
+     * on every subsequent page of the same traversal to keep it anchored to that one version throughout. If
+     * `sinceVersion` is instead left unset on every call, each page resolves the bound independently, so a
+     * commit landing between page fetches moves it and mutations can be skipped or duplicated across pages.
+     *
+     * Generated from protobuf field <code>int64 sinceVersion = 3;</code>
+     * @param int|string $var
+     * @return $this
+     */
+    public function setSinceVersion($var)
+    {
+        GPBUtil::checkInt64($var);
+        $this->sinceVersion = $var;
 
         return $this;
     }

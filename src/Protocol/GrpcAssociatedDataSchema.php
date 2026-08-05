@@ -29,6 +29,9 @@ class GrpcAssociatedDataSchema extends \Google\Protobuf\Internal\Message
      */
     protected $name = '';
     /**
+     * Contains description of the model is optional but helps authors of the schema / client API to better
+     * explain the original purpose of the model to the consumers.
+     *
      * Generated from protobuf field <code>.google.protobuf.StringValue description = 2;</code>
      */
     protected $description = null;
@@ -68,6 +71,13 @@ class GrpcAssociatedDataSchema extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcNameVariant nameVariant = 7;</code>
      */
     private $nameVariant;
+    /**
+     * Contains the per-associated-data override of the conflict resolution granularity. Defaults to inherited (follow
+     * the resolved conflict resolution).
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 8;</code>
+     */
+    protected $conflictResolutionOverride = 0;
 
     /**
      * Constructor.
@@ -79,6 +89,8 @@ class GrpcAssociatedDataSchema extends \Google\Protobuf\Internal\Message
      *           Contains unique name of the model. Case-sensitive. Distinguishes one model item from another
      *           within single entity instance.
      *     @type \Google\Protobuf\StringValue $description
+     *           Contains description of the model is optional but helps authors of the schema / client API to better
+     *           explain the original purpose of the model to the consumers.
      *     @type \Google\Protobuf\StringValue $deprecationNotice
      *           Deprecation notice contains information about planned removal of this entity from the model / client API.
      *           This allows to plan and evolve the schema allowing clients to adapt early to planned breaking changes.
@@ -95,6 +107,9 @@ class GrpcAssociatedDataSchema extends \Google\Protobuf\Internal\Message
      *           non-null checks upon upserting of the entity.
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcNameVariant>|\Google\Protobuf\Internal\RepeatedField $nameVariant
      *           Contains associated data name converted to different naming conventions.
+     *     @type int $conflictResolutionOverride
+     *           Contains the per-associated-data override of the conflict resolution granularity. Defaults to inherited (follow
+     *           the resolved conflict resolution).
      * }
      */
     public function __construct($data = NULL) {
@@ -131,6 +146,9 @@ class GrpcAssociatedDataSchema extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     * Contains description of the model is optional but helps authors of the schema / client API to better
+     * explain the original purpose of the model to the consumers.
+     *
      * Generated from protobuf field <code>.google.protobuf.StringValue description = 2;</code>
      * @return \Google\Protobuf\StringValue|null
      */
@@ -152,6 +170,9 @@ class GrpcAssociatedDataSchema extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getDescription()</code>
 
+     * Contains description of the model is optional but helps authors of the schema / client API to better
+     * explain the original purpose of the model to the consumers.
+     *
      * Generated from protobuf field <code>.google.protobuf.StringValue description = 2;</code>
      * @return string|null
      */
@@ -161,6 +182,9 @@ class GrpcAssociatedDataSchema extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     * Contains description of the model is optional but helps authors of the schema / client API to better
+     * explain the original purpose of the model to the consumers.
+     *
      * Generated from protobuf field <code>.google.protobuf.StringValue description = 2;</code>
      * @param \Google\Protobuf\StringValue $var
      * @return $this
@@ -176,6 +200,9 @@ class GrpcAssociatedDataSchema extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\StringValue object.
 
+     * Contains description of the model is optional but helps authors of the schema / client API to better
+     * explain the original purpose of the model to the consumers.
+     *
      * Generated from protobuf field <code>.google.protobuf.StringValue description = 2;</code>
      * @param string|null $var
      * @return $this
@@ -364,6 +391,34 @@ class GrpcAssociatedDataSchema extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcNameVariant::class);
         $this->nameVariant = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Contains the per-associated-data override of the conflict resolution granularity. Defaults to inherited (follow
+     * the resolved conflict resolution).
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 8;</code>
+     * @return int
+     */
+    public function getConflictResolutionOverride()
+    {
+        return $this->conflictResolutionOverride;
+    }
+
+    /**
+     * Contains the per-associated-data override of the conflict resolution granularity. Defaults to inherited (follow
+     * the resolved conflict resolution).
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 8;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setConflictResolutionOverride($var)
+    {
+        GPBUtil::checkEnum($var, \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolutionOverride::class);
+        $this->conflictResolutionOverride = $var;
 
         return $this;
     }

@@ -19,7 +19,7 @@ class GrpcEvitaTrafficRecordingAPI
         \Wtsvk\EvitaDbClient\Protocol\GPBMetadata\GrpcTrafficRecording::initOnce();
         $pool->internalAddGeneratedFile(
             '
-Á
+Ð
 "GrpcEvitaTrafficRecordingAPI.proto%io.evitadb.externalApi.grpc.generatedgoogle/protobuf/wrappers.protoGrpcTrafficRecording.proto"‹
 GetTrafficHistoryListRequest
 limit (\\
@@ -50,11 +50,12 @@ exportFile (>
 maxFileSizeInBytes (2.google.protobuf.Int64Value9
 chunkFileSizeInBytes (2.google.protobuf.Int64Value"h
 GrpcStopTrafficRecordingRequestE
-taskStatusId (2/.io.evitadb.externalApi.grpc.generated.GrpcUuid"n
+taskStatusId (2/.io.evitadb.externalApi.grpc.generated.GrpcUuid"^
+!GrpcExportTrafficRecordingRequest9
+chunkFileSizeInBytes (2.google.protobuf.Int64Value"n
 !GetTrafficRecordingStatusResponseI
 
-taskStatus (25.io.evitadb.externalApi.grpc.generated.GrpcTaskStatus2¨
-
+taskStatus (25.io.evitadb.externalApi.grpc.generated.GrpcTaskStatus2×
  GrpcEvitaTrafficRecordingService«
 GetTrafficRecordingHistoryListC.io.evitadb.externalApi.grpc.generated.GetTrafficHistoryListRequestD.io.evitadb.externalApi.grpc.generated.GetTrafficHistoryListResponse³
 &GetTrafficRecordingHistoryListReversedC.io.evitadb.externalApi.grpc.generated.GetTrafficHistoryListRequestD.io.evitadb.externalApi.grpc.generated.GetTrafficHistoryListResponse¡
@@ -62,7 +63,8 @@ taskStatus (25.io.evitadb.externalApi.grpc.generated.GrpcTaskStatus2¨
 2GetTrafficRecordingLabelsNamesOrderedByCardinalityK.io.evitadb.externalApi.grpc.generated.GetTrafficRecordingLabelNamesRequestL.io.evitadb.externalApi.grpc.generated.GetTrafficRecordingLabelNamesResponseÑ
 2GetTrafficRecordingLabelValuesOrderedByCardinalityL.io.evitadb.externalApi.grpc.generated.GetTrafficRecordingValuesNamesRequestM.io.evitadb.externalApi.grpc.generated.GetTrafficRecordingValuesNamesResponseª
 StartTrafficRecordingG.io.evitadb.externalApi.grpc.generated.GrpcStartTrafficRecordingRequestH.io.evitadb.externalApi.grpc.generated.GetTrafficRecordingStatusResponse¨
-StopTrafficRecordingF.io.evitadb.externalApi.grpc.generated.GrpcStopTrafficRecordingRequestH.io.evitadb.externalApi.grpc.generated.GetTrafficRecordingStatusResponseBVPªEvitaDBÊWtsvk\\EvitaDbClient\\Protocolâ(Wtsvk\\EvitaDbClient\\Protocol\\GPBMetadatabproto3'
+StopTrafficRecordingF.io.evitadb.externalApi.grpc.generated.GrpcStopTrafficRecordingRequestH.io.evitadb.externalApi.grpc.generated.GetTrafficRecordingStatusResponse¬
+ExportTrafficRecordingH.io.evitadb.externalApi.grpc.generated.GrpcExportTrafficRecordingRequestH.io.evitadb.externalApi.grpc.generated.GetTrafficRecordingStatusResponseBVPªEvitaDBÊWtsvk\\EvitaDbClient\\Protocolâ(Wtsvk\\EvitaDbClient\\Protocol\\GPBMetadatabproto3'
         , true);
 
         static::$is_initialized = true;

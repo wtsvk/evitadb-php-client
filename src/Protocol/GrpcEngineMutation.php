@@ -44,6 +44,10 @@ class GrpcEngineMutation extends \Google\Protobuf\Internal\Message
      *           Mutation that sets the active state of a catalog.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcRestoreCatalogSchemaMutation $restoreCatalogSchemaMutation
      *           Mutation is responsible for restoring a CatalogSchema in INACTIVE state.
+     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcMarkCatalogMissingMutation $markCatalogMissingMutation
+     *           Mutation that records the fact a catalog's on-disk folder is no longer present.
+     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcUpgradeCatalogFormatMutation $upgradeCatalogFormatMutation
+     *           Mutation that upgrades a catalog's on-disk storage protocol to the engine's current version.
      * }
      */
     public function __construct($data = NULL) {
@@ -357,6 +361,68 @@ class GrpcEngineMutation extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcRestoreCatalogSchemaMutation::class);
         $this->writeOneof(10, $var);
+
+        return $this;
+    }
+
+    /**
+     * Mutation that records the fact a catalog's on-disk folder is no longer present.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcMarkCatalogMissingMutation markCatalogMissingMutation = 11;</code>
+     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcMarkCatalogMissingMutation|null
+     */
+    public function getMarkCatalogMissingMutation()
+    {
+        return $this->readOneof(11);
+    }
+
+    public function hasMarkCatalogMissingMutation()
+    {
+        return $this->hasOneof(11);
+    }
+
+    /**
+     * Mutation that records the fact a catalog's on-disk folder is no longer present.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcMarkCatalogMissingMutation markCatalogMissingMutation = 11;</code>
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcMarkCatalogMissingMutation $var
+     * @return $this
+     */
+    public function setMarkCatalogMissingMutation($var)
+    {
+        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcMarkCatalogMissingMutation::class);
+        $this->writeOneof(11, $var);
+
+        return $this;
+    }
+
+    /**
+     * Mutation that upgrades a catalog's on-disk storage protocol to the engine's current version.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUpgradeCatalogFormatMutation upgradeCatalogFormatMutation = 12;</code>
+     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcUpgradeCatalogFormatMutation|null
+     */
+    public function getUpgradeCatalogFormatMutation()
+    {
+        return $this->readOneof(12);
+    }
+
+    public function hasUpgradeCatalogFormatMutation()
+    {
+        return $this->hasOneof(12);
+    }
+
+    /**
+     * Mutation that upgrades a catalog's on-disk storage protocol to the engine's current version.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUpgradeCatalogFormatMutation upgradeCatalogFormatMutation = 12;</code>
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcUpgradeCatalogFormatMutation $var
+     * @return $this
+     */
+    public function setUpgradeCatalogFormatMutation($var)
+    {
+        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcUpgradeCatalogFormatMutation::class);
+        $this->writeOneof(12, $var);
 
         return $this;
     }

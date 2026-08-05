@@ -25,7 +25,7 @@ class GrpcSetAttributeSchemaGloballyUniqueMutation extends \Google\Protobuf\Inte
     /**
      * When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
      * entity having certain value of this attribute in entire catalog.
-     * deprecated in favor of `uniqueGloballyInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `uniqueGloballyInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcGlobalAttributeUniquenessType uniqueGlobally = 2 [deprecated = true];</code>
      * @deprecated
@@ -50,7 +50,7 @@ class GrpcSetAttributeSchemaGloballyUniqueMutation extends \Google\Protobuf\Inte
      *     @type int $uniqueGlobally
      *           When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
      *           entity having certain value of this attribute in entire catalog.
-     *           deprecated in favor of `uniqueGloballyInScopes`
+     *           Deprecated since 2024.12 - deprecated in favor of `uniqueGloballyInScopes`
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcScopedGlobalAttributeUniquenessType>|\Google\Protobuf\Internal\RepeatedField $uniqueGloballyInScopes
      *           When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
      *           entity having certain value of this attribute in entire catalog.
@@ -90,7 +90,7 @@ class GrpcSetAttributeSchemaGloballyUniqueMutation extends \Google\Protobuf\Inte
     /**
      * When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
      * entity having certain value of this attribute in entire catalog.
-     * deprecated in favor of `uniqueGloballyInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `uniqueGloballyInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcGlobalAttributeUniquenessType uniqueGlobally = 2 [deprecated = true];</code>
      * @return int
@@ -105,7 +105,7 @@ class GrpcSetAttributeSchemaGloballyUniqueMutation extends \Google\Protobuf\Inte
     /**
      * When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
      * entity having certain value of this attribute in entire catalog.
-     * deprecated in favor of `uniqueGloballyInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `uniqueGloballyInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcGlobalAttributeUniquenessType uniqueGlobally = 2 [deprecated = true];</code>
      * @param int $var

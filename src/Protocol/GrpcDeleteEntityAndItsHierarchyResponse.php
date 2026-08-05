@@ -9,20 +9,22 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Response to DeleteEntity request when hierarchy has been specified in filter.
+ * Response to DeleteEntityAndItsHierarchy, which removes a hierarchical root entity together with every
+ * entity of the same type that transitively references it as a parent.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcDeleteEntityAndItsHierarchyResponse</code>
  */
 class GrpcDeleteEntityAndItsHierarchyResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Count of deleted entities.
+     * Total number of entities deleted (the root plus its whole nested hierarchy).
      *
      * Generated from protobuf field <code>int32 deletedEntities = 1;</code>
      */
     protected $deletedEntities = 0;
     /**
-     * Deleted entity primary keys.
+     * Primary keys of every entity deleted as part of the hierarchy removal, including the root entity's
+     * own primary key.
      *
      * Generated from protobuf field <code>repeated int32 deletedEntityPrimaryKeys = 4;</code>
      */
@@ -36,13 +38,16 @@ class GrpcDeleteEntityAndItsHierarchyResponse extends \Google\Protobuf\Internal\
      *     Optional. Data for populating the Message object.
      *
      *     @type int $deletedEntities
-     *           Count of deleted entities.
+     *           Total number of entities deleted (the root plus its whole nested hierarchy).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcEntityReference $deletedRootEntityReference
-     *           The deleted root entity reference.
+     *           The deleted root entity as a reference (type + primary key only). Currently never populated by the
+     *           server - see the message-level comment above.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity $deletedRootEntity
-     *           The deleted root entity.
+     *           The deleted root entity, fully fetched (as it was immediately before deletion) per
+     *           `GrpcDeleteEntityRequest.require`.
      *     @type array<int>|\Google\Protobuf\Internal\RepeatedField $deletedEntityPrimaryKeys
-     *           Deleted entity primary keys.
+     *           Primary keys of every entity deleted as part of the hierarchy removal, including the root entity's
+     *           own primary key.
      * }
      */
     public function __construct($data = NULL) {
@@ -51,7 +56,7 @@ class GrpcDeleteEntityAndItsHierarchyResponse extends \Google\Protobuf\Internal\
     }
 
     /**
-     * Count of deleted entities.
+     * Total number of entities deleted (the root plus its whole nested hierarchy).
      *
      * Generated from protobuf field <code>int32 deletedEntities = 1;</code>
      * @return int
@@ -62,7 +67,7 @@ class GrpcDeleteEntityAndItsHierarchyResponse extends \Google\Protobuf\Internal\
     }
 
     /**
-     * Count of deleted entities.
+     * Total number of entities deleted (the root plus its whole nested hierarchy).
      *
      * Generated from protobuf field <code>int32 deletedEntities = 1;</code>
      * @param int $var
@@ -77,7 +82,8 @@ class GrpcDeleteEntityAndItsHierarchyResponse extends \Google\Protobuf\Internal\
     }
 
     /**
-     * The deleted root entity reference.
+     * The deleted root entity as a reference (type + primary key only). Currently never populated by the
+     * server - see the message-level comment above.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntityReference deletedRootEntityReference = 2;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcEntityReference|null
@@ -93,7 +99,8 @@ class GrpcDeleteEntityAndItsHierarchyResponse extends \Google\Protobuf\Internal\
     }
 
     /**
-     * The deleted root entity reference.
+     * The deleted root entity as a reference (type + primary key only). Currently never populated by the
+     * server - see the message-level comment above.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntityReference deletedRootEntityReference = 2;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcEntityReference $var
@@ -108,7 +115,8 @@ class GrpcDeleteEntityAndItsHierarchyResponse extends \Google\Protobuf\Internal\
     }
 
     /**
-     * The deleted root entity.
+     * The deleted root entity, fully fetched (as it was immediately before deletion) per
+     * `GrpcDeleteEntityRequest.require`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity deletedRootEntity = 3;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity|null
@@ -124,7 +132,8 @@ class GrpcDeleteEntityAndItsHierarchyResponse extends \Google\Protobuf\Internal\
     }
 
     /**
-     * The deleted root entity.
+     * The deleted root entity, fully fetched (as it was immediately before deletion) per
+     * `GrpcDeleteEntityRequest.require`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity deletedRootEntity = 3;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity $var
@@ -139,7 +148,8 @@ class GrpcDeleteEntityAndItsHierarchyResponse extends \Google\Protobuf\Internal\
     }
 
     /**
-     * Deleted entity primary keys.
+     * Primary keys of every entity deleted as part of the hierarchy removal, including the root entity's
+     * own primary key.
      *
      * Generated from protobuf field <code>repeated int32 deletedEntityPrimaryKeys = 4;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -150,7 +160,8 @@ class GrpcDeleteEntityAndItsHierarchyResponse extends \Google\Protobuf\Internal\
     }
 
     /**
-     * Deleted entity primary keys.
+     * Primary keys of every entity deleted as part of the hierarchy removal, including the root entity's
+     * own primary key.
      *
      * Generated from protobuf field <code>repeated int32 deletedEntityPrimaryKeys = 4;</code>
      * @param array<int>|\Google\Protobuf\Internal\RepeatedField $var
