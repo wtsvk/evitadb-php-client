@@ -48,8 +48,10 @@ class GrpcExtraResults extends \Google\Protobuf\Internal\Message
     /**
      * Contains a collection of FacetGroupStatistics DTOs where each of them contains information about single facet group
      * (if they belong in one) and statistics of the facets that relates to it.
+     * Deprecated since 2026.2 - renamed to `referenceGroupStatistics`
      *
-     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcFacetGroupStatistics facetGroupStatistics = 3;</code>
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcFacetGroupStatistics facetGroupStatistics = 3 [deprecated = true];</code>
+     * @deprecated
      */
     private $facetGroupStatistics;
     /**
@@ -73,6 +75,13 @@ class GrpcExtraResults extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcQueryTelemetry queryTelemetry = 6;</code>
      */
     protected $queryTelemetry = null;
+    /**
+     * Contains a collection of ReferenceGroupStatistics DTOs where each of them contains information about single reference group
+     * (if they belong in one) and statistics of the references that relates to it.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcReferenceGroupStatistics referenceGroupStatistics = 7;</code>
+     */
+    private $referenceGroupStatistics;
 
     /**
      * Constructor.
@@ -105,6 +114,7 @@ class GrpcExtraResults extends \Google\Protobuf\Internal\Message
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcFacetGroupStatistics>|\Google\Protobuf\Internal\RepeatedField $facetGroupStatistics
      *           Contains a collection of FacetGroupStatistics DTOs where each of them contains information about single facet group
      *           (if they belong in one) and statistics of the facets that relates to it.
+     *           Deprecated since 2026.2 - renamed to `referenceGroupStatistics`
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcHierarchy $selfHierarchy
      *           Contains list of statistics for the single level (probably root or whatever is filtered by the query) of
      *           the queried hierarchy entity.
@@ -114,6 +124,9 @@ class GrpcExtraResults extends \Google\Protobuf\Internal\Message
      *           root or whatever is filtered by the query) of the hierarchy entity.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcQueryTelemetry $queryTelemetry
      *           This DTO contains detailed information about query processing time and its decomposition to single operations.
+     *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcReferenceGroupStatistics>|\Google\Protobuf\Internal\RepeatedField $referenceGroupStatistics
+     *           Contains a collection of ReferenceGroupStatistics DTOs where each of them contains information about single reference group
+     *           (if they belong in one) and statistics of the references that relates to it.
      * }
      */
     public function __construct($data = NULL) {
@@ -222,25 +235,31 @@ class GrpcExtraResults extends \Google\Protobuf\Internal\Message
     /**
      * Contains a collection of FacetGroupStatistics DTOs where each of them contains information about single facet group
      * (if they belong in one) and statistics of the facets that relates to it.
+     * Deprecated since 2026.2 - renamed to `referenceGroupStatistics`
      *
-     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcFacetGroupStatistics facetGroupStatistics = 3;</code>
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcFacetGroupStatistics facetGroupStatistics = 3 [deprecated = true];</code>
      * @return \Google\Protobuf\Internal\RepeatedField
+     * @deprecated
      */
     public function getFacetGroupStatistics()
     {
+        @trigger_error('facetGroupStatistics is deprecated.', E_USER_DEPRECATED);
         return $this->facetGroupStatistics;
     }
 
     /**
      * Contains a collection of FacetGroupStatistics DTOs where each of them contains information about single facet group
      * (if they belong in one) and statistics of the facets that relates to it.
+     * Deprecated since 2026.2 - renamed to `referenceGroupStatistics`
      *
-     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcFacetGroupStatistics facetGroupStatistics = 3;</code>
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcFacetGroupStatistics facetGroupStatistics = 3 [deprecated = true];</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcFacetGroupStatistics>|\Google\Protobuf\Internal\RepeatedField $var
      * @return $this
+     * @deprecated
      */
     public function setFacetGroupStatistics($var)
     {
+        @trigger_error('facetGroupStatistics is deprecated.', E_USER_DEPRECATED);
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcFacetGroupStatistics::class);
         $this->facetGroupStatistics = $arr;
 
@@ -347,6 +366,34 @@ class GrpcExtraResults extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcQueryTelemetry::class);
         $this->queryTelemetry = $var;
+
+        return $this;
+    }
+
+    /**
+     * Contains a collection of ReferenceGroupStatistics DTOs where each of them contains information about single reference group
+     * (if they belong in one) and statistics of the references that relates to it.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcReferenceGroupStatistics referenceGroupStatistics = 7;</code>
+     * @return \Google\Protobuf\Internal\RepeatedField
+     */
+    public function getReferenceGroupStatistics()
+    {
+        return $this->referenceGroupStatistics;
+    }
+
+    /**
+     * Contains a collection of ReferenceGroupStatistics DTOs where each of them contains information about single reference group
+     * (if they belong in one) and statistics of the references that relates to it.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcReferenceGroupStatistics referenceGroupStatistics = 7;</code>
+     * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcReferenceGroupStatistics>|\Google\Protobuf\Internal\RepeatedField $var
+     * @return $this
+     */
+    public function setReferenceGroupStatistics($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcReferenceGroupStatistics::class);
+        $this->referenceGroupStatistics = $arr;
 
         return $this;
     }

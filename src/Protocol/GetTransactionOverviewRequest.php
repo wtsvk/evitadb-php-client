@@ -16,7 +16,8 @@ use Google\Protobuf\Internal\GPBUtil;
 class GetTransactionOverviewRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The catalog version for which the transaction overview should be returned
+     * The catalog versions to return the transaction overview for. See `GetTransactionOverviewResponse`
+     * for the ordering and completeness contract of the response.
      *
      * Generated from protobuf field <code>repeated int64 catalogVersion = 1;</code>
      */
@@ -29,7 +30,8 @@ class GetTransactionOverviewRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type array<int>|array<string>|\Google\Protobuf\Internal\RepeatedField $catalogVersion
-     *           The catalog version for which the transaction overview should be returned
+     *           The catalog versions to return the transaction overview for. See `GetTransactionOverviewResponse`
+     *           for the ordering and completeness contract of the response.
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +40,8 @@ class GetTransactionOverviewRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The catalog version for which the transaction overview should be returned
+     * The catalog versions to return the transaction overview for. See `GetTransactionOverviewResponse`
+     * for the ordering and completeness contract of the response.
      *
      * Generated from protobuf field <code>repeated int64 catalogVersion = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -49,7 +52,8 @@ class GetTransactionOverviewRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The catalog version for which the transaction overview should be returned
+     * The catalog versions to return the transaction overview for. See `GetTransactionOverviewResponse`
+     * for the ordering and completeness contract of the response.
      *
      * Generated from protobuf field <code>repeated int64 catalogVersion = 1;</code>
      * @param array<int>|array<string>|\Google\Protobuf\Internal\RepeatedField $var

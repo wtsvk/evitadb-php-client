@@ -9,26 +9,31 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Single reserved keyword
+ * A single reserved keyword that cannot be used as a classifier of the given type (e.g. as an
+ * entity type, attribute name, or reference name) - client-side validation of user-supplied
+ * classifiers can use this list to reject collisions early, before the server does.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcReservedKeyword</code>
  */
 class GrpcReservedKeyword extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Type of the keyword
+     * The kind of classifier this keyword is reserved against (e.g. entity type, attribute name).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcClassifierType classifierType = 1;</code>
      */
     protected $classifierType = 0;
     /**
-     * Reserved keyword
+     * The reserved keyword in its normalized (camelCase) form. A candidate classifier is considered
+     * colliding if it matches this value in any of evitaDB's supported naming conventions
+     * (camelCase, PascalCase, snake_case, UPPER_SNAKE_CASE, kebab-case), not just this exact form.
      *
      * Generated from protobuf field <code>string classifier = 2;</code>
      */
     protected $classifier = '';
     /**
-     * List of words that are part of the keyword
+     * The individual words `classifier` is composed of, used to detect a collision across the
+     * supported naming conventions regardless of separator or case.
      *
      * Generated from protobuf field <code>repeated string words = 3;</code>
      */
@@ -41,11 +46,14 @@ class GrpcReservedKeyword extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type int $classifierType
-     *           Type of the keyword
+     *           The kind of classifier this keyword is reserved against (e.g. entity type, attribute name).
      *     @type string $classifier
-     *           Reserved keyword
+     *           The reserved keyword in its normalized (camelCase) form. A candidate classifier is considered
+     *           colliding if it matches this value in any of evitaDB's supported naming conventions
+     *           (camelCase, PascalCase, snake_case, UPPER_SNAKE_CASE, kebab-case), not just this exact form.
      *     @type array<string>|\Google\Protobuf\Internal\RepeatedField $words
-     *           List of words that are part of the keyword
+     *           The individual words `classifier` is composed of, used to detect a collision across the
+     *           supported naming conventions regardless of separator or case.
      * }
      */
     public function __construct($data = NULL) {
@@ -54,7 +62,7 @@ class GrpcReservedKeyword extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Type of the keyword
+     * The kind of classifier this keyword is reserved against (e.g. entity type, attribute name).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcClassifierType classifierType = 1;</code>
      * @return int
@@ -65,7 +73,7 @@ class GrpcReservedKeyword extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Type of the keyword
+     * The kind of classifier this keyword is reserved against (e.g. entity type, attribute name).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcClassifierType classifierType = 1;</code>
      * @param int $var
@@ -80,7 +88,9 @@ class GrpcReservedKeyword extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Reserved keyword
+     * The reserved keyword in its normalized (camelCase) form. A candidate classifier is considered
+     * colliding if it matches this value in any of evitaDB's supported naming conventions
+     * (camelCase, PascalCase, snake_case, UPPER_SNAKE_CASE, kebab-case), not just this exact form.
      *
      * Generated from protobuf field <code>string classifier = 2;</code>
      * @return string
@@ -91,7 +101,9 @@ class GrpcReservedKeyword extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Reserved keyword
+     * The reserved keyword in its normalized (camelCase) form. A candidate classifier is considered
+     * colliding if it matches this value in any of evitaDB's supported naming conventions
+     * (camelCase, PascalCase, snake_case, UPPER_SNAKE_CASE, kebab-case), not just this exact form.
      *
      * Generated from protobuf field <code>string classifier = 2;</code>
      * @param string $var
@@ -106,7 +118,8 @@ class GrpcReservedKeyword extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * List of words that are part of the keyword
+     * The individual words `classifier` is composed of, used to detect a collision across the
+     * supported naming conventions regardless of separator or case.
      *
      * Generated from protobuf field <code>repeated string words = 3;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -117,7 +130,8 @@ class GrpcReservedKeyword extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * List of words that are part of the keyword
+     * The individual words `classifier` is composed of, used to detect a collision across the
+     * supported naming conventions regardless of separator or case.
      *
      * Generated from protobuf field <code>repeated string words = 3;</code>
      * @param array<string>|\Google\Protobuf\Internal\RepeatedField $var

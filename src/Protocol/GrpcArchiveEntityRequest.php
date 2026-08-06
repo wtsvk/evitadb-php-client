@@ -9,38 +9,46 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Request for deleting an entity that should return the archived entity with required richness.
+ * Request for archiving a single entity by primary key and returning it fetched in the richness described
+ * by `require`.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcArchiveEntityRequest</code>
  */
 class GrpcArchiveEntityRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Entity type of the entity to be archived.
+     * Entity type (collection name) the entity to archive belongs to.
      *
      * Generated from protobuf field <code>string entityType = 1;</code>
      */
     protected $entityType = '';
     /**
-     * Primary key of the entity to be archived.
+     * Primary key of the entity to archive. Effectively mandatory despite the wrapper type: the server reads
+     * its value directly without checking presence, so an unset value is treated identically to an explicit
+     * `0` rather than as "no primary key" - always set this field explicitly.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value primaryKey = 2;</code>
      */
     protected $primaryKey = null;
     /**
-     * The string part of the parametrised query require part.
+     * The string part of a parametrised `require` query fragment describing how richly to fetch the entity
+     * back after it is archived. `?`/`&#64;name` placeholders are bound the same way as
+     * `positionalQueryParams`/`namedQueryParams` on `GrpcEntityRequest` - see there for the full binding
+     * contract.
      *
      * Generated from protobuf field <code>string require = 3;</code>
      */
     protected $require = '';
     /**
-     * The positional query parameters.
+     * Values for the `?` positional placeholders in `require`, bound in encounter order (FIFO) - see
+     * `GrpcEntityRequest.positionalQueryParams` for the full binding contract.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcQueryParam positionalQueryParams = 4;</code>
      */
     private $positionalQueryParams;
     /**
-     * The named query parameters.
+     * Values for the `&#64;name` named placeholders in `require`, keyed by name (without the `&#64;` prefix) - see
+     * `GrpcEntityRequest.namedQueryParams` for the full binding contract.
      *
      * Generated from protobuf field <code>map<string, .io.evitadb.externalApi.grpc.generated.GrpcQueryParam> namedQueryParams = 5;</code>
      */
@@ -53,15 +61,22 @@ class GrpcArchiveEntityRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $entityType
-     *           Entity type of the entity to be archived.
+     *           Entity type (collection name) the entity to archive belongs to.
      *     @type \Google\Protobuf\Int32Value $primaryKey
-     *           Primary key of the entity to be archived.
+     *           Primary key of the entity to archive. Effectively mandatory despite the wrapper type: the server reads
+     *           its value directly without checking presence, so an unset value is treated identically to an explicit
+     *           `0` rather than as "no primary key" - always set this field explicitly.
      *     @type string $require
-     *           The string part of the parametrised query require part.
+     *           The string part of a parametrised `require` query fragment describing how richly to fetch the entity
+     *           back after it is archived. `?`/`&#64;name` placeholders are bound the same way as
+     *           `positionalQueryParams`/`namedQueryParams` on `GrpcEntityRequest` - see there for the full binding
+     *           contract.
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcQueryParam>|\Google\Protobuf\Internal\RepeatedField $positionalQueryParams
-     *           The positional query parameters.
+     *           Values for the `?` positional placeholders in `require`, bound in encounter order (FIFO) - see
+     *           `GrpcEntityRequest.positionalQueryParams` for the full binding contract.
      *     @type array|\Google\Protobuf\Internal\MapField $namedQueryParams
-     *           The named query parameters.
+     *           Values for the `&#64;name` named placeholders in `require`, keyed by name (without the `&#64;` prefix) - see
+     *           `GrpcEntityRequest.namedQueryParams` for the full binding contract.
      * }
      */
     public function __construct($data = NULL) {
@@ -70,7 +85,7 @@ class GrpcArchiveEntityRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Entity type of the entity to be archived.
+     * Entity type (collection name) the entity to archive belongs to.
      *
      * Generated from protobuf field <code>string entityType = 1;</code>
      * @return string
@@ -81,7 +96,7 @@ class GrpcArchiveEntityRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Entity type of the entity to be archived.
+     * Entity type (collection name) the entity to archive belongs to.
      *
      * Generated from protobuf field <code>string entityType = 1;</code>
      * @param string $var
@@ -96,7 +111,9 @@ class GrpcArchiveEntityRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Primary key of the entity to be archived.
+     * Primary key of the entity to archive. Effectively mandatory despite the wrapper type: the server reads
+     * its value directly without checking presence, so an unset value is treated identically to an explicit
+     * `0` rather than as "no primary key" - always set this field explicitly.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value primaryKey = 2;</code>
      * @return \Google\Protobuf\Int32Value|null
@@ -119,7 +136,9 @@ class GrpcArchiveEntityRequest extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getPrimaryKey()</code>
 
-     * Primary key of the entity to be archived.
+     * Primary key of the entity to archive. Effectively mandatory despite the wrapper type: the server reads
+     * its value directly without checking presence, so an unset value is treated identically to an explicit
+     * `0` rather than as "no primary key" - always set this field explicitly.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value primaryKey = 2;</code>
      * @return int|null
@@ -130,7 +149,9 @@ class GrpcArchiveEntityRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Primary key of the entity to be archived.
+     * Primary key of the entity to archive. Effectively mandatory despite the wrapper type: the server reads
+     * its value directly without checking presence, so an unset value is treated identically to an explicit
+     * `0` rather than as "no primary key" - always set this field explicitly.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value primaryKey = 2;</code>
      * @param \Google\Protobuf\Int32Value $var
@@ -147,7 +168,9 @@ class GrpcArchiveEntityRequest extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int32Value object.
 
-     * Primary key of the entity to be archived.
+     * Primary key of the entity to archive. Effectively mandatory despite the wrapper type: the server reads
+     * its value directly without checking presence, so an unset value is treated identically to an explicit
+     * `0` rather than as "no primary key" - always set this field explicitly.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value primaryKey = 2;</code>
      * @param int|null $var
@@ -159,7 +182,10 @@ class GrpcArchiveEntityRequest extends \Google\Protobuf\Internal\Message
         return $this;}
 
     /**
-     * The string part of the parametrised query require part.
+     * The string part of a parametrised `require` query fragment describing how richly to fetch the entity
+     * back after it is archived. `?`/`&#64;name` placeholders are bound the same way as
+     * `positionalQueryParams`/`namedQueryParams` on `GrpcEntityRequest` - see there for the full binding
+     * contract.
      *
      * Generated from protobuf field <code>string require = 3;</code>
      * @return string
@@ -170,7 +196,10 @@ class GrpcArchiveEntityRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The string part of the parametrised query require part.
+     * The string part of a parametrised `require` query fragment describing how richly to fetch the entity
+     * back after it is archived. `?`/`&#64;name` placeholders are bound the same way as
+     * `positionalQueryParams`/`namedQueryParams` on `GrpcEntityRequest` - see there for the full binding
+     * contract.
      *
      * Generated from protobuf field <code>string require = 3;</code>
      * @param string $var
@@ -185,7 +214,8 @@ class GrpcArchiveEntityRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The positional query parameters.
+     * Values for the `?` positional placeholders in `require`, bound in encounter order (FIFO) - see
+     * `GrpcEntityRequest.positionalQueryParams` for the full binding contract.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcQueryParam positionalQueryParams = 4;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -196,7 +226,8 @@ class GrpcArchiveEntityRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The positional query parameters.
+     * Values for the `?` positional placeholders in `require`, bound in encounter order (FIFO) - see
+     * `GrpcEntityRequest.positionalQueryParams` for the full binding contract.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcQueryParam positionalQueryParams = 4;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcQueryParam>|\Google\Protobuf\Internal\RepeatedField $var
@@ -211,7 +242,8 @@ class GrpcArchiveEntityRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The named query parameters.
+     * Values for the `&#64;name` named placeholders in `require`, keyed by name (without the `&#64;` prefix) - see
+     * `GrpcEntityRequest.namedQueryParams` for the full binding contract.
      *
      * Generated from protobuf field <code>map<string, .io.evitadb.externalApi.grpc.generated.GrpcQueryParam> namedQueryParams = 5;</code>
      * @return \Google\Protobuf\Internal\MapField
@@ -222,7 +254,8 @@ class GrpcArchiveEntityRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The named query parameters.
+     * Values for the `&#64;name` named placeholders in `require`, keyed by name (without the `&#64;` prefix) - see
+     * `GrpcEntityRequest.namedQueryParams` for the full binding contract.
      *
      * Generated from protobuf field <code>map<string, .io.evitadb.externalApi.grpc.generated.GrpcQueryParam> namedQueryParams = 5;</code>
      * @param array|\Google\Protobuf\Internal\MapField $var

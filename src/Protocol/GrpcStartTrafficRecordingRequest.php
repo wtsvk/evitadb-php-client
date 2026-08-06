@@ -9,7 +9,8 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Request to StartTrafficRecording request.
+ * Request to start a new traffic recording session. Only one recording may be in progress at a time; starting a
+ * new one while another is still running fails.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcStartTrafficRecordingRequest</code>
  */
@@ -29,19 +30,22 @@ class GrpcStartTrafficRecordingRequest extends \Google\Protobuf\Internal\Message
      */
     protected $exportFile = false;
     /**
-     * The duration of the recording in milliseconds, after this time the recording will be stopped automatically.
+     * The maximum duration of the recording (milliseconds); the recording stops automatically once this much time
+     * has elapsed. If unset, the recording keeps running until explicitly stopped via StopTrafficRecording.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value maxDurationInMilliseconds = 3;</code>
      */
     protected $maxDurationInMilliseconds = null;
     /**
-     * The size of the recording in bytes, after this size the recording will be stopped automatically.
+     * The maximum size of the recorded traffic data (bytes); the recording stops automatically once this much data
+     * has been captured. If unset, no size-based automatic stop is applied.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value maxFileSizeInBytes = 4;</code>
      */
     protected $maxFileSizeInBytes = null;
     /**
-     * The size of the chunk file in bytes. Individual files in the export file will be approximately this size.
+     * The target size of each individual chunk file within the export (bytes); exported files are split into chunks
+     * of approximately this size. If unset, or set to zero, the server-configured default chunk size is used.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value chunkFileSizeInBytes = 5;</code>
      */
@@ -59,11 +63,14 @@ class GrpcStartTrafficRecordingRequest extends \Google\Protobuf\Internal\Message
      *           If true the recording will be exported to a file, otherwise only internal ring buffer will be made available for
      *           the time the traffic recording is running.
      *     @type \Google\Protobuf\Int64Value $maxDurationInMilliseconds
-     *           The duration of the recording in milliseconds, after this time the recording will be stopped automatically.
+     *           The maximum duration of the recording (milliseconds); the recording stops automatically once this much time
+     *           has elapsed. If unset, the recording keeps running until explicitly stopped via StopTrafficRecording.
      *     @type \Google\Protobuf\Int64Value $maxFileSizeInBytes
-     *           The size of the recording in bytes, after this size the recording will be stopped automatically.
+     *           The maximum size of the recorded traffic data (bytes); the recording stops automatically once this much data
+     *           has been captured. If unset, no size-based automatic stop is applied.
      *     @type \Google\Protobuf\Int64Value $chunkFileSizeInBytes
-     *           The size of the chunk file in bytes. Individual files in the export file will be approximately this size.
+     *           The target size of each individual chunk file within the export (bytes); exported files are split into chunks
+     *           of approximately this size. If unset, or set to zero, the server-configured default chunk size is used.
      * }
      */
     public function __construct($data = NULL) {
@@ -126,7 +133,8 @@ class GrpcStartTrafficRecordingRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The duration of the recording in milliseconds, after this time the recording will be stopped automatically.
+     * The maximum duration of the recording (milliseconds); the recording stops automatically once this much time
+     * has elapsed. If unset, the recording keeps running until explicitly stopped via StopTrafficRecording.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value maxDurationInMilliseconds = 3;</code>
      * @return \Google\Protobuf\Int64Value|null
@@ -149,7 +157,8 @@ class GrpcStartTrafficRecordingRequest extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getMaxDurationInMilliseconds()</code>
 
-     * The duration of the recording in milliseconds, after this time the recording will be stopped automatically.
+     * The maximum duration of the recording (milliseconds); the recording stops automatically once this much time
+     * has elapsed. If unset, the recording keeps running until explicitly stopped via StopTrafficRecording.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value maxDurationInMilliseconds = 3;</code>
      * @return int|string|null
@@ -160,7 +169,8 @@ class GrpcStartTrafficRecordingRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The duration of the recording in milliseconds, after this time the recording will be stopped automatically.
+     * The maximum duration of the recording (milliseconds); the recording stops automatically once this much time
+     * has elapsed. If unset, the recording keeps running until explicitly stopped via StopTrafficRecording.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value maxDurationInMilliseconds = 3;</code>
      * @param \Google\Protobuf\Int64Value $var
@@ -177,7 +187,8 @@ class GrpcStartTrafficRecordingRequest extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int64Value object.
 
-     * The duration of the recording in milliseconds, after this time the recording will be stopped automatically.
+     * The maximum duration of the recording (milliseconds); the recording stops automatically once this much time
+     * has elapsed. If unset, the recording keeps running until explicitly stopped via StopTrafficRecording.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value maxDurationInMilliseconds = 3;</code>
      * @param int|string|null $var
@@ -189,7 +200,8 @@ class GrpcStartTrafficRecordingRequest extends \Google\Protobuf\Internal\Message
         return $this;}
 
     /**
-     * The size of the recording in bytes, after this size the recording will be stopped automatically.
+     * The maximum size of the recorded traffic data (bytes); the recording stops automatically once this much data
+     * has been captured. If unset, no size-based automatic stop is applied.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value maxFileSizeInBytes = 4;</code>
      * @return \Google\Protobuf\Int64Value|null
@@ -212,7 +224,8 @@ class GrpcStartTrafficRecordingRequest extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getMaxFileSizeInBytes()</code>
 
-     * The size of the recording in bytes, after this size the recording will be stopped automatically.
+     * The maximum size of the recorded traffic data (bytes); the recording stops automatically once this much data
+     * has been captured. If unset, no size-based automatic stop is applied.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value maxFileSizeInBytes = 4;</code>
      * @return int|string|null
@@ -223,7 +236,8 @@ class GrpcStartTrafficRecordingRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The size of the recording in bytes, after this size the recording will be stopped automatically.
+     * The maximum size of the recorded traffic data (bytes); the recording stops automatically once this much data
+     * has been captured. If unset, no size-based automatic stop is applied.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value maxFileSizeInBytes = 4;</code>
      * @param \Google\Protobuf\Int64Value $var
@@ -240,7 +254,8 @@ class GrpcStartTrafficRecordingRequest extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int64Value object.
 
-     * The size of the recording in bytes, after this size the recording will be stopped automatically.
+     * The maximum size of the recorded traffic data (bytes); the recording stops automatically once this much data
+     * has been captured. If unset, no size-based automatic stop is applied.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value maxFileSizeInBytes = 4;</code>
      * @param int|string|null $var
@@ -252,7 +267,8 @@ class GrpcStartTrafficRecordingRequest extends \Google\Protobuf\Internal\Message
         return $this;}
 
     /**
-     * The size of the chunk file in bytes. Individual files in the export file will be approximately this size.
+     * The target size of each individual chunk file within the export (bytes); exported files are split into chunks
+     * of approximately this size. If unset, or set to zero, the server-configured default chunk size is used.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value chunkFileSizeInBytes = 5;</code>
      * @return \Google\Protobuf\Int64Value|null
@@ -275,7 +291,8 @@ class GrpcStartTrafficRecordingRequest extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getChunkFileSizeInBytes()</code>
 
-     * The size of the chunk file in bytes. Individual files in the export file will be approximately this size.
+     * The target size of each individual chunk file within the export (bytes); exported files are split into chunks
+     * of approximately this size. If unset, or set to zero, the server-configured default chunk size is used.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value chunkFileSizeInBytes = 5;</code>
      * @return int|string|null
@@ -286,7 +303,8 @@ class GrpcStartTrafficRecordingRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The size of the chunk file in bytes. Individual files in the export file will be approximately this size.
+     * The target size of each individual chunk file within the export (bytes); exported files are split into chunks
+     * of approximately this size. If unset, or set to zero, the server-configured default chunk size is used.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value chunkFileSizeInBytes = 5;</code>
      * @param \Google\Protobuf\Int64Value $var
@@ -303,7 +321,8 @@ class GrpcStartTrafficRecordingRequest extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int64Value object.
 
-     * The size of the chunk file in bytes. Individual files in the export file will be approximately this size.
+     * The target size of each individual chunk file within the export (bytes); exported files are split into chunks
+     * of approximately this size. If unset, or set to zero, the server-configured default chunk size is used.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value chunkFileSizeInBytes = 5;</code>
      * @param int|string|null $var

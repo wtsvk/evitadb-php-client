@@ -9,6 +9,8 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
+ * Mutation of a sortable attribute compound schema.
+ *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcSortableAttributeCompoundSchemaMutation</code>
  */
 class GrpcSortableAttributeCompoundSchemaMutation extends \Google\Protobuf\Internal\Message
@@ -22,11 +24,19 @@ class GrpcSortableAttributeCompoundSchemaMutation extends \Google\Protobuf\Inter
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcCreateSortableAttributeCompoundSchemaMutation $createSortableAttributeCompoundSchemaMutation
+     *           Mutation is responsible for setting up a new `SortableAttributeCompoundSchema` in the `EntitySchema`.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcModifySortableAttributeCompoundSchemaDeprecationNoticeMutation $modifySortableAttributeCompoundSchemaDeprecationNoticeMutation
+     *           Mutation is responsible for modifying a deprecation notice of an existing `SortableAttributeCompoundSchema`
+     *           in the `EntitySchema`.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcModifySortableAttributeCompoundSchemaDescriptionMutation $modifySortableAttributeCompoundSchemaDescriptionMutation
+     *           Mutation is responsible for modifying a description of an existing `SortableAttributeCompoundSchema`
+     *           in the `EntitySchema`.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcModifySortableAttributeCompoundSchemaNameMutation $modifySortableAttributeCompoundSchemaNameMutation
+     *           Mutation is responsible for renaming an existing `SortableAttributeCompoundSchema` in the `EntitySchema`.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcRemoveSortableAttributeCompoundSchemaMutation $removeSortableAttributeCompoundSchemaMutation
+     *           Mutation is responsible for removing an existing `SortableAttributeCompoundSchema` in the `EntitySchema`.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcSetSortableAttributeCompoundIndexedMutation $setSortableAttributeCompoundIndexedMutation
+     *           Mutation is responsible for setting value `SortableAttributeCompoundSchema.indexedInScopes` in the `EntitySchema`.
      * }
      */
     public function __construct($data = NULL) {
@@ -35,6 +45,8 @@ class GrpcSortableAttributeCompoundSchemaMutation extends \Google\Protobuf\Inter
     }
 
     /**
+     * Mutation is responsible for setting up a new `SortableAttributeCompoundSchema` in the `EntitySchema`.
+     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCreateSortableAttributeCompoundSchemaMutation createSortableAttributeCompoundSchemaMutation = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcCreateSortableAttributeCompoundSchemaMutation|null
      */
@@ -49,6 +61,8 @@ class GrpcSortableAttributeCompoundSchemaMutation extends \Google\Protobuf\Inter
     }
 
     /**
+     * Mutation is responsible for setting up a new `SortableAttributeCompoundSchema` in the `EntitySchema`.
+     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCreateSortableAttributeCompoundSchemaMutation createSortableAttributeCompoundSchemaMutation = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcCreateSortableAttributeCompoundSchemaMutation $var
      * @return $this
@@ -62,6 +76,9 @@ class GrpcSortableAttributeCompoundSchemaMutation extends \Google\Protobuf\Inter
     }
 
     /**
+     * Mutation is responsible for modifying a deprecation notice of an existing `SortableAttributeCompoundSchema`
+     * in the `EntitySchema`.
+     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcModifySortableAttributeCompoundSchemaDeprecationNoticeMutation modifySortableAttributeCompoundSchemaDeprecationNoticeMutation = 2;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcModifySortableAttributeCompoundSchemaDeprecationNoticeMutation|null
      */
@@ -76,6 +93,9 @@ class GrpcSortableAttributeCompoundSchemaMutation extends \Google\Protobuf\Inter
     }
 
     /**
+     * Mutation is responsible for modifying a deprecation notice of an existing `SortableAttributeCompoundSchema`
+     * in the `EntitySchema`.
+     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcModifySortableAttributeCompoundSchemaDeprecationNoticeMutation modifySortableAttributeCompoundSchemaDeprecationNoticeMutation = 2;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcModifySortableAttributeCompoundSchemaDeprecationNoticeMutation $var
      * @return $this
@@ -89,6 +109,9 @@ class GrpcSortableAttributeCompoundSchemaMutation extends \Google\Protobuf\Inter
     }
 
     /**
+     * Mutation is responsible for modifying a description of an existing `SortableAttributeCompoundSchema`
+     * in the `EntitySchema`.
+     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcModifySortableAttributeCompoundSchemaDescriptionMutation modifySortableAttributeCompoundSchemaDescriptionMutation = 3;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcModifySortableAttributeCompoundSchemaDescriptionMutation|null
      */
@@ -103,6 +126,9 @@ class GrpcSortableAttributeCompoundSchemaMutation extends \Google\Protobuf\Inter
     }
 
     /**
+     * Mutation is responsible for modifying a description of an existing `SortableAttributeCompoundSchema`
+     * in the `EntitySchema`.
+     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcModifySortableAttributeCompoundSchemaDescriptionMutation modifySortableAttributeCompoundSchemaDescriptionMutation = 3;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcModifySortableAttributeCompoundSchemaDescriptionMutation $var
      * @return $this
@@ -116,6 +142,8 @@ class GrpcSortableAttributeCompoundSchemaMutation extends \Google\Protobuf\Inter
     }
 
     /**
+     * Mutation is responsible for renaming an existing `SortableAttributeCompoundSchema` in the `EntitySchema`.
+     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcModifySortableAttributeCompoundSchemaNameMutation modifySortableAttributeCompoundSchemaNameMutation = 4;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcModifySortableAttributeCompoundSchemaNameMutation|null
      */
@@ -130,6 +158,8 @@ class GrpcSortableAttributeCompoundSchemaMutation extends \Google\Protobuf\Inter
     }
 
     /**
+     * Mutation is responsible for renaming an existing `SortableAttributeCompoundSchema` in the `EntitySchema`.
+     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcModifySortableAttributeCompoundSchemaNameMutation modifySortableAttributeCompoundSchemaNameMutation = 4;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcModifySortableAttributeCompoundSchemaNameMutation $var
      * @return $this
@@ -143,6 +173,8 @@ class GrpcSortableAttributeCompoundSchemaMutation extends \Google\Protobuf\Inter
     }
 
     /**
+     * Mutation is responsible for removing an existing `SortableAttributeCompoundSchema` in the `EntitySchema`.
+     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcRemoveSortableAttributeCompoundSchemaMutation removeSortableAttributeCompoundSchemaMutation = 5;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcRemoveSortableAttributeCompoundSchemaMutation|null
      */
@@ -157,6 +189,8 @@ class GrpcSortableAttributeCompoundSchemaMutation extends \Google\Protobuf\Inter
     }
 
     /**
+     * Mutation is responsible for removing an existing `SortableAttributeCompoundSchema` in the `EntitySchema`.
+     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcRemoveSortableAttributeCompoundSchemaMutation removeSortableAttributeCompoundSchemaMutation = 5;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcRemoveSortableAttributeCompoundSchemaMutation $var
      * @return $this
@@ -170,6 +204,8 @@ class GrpcSortableAttributeCompoundSchemaMutation extends \Google\Protobuf\Inter
     }
 
     /**
+     * Mutation is responsible for setting value `SortableAttributeCompoundSchema.indexedInScopes` in the `EntitySchema`.
+     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSetSortableAttributeCompoundIndexedMutation setSortableAttributeCompoundIndexedMutation = 6;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcSetSortableAttributeCompoundIndexedMutation|null
      */
@@ -184,6 +220,8 @@ class GrpcSortableAttributeCompoundSchemaMutation extends \Google\Protobuf\Inter
     }
 
     /**
+     * Mutation is responsible for setting value `SortableAttributeCompoundSchema.indexedInScopes` in the `EntitySchema`.
+     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSetSortableAttributeCompoundIndexedMutation setSortableAttributeCompoundIndexedMutation = 6;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcSetSortableAttributeCompoundIndexedMutation $var
      * @return $this

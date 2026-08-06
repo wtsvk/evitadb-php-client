@@ -86,6 +86,13 @@ message GrpcModifyEntitySchemaDescriptionMutation {
   google.protobuf.StringValue description = 1;
 }
 
+// Mutation is responsible for setting value to a `EntitySchema.conflictResolution` in `EntitySchema`.
+message GrpcModifyEntitySchemaConflictResolutionMutation {
+  // The entity-level conflict resolution setting. When not set (absent), the entity schema conflict resolution is
+  // cleared (inherits the resolved conflict resolution).
+  GrpcConflictResolution conflictResolution = 1;
+}
+
 // Mutation is responsible for setting a `EntitySchema.withGeneratedPrimaryKey` in `EntitySchema`.
 message GrpcSetEntitySchemaWithGeneratedPrimaryKeyMutation {
   // Whether primary keys of entities of this type will not be provided by the external systems and Evita
@@ -139,6 +146,6 @@ message GrpcSetEntitySchemaWithPriceMutation {
   // can define its price), but it is not possible to work with the price information in any other way (calculating
   // price histogram, filtering, sorting by price, etc.).
   //
-  // Prices can be also set as non-indexed individually by setting {@link PriceContract#indexed()} to false.
+  // Prices can be also set as non-indexed individually via the individual price's own `indexed` flag.
   repeated GrpcEntityScope indexedInScopes = 3;
 }

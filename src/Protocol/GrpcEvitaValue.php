@@ -9,14 +9,16 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Structure that holds one of the supported data type values, its type and version of stored value.
+ * Structure that holds a single attribute/default-value value together with its declared Evita
+ * data type and optimistic-locking version.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcEvitaValue</code>
  */
 class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The type of the stored value.
+     * The concrete Evita/Java data type represented by the `value` oneof above (see each arm's
+     * comment for which narrower types it also stands in for).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEvitaDataType type = 100;</code>
      */
@@ -37,61 +39,74 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $stringValue
-     *           String value.
+     *           String value (Java `String`). Also carries a `Character` value, as a single-character
+     *           string, when `type` is `CHARACTER`.
      *     @type int $integerValue
-     *           Integer value.
+     *           Integer value (Java `int`). Also carries `Byte` and `Short` values, widened to int32, when
+     *           `type` is `BYTE` or `SHORT`.
      *     @type int|string $longValue
-     *           Long value.
+     *           Long value (Java `long`).
      *     @type bool $booleanValue
-     *           Boolean value.
+     *           Boolean value (Java `boolean`).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal $bigDecimalValue
-     *           BigDecimal value.
+     *           BigDecimal value (Java `BigDecimal`).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcDateTimeRange $dateTimeRangeValue
-     *           DateTimeRange value.
+     *           DateTimeRange value (evitaDB `DateTimeRange`).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcIntegerNumberRange $integerNumberRangeValue
-     *           IntegerNumberRange value.
+     *           IntegerNumberRange value (evitaDB `IntegerNumberRange`). Also carries `ByteNumberRange` and
+     *           `ShortNumberRange` values when `type` is `BYTE_NUMBER_RANGE` or `SHORT_NUMBER_RANGE`.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcLongNumberRange $longNumberRangeValue
-     *           LongNumberRange value.
+     *           LongNumberRange value (evitaDB `LongNumberRange`).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimalNumberRange $bigDecimalNumberRangeValue
-     *           BigDecimalNumberRange value.
+     *           BigDecimalNumberRange value (evitaDB `BigDecimalNumberRange`).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $offsetDateTimeValue
-     *           OffsetDateTime value.
+     *           Date/time value (Java `OffsetDateTime`). Also carries `LocalDateTime`, `LocalDate` and
+     *           `LocalTime` values when `type` is `LOCAL_DATE_TIME`, `LOCAL_DATE` or `LOCAL_TIME`
+     *           respectively.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcLocale $localeValue
-     *           Locale value.
+     *           Locale value (Java `Locale`).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcCurrency $currencyValue
-     *           Currency value.
+     *           Currency value (Java `Currency`).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcUuid $uuidValue
-     *           UUID value.
+     *           UUID value (Java `UUID`).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcPredecessor $predecessorValue
-     *           Predecessor value.
+     *           Predecessor value (evitaDB `Predecessor`). Also carries a `ReferencedEntityPredecessor`
+     *           value when `type` is `REFERENCED_ENTITY_PREDECESSOR`.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcStringArray $stringArrayValue
-     *           Array of string values.
+     *           String array value (Java `String[]`). Also carries a `Character[]` value, each element a
+     *           single-character string, when `type` is `CHARACTER_ARRAY`.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcIntegerArray $integerArrayValue
-     *           Array of integer values.
+     *           Integer array value (Java `Integer[]`). Also carries `Byte[]` and `Short[]` values when
+     *           `type` is `BYTE_ARRAY` or `SHORT_ARRAY`.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcLongArray $longArrayValue
-     *           Array of long values.
+     *           Long array value (Java `Long[]`).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcBooleanArray $booleanArrayValue
-     *           Array of boolean values.
+     *           Boolean array value (Java `Boolean[]`).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimalArray $bigDecimalArrayValue
-     *           Array of BigDecimal values.
+     *           BigDecimal array value (Java `BigDecimal[]`).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcDateTimeRangeArray $dateTimeRangeArrayValue
-     *           Array of DateTimeRange values.
+     *           DateTimeRange array value (evitaDB `DateTimeRange[]`).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcIntegerNumberRangeArray $integerNumberRangeArrayValue
-     *           Array of IntegerNumberRange values.
+     *           IntegerNumberRange array value (evitaDB `IntegerNumberRange[]`). Also carries
+     *           `ByteNumberRange[]` and `ShortNumberRange[]` values when `type` is
+     *           `BYTE_NUMBER_RANGE_ARRAY` or `SHORT_NUMBER_RANGE_ARRAY`.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcLongNumberRangeArray $longNumberRangeArrayValue
-     *           Array of LongNumberRange values.
+     *           LongNumberRange array value (evitaDB `LongNumberRange[]`).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimalNumberRangeArray $bigDecimalNumberRangeArrayValue
-     *           Array of BigDecimalNumberRange values.
+     *           BigDecimalNumberRange array value (evitaDB `BigDecimalNumberRange[]`).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTimeArray $offsetDateTimeArrayValue
-     *           Array of OffsetDateTime values.
+     *           Date/time array value (Java `OffsetDateTime[]`). Also carries `LocalDateTime[]`,
+     *           `LocalDate[]` and `LocalTime[]` values when `type` is `LOCAL_DATE_TIME_ARRAY`,
+     *           `LOCAL_DATE_ARRAY` or `LOCAL_TIME_ARRAY` respectively.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcLocaleArray $localeArrayValue
-     *           Array of Locale values.
+     *           Locale array value (Java `Locale[]`).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcCurrencyArray $currencyArrayValue
-     *           Array of Currency values.
+     *           Currency array value (Java `Currency[]`).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcUuidArray $uuidArrayValue
-     *           Array of UUID values.
+     *           UUID array value (Java `UUID[]`).
      *     @type int $type
-     *           The type of the stored value.
+     *           The concrete Evita/Java data type represented by the `value` oneof above (see each arm's
+     *           comment for which narrower types it also stands in for).
      *     @type \Google\Protobuf\Int32Value $version
      *           Contains version of this value and gets increased with any entity type update. Allows to execute
      *           optimistic locking i.e. avoiding parallel modifications. May be null if value is used within larger complex object.
@@ -103,7 +118,8 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * String value.
+     * String value (Java `String`). Also carries a `Character` value, as a single-character
+     * string, when `type` is `CHARACTER`.
      *
      * Generated from protobuf field <code>string stringValue = 1;</code>
      * @return string
@@ -119,7 +135,8 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * String value.
+     * String value (Java `String`). Also carries a `Character` value, as a single-character
+     * string, when `type` is `CHARACTER`.
      *
      * Generated from protobuf field <code>string stringValue = 1;</code>
      * @param string $var
@@ -134,7 +151,8 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Integer value.
+     * Integer value (Java `int`). Also carries `Byte` and `Short` values, widened to int32, when
+     * `type` is `BYTE` or `SHORT`.
      *
      * Generated from protobuf field <code>int32 integerValue = 2;</code>
      * @return int
@@ -150,7 +168,8 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Integer value.
+     * Integer value (Java `int`). Also carries `Byte` and `Short` values, widened to int32, when
+     * `type` is `BYTE` or `SHORT`.
      *
      * Generated from protobuf field <code>int32 integerValue = 2;</code>
      * @param int $var
@@ -165,7 +184,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Long value.
+     * Long value (Java `long`).
      *
      * Generated from protobuf field <code>int64 longValue = 3;</code>
      * @return int|string
@@ -181,7 +200,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Long value.
+     * Long value (Java `long`).
      *
      * Generated from protobuf field <code>int64 longValue = 3;</code>
      * @param int|string $var
@@ -196,7 +215,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Boolean value.
+     * Boolean value (Java `boolean`).
      *
      * Generated from protobuf field <code>bool booleanValue = 4;</code>
      * @return bool
@@ -212,7 +231,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Boolean value.
+     * Boolean value (Java `boolean`).
      *
      * Generated from protobuf field <code>bool booleanValue = 4;</code>
      * @param bool $var
@@ -227,7 +246,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * BigDecimal value.
+     * BigDecimal value (Java `BigDecimal`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal bigDecimalValue = 5;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal|null
@@ -243,7 +262,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * BigDecimal value.
+     * BigDecimal value (Java `BigDecimal`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal bigDecimalValue = 5;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal $var
@@ -258,7 +277,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * DateTimeRange value.
+     * DateTimeRange value (evitaDB `DateTimeRange`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcDateTimeRange dateTimeRangeValue = 6;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcDateTimeRange|null
@@ -274,7 +293,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * DateTimeRange value.
+     * DateTimeRange value (evitaDB `DateTimeRange`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcDateTimeRange dateTimeRangeValue = 6;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcDateTimeRange $var
@@ -289,7 +308,8 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * IntegerNumberRange value.
+     * IntegerNumberRange value (evitaDB `IntegerNumberRange`). Also carries `ByteNumberRange` and
+     * `ShortNumberRange` values when `type` is `BYTE_NUMBER_RANGE` or `SHORT_NUMBER_RANGE`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcIntegerNumberRange integerNumberRangeValue = 7;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcIntegerNumberRange|null
@@ -305,7 +325,8 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * IntegerNumberRange value.
+     * IntegerNumberRange value (evitaDB `IntegerNumberRange`). Also carries `ByteNumberRange` and
+     * `ShortNumberRange` values when `type` is `BYTE_NUMBER_RANGE` or `SHORT_NUMBER_RANGE`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcIntegerNumberRange integerNumberRangeValue = 7;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcIntegerNumberRange $var
@@ -320,7 +341,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * LongNumberRange value.
+     * LongNumberRange value (evitaDB `LongNumberRange`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLongNumberRange longNumberRangeValue = 8;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcLongNumberRange|null
@@ -336,7 +357,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * LongNumberRange value.
+     * LongNumberRange value (evitaDB `LongNumberRange`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLongNumberRange longNumberRangeValue = 8;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcLongNumberRange $var
@@ -351,7 +372,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * BigDecimalNumberRange value.
+     * BigDecimalNumberRange value (evitaDB `BigDecimalNumberRange`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimalNumberRange bigDecimalNumberRangeValue = 9;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimalNumberRange|null
@@ -367,7 +388,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * BigDecimalNumberRange value.
+     * BigDecimalNumberRange value (evitaDB `BigDecimalNumberRange`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimalNumberRange bigDecimalNumberRangeValue = 9;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimalNumberRange $var
@@ -382,7 +403,9 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * OffsetDateTime value.
+     * Date/time value (Java `OffsetDateTime`). Also carries `LocalDateTime`, `LocalDate` and
+     * `LocalTime` values when `type` is `LOCAL_DATE_TIME`, `LOCAL_DATE` or `LOCAL_TIME`
+     * respectively.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime offsetDateTimeValue = 10;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime|null
@@ -398,7 +421,9 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * OffsetDateTime value.
+     * Date/time value (Java `OffsetDateTime`). Also carries `LocalDateTime`, `LocalDate` and
+     * `LocalTime` values when `type` is `LOCAL_DATE_TIME`, `LOCAL_DATE` or `LOCAL_TIME`
+     * respectively.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime offsetDateTimeValue = 10;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $var
@@ -413,7 +438,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Locale value.
+     * Locale value (Java `Locale`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLocale localeValue = 11;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcLocale|null
@@ -429,7 +454,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Locale value.
+     * Locale value (Java `Locale`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLocale localeValue = 11;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcLocale $var
@@ -444,7 +469,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Currency value.
+     * Currency value (Java `Currency`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCurrency currencyValue = 12;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcCurrency|null
@@ -460,7 +485,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Currency value.
+     * Currency value (Java `Currency`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCurrency currencyValue = 12;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcCurrency $var
@@ -475,7 +500,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * UUID value.
+     * UUID value (Java `UUID`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid uuidValue = 13;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcUuid|null
@@ -491,7 +516,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * UUID value.
+     * UUID value (Java `UUID`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid uuidValue = 13;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcUuid $var
@@ -506,7 +531,8 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Predecessor value.
+     * Predecessor value (evitaDB `Predecessor`). Also carries a `ReferencedEntityPredecessor`
+     * value when `type` is `REFERENCED_ENTITY_PREDECESSOR`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcPredecessor predecessorValue = 14;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcPredecessor|null
@@ -522,7 +548,8 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Predecessor value.
+     * Predecessor value (evitaDB `Predecessor`). Also carries a `ReferencedEntityPredecessor`
+     * value when `type` is `REFERENCED_ENTITY_PREDECESSOR`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcPredecessor predecessorValue = 14;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcPredecessor $var
@@ -537,7 +564,8 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of string values.
+     * String array value (Java `String[]`). Also carries a `Character[]` value, each element a
+     * single-character string, when `type` is `CHARACTER_ARRAY`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcStringArray stringArrayValue = 50;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcStringArray|null
@@ -553,7 +581,8 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of string values.
+     * String array value (Java `String[]`). Also carries a `Character[]` value, each element a
+     * single-character string, when `type` is `CHARACTER_ARRAY`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcStringArray stringArrayValue = 50;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcStringArray $var
@@ -568,7 +597,8 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of integer values.
+     * Integer array value (Java `Integer[]`). Also carries `Byte[]` and `Short[]` values when
+     * `type` is `BYTE_ARRAY` or `SHORT_ARRAY`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcIntegerArray integerArrayValue = 51;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcIntegerArray|null
@@ -584,7 +614,8 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of integer values.
+     * Integer array value (Java `Integer[]`). Also carries `Byte[]` and `Short[]` values when
+     * `type` is `BYTE_ARRAY` or `SHORT_ARRAY`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcIntegerArray integerArrayValue = 51;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcIntegerArray $var
@@ -599,7 +630,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of long values.
+     * Long array value (Java `Long[]`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLongArray longArrayValue = 52;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcLongArray|null
@@ -615,7 +646,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of long values.
+     * Long array value (Java `Long[]`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLongArray longArrayValue = 52;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcLongArray $var
@@ -630,7 +661,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of boolean values.
+     * Boolean array value (Java `Boolean[]`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBooleanArray booleanArrayValue = 53;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcBooleanArray|null
@@ -646,7 +677,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of boolean values.
+     * Boolean array value (Java `Boolean[]`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBooleanArray booleanArrayValue = 53;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcBooleanArray $var
@@ -661,7 +692,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of BigDecimal values.
+     * BigDecimal array value (Java `BigDecimal[]`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimalArray bigDecimalArrayValue = 54;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimalArray|null
@@ -677,7 +708,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of BigDecimal values.
+     * BigDecimal array value (Java `BigDecimal[]`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimalArray bigDecimalArrayValue = 54;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimalArray $var
@@ -692,7 +723,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of DateTimeRange values.
+     * DateTimeRange array value (evitaDB `DateTimeRange[]`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcDateTimeRangeArray dateTimeRangeArrayValue = 55;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcDateTimeRangeArray|null
@@ -708,7 +739,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of DateTimeRange values.
+     * DateTimeRange array value (evitaDB `DateTimeRange[]`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcDateTimeRangeArray dateTimeRangeArrayValue = 55;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcDateTimeRangeArray $var
@@ -723,7 +754,9 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of IntegerNumberRange values.
+     * IntegerNumberRange array value (evitaDB `IntegerNumberRange[]`). Also carries
+     * `ByteNumberRange[]` and `ShortNumberRange[]` values when `type` is
+     * `BYTE_NUMBER_RANGE_ARRAY` or `SHORT_NUMBER_RANGE_ARRAY`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcIntegerNumberRangeArray integerNumberRangeArrayValue = 56;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcIntegerNumberRangeArray|null
@@ -739,7 +772,9 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of IntegerNumberRange values.
+     * IntegerNumberRange array value (evitaDB `IntegerNumberRange[]`). Also carries
+     * `ByteNumberRange[]` and `ShortNumberRange[]` values when `type` is
+     * `BYTE_NUMBER_RANGE_ARRAY` or `SHORT_NUMBER_RANGE_ARRAY`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcIntegerNumberRangeArray integerNumberRangeArrayValue = 56;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcIntegerNumberRangeArray $var
@@ -754,7 +789,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of LongNumberRange values.
+     * LongNumberRange array value (evitaDB `LongNumberRange[]`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLongNumberRangeArray longNumberRangeArrayValue = 57;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcLongNumberRangeArray|null
@@ -770,7 +805,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of LongNumberRange values.
+     * LongNumberRange array value (evitaDB `LongNumberRange[]`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLongNumberRangeArray longNumberRangeArrayValue = 57;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcLongNumberRangeArray $var
@@ -785,7 +820,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of BigDecimalNumberRange values.
+     * BigDecimalNumberRange array value (evitaDB `BigDecimalNumberRange[]`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimalNumberRangeArray bigDecimalNumberRangeArrayValue = 58;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimalNumberRangeArray|null
@@ -801,7 +836,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of BigDecimalNumberRange values.
+     * BigDecimalNumberRange array value (evitaDB `BigDecimalNumberRange[]`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimalNumberRangeArray bigDecimalNumberRangeArrayValue = 58;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimalNumberRangeArray $var
@@ -816,7 +851,9 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of OffsetDateTime values.
+     * Date/time array value (Java `OffsetDateTime[]`). Also carries `LocalDateTime[]`,
+     * `LocalDate[]` and `LocalTime[]` values when `type` is `LOCAL_DATE_TIME_ARRAY`,
+     * `LOCAL_DATE_ARRAY` or `LOCAL_TIME_ARRAY` respectively.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTimeArray offsetDateTimeArrayValue = 59;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTimeArray|null
@@ -832,7 +869,9 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of OffsetDateTime values.
+     * Date/time array value (Java `OffsetDateTime[]`). Also carries `LocalDateTime[]`,
+     * `LocalDate[]` and `LocalTime[]` values when `type` is `LOCAL_DATE_TIME_ARRAY`,
+     * `LOCAL_DATE_ARRAY` or `LOCAL_TIME_ARRAY` respectively.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTimeArray offsetDateTimeArrayValue = 59;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTimeArray $var
@@ -847,7 +886,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of Locale values.
+     * Locale array value (Java `Locale[]`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLocaleArray localeArrayValue = 60;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcLocaleArray|null
@@ -863,7 +902,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of Locale values.
+     * Locale array value (Java `Locale[]`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLocaleArray localeArrayValue = 60;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcLocaleArray $var
@@ -878,7 +917,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of Currency values.
+     * Currency array value (Java `Currency[]`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCurrencyArray currencyArrayValue = 61;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcCurrencyArray|null
@@ -894,7 +933,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of Currency values.
+     * Currency array value (Java `Currency[]`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCurrencyArray currencyArrayValue = 61;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcCurrencyArray $var
@@ -909,7 +948,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of UUID values.
+     * UUID array value (Java `UUID[]`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuidArray uuidArrayValue = 62;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcUuidArray|null
@@ -925,7 +964,7 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array of UUID values.
+     * UUID array value (Java `UUID[]`).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuidArray uuidArrayValue = 62;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcUuidArray $var
@@ -940,7 +979,8 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The type of the stored value.
+     * The concrete Evita/Java data type represented by the `value` oneof above (see each arm's
+     * comment for which narrower types it also stands in for).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEvitaDataType type = 100;</code>
      * @return int
@@ -951,7 +991,8 @@ class GrpcEvitaValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The type of the stored value.
+     * The concrete Evita/Java data type represented by the `value` oneof above (see each arm's
+     * comment for which narrower types it also stands in for).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEvitaDataType type = 100;</code>
      * @param int $var

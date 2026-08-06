@@ -16,7 +16,8 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcEntityResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The found entity.
+     * The found entity. Unset (not an error) if no entity with the requested primary key exists in
+     * `entityType` within the requested `scopes`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity entity = 1;</code>
      */
@@ -29,7 +30,8 @@ class GrpcEntityResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity $entity
-     *           The found entity.
+     *           The found entity. Unset (not an error) if no entity with the requested primary key exists in
+     *           `entityType` within the requested `scopes`.
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +40,8 @@ class GrpcEntityResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The found entity.
+     * The found entity. Unset (not an error) if no entity with the requested primary key exists in
+     * `entityType` within the requested `scopes`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity entity = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity|null
@@ -59,7 +62,8 @@ class GrpcEntityResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The found entity.
+     * The found entity. Unset (not an error) if no entity with the requested primary key exists in
+     * `entityType` within the requested `scopes`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity entity = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity $var

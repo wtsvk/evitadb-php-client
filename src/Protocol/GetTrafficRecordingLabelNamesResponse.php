@@ -9,14 +9,14 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Response to GetTrafficRecordingLabelsNamesOrderedByCardinality response.
+ * Response to GetTrafficRecordingLabelsNamesOrderedByCardinality request.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GetTrafficRecordingLabelNamesResponse</code>
  */
 class GetTrafficRecordingLabelNamesResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The list of labels names that match the criteria
+     * The label names that match the criteria, ordered by descending cardinality (most frequently used labels first).
      *
      * Generated from protobuf field <code>repeated string labelName = 1;</code>
      */
@@ -29,7 +29,7 @@ class GetTrafficRecordingLabelNamesResponse extends \Google\Protobuf\Internal\Me
      *     Optional. Data for populating the Message object.
      *
      *     @type array<string>|\Google\Protobuf\Internal\RepeatedField $labelName
-     *           The list of labels names that match the criteria
+     *           The label names that match the criteria, ordered by descending cardinality (most frequently used labels first).
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +38,7 @@ class GetTrafficRecordingLabelNamesResponse extends \Google\Protobuf\Internal\Me
     }
 
     /**
-     * The list of labels names that match the criteria
+     * The label names that match the criteria, ordered by descending cardinality (most frequently used labels first).
      *
      * Generated from protobuf field <code>repeated string labelName = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -49,7 +49,7 @@ class GetTrafficRecordingLabelNamesResponse extends \Google\Protobuf\Internal\Me
     }
 
     /**
-     * The list of labels names that match the criteria
+     * The label names that match the criteria, ordered by descending cardinality (most frequently used labels first).
      *
      * Generated from protobuf field <code>repeated string labelName = 1;</code>
      * @param array<string>|\Google\Protobuf\Internal\RepeatedField $var

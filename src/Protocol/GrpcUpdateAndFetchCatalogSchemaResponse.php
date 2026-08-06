@@ -9,14 +9,15 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Request for updating the catalog schema and its afterwards fetching.
+ * Response to UpdateAndFetchCatalogSchema request, which updates the catalog schema and returns the
+ * resulting schema in one round trip.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcUpdateAndFetchCatalogSchemaResponse</code>
  */
 class GrpcUpdateAndFetchCatalogSchemaResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Modified catalog schema.
+     * The catalog schema after the requested mutations were applied.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCatalogSchema catalogSchema = 1;</code>
      */
@@ -29,7 +30,7 @@ class GrpcUpdateAndFetchCatalogSchemaResponse extends \Google\Protobuf\Internal\
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcCatalogSchema $catalogSchema
-     *           Modified catalog schema.
+     *           The catalog schema after the requested mutations were applied.
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +39,7 @@ class GrpcUpdateAndFetchCatalogSchemaResponse extends \Google\Protobuf\Internal\
     }
 
     /**
-     * Modified catalog schema.
+     * The catalog schema after the requested mutations were applied.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCatalogSchema catalogSchema = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcCatalogSchema|null
@@ -59,7 +60,7 @@ class GrpcUpdateAndFetchCatalogSchemaResponse extends \Google\Protobuf\Internal\
     }
 
     /**
-     * Modified catalog schema.
+     * The catalog schema after the requested mutations were applied.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCatalogSchema catalogSchema = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcCatalogSchema $var

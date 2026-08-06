@@ -16,26 +16,30 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcRegisterSystemChangeCaptureResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Identification of the registered capture
+     * Identification of the registered subscription. Set on `ACKNOWLEDGEMENT` and `HEARTBEAT` responses (when a
+     * subscription id is available), unset on `CHANGE` responses.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid uuid = 1;</code>
      */
     protected $uuid = null;
     /**
-     * The list of mutations (CDC events) that match the criteria
+     * A single captured CDC event that matched the subscription's criteria - each stream message carries at most
+     * one event, not a batch. Set only when `responseType` is `CHANGE`; unset on `ACKNOWLEDGEMENT` and `HEARTBEAT`
+     * responses.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcChangeSystemCapture capture = 2;</code>
      */
     protected $capture = null;
     /**
-     * The type of the response - when subscription is set-up, acknowledgement is sent
-     * Then with each capture event, the type is set to `change`
+     * The kind of this response: `ACKNOWLEDGEMENT` is sent exactly once, when the subscription is set up; `CHANGE`
+     * is sent for each matching capture event; `HEARTBEAT` is sent periodically as a keep-alive while no matching
+     * event has occurred.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCaptureResponseType responseType = 3;</code>
      */
     protected $responseType = 0;
     /**
-     * Optional heartbeat information, is non-null only if the response is a heartbeat or acknowledgement
+     * Heartbeat information. Set only on `ACKNOWLEDGEMENT` and `HEARTBEAT` responses, unset on `CHANGE` responses.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcHeartBeat heartBeat = 4;</code>
      */
@@ -48,14 +52,18 @@ class GrpcRegisterSystemChangeCaptureResponse extends \Google\Protobuf\Internal\
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcUuid $uuid
-     *           Identification of the registered capture
+     *           Identification of the registered subscription. Set on `ACKNOWLEDGEMENT` and `HEARTBEAT` responses (when a
+     *           subscription id is available), unset on `CHANGE` responses.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcChangeSystemCapture $capture
-     *           The list of mutations (CDC events) that match the criteria
+     *           A single captured CDC event that matched the subscription's criteria - each stream message carries at most
+     *           one event, not a batch. Set only when `responseType` is `CHANGE`; unset on `ACKNOWLEDGEMENT` and `HEARTBEAT`
+     *           responses.
      *     @type int $responseType
-     *           The type of the response - when subscription is set-up, acknowledgement is sent
-     *           Then with each capture event, the type is set to `change`
+     *           The kind of this response: `ACKNOWLEDGEMENT` is sent exactly once, when the subscription is set up; `CHANGE`
+     *           is sent for each matching capture event; `HEARTBEAT` is sent periodically as a keep-alive while no matching
+     *           event has occurred.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcHeartBeat $heartBeat
-     *           Optional heartbeat information, is non-null only if the response is a heartbeat or acknowledgement
+     *           Heartbeat information. Set only on `ACKNOWLEDGEMENT` and `HEARTBEAT` responses, unset on `CHANGE` responses.
      * }
      */
     public function __construct($data = NULL) {
@@ -64,7 +72,8 @@ class GrpcRegisterSystemChangeCaptureResponse extends \Google\Protobuf\Internal\
     }
 
     /**
-     * Identification of the registered capture
+     * Identification of the registered subscription. Set on `ACKNOWLEDGEMENT` and `HEARTBEAT` responses (when a
+     * subscription id is available), unset on `CHANGE` responses.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid uuid = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcUuid|null
@@ -85,7 +94,8 @@ class GrpcRegisterSystemChangeCaptureResponse extends \Google\Protobuf\Internal\
     }
 
     /**
-     * Identification of the registered capture
+     * Identification of the registered subscription. Set on `ACKNOWLEDGEMENT` and `HEARTBEAT` responses (when a
+     * subscription id is available), unset on `CHANGE` responses.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid uuid = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcUuid $var
@@ -100,7 +110,9 @@ class GrpcRegisterSystemChangeCaptureResponse extends \Google\Protobuf\Internal\
     }
 
     /**
-     * The list of mutations (CDC events) that match the criteria
+     * A single captured CDC event that matched the subscription's criteria - each stream message carries at most
+     * one event, not a batch. Set only when `responseType` is `CHANGE`; unset on `ACKNOWLEDGEMENT` and `HEARTBEAT`
+     * responses.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcChangeSystemCapture capture = 2;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcChangeSystemCapture|null
@@ -121,7 +133,9 @@ class GrpcRegisterSystemChangeCaptureResponse extends \Google\Protobuf\Internal\
     }
 
     /**
-     * The list of mutations (CDC events) that match the criteria
+     * A single captured CDC event that matched the subscription's criteria - each stream message carries at most
+     * one event, not a batch. Set only when `responseType` is `CHANGE`; unset on `ACKNOWLEDGEMENT` and `HEARTBEAT`
+     * responses.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcChangeSystemCapture capture = 2;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcChangeSystemCapture $var
@@ -136,8 +150,9 @@ class GrpcRegisterSystemChangeCaptureResponse extends \Google\Protobuf\Internal\
     }
 
     /**
-     * The type of the response - when subscription is set-up, acknowledgement is sent
-     * Then with each capture event, the type is set to `change`
+     * The kind of this response: `ACKNOWLEDGEMENT` is sent exactly once, when the subscription is set up; `CHANGE`
+     * is sent for each matching capture event; `HEARTBEAT` is sent periodically as a keep-alive while no matching
+     * event has occurred.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCaptureResponseType responseType = 3;</code>
      * @return int
@@ -148,8 +163,9 @@ class GrpcRegisterSystemChangeCaptureResponse extends \Google\Protobuf\Internal\
     }
 
     /**
-     * The type of the response - when subscription is set-up, acknowledgement is sent
-     * Then with each capture event, the type is set to `change`
+     * The kind of this response: `ACKNOWLEDGEMENT` is sent exactly once, when the subscription is set up; `CHANGE`
+     * is sent for each matching capture event; `HEARTBEAT` is sent periodically as a keep-alive while no matching
+     * event has occurred.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCaptureResponseType responseType = 3;</code>
      * @param int $var
@@ -164,7 +180,7 @@ class GrpcRegisterSystemChangeCaptureResponse extends \Google\Protobuf\Internal\
     }
 
     /**
-     * Optional heartbeat information, is non-null only if the response is a heartbeat or acknowledgement
+     * Heartbeat information. Set only on `ACKNOWLEDGEMENT` and `HEARTBEAT` responses, unset on `CHANGE` responses.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcHeartBeat heartBeat = 4;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcHeartBeat|null
@@ -185,7 +201,7 @@ class GrpcRegisterSystemChangeCaptureResponse extends \Google\Protobuf\Internal\
     }
 
     /**
-     * Optional heartbeat information, is non-null only if the response is a heartbeat or acknowledgement
+     * Heartbeat information. Set only on `ACKNOWLEDGEMENT` and `HEARTBEAT` responses, unset on `CHANGE` responses.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcHeartBeat heartBeat = 4;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcHeartBeat $var

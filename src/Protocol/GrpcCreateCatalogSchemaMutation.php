@@ -21,6 +21,13 @@ class GrpcCreateCatalogSchemaMutation extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string catalogName = 1;</code>
      */
     protected $catalogName = '';
+    /**
+     * Optional catalog-level transaction conflict resolution override applied to the new catalog. When not set, the
+     * catalog inherits the engine-level default.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolution conflictResolution = 2;</code>
+     */
+    protected $conflictResolution = null;
 
     /**
      * Constructor.
@@ -30,6 +37,9 @@ class GrpcCreateCatalogSchemaMutation extends \Google\Protobuf\Internal\Message
      *
      *     @type string $catalogName
      *           Name of newly created catalog schema.
+     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolution $conflictResolution
+     *           Optional catalog-level transaction conflict resolution override applied to the new catalog. When not set, the
+     *           catalog inherits the engine-level default.
      * }
      */
     public function __construct($data = NULL) {
@@ -59,6 +69,44 @@ class GrpcCreateCatalogSchemaMutation extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->catalogName = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional catalog-level transaction conflict resolution override applied to the new catalog. When not set, the
+     * catalog inherits the engine-level default.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolution conflictResolution = 2;</code>
+     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolution|null
+     */
+    public function getConflictResolution()
+    {
+        return $this->conflictResolution;
+    }
+
+    public function hasConflictResolution()
+    {
+        return isset($this->conflictResolution);
+    }
+
+    public function clearConflictResolution()
+    {
+        unset($this->conflictResolution);
+    }
+
+    /**
+     * Optional catalog-level transaction conflict resolution override applied to the new catalog. When not set, the
+     * catalog inherits the engine-level default.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolution conflictResolution = 2;</code>
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolution $var
+     * @return $this
+     */
+    public function setConflictResolution($var)
+    {
+        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolution::class);
+        $this->conflictResolution = $var;
 
         return $this;
     }
