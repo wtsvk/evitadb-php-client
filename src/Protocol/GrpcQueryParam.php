@@ -24,103 +24,154 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $stringValue
-     *           The string value.
+     *           Binds a string parameter into the query, e.g. a string literal compared by `attributeEquals`,
+     *           `attributeContains` or similar constraints, or a classifier name (entity type, attribute name).
      *     @type int $integerValue
-     *           The integer value.
+     *           Binds an `int32` parameter into the query, typically used for primary keys or numeric literals.
      *     @type int|string $longValue
-     *           The long value.
+     *           Binds a `long` parameter into the query, typically used for primary keys or numeric literals
+     *           that exceed the `int32` range.
      *     @type bool $booleanValue
-     *           The boolean value.
+     *           Binds a boolean parameter into the query.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal $bigDecimalValue
-     *           The big decimal value.
+     *           Binds an arbitrary-precision decimal parameter into the query, typically used for price or
+     *           other monetary/decimal literals.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcDateTimeRange $dateTimeRangeValue
-     *           The date time range value.
+     *           Binds a date-time range parameter into the query, e.g. used with `entityValidIn`/`priceValidIn`
+     *           style constraints that test whether a given instant falls within a validity range.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcIntegerNumberRange $integerNumberRangeValue
-     *           The integer number range value.
+     *           Binds an `int32` range parameter into the query, e.g. used with `between`-style range constraints.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcLongNumberRange $longNumberRangeValue
-     *           The long number range value.
+     *           Binds a `long` range parameter into the query, e.g. used with `between`-style range constraints.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimalNumberRange $bigDecimalNumberRangeValue
-     *           The big decimal number range value.
+     *           Binds an arbitrary-precision decimal range parameter into the query, e.g. used with `between`-
+     *           style range constraints over prices or other decimal values.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $offsetDateTimeValue
-     *           The offset date time value.
+     *           Binds a single point-in-time parameter (date, time and offset) into the query, e.g. used with
+     *           `priceValidIn` to test price validity at a specific instant.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcLocale $localeValue
-     *           The locale value.
+     *           Binds a `Locale` parameter into the query, e.g. used with `entityLocaleEquals`.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcCurrency $currencyValue
-     *           The currency value.
+     *           Binds a `Currency` parameter into the query, e.g. used with `priceInCurrency`.
      *     @type int $facetStatisticsDepthValue
-     *           The facet statistics depth enum value.
+     *           Binds a `GrpcFacetStatisticsDepth` enum parameter into the query, e.g. used with the
+     *           `facetSummary` requirement to select whether only counts or also selection impact is computed.
      *     @type int $queryPriceModelValue
-     *           The query price mode enum value.
+     *           Binds a `GrpcQueryPriceMode` enum parameter into the query, used by price-related filtering
+     *           constraints to select whether tax-inclusive or tax-exclusive prices are considered. Field name
+     *           is a legacy typo ("Model" instead of "Mode"); kept as-is because renaming would break generated
+     *           accessors and JSON field mapping for existing clients.
      *     @type int $priceContentModeValue
-     *           The price content mode enum value.
+     *           Binds a `GrpcPriceContentMode` enum parameter into the query, e.g. used with the `priceContent`
+     *           requirement to select which prices are fetched along with the entity.
      *     @type int $attributeSpecialValue
-     *           The attribute special value enum value.
+     *           Binds a `GrpcAttributeSpecialValue` enum parameter into the query, e.g. used with `attributeIs`
+     *           to test whether an attribute value is `NULL` or `NOT_NULL`.
      *     @type int $orderDirectionValue
-     *           The order direction enum value.
+     *           Binds a `GrpcOrderDirection` enum parameter into the query, e.g. used with `attributeNatural`
+     *           and other ordering constraints to select ascending or descending order.
      *     @type int $emptyHierarchicalEntityBehaviour
-     *           The empty hierarchical entity behaviour enum value.
+     *           Binds a `GrpcEmptyHierarchicalEntityBehaviour` enum parameter into the query, used by hierarchy
+     *           statistics requirements to select whether hierarchy nodes with no referring entities are kept
+     *           in or removed from the result tree.
      *     @type int $statisticsBase
-     *           The statistics base enum value.
+     *           Binds a `GrpcStatisticsBase` enum parameter into the query, used by hierarchy statistics
+     *           requirements to select which part of the `filterBy` constraint is considered when computing
+     *           cardinalities.
      *     @type int $statisticsType
-     *           The statistics type enum value.
+     *           Binds a `GrpcStatisticsType` enum parameter into the query, used by hierarchy statistics
+     *           requirements to select whether children counts or queried-entity counts are produced.
      *     @type int $histogramBehavior
-     *           The histogram behavior enum value.
+     *           Binds a `GrpcHistogramBehavior` enum parameter into the query, used by histogram requirements
+     *           to select whether the histogram always has exactly the requested bucket count or an optimized,
+     *           more compact bucket layout.
      *     @type int $managedReferencesBehaviour
-     *           The managed references behaviour
+     *           Binds a `GrpcManagedReferencesBehaviour` enum parameter into the query, used by the
+     *           `referenceContent` requirement to select whether references to a managed entity that no longer
+     *           exists are still returned.
      *     @type string $expressionValue
-     *           The expression
+     *           Binds a raw EvitaQL expression string into the query, evaluated via `ExpressionFactory` — e.g.
+     *           used as the size argument of the `gap` requirement to compute spacing between paginated results.
      *     @type int $scope
-     *           The scope enum value.
+     *           Binds a `GrpcEntityScope` enum parameter into the query, used by scope-aware constraints to
+     *           select whether live or archived entities are considered.
      *     @type int $facetRelationType
-     *           The facetRelationType enum value.
+     *           Binds a `GrpcFacetRelationType` enum parameter into the query, used by facet summary impact
+     *           calculation to select the logical relation (disjunction, conjunction, negation, exclusivity)
+     *           applied between facets.
      *     @type int $facetGroupRelationLevel
-     *           The facetGroupRelationLevel enum value.
+     *           Binds a `GrpcFacetGroupRelationLevel` enum parameter into the query, used by facet summary
+     *           impact calculation to select whether the relation applies between facets in the same group or
+     *           across different groups/references.
      *     @type int $traversalMode
-     *           The facet traversal mode enum value.
+     *           Binds a `GrpcTraversalMode` enum parameter into the query, used by the
+     *           `traverseByEntityProperty` ordering constraint to select depth-first or breadth-first traversal.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcStringArray $stringArrayValue
-     *           The string array value.
+     *           Binds a list of string parameters into the query, e.g. used with `inSet`-style constraints such
+     *           as `attributeInSet` over string-typed attributes.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcIntegerArray $integerArrayValue
-     *           The integer array value.
+     *           Binds a list of `int32` parameters into the query, e.g. used with `entityPrimaryKeyInSet` or
+     *           `attributeInSet` over integer-typed attributes.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcLongArray $longArrayValue
-     *           The long array value.
+     *           Binds a list of `long` parameters into the query, e.g. used with `inSet`-style constraints over
+     *           long-typed values that exceed the `int32` range.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcBooleanArray $booleanArrayValue
-     *           The boolean array value.
+     *           Binds a list of boolean parameters into the query, e.g. used with `inSet`-style constraints over
+     *           boolean-typed attributes.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimalArray $bigDecimalArrayValue
-     *           The big decimal array value.
+     *           Binds a list of arbitrary-precision decimal parameters into the query, e.g. used with
+     *           `inSet`-style constraints over decimal-typed attributes.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcDateTimeRangeArray $dateTimeRangeArrayValue
-     *           The date time range array value.
+     *           Binds a list of date-time range parameters into the query, e.g. used with `inSet`-style
+     *           constraints over range-typed attributes.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcIntegerNumberRangeArray $integerNumberRangeArrayValue
-     *           The integer number range array value.
+     *           Binds a list of `int32` range parameters into the query, e.g. used with `inSet`-style
+     *           constraints over integer-range-typed attributes.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcLongNumberRangeArray $longNumberRangeArrayValue
-     *           The long number range array value.
+     *           Binds a list of `long` range parameters into the query, e.g. used with `inSet`-style constraints
+     *           over long-range-typed attributes.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimalNumberRangeArray $bigDecimalNumberRangeArrayValue
-     *           The big decimal number range array value.
+     *           Binds a list of arbitrary-precision decimal range parameters into the query, e.g. used with
+     *           `inSet`-style constraints over decimal-range-typed attributes.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTimeArray $offsetDateTimeArrayValue
-     *           The offset date time array value.
+     *           Binds a list of point-in-time parameters into the query, e.g. used with `inSet`-style
+     *           constraints over date-time-typed attributes.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcLocaleArray $localeArrayValue
-     *           The locale array value.
+     *           Binds a list of `Locale` parameters into the query, e.g. used to enumerate multiple locales in
+     *           a single constraint or requirement.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcCurrencyArray $currencyArrayValue
-     *           The currency array value.
+     *           Binds a list of `Currency` parameters into the query, e.g. used to enumerate multiple currencies
+     *           in a single constraint or requirement.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcFacetStatisticsDepthArray $facetStatisticsDepthArrayValue
-     *           The facet statistics depth array value.
+     *           Binds a list of `GrpcFacetStatisticsDepth` enum parameters into the query, used where the
+     *           placeholder resolves to a list rather than a single value.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcQueryPriceModeArray $queryPriceModelArrayValue
-     *           The query price mode array value.
+     *           Binds a list of `GrpcQueryPriceMode` enum parameters into the query, used where the placeholder
+     *           resolves to a list rather than a single value.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcPriceContentModeArray $priceContentModeArrayValue
-     *           The price content mode array value.
+     *           Binds a list of `GrpcPriceContentMode` enum parameters into the query, used where the
+     *           placeholder resolves to a list rather than a single value.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcAttributeSpecialValueArray $attributeSpecialArrayValue
-     *           The attribute special value array value.
+     *           Binds a list of `GrpcAttributeSpecialValue` enum parameters into the query, used where the
+     *           placeholder resolves to a list rather than a single value.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcOrderDirectionArray $orderDirectionArrayValue
-     *           The order direction array value.
+     *           Binds a list of `GrpcOrderDirection` enum parameters into the query, used where the placeholder
+     *           resolves to a list rather than a single value.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcEmptyHierarchicalEntityBehaviourArray $emptyHierarchicalEntityBehaviourArrayValue
-     *           The empty hierarchical entity behaviour array value.
+     *           Binds a list of `GrpcEmptyHierarchicalEntityBehaviour` enum parameters into the query, used
+     *           where the placeholder resolves to a list rather than a single value.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcStatisticsBaseArray $statisticsBaseArrayValue
-     *           The statistics base array value.
+     *           Binds a list of `GrpcStatisticsBase` enum parameters into the query, used where the placeholder
+     *           resolves to a list rather than a single value.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcStatisticsTypeArray $statisticsTypeArrayValue
-     *           The statistics type array value.
+     *           Binds a list of `GrpcStatisticsType` enum parameters into the query, used where the placeholder
+     *           resolves to a list rather than a single value.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcHistogramBehaviorTypeArray $histogramBehaviorTypeArrayValue
-     *           The histogram behavior enum value.
+     *           Binds a list of `GrpcHistogramBehavior` enum parameters into the query, used where the
+     *           placeholder resolves to a list rather than a single value.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcEntityScopeArray $scopeArrayValue
-     *           The scope enum value.
+     *           Binds a list of `GrpcEntityScope` enum parameters into the query, e.g. used with constraints
+     *           that accept multiple scopes (live, archived) at once.
      * }
      */
     public function __construct($data = NULL) {
@@ -129,7 +180,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The string value.
+     * Binds a string parameter into the query, e.g. a string literal compared by `attributeEquals`,
+     * `attributeContains` or similar constraints, or a classifier name (entity type, attribute name).
      *
      * Generated from protobuf field <code>string stringValue = 1;</code>
      * @return string
@@ -145,7 +197,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The string value.
+     * Binds a string parameter into the query, e.g. a string literal compared by `attributeEquals`,
+     * `attributeContains` or similar constraints, or a classifier name (entity type, attribute name).
      *
      * Generated from protobuf field <code>string stringValue = 1;</code>
      * @param string $var
@@ -160,7 +213,7 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The integer value.
+     * Binds an `int32` parameter into the query, typically used for primary keys or numeric literals.
      *
      * Generated from protobuf field <code>int32 integerValue = 2;</code>
      * @return int
@@ -176,7 +229,7 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The integer value.
+     * Binds an `int32` parameter into the query, typically used for primary keys or numeric literals.
      *
      * Generated from protobuf field <code>int32 integerValue = 2;</code>
      * @param int $var
@@ -191,7 +244,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The long value.
+     * Binds a `long` parameter into the query, typically used for primary keys or numeric literals
+     * that exceed the `int32` range.
      *
      * Generated from protobuf field <code>int64 longValue = 3;</code>
      * @return int|string
@@ -207,7 +261,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The long value.
+     * Binds a `long` parameter into the query, typically used for primary keys or numeric literals
+     * that exceed the `int32` range.
      *
      * Generated from protobuf field <code>int64 longValue = 3;</code>
      * @param int|string $var
@@ -222,7 +277,7 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The boolean value.
+     * Binds a boolean parameter into the query.
      *
      * Generated from protobuf field <code>bool booleanValue = 4;</code>
      * @return bool
@@ -238,7 +293,7 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The boolean value.
+     * Binds a boolean parameter into the query.
      *
      * Generated from protobuf field <code>bool booleanValue = 4;</code>
      * @param bool $var
@@ -253,7 +308,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The big decimal value.
+     * Binds an arbitrary-precision decimal parameter into the query, typically used for price or
+     * other monetary/decimal literals.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal bigDecimalValue = 5;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal|null
@@ -269,7 +325,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The big decimal value.
+     * Binds an arbitrary-precision decimal parameter into the query, typically used for price or
+     * other monetary/decimal literals.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal bigDecimalValue = 5;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal $var
@@ -284,7 +341,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The date time range value.
+     * Binds a date-time range parameter into the query, e.g. used with `entityValidIn`/`priceValidIn`
+     * style constraints that test whether a given instant falls within a validity range.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcDateTimeRange dateTimeRangeValue = 6;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcDateTimeRange|null
@@ -300,7 +358,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The date time range value.
+     * Binds a date-time range parameter into the query, e.g. used with `entityValidIn`/`priceValidIn`
+     * style constraints that test whether a given instant falls within a validity range.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcDateTimeRange dateTimeRangeValue = 6;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcDateTimeRange $var
@@ -315,7 +374,7 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The integer number range value.
+     * Binds an `int32` range parameter into the query, e.g. used with `between`-style range constraints.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcIntegerNumberRange integerNumberRangeValue = 7;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcIntegerNumberRange|null
@@ -331,7 +390,7 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The integer number range value.
+     * Binds an `int32` range parameter into the query, e.g. used with `between`-style range constraints.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcIntegerNumberRange integerNumberRangeValue = 7;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcIntegerNumberRange $var
@@ -346,7 +405,7 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The long number range value.
+     * Binds a `long` range parameter into the query, e.g. used with `between`-style range constraints.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLongNumberRange longNumberRangeValue = 8;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcLongNumberRange|null
@@ -362,7 +421,7 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The long number range value.
+     * Binds a `long` range parameter into the query, e.g. used with `between`-style range constraints.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLongNumberRange longNumberRangeValue = 8;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcLongNumberRange $var
@@ -377,7 +436,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The big decimal number range value.
+     * Binds an arbitrary-precision decimal range parameter into the query, e.g. used with `between`-
+     * style range constraints over prices or other decimal values.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimalNumberRange bigDecimalNumberRangeValue = 9;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimalNumberRange|null
@@ -393,7 +453,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The big decimal number range value.
+     * Binds an arbitrary-precision decimal range parameter into the query, e.g. used with `between`-
+     * style range constraints over prices or other decimal values.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimalNumberRange bigDecimalNumberRangeValue = 9;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimalNumberRange $var
@@ -408,7 +469,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The offset date time value.
+     * Binds a single point-in-time parameter (date, time and offset) into the query, e.g. used with
+     * `priceValidIn` to test price validity at a specific instant.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime offsetDateTimeValue = 10;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime|null
@@ -424,7 +486,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The offset date time value.
+     * Binds a single point-in-time parameter (date, time and offset) into the query, e.g. used with
+     * `priceValidIn` to test price validity at a specific instant.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime offsetDateTimeValue = 10;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $var
@@ -439,7 +502,7 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The locale value.
+     * Binds a `Locale` parameter into the query, e.g. used with `entityLocaleEquals`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLocale localeValue = 11;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcLocale|null
@@ -455,7 +518,7 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The locale value.
+     * Binds a `Locale` parameter into the query, e.g. used with `entityLocaleEquals`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLocale localeValue = 11;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcLocale $var
@@ -470,7 +533,7 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The currency value.
+     * Binds a `Currency` parameter into the query, e.g. used with `priceInCurrency`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCurrency currencyValue = 12;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcCurrency|null
@@ -486,7 +549,7 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The currency value.
+     * Binds a `Currency` parameter into the query, e.g. used with `priceInCurrency`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCurrency currencyValue = 12;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcCurrency $var
@@ -501,7 +564,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The facet statistics depth enum value.
+     * Binds a `GrpcFacetStatisticsDepth` enum parameter into the query, e.g. used with the
+     * `facetSummary` requirement to select whether only counts or also selection impact is computed.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcFacetStatisticsDepth facetStatisticsDepthValue = 13;</code>
      * @return int
@@ -517,7 +581,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The facet statistics depth enum value.
+     * Binds a `GrpcFacetStatisticsDepth` enum parameter into the query, e.g. used with the
+     * `facetSummary` requirement to select whether only counts or also selection impact is computed.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcFacetStatisticsDepth facetStatisticsDepthValue = 13;</code>
      * @param int $var
@@ -532,7 +597,10 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The query price mode enum value.
+     * Binds a `GrpcQueryPriceMode` enum parameter into the query, used by price-related filtering
+     * constraints to select whether tax-inclusive or tax-exclusive prices are considered. Field name
+     * is a legacy typo ("Model" instead of "Mode"); kept as-is because renaming would break generated
+     * accessors and JSON field mapping for existing clients.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcQueryPriceMode queryPriceModelValue = 14;</code>
      * @return int
@@ -548,7 +616,10 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The query price mode enum value.
+     * Binds a `GrpcQueryPriceMode` enum parameter into the query, used by price-related filtering
+     * constraints to select whether tax-inclusive or tax-exclusive prices are considered. Field name
+     * is a legacy typo ("Model" instead of "Mode"); kept as-is because renaming would break generated
+     * accessors and JSON field mapping for existing clients.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcQueryPriceMode queryPriceModelValue = 14;</code>
      * @param int $var
@@ -563,7 +634,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The price content mode enum value.
+     * Binds a `GrpcPriceContentMode` enum parameter into the query, e.g. used with the `priceContent`
+     * requirement to select which prices are fetched along with the entity.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcPriceContentMode priceContentModeValue = 15;</code>
      * @return int
@@ -579,7 +651,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The price content mode enum value.
+     * Binds a `GrpcPriceContentMode` enum parameter into the query, e.g. used with the `priceContent`
+     * requirement to select which prices are fetched along with the entity.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcPriceContentMode priceContentModeValue = 15;</code>
      * @param int $var
@@ -594,7 +667,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The attribute special value enum value.
+     * Binds a `GrpcAttributeSpecialValue` enum parameter into the query, e.g. used with `attributeIs`
+     * to test whether an attribute value is `NULL` or `NOT_NULL`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcAttributeSpecialValue attributeSpecialValue = 16;</code>
      * @return int
@@ -610,7 +684,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The attribute special value enum value.
+     * Binds a `GrpcAttributeSpecialValue` enum parameter into the query, e.g. used with `attributeIs`
+     * to test whether an attribute value is `NULL` or `NOT_NULL`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcAttributeSpecialValue attributeSpecialValue = 16;</code>
      * @param int $var
@@ -625,7 +700,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The order direction enum value.
+     * Binds a `GrpcOrderDirection` enum parameter into the query, e.g. used with `attributeNatural`
+     * and other ordering constraints to select ascending or descending order.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOrderDirection orderDirectionValue = 17;</code>
      * @return int
@@ -641,7 +717,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The order direction enum value.
+     * Binds a `GrpcOrderDirection` enum parameter into the query, e.g. used with `attributeNatural`
+     * and other ordering constraints to select ascending or descending order.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOrderDirection orderDirectionValue = 17;</code>
      * @param int $var
@@ -656,7 +733,9 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The empty hierarchical entity behaviour enum value.
+     * Binds a `GrpcEmptyHierarchicalEntityBehaviour` enum parameter into the query, used by hierarchy
+     * statistics requirements to select whether hierarchy nodes with no referring entities are kept
+     * in or removed from the result tree.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEmptyHierarchicalEntityBehaviour emptyHierarchicalEntityBehaviour = 18;</code>
      * @return int
@@ -672,7 +751,9 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The empty hierarchical entity behaviour enum value.
+     * Binds a `GrpcEmptyHierarchicalEntityBehaviour` enum parameter into the query, used by hierarchy
+     * statistics requirements to select whether hierarchy nodes with no referring entities are kept
+     * in or removed from the result tree.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEmptyHierarchicalEntityBehaviour emptyHierarchicalEntityBehaviour = 18;</code>
      * @param int $var
@@ -687,7 +768,9 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The statistics base enum value.
+     * Binds a `GrpcStatisticsBase` enum parameter into the query, used by hierarchy statistics
+     * requirements to select which part of the `filterBy` constraint is considered when computing
+     * cardinalities.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcStatisticsBase statisticsBase = 19;</code>
      * @return int
@@ -703,7 +786,9 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The statistics base enum value.
+     * Binds a `GrpcStatisticsBase` enum parameter into the query, used by hierarchy statistics
+     * requirements to select which part of the `filterBy` constraint is considered when computing
+     * cardinalities.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcStatisticsBase statisticsBase = 19;</code>
      * @param int $var
@@ -718,7 +803,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The statistics type enum value.
+     * Binds a `GrpcStatisticsType` enum parameter into the query, used by hierarchy statistics
+     * requirements to select whether children counts or queried-entity counts are produced.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcStatisticsType statisticsType = 20;</code>
      * @return int
@@ -734,7 +820,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The statistics type enum value.
+     * Binds a `GrpcStatisticsType` enum parameter into the query, used by hierarchy statistics
+     * requirements to select whether children counts or queried-entity counts are produced.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcStatisticsType statisticsType = 20;</code>
      * @param int $var
@@ -749,7 +836,9 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The histogram behavior enum value.
+     * Binds a `GrpcHistogramBehavior` enum parameter into the query, used by histogram requirements
+     * to select whether the histogram always has exactly the requested bucket count or an optimized,
+     * more compact bucket layout.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcHistogramBehavior histogramBehavior = 21;</code>
      * @return int
@@ -765,7 +854,9 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The histogram behavior enum value.
+     * Binds a `GrpcHistogramBehavior` enum parameter into the query, used by histogram requirements
+     * to select whether the histogram always has exactly the requested bucket count or an optimized,
+     * more compact bucket layout.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcHistogramBehavior histogramBehavior = 21;</code>
      * @param int $var
@@ -780,7 +871,9 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The managed references behaviour
+     * Binds a `GrpcManagedReferencesBehaviour` enum parameter into the query, used by the
+     * `referenceContent` requirement to select whether references to a managed entity that no longer
+     * exists are still returned.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcManagedReferencesBehaviour managedReferencesBehaviour = 22;</code>
      * @return int
@@ -796,7 +889,9 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The managed references behaviour
+     * Binds a `GrpcManagedReferencesBehaviour` enum parameter into the query, used by the
+     * `referenceContent` requirement to select whether references to a managed entity that no longer
+     * exists are still returned.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcManagedReferencesBehaviour managedReferencesBehaviour = 22;</code>
      * @param int $var
@@ -811,7 +906,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The expression
+     * Binds a raw EvitaQL expression string into the query, evaluated via `ExpressionFactory` — e.g.
+     * used as the size argument of the `gap` requirement to compute spacing between paginated results.
      *
      * Generated from protobuf field <code>string expressionValue = 23;</code>
      * @return string
@@ -827,7 +923,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The expression
+     * Binds a raw EvitaQL expression string into the query, evaluated via `ExpressionFactory` — e.g.
+     * used as the size argument of the `gap` requirement to compute spacing between paginated results.
      *
      * Generated from protobuf field <code>string expressionValue = 23;</code>
      * @param string $var
@@ -842,7 +939,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The scope enum value.
+     * Binds a `GrpcEntityScope` enum parameter into the query, used by scope-aware constraints to
+     * select whether live or archived entities are considered.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntityScope scope = 24;</code>
      * @return int
@@ -858,7 +956,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The scope enum value.
+     * Binds a `GrpcEntityScope` enum parameter into the query, used by scope-aware constraints to
+     * select whether live or archived entities are considered.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntityScope scope = 24;</code>
      * @param int $var
@@ -873,7 +972,9 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The facetRelationType enum value.
+     * Binds a `GrpcFacetRelationType` enum parameter into the query, used by facet summary impact
+     * calculation to select the logical relation (disjunction, conjunction, negation, exclusivity)
+     * applied between facets.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcFacetRelationType facetRelationType = 25;</code>
      * @return int
@@ -889,7 +990,9 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The facetRelationType enum value.
+     * Binds a `GrpcFacetRelationType` enum parameter into the query, used by facet summary impact
+     * calculation to select the logical relation (disjunction, conjunction, negation, exclusivity)
+     * applied between facets.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcFacetRelationType facetRelationType = 25;</code>
      * @param int $var
@@ -904,7 +1007,9 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The facetGroupRelationLevel enum value.
+     * Binds a `GrpcFacetGroupRelationLevel` enum parameter into the query, used by facet summary
+     * impact calculation to select whether the relation applies between facets in the same group or
+     * across different groups/references.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcFacetGroupRelationLevel facetGroupRelationLevel = 26;</code>
      * @return int
@@ -920,7 +1025,9 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The facetGroupRelationLevel enum value.
+     * Binds a `GrpcFacetGroupRelationLevel` enum parameter into the query, used by facet summary
+     * impact calculation to select whether the relation applies between facets in the same group or
+     * across different groups/references.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcFacetGroupRelationLevel facetGroupRelationLevel = 26;</code>
      * @param int $var
@@ -935,7 +1042,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The facet traversal mode enum value.
+     * Binds a `GrpcTraversalMode` enum parameter into the query, used by the
+     * `traverseByEntityProperty` ordering constraint to select depth-first or breadth-first traversal.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTraversalMode traversalMode = 27;</code>
      * @return int
@@ -951,7 +1059,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The facet traversal mode enum value.
+     * Binds a `GrpcTraversalMode` enum parameter into the query, used by the
+     * `traverseByEntityProperty` ordering constraint to select depth-first or breadth-first traversal.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTraversalMode traversalMode = 27;</code>
      * @param int $var
@@ -966,7 +1075,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The string array value.
+     * Binds a list of string parameters into the query, e.g. used with `inSet`-style constraints such
+     * as `attributeInSet` over string-typed attributes.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcStringArray stringArrayValue = 101;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcStringArray|null
@@ -982,7 +1092,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The string array value.
+     * Binds a list of string parameters into the query, e.g. used with `inSet`-style constraints such
+     * as `attributeInSet` over string-typed attributes.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcStringArray stringArrayValue = 101;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcStringArray $var
@@ -997,7 +1108,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The integer array value.
+     * Binds a list of `int32` parameters into the query, e.g. used with `entityPrimaryKeyInSet` or
+     * `attributeInSet` over integer-typed attributes.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcIntegerArray integerArrayValue = 102;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcIntegerArray|null
@@ -1013,7 +1125,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The integer array value.
+     * Binds a list of `int32` parameters into the query, e.g. used with `entityPrimaryKeyInSet` or
+     * `attributeInSet` over integer-typed attributes.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcIntegerArray integerArrayValue = 102;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcIntegerArray $var
@@ -1028,7 +1141,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The long array value.
+     * Binds a list of `long` parameters into the query, e.g. used with `inSet`-style constraints over
+     * long-typed values that exceed the `int32` range.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLongArray longArrayValue = 103;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcLongArray|null
@@ -1044,7 +1158,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The long array value.
+     * Binds a list of `long` parameters into the query, e.g. used with `inSet`-style constraints over
+     * long-typed values that exceed the `int32` range.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLongArray longArrayValue = 103;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcLongArray $var
@@ -1059,7 +1174,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The boolean array value.
+     * Binds a list of boolean parameters into the query, e.g. used with `inSet`-style constraints over
+     * boolean-typed attributes.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBooleanArray booleanArrayValue = 104;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcBooleanArray|null
@@ -1075,7 +1191,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The boolean array value.
+     * Binds a list of boolean parameters into the query, e.g. used with `inSet`-style constraints over
+     * boolean-typed attributes.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBooleanArray booleanArrayValue = 104;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcBooleanArray $var
@@ -1090,7 +1207,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The big decimal array value.
+     * Binds a list of arbitrary-precision decimal parameters into the query, e.g. used with
+     * `inSet`-style constraints over decimal-typed attributes.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimalArray bigDecimalArrayValue = 105;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimalArray|null
@@ -1106,7 +1224,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The big decimal array value.
+     * Binds a list of arbitrary-precision decimal parameters into the query, e.g. used with
+     * `inSet`-style constraints over decimal-typed attributes.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimalArray bigDecimalArrayValue = 105;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimalArray $var
@@ -1121,7 +1240,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The date time range array value.
+     * Binds a list of date-time range parameters into the query, e.g. used with `inSet`-style
+     * constraints over range-typed attributes.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcDateTimeRangeArray dateTimeRangeArrayValue = 106;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcDateTimeRangeArray|null
@@ -1137,7 +1257,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The date time range array value.
+     * Binds a list of date-time range parameters into the query, e.g. used with `inSet`-style
+     * constraints over range-typed attributes.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcDateTimeRangeArray dateTimeRangeArrayValue = 106;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcDateTimeRangeArray $var
@@ -1152,7 +1273,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The integer number range array value.
+     * Binds a list of `int32` range parameters into the query, e.g. used with `inSet`-style
+     * constraints over integer-range-typed attributes.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcIntegerNumberRangeArray integerNumberRangeArrayValue = 107;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcIntegerNumberRangeArray|null
@@ -1168,7 +1290,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The integer number range array value.
+     * Binds a list of `int32` range parameters into the query, e.g. used with `inSet`-style
+     * constraints over integer-range-typed attributes.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcIntegerNumberRangeArray integerNumberRangeArrayValue = 107;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcIntegerNumberRangeArray $var
@@ -1183,7 +1306,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The long number range array value.
+     * Binds a list of `long` range parameters into the query, e.g. used with `inSet`-style constraints
+     * over long-range-typed attributes.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLongNumberRangeArray longNumberRangeArrayValue = 108;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcLongNumberRangeArray|null
@@ -1199,7 +1323,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The long number range array value.
+     * Binds a list of `long` range parameters into the query, e.g. used with `inSet`-style constraints
+     * over long-range-typed attributes.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLongNumberRangeArray longNumberRangeArrayValue = 108;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcLongNumberRangeArray $var
@@ -1214,7 +1339,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The big decimal number range array value.
+     * Binds a list of arbitrary-precision decimal range parameters into the query, e.g. used with
+     * `inSet`-style constraints over decimal-range-typed attributes.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimalNumberRangeArray bigDecimalNumberRangeArrayValue = 109;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimalNumberRangeArray|null
@@ -1230,7 +1356,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The big decimal number range array value.
+     * Binds a list of arbitrary-precision decimal range parameters into the query, e.g. used with
+     * `inSet`-style constraints over decimal-range-typed attributes.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimalNumberRangeArray bigDecimalNumberRangeArrayValue = 109;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimalNumberRangeArray $var
@@ -1245,7 +1372,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The offset date time array value.
+     * Binds a list of point-in-time parameters into the query, e.g. used with `inSet`-style
+     * constraints over date-time-typed attributes.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTimeArray offsetDateTimeArrayValue = 110;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTimeArray|null
@@ -1261,7 +1389,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The offset date time array value.
+     * Binds a list of point-in-time parameters into the query, e.g. used with `inSet`-style
+     * constraints over date-time-typed attributes.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTimeArray offsetDateTimeArrayValue = 110;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTimeArray $var
@@ -1276,7 +1405,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The locale array value.
+     * Binds a list of `Locale` parameters into the query, e.g. used to enumerate multiple locales in
+     * a single constraint or requirement.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLocaleArray localeArrayValue = 111;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcLocaleArray|null
@@ -1292,7 +1422,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The locale array value.
+     * Binds a list of `Locale` parameters into the query, e.g. used to enumerate multiple locales in
+     * a single constraint or requirement.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLocaleArray localeArrayValue = 111;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcLocaleArray $var
@@ -1307,7 +1438,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The currency array value.
+     * Binds a list of `Currency` parameters into the query, e.g. used to enumerate multiple currencies
+     * in a single constraint or requirement.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCurrencyArray currencyArrayValue = 112;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcCurrencyArray|null
@@ -1323,7 +1455,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The currency array value.
+     * Binds a list of `Currency` parameters into the query, e.g. used to enumerate multiple currencies
+     * in a single constraint or requirement.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCurrencyArray currencyArrayValue = 112;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcCurrencyArray $var
@@ -1338,7 +1471,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The facet statistics depth array value.
+     * Binds a list of `GrpcFacetStatisticsDepth` enum parameters into the query, used where the
+     * placeholder resolves to a list rather than a single value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcFacetStatisticsDepthArray facetStatisticsDepthArrayValue = 113;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcFacetStatisticsDepthArray|null
@@ -1354,7 +1488,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The facet statistics depth array value.
+     * Binds a list of `GrpcFacetStatisticsDepth` enum parameters into the query, used where the
+     * placeholder resolves to a list rather than a single value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcFacetStatisticsDepthArray facetStatisticsDepthArrayValue = 113;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcFacetStatisticsDepthArray $var
@@ -1369,7 +1504,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The query price mode array value.
+     * Binds a list of `GrpcQueryPriceMode` enum parameters into the query, used where the placeholder
+     * resolves to a list rather than a single value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcQueryPriceModeArray queryPriceModelArrayValue = 114;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcQueryPriceModeArray|null
@@ -1385,7 +1521,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The query price mode array value.
+     * Binds a list of `GrpcQueryPriceMode` enum parameters into the query, used where the placeholder
+     * resolves to a list rather than a single value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcQueryPriceModeArray queryPriceModelArrayValue = 114;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcQueryPriceModeArray $var
@@ -1400,7 +1537,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The price content mode array value.
+     * Binds a list of `GrpcPriceContentMode` enum parameters into the query, used where the
+     * placeholder resolves to a list rather than a single value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcPriceContentModeArray priceContentModeArrayValue = 115;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcPriceContentModeArray|null
@@ -1416,7 +1554,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The price content mode array value.
+     * Binds a list of `GrpcPriceContentMode` enum parameters into the query, used where the
+     * placeholder resolves to a list rather than a single value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcPriceContentModeArray priceContentModeArrayValue = 115;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcPriceContentModeArray $var
@@ -1431,7 +1570,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The attribute special value array value.
+     * Binds a list of `GrpcAttributeSpecialValue` enum parameters into the query, used where the
+     * placeholder resolves to a list rather than a single value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcAttributeSpecialValueArray attributeSpecialArrayValue = 116;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcAttributeSpecialValueArray|null
@@ -1447,7 +1587,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The attribute special value array value.
+     * Binds a list of `GrpcAttributeSpecialValue` enum parameters into the query, used where the
+     * placeholder resolves to a list rather than a single value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcAttributeSpecialValueArray attributeSpecialArrayValue = 116;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcAttributeSpecialValueArray $var
@@ -1462,7 +1603,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The order direction array value.
+     * Binds a list of `GrpcOrderDirection` enum parameters into the query, used where the placeholder
+     * resolves to a list rather than a single value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOrderDirectionArray orderDirectionArrayValue = 117;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcOrderDirectionArray|null
@@ -1478,7 +1620,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The order direction array value.
+     * Binds a list of `GrpcOrderDirection` enum parameters into the query, used where the placeholder
+     * resolves to a list rather than a single value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOrderDirectionArray orderDirectionArrayValue = 117;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcOrderDirectionArray $var
@@ -1493,7 +1636,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The empty hierarchical entity behaviour array value.
+     * Binds a list of `GrpcEmptyHierarchicalEntityBehaviour` enum parameters into the query, used
+     * where the placeholder resolves to a list rather than a single value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEmptyHierarchicalEntityBehaviourArray emptyHierarchicalEntityBehaviourArrayValue = 118;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcEmptyHierarchicalEntityBehaviourArray|null
@@ -1509,7 +1653,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The empty hierarchical entity behaviour array value.
+     * Binds a list of `GrpcEmptyHierarchicalEntityBehaviour` enum parameters into the query, used
+     * where the placeholder resolves to a list rather than a single value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEmptyHierarchicalEntityBehaviourArray emptyHierarchicalEntityBehaviourArrayValue = 118;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcEmptyHierarchicalEntityBehaviourArray $var
@@ -1524,7 +1669,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The statistics base array value.
+     * Binds a list of `GrpcStatisticsBase` enum parameters into the query, used where the placeholder
+     * resolves to a list rather than a single value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcStatisticsBaseArray statisticsBaseArrayValue = 119;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcStatisticsBaseArray|null
@@ -1540,7 +1686,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The statistics base array value.
+     * Binds a list of `GrpcStatisticsBase` enum parameters into the query, used where the placeholder
+     * resolves to a list rather than a single value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcStatisticsBaseArray statisticsBaseArrayValue = 119;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcStatisticsBaseArray $var
@@ -1555,7 +1702,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The statistics type array value.
+     * Binds a list of `GrpcStatisticsType` enum parameters into the query, used where the placeholder
+     * resolves to a list rather than a single value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcStatisticsTypeArray statisticsTypeArrayValue = 120;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcStatisticsTypeArray|null
@@ -1571,7 +1719,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The statistics type array value.
+     * Binds a list of `GrpcStatisticsType` enum parameters into the query, used where the placeholder
+     * resolves to a list rather than a single value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcStatisticsTypeArray statisticsTypeArrayValue = 120;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcStatisticsTypeArray $var
@@ -1586,7 +1735,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The histogram behavior enum value.
+     * Binds a list of `GrpcHistogramBehavior` enum parameters into the query, used where the
+     * placeholder resolves to a list rather than a single value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcHistogramBehaviorTypeArray histogramBehaviorTypeArrayValue = 121;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcHistogramBehaviorTypeArray|null
@@ -1602,7 +1752,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The histogram behavior enum value.
+     * Binds a list of `GrpcHistogramBehavior` enum parameters into the query, used where the
+     * placeholder resolves to a list rather than a single value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcHistogramBehaviorTypeArray histogramBehaviorTypeArrayValue = 121;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcHistogramBehaviorTypeArray $var
@@ -1617,7 +1768,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The scope enum value.
+     * Binds a list of `GrpcEntityScope` enum parameters into the query, e.g. used with constraints
+     * that accept multiple scopes (live, archived) at once.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntityScopeArray scopeArrayValue = 122;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcEntityScopeArray|null
@@ -1633,7 +1785,8 @@ class GrpcQueryParam extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The scope enum value.
+     * Binds a list of `GrpcEntityScope` enum parameters into the query, e.g. used with constraints
+     * that accept multiple scopes (live, archived) at once.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntityScopeArray scopeArrayValue = 122;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcEntityScopeArray $var

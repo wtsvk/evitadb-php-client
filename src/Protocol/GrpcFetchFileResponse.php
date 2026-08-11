@@ -9,20 +9,23 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Response to a task status request.
+ * One chunk of a file's contents, streamed back to the client. The server sends a sequence of
+ * these messages; concatenate `fileContents` from all of them, in arrival order, to reconstruct
+ * the full file.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcFetchFileResponse</code>
  */
 class GrpcFetchFileResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * chunk of the file content
+     * One chunk of the file's binary contents.
      *
      * Generated from protobuf field <code>bytes fileContents = 1;</code>
      */
     protected $fileContents = '';
     /**
-     * total size of the file
+     * Total size of the complete file (bytes); the same value is repeated on every chunk in the
+     * stream, not just the size of this chunk.
      *
      * Generated from protobuf field <code>int64 totalSizeInBytes = 2;</code>
      */
@@ -35,9 +38,10 @@ class GrpcFetchFileResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $fileContents
-     *           chunk of the file content
+     *           One chunk of the file's binary contents.
      *     @type int|string $totalSizeInBytes
-     *           total size of the file
+     *           Total size of the complete file (bytes); the same value is repeated on every chunk in the
+     *           stream, not just the size of this chunk.
      * }
      */
     public function __construct($data = NULL) {
@@ -46,7 +50,7 @@ class GrpcFetchFileResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * chunk of the file content
+     * One chunk of the file's binary contents.
      *
      * Generated from protobuf field <code>bytes fileContents = 1;</code>
      * @return string
@@ -57,7 +61,7 @@ class GrpcFetchFileResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * chunk of the file content
+     * One chunk of the file's binary contents.
      *
      * Generated from protobuf field <code>bytes fileContents = 1;</code>
      * @param string $var
@@ -72,7 +76,8 @@ class GrpcFetchFileResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * total size of the file
+     * Total size of the complete file (bytes); the same value is repeated on every chunk in the
+     * stream, not just the size of this chunk.
      *
      * Generated from protobuf field <code>int64 totalSizeInBytes = 2;</code>
      * @return int|string
@@ -83,7 +88,8 @@ class GrpcFetchFileResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * total size of the file
+     * Total size of the complete file (bytes); the same value is repeated on every chunk in the
+     * stream, not just the size of this chunk.
      *
      * Generated from protobuf field <code>int64 totalSizeInBytes = 2;</code>
      * @param int|string $var

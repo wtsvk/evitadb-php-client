@@ -39,7 +39,7 @@ class GrpcCreateGlobalAttributeSchemaMutation extends \Google\Protobuf\Internal\
     /**
      * When attribute is unique it is automatically filterable, and it is ensured there is exactly one single entity
      * having certain value of this attribute among other entities in the same collection.
-     * deprecated in favor of `uniqueInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `uniqueInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcAttributeUniquenessType unique = 4 [deprecated = true];</code>
      * @deprecated
@@ -48,7 +48,7 @@ class GrpcCreateGlobalAttributeSchemaMutation extends \Google\Protobuf\Internal\
     /**
      * When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
      * entity having certain value of this attribute in entire catalog.
-     * deprecated in favor of `uniqueGloballyInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `uniqueGloballyInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcGlobalAttributeUniquenessType uniqueGlobally = 5 [deprecated = true];</code>
      * @deprecated
@@ -58,7 +58,7 @@ class GrpcCreateGlobalAttributeSchemaMutation extends \Google\Protobuf\Internal\
      * When attribute is filterable, it is possible to filter entities by this attribute. Do not mark attribute
      * as filterable unless you know that you'll search entities by this attribute. Each filterable attribute occupies
      * (memory/disk) space in the form of index.
-     * deprecated in favor of `filterableInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `filterableInScopes`
      *
      * Generated from protobuf field <code>bool filterable = 6 [deprecated = true];</code>
      * @deprecated
@@ -68,7 +68,7 @@ class GrpcCreateGlobalAttributeSchemaMutation extends \Google\Protobuf\Internal\
      * When attribute is sortable, it is possible to sort entities by this attribute. Do not mark attribute
      * as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
      * (memory/disk) space in the form of index.
-     * deprecated in favor of `sortableInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `sortableInScopes`
      *
      * Generated from protobuf field <code>bool sortable = 7 [deprecated = true];</code>
      * @deprecated
@@ -150,6 +150,12 @@ class GrpcCreateGlobalAttributeSchemaMutation extends \Google\Protobuf\Internal\
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEntityScope sortableInScopes = 17;</code>
      */
     private $sortableInScopes;
+    /**
+     * The per-attribute override of the conflict resolution granularity.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 18;</code>
+     */
+    protected $conflictResolutionOverride = 0;
 
     /**
      * Constructor.
@@ -168,21 +174,21 @@ class GrpcCreateGlobalAttributeSchemaMutation extends \Google\Protobuf\Internal\
      *     @type int $unique
      *           When attribute is unique it is automatically filterable, and it is ensured there is exactly one single entity
      *           having certain value of this attribute among other entities in the same collection.
-     *           deprecated in favor of `uniqueInScopes`
+     *           Deprecated since 2024.12 - deprecated in favor of `uniqueInScopes`
      *     @type int $uniqueGlobally
      *           When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
      *           entity having certain value of this attribute in entire catalog.
-     *           deprecated in favor of `uniqueGloballyInScopes`
+     *           Deprecated since 2024.12 - deprecated in favor of `uniqueGloballyInScopes`
      *     @type bool $filterable
      *           When attribute is filterable, it is possible to filter entities by this attribute. Do not mark attribute
      *           as filterable unless you know that you'll search entities by this attribute. Each filterable attribute occupies
      *           (memory/disk) space in the form of index.
-     *           deprecated in favor of `filterableInScopes`
+     *           Deprecated since 2024.12 - deprecated in favor of `filterableInScopes`
      *     @type bool $sortable
      *           When attribute is sortable, it is possible to sort entities by this attribute. Do not mark attribute
      *           as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
      *           (memory/disk) space in the form of index.
-     *           deprecated in favor of `sortableInScopes`
+     *           Deprecated since 2024.12 - deprecated in favor of `sortableInScopes`
      *     @type bool $localized
      *           Localized attribute has to be ALWAYS used in connection with specific `locale`. In other
      *           words - it cannot be stored unless associated locale is also provided.
@@ -219,6 +225,8 @@ class GrpcCreateGlobalAttributeSchemaMutation extends \Google\Protobuf\Internal\
      *           When attribute is sortable, it is possible to sort entities by this attribute. Do not mark attribute
      *           as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
      *           (memory/disk) space in the form of index.
+     *     @type int $conflictResolutionOverride
+     *           The per-attribute override of the conflict resolution granularity.
      * }
      */
     public function __construct($data = NULL) {
@@ -389,7 +397,7 @@ class GrpcCreateGlobalAttributeSchemaMutation extends \Google\Protobuf\Internal\
     /**
      * When attribute is unique it is automatically filterable, and it is ensured there is exactly one single entity
      * having certain value of this attribute among other entities in the same collection.
-     * deprecated in favor of `uniqueInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `uniqueInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcAttributeUniquenessType unique = 4 [deprecated = true];</code>
      * @return int
@@ -404,7 +412,7 @@ class GrpcCreateGlobalAttributeSchemaMutation extends \Google\Protobuf\Internal\
     /**
      * When attribute is unique it is automatically filterable, and it is ensured there is exactly one single entity
      * having certain value of this attribute among other entities in the same collection.
-     * deprecated in favor of `uniqueInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `uniqueInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcAttributeUniquenessType unique = 4 [deprecated = true];</code>
      * @param int $var
@@ -423,7 +431,7 @@ class GrpcCreateGlobalAttributeSchemaMutation extends \Google\Protobuf\Internal\
     /**
      * When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
      * entity having certain value of this attribute in entire catalog.
-     * deprecated in favor of `uniqueGloballyInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `uniqueGloballyInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcGlobalAttributeUniquenessType uniqueGlobally = 5 [deprecated = true];</code>
      * @return int
@@ -438,7 +446,7 @@ class GrpcCreateGlobalAttributeSchemaMutation extends \Google\Protobuf\Internal\
     /**
      * When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
      * entity having certain value of this attribute in entire catalog.
-     * deprecated in favor of `uniqueGloballyInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `uniqueGloballyInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcGlobalAttributeUniquenessType uniqueGlobally = 5 [deprecated = true];</code>
      * @param int $var
@@ -458,7 +466,7 @@ class GrpcCreateGlobalAttributeSchemaMutation extends \Google\Protobuf\Internal\
      * When attribute is filterable, it is possible to filter entities by this attribute. Do not mark attribute
      * as filterable unless you know that you'll search entities by this attribute. Each filterable attribute occupies
      * (memory/disk) space in the form of index.
-     * deprecated in favor of `filterableInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `filterableInScopes`
      *
      * Generated from protobuf field <code>bool filterable = 6 [deprecated = true];</code>
      * @return bool
@@ -474,7 +482,7 @@ class GrpcCreateGlobalAttributeSchemaMutation extends \Google\Protobuf\Internal\
      * When attribute is filterable, it is possible to filter entities by this attribute. Do not mark attribute
      * as filterable unless you know that you'll search entities by this attribute. Each filterable attribute occupies
      * (memory/disk) space in the form of index.
-     * deprecated in favor of `filterableInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `filterableInScopes`
      *
      * Generated from protobuf field <code>bool filterable = 6 [deprecated = true];</code>
      * @param bool $var
@@ -494,7 +502,7 @@ class GrpcCreateGlobalAttributeSchemaMutation extends \Google\Protobuf\Internal\
      * When attribute is sortable, it is possible to sort entities by this attribute. Do not mark attribute
      * as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
      * (memory/disk) space in the form of index.
-     * deprecated in favor of `sortableInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `sortableInScopes`
      *
      * Generated from protobuf field <code>bool sortable = 7 [deprecated = true];</code>
      * @return bool
@@ -510,7 +518,7 @@ class GrpcCreateGlobalAttributeSchemaMutation extends \Google\Protobuf\Internal\
      * When attribute is sortable, it is possible to sort entities by this attribute. Do not mark attribute
      * as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
      * (memory/disk) space in the form of index.
-     * deprecated in favor of `sortableInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `sortableInScopes`
      *
      * Generated from protobuf field <code>bool sortable = 7 [deprecated = true];</code>
      * @param bool $var
@@ -824,6 +832,32 @@ class GrpcCreateGlobalAttributeSchemaMutation extends \Google\Protobuf\Internal\
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Wtsvk\EvitaDbClient\Protocol\GrpcEntityScope::class);
         $this->sortableInScopes = $arr;
+
+        return $this;
+    }
+
+    /**
+     * The per-attribute override of the conflict resolution granularity.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 18;</code>
+     * @return int
+     */
+    public function getConflictResolutionOverride()
+    {
+        return $this->conflictResolutionOverride;
+    }
+
+    /**
+     * The per-attribute override of the conflict resolution granularity.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 18;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setConflictResolutionOverride($var)
+    {
+        GPBUtil::checkEnum($var, \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolutionOverride::class);
+        $this->conflictResolutionOverride = $var;
 
         return $this;
     }

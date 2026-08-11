@@ -16,7 +16,8 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcEvitaCatalogStatisticsResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Collection of catalog statistics for all catalogs
+     * Per-catalog statistics for every catalog known to the server, including corrupted ones (see
+     * `GrpcCatalogStatistics.unusable`, where most other fields fall back to a placeholder value).
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcCatalogStatistics catalogStatistics = 1;</code>
      */
@@ -29,7 +30,8 @@ class GrpcEvitaCatalogStatisticsResponse extends \Google\Protobuf\Internal\Messa
      *     Optional. Data for populating the Message object.
      *
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcCatalogStatistics>|\Google\Protobuf\Internal\RepeatedField $catalogStatistics
-     *           Collection of catalog statistics for all catalogs
+     *           Per-catalog statistics for every catalog known to the server, including corrupted ones (see
+     *           `GrpcCatalogStatistics.unusable`, where most other fields fall back to a placeholder value).
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +40,8 @@ class GrpcEvitaCatalogStatisticsResponse extends \Google\Protobuf\Internal\Messa
     }
 
     /**
-     * Collection of catalog statistics for all catalogs
+     * Per-catalog statistics for every catalog known to the server, including corrupted ones (see
+     * `GrpcCatalogStatistics.unusable`, where most other fields fall back to a placeholder value).
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcCatalogStatistics catalogStatistics = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -49,7 +52,8 @@ class GrpcEvitaCatalogStatisticsResponse extends \Google\Protobuf\Internal\Messa
     }
 
     /**
-     * Collection of catalog statistics for all catalogs
+     * Per-catalog statistics for every catalog known to the server, including corrupted ones (see
+     * `GrpcCatalogStatistics.unusable`, where most other fields fall back to a placeholder value).
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcCatalogStatistics catalogStatistics = 1;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcCatalogStatistics>|\Google\Protobuf\Internal\RepeatedField $var

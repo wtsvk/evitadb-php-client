@@ -9,7 +9,7 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Response to StartTrafficRecording and  request.
+ * Response to StartTrafficRecording, StopTrafficRecording, and ExportTrafficRecording requests.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GetTrafficRecordingStatusResponse</code>
  */

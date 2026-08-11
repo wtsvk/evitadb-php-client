@@ -24,9 +24,9 @@ class GrpcRestoreEntityResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcEntityReference $entityReference
-     *           The restored entity reference.
+     *           The restored entity as a reference (type + primary key only).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity $entity
-     *           The restored entity.
+     *           The restored entity, fully fetched per `GrpcRestoreEntityRequest.require`.
      * }
      */
     public function __construct($data = NULL) {
@@ -35,7 +35,7 @@ class GrpcRestoreEntityResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The restored entity reference.
+     * The restored entity as a reference (type + primary key only).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntityReference entityReference = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcEntityReference|null
@@ -51,7 +51,7 @@ class GrpcRestoreEntityResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The restored entity reference.
+     * The restored entity as a reference (type + primary key only).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntityReference entityReference = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcEntityReference $var
@@ -66,7 +66,7 @@ class GrpcRestoreEntityResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The restored entity.
+     * The restored entity, fully fetched per `GrpcRestoreEntityRequest.require`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity entity = 2;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity|null
@@ -82,7 +82,7 @@ class GrpcRestoreEntityResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The restored entity.
+     * The restored entity, fully fetched per `GrpcRestoreEntityRequest.require`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity entity = 2;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity $var

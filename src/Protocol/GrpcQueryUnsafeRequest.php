@@ -9,14 +9,17 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Request for specifying a query to be executed.
+ * Request for specifying a full EvitaQL query with parameter values embedded directly in the string (no
+ * separate positional/named parameter binding). Internal/unsafe use only - see the `QueryUnsafe` RPC
+ * comment: applications should use `GrpcQueryRequest` instead.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcQueryUnsafeRequest</code>
  */
 class GrpcQueryUnsafeRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The string part of the parametrised query.
+     * The complete query string, with any parameter values already embedded (no `?`/`&#64;name` placeholders
+     * to resolve).
      *
      * Generated from protobuf field <code>string query = 1;</code>
      */
@@ -29,7 +32,8 @@ class GrpcQueryUnsafeRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $query
-     *           The string part of the parametrised query.
+     *           The complete query string, with any parameter values already embedded (no `?`/`&#64;name` placeholders
+     *           to resolve).
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +42,8 @@ class GrpcQueryUnsafeRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The string part of the parametrised query.
+     * The complete query string, with any parameter values already embedded (no `?`/`&#64;name` placeholders
+     * to resolve).
      *
      * Generated from protobuf field <code>string query = 1;</code>
      * @return string
@@ -49,7 +54,8 @@ class GrpcQueryUnsafeRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The string part of the parametrised query.
+     * The complete query string, with any parameter values already embedded (no `?`/`&#64;name` placeholders
+     * to resolve).
      *
      * Generated from protobuf field <code>string query = 1;</code>
      * @param string $var

@@ -22,7 +22,10 @@ class GrpcEvitaSessionRequest extends \Google\Protobuf\Internal\Message
      */
     protected $catalogName = '';
     /**
-     * Commit behaviour
+     * Default commit behaviour applied when the session is closed implicitly via `close()` - determines how far a
+     * transaction must be durably persisted before the close is considered complete. Can be overridden per call by
+     * closing the session explicitly with a specific behaviour instead. See `GrpcCommitBehavior` for the available
+     * durability/performance trade-offs.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCommitBehavior commitBehavior = 2;</code>
      */
@@ -43,7 +46,10 @@ class GrpcEvitaSessionRequest extends \Google\Protobuf\Internal\Message
      *     @type string $catalogName
      *           The name of the catalog for which the session is to be created.
      *     @type int $commitBehavior
-     *           Commit behaviour
+     *           Default commit behaviour applied when the session is closed implicitly via `close()` - determines how far a
+     *           transaction must be durably persisted before the close is considered complete. Can be overridden per call by
+     *           closing the session explicitly with a specific behaviour instead. See `GrpcCommitBehavior` for the available
+     *           durability/performance trade-offs.
      *     @type bool $dryRun
      *           For testing purposes. Flag indicating that all changes by the session should be rollbacked after the session is closed.
      * }
@@ -80,7 +86,10 @@ class GrpcEvitaSessionRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Commit behaviour
+     * Default commit behaviour applied when the session is closed implicitly via `close()` - determines how far a
+     * transaction must be durably persisted before the close is considered complete. Can be overridden per call by
+     * closing the session explicitly with a specific behaviour instead. See `GrpcCommitBehavior` for the available
+     * durability/performance trade-offs.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCommitBehavior commitBehavior = 2;</code>
      * @return int
@@ -91,7 +100,10 @@ class GrpcEvitaSessionRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Commit behaviour
+     * Default commit behaviour applied when the session is closed implicitly via `close()` - determines how far a
+     * transaction must be durably persisted before the close is considered complete. Can be overridden per call by
+     * closing the session explicitly with a specific behaviour instead. See `GrpcCommitBehavior` for the available
+     * durability/performance trade-offs.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCommitBehavior commitBehavior = 2;</code>
      * @param int $var

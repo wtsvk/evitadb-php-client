@@ -9,14 +9,15 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Response to GetTrafficHistory request.
+ * A single streamed response frame carrying traffic records.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GetTrafficHistoryResponse</code>
  */
 class GetTrafficHistoryResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The list of traffic records that match the criteria
+     * The traffic records carried by this streamed frame (the current server implementation emits exactly one
+     * record per frame).
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTrafficRecord trafficRecord = 1;</code>
      */
@@ -29,7 +30,8 @@ class GetTrafficHistoryResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcTrafficRecord>|\Google\Protobuf\Internal\RepeatedField $trafficRecord
-     *           The list of traffic records that match the criteria
+     *           The traffic records carried by this streamed frame (the current server implementation emits exactly one
+     *           record per frame).
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +40,8 @@ class GetTrafficHistoryResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The list of traffic records that match the criteria
+     * The traffic records carried by this streamed frame (the current server implementation emits exactly one
+     * record per frame).
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTrafficRecord trafficRecord = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -49,7 +52,8 @@ class GetTrafficHistoryResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The list of traffic records that match the criteria
+     * The traffic records carried by this streamed frame (the current server implementation emits exactly one
+     * record per frame).
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTrafficRecord trafficRecord = 1;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcTrafficRecord>|\Google\Protobuf\Internal\RepeatedField $var

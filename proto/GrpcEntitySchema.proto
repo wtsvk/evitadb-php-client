@@ -51,7 +51,7 @@ message GrpcEntitySchema {
   // Each entity must be part of at most single hierarchy (tree).
   //
   // Hierarchy can limit returned entities by using filtering constraints. It's also used for
-  // computation of extra data - such as `hierarchyParentsOfSelf`. It can also invert type of returned entities in case extra result
+  // computation of extra data - such as the `parents` requirement. It can also invert type of returned entities in case extra result
   // `hierarchyOfSelf` is requested.
   bool withHierarchy = 6;
   // Contains `true` when entities of this type holds price information.
@@ -136,10 +136,13 @@ message GrpcEntitySchema {
 	// can define its price), but it is not possible to work with the price information in any other way (calculating
 	// price histogram, filtering, sorting by price, etc.).
 	//
-	// Prices can be also set as non-indexed individually by setting {@link PriceContract#indexed()} to false.
+	// Prices can be also set as non-indexed individually via the individual price's own `indexed` flag.
   repeated GrpcEntityScope priceIndexedInScopes = 18;
   // Contains current version of the catalog schema this entity schema belongs to.
   int64 catalogSchemaVersion = 19;
+  // Contains the entity-level conflict resolution setting. When not set (absent), the entity schema inherits the
+  // resolved conflict resolution from the catalog / transaction options.
+  GrpcConflictResolution conflictResolution = 20;
 }
 
 // This is the definition object for attributes that are stored along with
@@ -177,15 +180,15 @@ message GrpcAttributeSchema {
   //
   // As an example of unique attribute can be EAN - there is no sense in having two entities with same EAN, and it's
   // better to have this ensured by the database engine.
-  // deprecated in favor of `uniqueInScopes`
+  // Deprecated since 2024.12 - deprecated in favor of `uniqueInScopes`
   GrpcAttributeUniquenessType unique = 5 [deprecated = true];
   // When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
-  // entity having certain value of this attribute in entire {@link CatalogContract}.
-  // {@link AttributeSchemaContract#getType() Type} of the unique attribute must implement {@link Comparable} interface.
+  // entity having certain value of this attribute in the entire catalog.
+  // The type of the unique attribute must implement the `Comparable` interface.
   //
   // As an example of unique attribute can be URL - there is no sense in having two entities with same URL, and it's
   // better to have this ensured by the database engine.
-  // deprecated in favor of `uniqueGloballyInScopes`
+  // Deprecated since 2024.12 - deprecated in favor of `uniqueGloballyInScopes`
   GrpcGlobalAttributeUniquenessType uniqueGlobally = 6 [deprecated = true];
   // When attribute is filterable, it is possible to filter entities by this attribute. Do not mark attribute
   // as filterable unless you know that you'll search entities by this attribute. Each filterable attribute occupies
@@ -193,12 +196,12 @@ message GrpcAttributeSchema {
   //
   // When attribute is filterable, extra result `attributeHistogram`
   // can be requested for this attribute.
-  // deprecated in favor of `filterableInScopes`
+  // Deprecated since 2024.12 - deprecated in favor of `filterableInScopes`
   bool filterable = 7 [deprecated = true];
   // When attribute is sortable, it is possible to sort entities by this attribute. Do not mark attribute
   // as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
   // (memory/disk) space in the form of index.
-  // deprecated in favor of `sortableInScopes`
+  // Deprecated since 2024.12 - deprecated in favor of `sortableInScopes`
   bool sortable = 8 [deprecated = true];
   // When attribute is localized, it has to be ALWAYS used in connection with specific `Locale`.
   bool localized = 9;
@@ -206,7 +209,7 @@ message GrpcAttributeSchema {
   // non-null checks upon upserting of the entity.
   bool nullable = 10;
   // Representative flag marks the attribute as one of the most important attributes in the entity, or when used
-  // on reference level in the {@link ReferenceSchemaContract} it marks attributes distinguishing duplicated
+  // on a reference-level attribute schema, it marks attributes distinguishing duplicated
   // references to the same entity and is a key attribute for creating distinct indexes for such references.
   //
   // In overall, representative attributes should be used in developer tools along with the entity's primary key to
@@ -236,8 +239,8 @@ message GrpcAttributeSchema {
   // better to have this ensured by the database engine.
   repeated GrpcScopedAttributeUniquenessType uniqueInScopes = 17;
   // When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
-  // entity having certain value of this attribute in entire {@link CatalogContract}.
-  // {@link AttributeSchemaContract#getType() Type} of the unique attribute must implement {@link Comparable} interface.
+  // entity having certain value of this attribute in the entire catalog.
+  // The type of the unique attribute must implement the `Comparable` interface.
   //
   // As an example of unique attribute can be URL - there is no sense in having two entities with same URL, and it's
   // better to have this ensured by the database engine.
@@ -253,6 +256,9 @@ message GrpcAttributeSchema {
   // as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
   // (memory/disk) space in the form of index.
   repeated GrpcEntityScope sortableInScopes = 20;
+  // Contains the per-attribute override of the conflict resolution granularity. Defaults to inherited (follow the
+  // resolved conflict resolution).
+  GrpcConflictResolutionOverride conflictResolutionOverride = 21;
 }
 
 // This is the definition object for associated data that is stored along with
@@ -267,6 +273,8 @@ message GrpcAssociatedDataSchema {
   // Contains unique name of the model. Case-sensitive. Distinguishes one model item from another
   // within single entity instance.
   string name = 1;
+  // Contains description of the model is optional but helps authors of the schema / client API to better
+  // explain the original purpose of the model to the consumers.
   google.protobuf.StringValue description = 2;
   // Deprecation notice contains information about planned removal of this entity from the model / client API.
   // This allows to plan and evolve the schema allowing clients to adapt early to planned breaking changes.
@@ -285,6 +293,9 @@ message GrpcAssociatedDataSchema {
   bool nullable = 6;
   // Contains associated data name converted to different naming conventions.
   repeated GrpcNameVariant nameVariant = 7;
+  // Contains the per-associated-data override of the conflict resolution granularity. Defaults to inherited (follow
+  // the resolved conflict resolution).
+  GrpcConflictResolutionOverride conflictResolutionOverride = 8;
 }
 
 // This is the definition object for reference that is stored along with
@@ -326,13 +337,13 @@ message GrpcReferenceSchema {
   // that identifies type some external resource not maintained by Evita.
   string entityType = 5;
   // Contains `true` if `entityType` refers to any existing entity that is maintained by Evita.
-  // DEPRECATED!!! use referencedEntityTypeManaged instead
+  // Deprecated since 2024.10 - use referencedEntityTypeManaged instead
   bool entityTypeRelatesToEntity = 6 [deprecated = true];
   // Reference to `Entity.type` of the referenced entity. Might be also `String` that identifies type some external
   // resource not maintained by Evita.
   google.protobuf.StringValue groupType = 7;
   // Contains `true` if `groupType` refers to any existing entity that is maintained by Evita.
-  // DEPRECATED!!! use referencedGroupTypeManaged instead
+  // Deprecated since 2024.10 - use referencedGroupTypeManaged instead
   bool groupTypeRelatesToEntity = 8 [deprecated = true];
   // Contains `true` if the index for this reference should be created and maintained allowing to filter by
   // `reference_{reference name}_having` filtering constraints. Index is also required when reference is
@@ -342,7 +353,7 @@ message GrpcReferenceSchema {
   // Each indexed reference occupies (memory/disk) space in the form of index. When reference is not indexed,
   // the entity cannot be looked up by reference attributes or relation existence itself, but the data can be
   // fetched.
-  // deprecated in favor of `indexedInScopes`
+  // Deprecated since 2024.12 - deprecated in favor of `indexedInScopes`
   bool indexed = 9 [deprecated = true];
   // Contains `true` if the statistics data for this reference should be maintained and this allowing to get
   // `facetStatistics` for this reference or use `facet_{reference name}_inSet`
@@ -352,7 +363,7 @@ message GrpcReferenceSchema {
   // occupies (memory/disk) space in the form of index.
   //
   // Reference that was marked as faceted is called Facet.
-  // deprecated in favor of `facetedInScopes`
+  // Deprecated since 2024.12 - deprecated in favor of `facetedInScopes`
   bool faceted = 10 [deprecated = true];
   // Attributes related to reference allows defining set of data that are fetched in bulk along with the entity body.
   // Attributes may be indexed for fast filtering (`AttributeSchema.filterable`) or can be used to sort along
@@ -404,7 +415,7 @@ message GrpcReferenceSchema {
   // Each indexed reference occupies (memory/disk) space in the form of index. When reference is not indexed,
   // the entity cannot be looked up by reference attributes or relation existence itself, but the data can be
   // fetched.
-  // deprecated in favor of `scopedIndexTypes`
+  // Deprecated since 2025.6 - deprecated in favor of `scopedIndexTypes`
   repeated GrpcEntityScope indexedInScopes = 26 [deprecated = true];
   // Contains `true` if the statistics data for this reference should be maintained and this allowing to get
   // `facetStatistics` for this reference or use `facet_{reference name}_inSet`
@@ -418,6 +429,21 @@ message GrpcReferenceSchema {
   // Scoped reference index types that define both the scope and the type of index for the reference.
   // This replaces the deprecated `indexedInScopes` field with more granular control over indexing.
   repeated GrpcScopedReferenceIndexType scopedIndexTypes = 28;
+  // Scoped reference indexed components that specify which parts of a reference relationship
+  // (referenced entity, referenced group entity) are indexed per scope.
+  repeated GrpcScopedReferenceIndexedComponents scopedIndexedComponents = 29;
+  // Contains true if the indexed components property settings of the reflected reference is
+  // inherited from the target reference.
+  bool indexedComponentsInherited = 30;
+  // Per-scope expressions that narrow which entities participate in faceting.
+  repeated GrpcScopedFacetedPartially facetedPartially = 31;
+  // Per-scope bucketed histogram configurations defining index name and value expression.
+  repeated GrpcScopedHistogramIndexDefinition bucketed = 32;
+  // Per-scope expressions that narrow which entities participate in bucketed histogram computation.
+  repeated GrpcScopedBucketedPartially bucketedPartially = 33;
+  // Contains the per-reference override of the conflict resolution granularity. Defaults to inherited (follow the
+  // resolved conflict resolution). On reflected references this is always inherited.
+  GrpcConflictResolutionOverride conflictResolutionOverride = 34;
 }
 
 // Sortable attribute compounds are used to sort entities or references by multiple attributes at once. evitaDB

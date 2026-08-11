@@ -58,13 +58,13 @@ class GrpcPrice extends \Google\Protobuf\Internal\Message
      */
     protected $priceWithoutTax = null;
     /**
-     * Price with tax.
+     * Tax rate percentage (i.e. for 19% it'll be 19.00)
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal taxRate = 6;</code>
      */
     protected $taxRate = null;
     /**
-     * Tax rate percentage (i.e. for 19% it'll be 19.00)
+     * Price with tax.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal priceWithTax = 7;</code>
      */
@@ -80,7 +80,7 @@ class GrpcPrice extends \Google\Protobuf\Internal\Message
      * entity but won't be considered when evaluating search. These prices may be
      * used for "informational" prices such as reference price (the crossed out price often found on e-commerce sites
      * as "usual price") but are not considered as the "selling" price.
-     * RENAMED TO "indexed"
+     * Deprecated since 2024.10 - RENAMED TO "indexed"
      *
      * Generated from protobuf field <code>bool sellable = 9 [deprecated = true];</code>
      * @deprecated
@@ -130,9 +130,9 @@ class GrpcPrice extends \Google\Protobuf\Internal\Message
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal $priceWithoutTax
      *           Price without tax.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal $taxRate
-     *           Price with tax.
-     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal $priceWithTax
      *           Tax rate percentage (i.e. for 19% it'll be 19.00)
+     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal $priceWithTax
+     *           Price with tax.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcDateTimeRange $validity
      *           Date and time interval for which the price is valid (inclusive).
      *     @type bool $sellable
@@ -140,7 +140,7 @@ class GrpcPrice extends \Google\Protobuf\Internal\Message
      *           entity but won't be considered when evaluating search. These prices may be
      *           used for "informational" prices such as reference price (the crossed out price often found on e-commerce sites
      *           as "usual price") but are not considered as the "selling" price.
-     *           RENAMED TO "indexed"
+     *           Deprecated since 2024.10 - RENAMED TO "indexed"
      *     @type int $version
      *           Contains version of this price and gets increased with any entity type update. Allows to execute
      *           optimistic locking i.e. avoiding parallel modifications.
@@ -370,7 +370,7 @@ class GrpcPrice extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Price with tax.
+     * Tax rate percentage (i.e. for 19% it'll be 19.00)
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal taxRate = 6;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal|null
@@ -391,7 +391,7 @@ class GrpcPrice extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Price with tax.
+     * Tax rate percentage (i.e. for 19% it'll be 19.00)
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal taxRate = 6;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal $var
@@ -406,7 +406,7 @@ class GrpcPrice extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Tax rate percentage (i.e. for 19% it'll be 19.00)
+     * Price with tax.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal priceWithTax = 7;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal|null
@@ -427,7 +427,7 @@ class GrpcPrice extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Tax rate percentage (i.e. for 19% it'll be 19.00)
+     * Price with tax.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal priceWithTax = 7;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal $var
@@ -482,7 +482,7 @@ class GrpcPrice extends \Google\Protobuf\Internal\Message
      * entity but won't be considered when evaluating search. These prices may be
      * used for "informational" prices such as reference price (the crossed out price often found on e-commerce sites
      * as "usual price") but are not considered as the "selling" price.
-     * RENAMED TO "indexed"
+     * Deprecated since 2024.10 - RENAMED TO "indexed"
      *
      * Generated from protobuf field <code>bool sellable = 9 [deprecated = true];</code>
      * @return bool
@@ -499,7 +499,7 @@ class GrpcPrice extends \Google\Protobuf\Internal\Message
      * entity but won't be considered when evaluating search. These prices may be
      * used for "informational" prices such as reference price (the crossed out price often found on e-commerce sites
      * as "usual price") but are not considered as the "selling" price.
-     * RENAMED TO "indexed"
+     * Deprecated since 2024.10 - RENAMED TO "indexed"
      *
      * Generated from protobuf field <code>bool sellable = 9 [deprecated = true];</code>
      * @param bool $var

@@ -9,20 +9,22 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Response to GetTrafficRecordingLabelsNamesOrderedByCardinality request.
+ * Request to GetTrafficRecordingLabelsNamesOrderedByCardinality request.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GetTrafficRecordingLabelNamesRequest</code>
  */
 class GetTrafficRecordingLabelNamesRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The limit of records to return
+     * Maximum number of label names to return, ordered by descending cardinality (most frequently used labels
+     * first). This is a plain result cap, not page-based or offset-based pagination; repeated calls do not support
+     * continuation.
      *
      * Generated from protobuf field <code>int32 limit = 1;</code>
      */
     protected $limit = 0;
     /**
-     * Allows to filter the returned labels by the name prefix
+     * Only label names starting with this prefix are returned. If unset, no prefix filter is applied.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue nameStartsWith = 2;</code>
      */
@@ -35,9 +37,11 @@ class GetTrafficRecordingLabelNamesRequest extends \Google\Protobuf\Internal\Mes
      *     Optional. Data for populating the Message object.
      *
      *     @type int $limit
-     *           The limit of records to return
+     *           Maximum number of label names to return, ordered by descending cardinality (most frequently used labels
+     *           first). This is a plain result cap, not page-based or offset-based pagination; repeated calls do not support
+     *           continuation.
      *     @type \Google\Protobuf\StringValue $nameStartsWith
-     *           Allows to filter the returned labels by the name prefix
+     *           Only label names starting with this prefix are returned. If unset, no prefix filter is applied.
      * }
      */
     public function __construct($data = NULL) {
@@ -46,7 +50,9 @@ class GetTrafficRecordingLabelNamesRequest extends \Google\Protobuf\Internal\Mes
     }
 
     /**
-     * The limit of records to return
+     * Maximum number of label names to return, ordered by descending cardinality (most frequently used labels
+     * first). This is a plain result cap, not page-based or offset-based pagination; repeated calls do not support
+     * continuation.
      *
      * Generated from protobuf field <code>int32 limit = 1;</code>
      * @return int
@@ -57,7 +63,9 @@ class GetTrafficRecordingLabelNamesRequest extends \Google\Protobuf\Internal\Mes
     }
 
     /**
-     * The limit of records to return
+     * Maximum number of label names to return, ordered by descending cardinality (most frequently used labels
+     * first). This is a plain result cap, not page-based or offset-based pagination; repeated calls do not support
+     * continuation.
      *
      * Generated from protobuf field <code>int32 limit = 1;</code>
      * @param int $var
@@ -72,7 +80,7 @@ class GetTrafficRecordingLabelNamesRequest extends \Google\Protobuf\Internal\Mes
     }
 
     /**
-     * Allows to filter the returned labels by the name prefix
+     * Only label names starting with this prefix are returned. If unset, no prefix filter is applied.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue nameStartsWith = 2;</code>
      * @return \Google\Protobuf\StringValue|null
@@ -95,7 +103,7 @@ class GetTrafficRecordingLabelNamesRequest extends \Google\Protobuf\Internal\Mes
     /**
      * Returns the unboxed value from <code>getNameStartsWith()</code>
 
-     * Allows to filter the returned labels by the name prefix
+     * Only label names starting with this prefix are returned. If unset, no prefix filter is applied.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue nameStartsWith = 2;</code>
      * @return string|null
@@ -106,7 +114,7 @@ class GetTrafficRecordingLabelNamesRequest extends \Google\Protobuf\Internal\Mes
     }
 
     /**
-     * Allows to filter the returned labels by the name prefix
+     * Only label names starting with this prefix are returned. If unset, no prefix filter is applied.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue nameStartsWith = 2;</code>
      * @param \Google\Protobuf\StringValue $var
@@ -123,7 +131,7 @@ class GetTrafficRecordingLabelNamesRequest extends \Google\Protobuf\Internal\Mes
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\StringValue object.
 
-     * Allows to filter the returned labels by the name prefix
+     * Only label names starting with this prefix are returned. If unset, no prefix filter is applied.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue nameStartsWith = 2;</code>
      * @param string|null $var

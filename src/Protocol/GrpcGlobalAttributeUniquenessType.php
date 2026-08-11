@@ -7,8 +7,8 @@ namespace Wtsvk\EvitaDbClient\Protocol;
 use UnexpectedValueException;
 
 /**
- * This enum represents the uniqueness type of an {&#64;link GlobalAttributeSchema}. It is used to determine whether
- * the attribute value must be unique among all the entities using this {&#64;link GlobalAttributeSchema} or whether it
+ * This enum represents the uniqueness type of a `GlobalAttributeSchema`. It is used to determine whether
+ * the attribute value must be unique among all the entities using this `GlobalAttributeSchema` or whether it
  * must be unique only among entities of the same locale.
  *
  * Protobuf type <code>io.evitadb.externalApi.grpc.generated.GrpcGlobalAttributeUniquenessType</code>
@@ -23,14 +23,14 @@ class GrpcGlobalAttributeUniquenessType
     const NOT_GLOBALLY_UNIQUE = 0;
     /**
      * The attribute value (either localized or non-localized) must be unique among all values among all the entities
-     * using this {&#64;link GlobalAttributeSchema} in the entire catalog.
+     * using this `GlobalAttributeSchema` in the entire catalog.
      *
      * Generated from protobuf enum <code>UNIQUE_WITHIN_CATALOG = 1;</code>
      */
     const UNIQUE_WITHIN_CATALOG = 1;
     /**
-     * The localized attribute value must be unique among all values of the same {&#64;link Locale} among all the entities
-     * using this {&#64;link GlobalAttributeSchema} in the entire catalog.
+     * The localized attribute value must be unique among all values of the same `Locale` among all the entities
+     * using this `GlobalAttributeSchema` in the entire catalog.
      *
      * Generated from protobuf enum <code>UNIQUE_WITHIN_CATALOG_LOCALE = 2;</code>
      */

@@ -130,6 +130,21 @@ class EvitaSessionServiceClient extends \Grpc\BaseStub {
     }
 
     /**
+     * Procedure used to backup an existing catalog, streaming progress updates.
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcBackupCatalogRequest $argument input argument
+     * @param array $metadata metadata
+     * @param array $options call options
+     * @return \Grpc\ServerStreamingCall
+     */
+    public function BackupCatalogWithProgress(\Wtsvk\EvitaDbClient\Protocol\GrpcBackupCatalogRequest $argument,
+      $metadata = [], $options = []) {
+        return $this->_serverStreamRequest('/io.evitadb.externalApi.grpc.generated.EvitaSessionService/BackupCatalogWithProgress',
+        $argument,
+        ['\Wtsvk\EvitaDbClient\Protocol\GrpcBackupCatalogResponse', 'decode'],
+        $metadata, $options);
+    }
+
+    /**
      * Procedure used to backup an existing catalog.
      * @param \Google\Protobuf\GPBEmpty $argument input argument
      * @param array $metadata metadata
@@ -139,6 +154,21 @@ class EvitaSessionServiceClient extends \Grpc\BaseStub {
     public function FullBackupCatalog(\Google\Protobuf\GPBEmpty $argument,
       $metadata = [], $options = []) {
         return $this->_simpleRequest('/io.evitadb.externalApi.grpc.generated.EvitaSessionService/FullBackupCatalog',
+        $argument,
+        ['\Wtsvk\EvitaDbClient\Protocol\GrpcFullBackupCatalogResponse', 'decode'],
+        $metadata, $options);
+    }
+
+    /**
+     * Procedure used to fully backup an existing catalog, streaming progress updates.
+     * @param \Google\Protobuf\GPBEmpty $argument input argument
+     * @param array $metadata metadata
+     * @param array $options call options
+     * @return \Grpc\ServerStreamingCall
+     */
+    public function FullBackupCatalogWithProgress(\Google\Protobuf\GPBEmpty $argument,
+      $metadata = [], $options = []) {
+        return $this->_serverStreamRequest('/io.evitadb.externalApi.grpc.generated.EvitaSessionService/FullBackupCatalogWithProgress',
         $argument,
         ['\Wtsvk\EvitaDbClient\Protocol\GrpcFullBackupCatalogResponse', 'decode'],
         $metadata, $options);
@@ -553,7 +583,8 @@ class EvitaSessionServiceClient extends \Grpc\BaseStub {
     }
 
     /**
-     * Procedure that returns requested page of past mutations in reversed order that match the request criteria.
+     * Procedure that returns requested page of past mutations in reversed (newest-first) order that match
+     * the request criteria.
      * @param \Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryPageRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
@@ -568,7 +599,24 @@ class EvitaSessionServiceClient extends \Grpc\BaseStub {
     }
 
     /**
-     * Procedure that returns stream of all past mutations in reversed order that match the request criteria.
+     * Procedure that returns requested page of past mutations in chronological (oldest-first) order that
+     * match the request criteria - the forward counterpart of GetMutationsHistoryPage.
+     * @param \Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryPageRequest $argument input argument
+     * @param array $metadata metadata
+     * @param array $options call options
+     * @return \Grpc\UnaryCall
+     */
+    public function GetMutationsHistoryPageForward(\Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryPageRequest $argument,
+      $metadata = [], $options = []) {
+        return $this->_simpleRequest('/io.evitadb.externalApi.grpc.generated.EvitaSessionService/GetMutationsHistoryPageForward',
+        $argument,
+        ['\Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryPageResponse', 'decode'],
+        $metadata, $options);
+    }
+
+    /**
+     * Procedure that returns stream of all past mutations in reversed (newest-first) order that match the
+     * request criteria.
      * @param \Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
@@ -577,6 +625,22 @@ class EvitaSessionServiceClient extends \Grpc\BaseStub {
     public function GetMutationsHistory(\Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryRequest $argument,
       $metadata = [], $options = []) {
         return $this->_serverStreamRequest('/io.evitadb.externalApi.grpc.generated.EvitaSessionService/GetMutationsHistory',
+        $argument,
+        ['\Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryResponse', 'decode'],
+        $metadata, $options);
+    }
+
+    /**
+     * Procedure that returns stream of all past mutations in chronological (oldest-first) order that match
+     * the request criteria - the forward counterpart of GetMutationsHistory.
+     * @param \Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryRequest $argument input argument
+     * @param array $metadata metadata
+     * @param array $options call options
+     * @return \Grpc\ServerStreamingCall
+     */
+    public function GetMutationsHistoryForward(\Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryRequest $argument,
+      $metadata = [], $options = []) {
+        return $this->_serverStreamRequest('/io.evitadb.externalApi.grpc.generated.EvitaSessionService/GetMutationsHistoryForward',
         $argument,
         ['\Wtsvk\EvitaDbClient\Protocol\GetMutationsHistoryResponse', 'decode'],
         $metadata, $options);

@@ -51,6 +51,8 @@ class GrpcAttributeSchemaMutation extends \Google\Protobuf\Internal\Message
      *           Mutation is responsible for setting value `AttributeSchema.unique` in `EntitySchema`.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcUseGlobalAttributeSchemaMutation $useGlobalAttributeSchemaMutation
      *           Mutation is responsible for introducing a `GlobalAttributeSchema` into an `EvitaSession`.
+     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcSetAttributeSchemaConflictResolutionOverrideMutation $setAttributeSchemaConflictResolutionOverrideMutation
+     *           Mutation is responsible for setting value `AttributeSchema.conflictResolutionOverride` in `EntitySchema`.
      * }
      */
     public function __construct($data = NULL) {
@@ -488,6 +490,37 @@ class GrpcAttributeSchemaMutation extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcUseGlobalAttributeSchemaMutation::class);
         $this->writeOneof(16, $var);
+
+        return $this;
+    }
+
+    /**
+     * Mutation is responsible for setting value `AttributeSchema.conflictResolutionOverride` in `EntitySchema`.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSetAttributeSchemaConflictResolutionOverrideMutation setAttributeSchemaConflictResolutionOverrideMutation = 17;</code>
+     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcSetAttributeSchemaConflictResolutionOverrideMutation|null
+     */
+    public function getSetAttributeSchemaConflictResolutionOverrideMutation()
+    {
+        return $this->readOneof(17);
+    }
+
+    public function hasSetAttributeSchemaConflictResolutionOverrideMutation()
+    {
+        return $this->hasOneof(17);
+    }
+
+    /**
+     * Mutation is responsible for setting value `AttributeSchema.conflictResolutionOverride` in `EntitySchema`.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSetAttributeSchemaConflictResolutionOverrideMutation setAttributeSchemaConflictResolutionOverrideMutation = 17;</code>
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcSetAttributeSchemaConflictResolutionOverrideMutation $var
+     * @return $this
+     */
+    public function setSetAttributeSchemaConflictResolutionOverrideMutation($var)
+    {
+        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcSetAttributeSchemaConflictResolutionOverrideMutation::class);
+        $this->writeOneof(17, $var);
 
         return $this;
     }
