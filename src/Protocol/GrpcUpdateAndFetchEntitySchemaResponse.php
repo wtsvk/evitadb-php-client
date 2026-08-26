@@ -9,14 +9,15 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Request for updating the entity schema and its afterwards fetching.
+ * Response to UpdateAndFetchEntitySchema request, which updates an entity type's schema and returns the
+ * resulting schema in one round trip.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcUpdateAndFetchEntitySchemaResponse</code>
  */
 class GrpcUpdateAndFetchEntitySchemaResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Modified entity schema.
+     * The entity schema after the requested mutations were applied.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntitySchema entitySchema = 1;</code>
      */
@@ -29,7 +30,7 @@ class GrpcUpdateAndFetchEntitySchemaResponse extends \Google\Protobuf\Internal\M
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcEntitySchema $entitySchema
-     *           Modified entity schema.
+     *           The entity schema after the requested mutations were applied.
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +39,7 @@ class GrpcUpdateAndFetchEntitySchemaResponse extends \Google\Protobuf\Internal\M
     }
 
     /**
-     * Modified entity schema.
+     * The entity schema after the requested mutations were applied.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntitySchema entitySchema = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcEntitySchema|null
@@ -59,7 +60,7 @@ class GrpcUpdateAndFetchEntitySchemaResponse extends \Google\Protobuf\Internal\M
     }
 
     /**
-     * Modified entity schema.
+     * The entity schema after the requested mutations were applied.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntitySchema entitySchema = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcEntitySchema $var

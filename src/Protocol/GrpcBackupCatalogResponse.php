@@ -16,7 +16,8 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcBackupCatalogResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * the task that is used to backup the catalog and getting its progress
+     * Handle to the asynchronous backup task; use it to poll or stream the task's progress and, once
+     * finished, retrieve the resulting backup file.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTaskStatus taskStatus = 1;</code>
      */
@@ -29,7 +30,8 @@ class GrpcBackupCatalogResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcTaskStatus $taskStatus
-     *           the task that is used to backup the catalog and getting its progress
+     *           Handle to the asynchronous backup task; use it to poll or stream the task's progress and, once
+     *           finished, retrieve the resulting backup file.
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +40,8 @@ class GrpcBackupCatalogResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * the task that is used to backup the catalog and getting its progress
+     * Handle to the asynchronous backup task; use it to poll or stream the task's progress and, once
+     * finished, retrieve the resulting backup file.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTaskStatus taskStatus = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcTaskStatus|null
@@ -59,7 +62,8 @@ class GrpcBackupCatalogResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * the task that is used to backup the catalog and getting its progress
+     * Handle to the asynchronous backup task; use it to poll or stream the task's progress and, once
+     * finished, retrieve the resulting backup file.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTaskStatus taskStatus = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcTaskStatus $var

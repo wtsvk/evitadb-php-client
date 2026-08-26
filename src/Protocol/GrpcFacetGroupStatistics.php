@@ -10,6 +10,9 @@ use Google\Protobuf\Internal\GPBUtil;
 
 /**
  * This DTO contains information about single facet group and statistics of the facets that relates to it.
+ * Deprecated since 2026.2 - deprecated in favor of `GrpcReferenceGroupStatistics`, produced by the
+ * `referenceSummary` requirement
+ * TOBEDONE: remove when FacetSummary constraint is removed (https://github.com/FgForrest/evitaDB/issues/538)
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcFacetGroupStatistics</code>
  */

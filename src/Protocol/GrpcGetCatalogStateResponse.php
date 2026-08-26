@@ -16,7 +16,7 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcGetCatalogStateResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * State of the catalog.
+     * State of the catalog. Unset if no catalog with the requested name exists.
      *
      * Generated from protobuf field <code>optional .io.evitadb.externalApi.grpc.generated.GrpcCatalogState catalogState = 1;</code>
      */
@@ -29,7 +29,7 @@ class GrpcGetCatalogStateResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type int $catalogState
-     *           State of the catalog.
+     *           State of the catalog. Unset if no catalog with the requested name exists.
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +38,7 @@ class GrpcGetCatalogStateResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * State of the catalog.
+     * State of the catalog. Unset if no catalog with the requested name exists.
      *
      * Generated from protobuf field <code>optional .io.evitadb.externalApi.grpc.generated.GrpcCatalogState catalogState = 1;</code>
      * @return int
@@ -59,7 +59,7 @@ class GrpcGetCatalogStateResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * State of the catalog.
+     * State of the catalog. Unset if no catalog with the requested name exists.
      *
      * Generated from protobuf field <code>optional .io.evitadb.externalApi.grpc.generated.GrpcCatalogState catalogState = 1;</code>
      * @param int $var

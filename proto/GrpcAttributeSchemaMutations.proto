@@ -23,17 +23,17 @@ message GrpcCreateAttributeSchemaMutation {
   google.protobuf.StringValue deprecationNotice = 3;
   // When attribute is unique it is automatically filterable, and it is ensured there is exactly one single entity
   // having certain value of this attribute among other entities in the same collection.
-  // deprecated in favor of `uniqueInScopes`
+  // Deprecated since 2024.12 - deprecated in favor of `uniqueInScopes`
   GrpcAttributeUniquenessType unique = 4 [deprecated = true];
   // When attribute is filterable, it is possible to filter entities by this attribute. Do not mark attribute
   // as filterable unless you know that you'll search entities by this attribute. Each filterable attribute occupies
   // (memory/disk) space in the form of index.
-  // deprecated in favor of `filterableInScopes`
+  // Deprecated since 2024.12 - deprecated in favor of `filterableInScopes`
   bool filterable = 5 [deprecated = true];
   // When attribute is sortable, it is possible to sort entities by this attribute. Do not mark attribute
   // as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
   // (memory/disk) space in the form of index.
-  // deprecated in favor of `sortableInScopes`
+  // Deprecated since 2024.12 - deprecated in favor of `sortableInScopes`
   bool sortable = 6 [deprecated = true];
   // Localized attribute has to be ALWAYS used in connection with specific `locale`. In other
   // words - it cannot be stored unless associated locale is also provided.
@@ -68,6 +68,8 @@ message GrpcCreateAttributeSchemaMutation {
   // as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
   // (memory/disk) space in the form of index.
   repeated GrpcEntityScope sortableInScopes = 15;
+  // The per-attribute override of the conflict resolution granularity.
+  GrpcConflictResolutionOverride conflictResolutionOverride = 16;
 }
 
 // Mutation is responsible for setting up a new `GlobalAttributeSchema` in the `CatalogSchema`.
@@ -83,21 +85,21 @@ message GrpcCreateGlobalAttributeSchemaMutation {
   google.protobuf.StringValue deprecationNotice = 3;
   // When attribute is unique it is automatically filterable, and it is ensured there is exactly one single entity
   // having certain value of this attribute among other entities in the same collection.
-  // deprecated in favor of `uniqueInScopes`
+  // Deprecated since 2024.12 - deprecated in favor of `uniqueInScopes`
   GrpcAttributeUniquenessType unique = 4 [deprecated = true];
   // When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
   // entity having certain value of this attribute in entire catalog.
-  // deprecated in favor of `uniqueGloballyInScopes`
+  // Deprecated since 2024.12 - deprecated in favor of `uniqueGloballyInScopes`
   GrpcGlobalAttributeUniquenessType uniqueGlobally = 5 [deprecated = true];
   // When attribute is filterable, it is possible to filter entities by this attribute. Do not mark attribute
   // as filterable unless you know that you'll search entities by this attribute. Each filterable attribute occupies
   // (memory/disk) space in the form of index.
-  // deprecated in favor of `filterableInScopes`
+  // Deprecated since 2024.12 - deprecated in favor of `filterableInScopes`
   bool filterable = 6 [deprecated = true];
   // When attribute is sortable, it is possible to sort entities by this attribute. Do not mark attribute
   // as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
   // (memory/disk) space in the form of index.
-  // deprecated in favor of `sortableInScopes`
+  // Deprecated since 2024.12 - deprecated in favor of `sortableInScopes`
   bool sortable = 7 [deprecated = true];
   // Localized attribute has to be ALWAYS used in connection with specific `locale`. In other
   // words - it cannot be stored unless associated locale is also provided.
@@ -135,6 +137,8 @@ message GrpcCreateGlobalAttributeSchemaMutation {
   // as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
   // (memory/disk) space in the form of index.
   repeated GrpcEntityScope sortableInScopes = 17;
+  // The per-attribute override of the conflict resolution granularity.
+  GrpcConflictResolutionOverride conflictResolutionOverride = 18;
 }
 
 // Mutation is responsible for setting value to a `AttributeSchema.defaultValue` in `EntitySchema`.
@@ -202,7 +206,7 @@ message GrpcSetAttributeSchemaFilterableMutation {
   // When attribute is filterable, it is possible to filter entities by this attribute. Do not mark attribute
   // as filterable unless you know that you'll search entities by this attribute. Each filterable attribute occupies
   // (memory/disk) space in the form of index.
-  // deprecated in favor of `filterableInScopes`
+  // Deprecated since 2024.12 - deprecated in favor of `filterableInScopes`
   bool filterable = 2 [deprecated = true];
   // When attribute is filterable, it is possible to filter entities by this attribute. Do not mark attribute
   // as filterable unless you know that you'll search entities by this attribute. Each filterable attribute occupies
@@ -217,7 +221,7 @@ message GrpcSetAttributeSchemaGloballyUniqueMutation {
   string name = 1;
   // When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
   // entity having certain value of this attribute in entire catalog.
-  // deprecated in favor of `uniqueGloballyInScopes`
+  // Deprecated since 2024.12 - deprecated in favor of `uniqueGloballyInScopes`
   GrpcGlobalAttributeUniquenessType uniqueGlobally = 2 [deprecated = true];
   // When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
   // entity having certain value of this attribute in entire catalog.
@@ -244,6 +248,15 @@ message GrpcSetAttributeSchemaNullableMutation {
   bool nullable = 2;
 }
 
+// Mutation is responsible for setting value to a `AttributeSchema.conflictResolutionOverride` in `EntitySchema`.
+// Mutation can be used for altering also the existing `AttributeSchema` or `GlobalAttributeSchema` alone.
+message GrpcSetAttributeSchemaConflictResolutionOverrideMutation {
+  // Name of the attribute the mutation is targeting.
+  string name = 1;
+  // The per-attribute override of the conflict resolution granularity.
+  GrpcConflictResolutionOverride conflictResolutionOverride = 2;
+}
+
 // Mutation is responsible for setting value to a `AttributeSchema.representative` in `EntitySchema`.
 // Mutation can be used for altering also the existing `AttributeSchema` or `GlobalAttributeSchema` alone.
 message GrpcSetAttributeSchemaRepresentativeMutation {
@@ -262,7 +275,7 @@ message GrpcSetAttributeSchemaSortableMutation {
   // When attribute is sortable, it is possible to sort entities by this attribute. Do not mark attribute
   // as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
   // (memory/disk) space in the form of index.
-  // deprecated in favor of `sortableInScopes`
+  // Deprecated since 2024.12 - deprecated in favor of `sortableInScopes`
   bool sortable = 2 [deprecated = true];
   // When attribute is sortable, it is possible to sort entities by this attribute. Do not mark attribute
   // as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
@@ -277,7 +290,7 @@ message GrpcSetAttributeSchemaUniqueMutation {
   string name = 1;
   // When attribute is unique it is automatically filterable, and it is ensured there is exactly one single entity
   // having certain value of this attribute among other entities in the same collection.
-  // deprecated in favor of `uniqueInScopes`
+  // Deprecated since 2024.12 - deprecated in favor of `uniqueInScopes`
   GrpcAttributeUniquenessType unique = 2 [deprecated = true];
   // When attribute is unique it is automatically filterable, and it is ensured there is exactly one single entity
   // having certain value of this attribute among other entities in the same collection.
@@ -322,5 +335,7 @@ message GrpcAttributeSchemaMutation {
     GrpcSetAttributeSchemaUniqueMutation setAttributeSchemaUniqueMutation = 15;
     // Mutation is responsible for introducing a `GlobalAttributeSchema` into an `EvitaSession`.
     GrpcUseGlobalAttributeSchemaMutation useGlobalAttributeSchemaMutation = 16;
+    // Mutation is responsible for setting value `AttributeSchema.conflictResolutionOverride` in `EntitySchema`.
+    GrpcSetAttributeSchemaConflictResolutionOverrideMutation setAttributeSchemaConflictResolutionOverrideMutation = 17;
   }
 }

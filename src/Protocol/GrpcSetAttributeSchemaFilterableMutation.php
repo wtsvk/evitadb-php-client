@@ -26,7 +26,7 @@ class GrpcSetAttributeSchemaFilterableMutation extends \Google\Protobuf\Internal
      * When attribute is filterable, it is possible to filter entities by this attribute. Do not mark attribute
      * as filterable unless you know that you'll search entities by this attribute. Each filterable attribute occupies
      * (memory/disk) space in the form of index.
-     * deprecated in favor of `filterableInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `filterableInScopes`
      *
      * Generated from protobuf field <code>bool filterable = 2 [deprecated = true];</code>
      * @deprecated
@@ -53,7 +53,7 @@ class GrpcSetAttributeSchemaFilterableMutation extends \Google\Protobuf\Internal
      *           When attribute is filterable, it is possible to filter entities by this attribute. Do not mark attribute
      *           as filterable unless you know that you'll search entities by this attribute. Each filterable attribute occupies
      *           (memory/disk) space in the form of index.
-     *           deprecated in favor of `filterableInScopes`
+     *           Deprecated since 2024.12 - deprecated in favor of `filterableInScopes`
      *     @type array<int>|\Google\Protobuf\Internal\RepeatedField $filterableInScopes
      *           When attribute is filterable, it is possible to filter entities by this attribute. Do not mark attribute
      *           as filterable unless you know that you'll search entities by this attribute. Each filterable attribute occupies
@@ -95,7 +95,7 @@ class GrpcSetAttributeSchemaFilterableMutation extends \Google\Protobuf\Internal
      * When attribute is filterable, it is possible to filter entities by this attribute. Do not mark attribute
      * as filterable unless you know that you'll search entities by this attribute. Each filterable attribute occupies
      * (memory/disk) space in the form of index.
-     * deprecated in favor of `filterableInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `filterableInScopes`
      *
      * Generated from protobuf field <code>bool filterable = 2 [deprecated = true];</code>
      * @return bool
@@ -111,7 +111,7 @@ class GrpcSetAttributeSchemaFilterableMutation extends \Google\Protobuf\Internal
      * When attribute is filterable, it is possible to filter entities by this attribute. Do not mark attribute
      * as filterable unless you know that you'll search entities by this attribute. Each filterable attribute occupies
      * (memory/disk) space in the form of index.
-     * deprecated in favor of `filterableInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `filterableInScopes`
      *
      * Generated from protobuf field <code>bool filterable = 2 [deprecated = true];</code>
      * @param bool $var

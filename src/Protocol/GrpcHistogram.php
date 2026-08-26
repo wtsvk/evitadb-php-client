@@ -49,6 +49,20 @@ class GrpcHistogram extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcHistogram.GrpcBucket buckets = 4;</code>
      */
     private $buckets;
+    /**
+     * Referenced entity whose value anchors the minimum bucket of the histogram. Populated only for
+     * reference-scope histograms when an entity fetch is requested for the associated reference.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity minReferencedEntity = 5;</code>
+     */
+    protected $minReferencedEntity = null;
+    /**
+     * Referenced entity whose value anchors the maximum bucket of the histogram. Populated only for
+     * reference-scope histograms when an entity fetch is requested for the associated reference.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity maxReferencedEntity = 6;</code>
+     */
+    protected $maxReferencedEntity = null;
 
     /**
      * Constructor.
@@ -69,6 +83,12 @@ class GrpcHistogram extends \Google\Protobuf\Internal\Message
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcHistogram\GrpcBucket>|\Google\Protobuf\Internal\RepeatedField $buckets
      *           Returns histogram buckets that represents a tuple of occurrence count and the minimal threshold of the bucket
      *           values.
+     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity $minReferencedEntity
+     *           Referenced entity whose value anchors the minimum bucket of the histogram. Populated only for
+     *           reference-scope histograms when an entity fetch is requested for the associated reference.
+     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity $maxReferencedEntity
+     *           Referenced entity whose value anchors the maximum bucket of the histogram. Populated only for
+     *           reference-scope histograms when an entity fetch is requested for the associated reference.
      * }
      */
     public function __construct($data = NULL) {
@@ -206,6 +226,82 @@ class GrpcHistogram extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcHistogram\GrpcBucket::class);
         $this->buckets = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Referenced entity whose value anchors the minimum bucket of the histogram. Populated only for
+     * reference-scope histograms when an entity fetch is requested for the associated reference.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity minReferencedEntity = 5;</code>
+     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity|null
+     */
+    public function getMinReferencedEntity()
+    {
+        return $this->minReferencedEntity;
+    }
+
+    public function hasMinReferencedEntity()
+    {
+        return isset($this->minReferencedEntity);
+    }
+
+    public function clearMinReferencedEntity()
+    {
+        unset($this->minReferencedEntity);
+    }
+
+    /**
+     * Referenced entity whose value anchors the minimum bucket of the histogram. Populated only for
+     * reference-scope histograms when an entity fetch is requested for the associated reference.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity minReferencedEntity = 5;</code>
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity $var
+     * @return $this
+     */
+    public function setMinReferencedEntity($var)
+    {
+        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity::class);
+        $this->minReferencedEntity = $var;
+
+        return $this;
+    }
+
+    /**
+     * Referenced entity whose value anchors the maximum bucket of the histogram. Populated only for
+     * reference-scope histograms when an entity fetch is requested for the associated reference.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity maxReferencedEntity = 6;</code>
+     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity|null
+     */
+    public function getMaxReferencedEntity()
+    {
+        return $this->maxReferencedEntity;
+    }
+
+    public function hasMaxReferencedEntity()
+    {
+        return isset($this->maxReferencedEntity);
+    }
+
+    public function clearMaxReferencedEntity()
+    {
+        unset($this->maxReferencedEntity);
+    }
+
+    /**
+     * Referenced entity whose value anchors the maximum bucket of the histogram. Populated only for
+     * reference-scope histograms when an entity fetch is requested for the associated reference.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity maxReferencedEntity = 6;</code>
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity $var
+     * @return $this
+     */
+    public function setMaxReferencedEntity($var)
+    {
+        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity::class);
+        $this->maxReferencedEntity = $var;
 
         return $this;
     }
