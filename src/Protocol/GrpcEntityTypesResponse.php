@@ -9,14 +9,14 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Request for acquiring the list of all entity types.
+ * Response to GetAllEntityTypes request.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcEntityTypesResponse</code>
  */
 class GrpcEntityTypesResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The list of all entity types.
+     * Names of all entity collections (entity types) defined in the catalog.
      *
      * Generated from protobuf field <code>repeated string entityTypes = 1;</code>
      */
@@ -29,7 +29,7 @@ class GrpcEntityTypesResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type array<string>|\Google\Protobuf\Internal\RepeatedField $entityTypes
-     *           The list of all entity types.
+     *           Names of all entity collections (entity types) defined in the catalog.
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +38,7 @@ class GrpcEntityTypesResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The list of all entity types.
+     * Names of all entity collections (entity types) defined in the catalog.
      *
      * Generated from protobuf field <code>repeated string entityTypes = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -49,7 +49,7 @@ class GrpcEntityTypesResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The list of all entity types.
+     * Names of all entity collections (entity types) defined in the catalog.
      *
      * Generated from protobuf field <code>repeated string entityTypes = 1;</code>
      * @param array<string>|\Google\Protobuf\Internal\RepeatedField $var

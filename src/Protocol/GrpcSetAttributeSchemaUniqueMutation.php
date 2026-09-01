@@ -25,7 +25,7 @@ class GrpcSetAttributeSchemaUniqueMutation extends \Google\Protobuf\Internal\Mes
     /**
      * When attribute is unique it is automatically filterable, and it is ensured there is exactly one single entity
      * having certain value of this attribute among other entities in the same collection.
-     * deprecated in favor of `uniqueInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `uniqueInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcAttributeUniquenessType unique = 2 [deprecated = true];</code>
      * @deprecated
@@ -50,7 +50,7 @@ class GrpcSetAttributeSchemaUniqueMutation extends \Google\Protobuf\Internal\Mes
      *     @type int $unique
      *           When attribute is unique it is automatically filterable, and it is ensured there is exactly one single entity
      *           having certain value of this attribute among other entities in the same collection.
-     *           deprecated in favor of `uniqueInScopes`
+     *           Deprecated since 2024.12 - deprecated in favor of `uniqueInScopes`
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcScopedAttributeUniquenessType>|\Google\Protobuf\Internal\RepeatedField $uniqueInScopes
      *           When attribute is unique it is automatically filterable, and it is ensured there is exactly one single entity
      *           having certain value of this attribute among other entities in the same collection.
@@ -90,7 +90,7 @@ class GrpcSetAttributeSchemaUniqueMutation extends \Google\Protobuf\Internal\Mes
     /**
      * When attribute is unique it is automatically filterable, and it is ensured there is exactly one single entity
      * having certain value of this attribute among other entities in the same collection.
-     * deprecated in favor of `uniqueInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `uniqueInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcAttributeUniquenessType unique = 2 [deprecated = true];</code>
      * @return int
@@ -105,7 +105,7 @@ class GrpcSetAttributeSchemaUniqueMutation extends \Google\Protobuf\Internal\Mes
     /**
      * When attribute is unique it is automatically filterable, and it is ensured there is exactly one single entity
      * having certain value of this attribute among other entities in the same collection.
-     * deprecated in favor of `uniqueInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `uniqueInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcAttributeUniquenessType unique = 2 [deprecated = true];</code>
      * @param int $var

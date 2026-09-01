@@ -16,13 +16,22 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
 {
     /**
-     * the version of the catalog where the operation was performed
+     * The catalog version the operation was committed in. Strictly monotonic across the stream: ascending in a
+     * forward stream, descending in a reverse stream.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value version = 1;</code>
      */
     protected $version = null;
     /**
-     * the index of the event within the enclosed transaction, index 0 is the transaction lead event
+     * A direction-stable physical position of the underlying WAL record within its transaction, not a delivery
+     * counter: a forward stream assigns `1..mutationCount` ascending, a reverse stream assigns `mutationCount..1`
+     * descending, so the same physical record gets the same index regardless of direction - but indices are
+     * therefore NOT monotonic within a transaction when read in reverse (the transaction header is emitted at
+     * index `0`, then indices count down from `mutationCount`). Nested local mutations do not get their own
+     * index: they inherit the `(version, index)` pair of the entity mutation record they belong to, so
+     * `(version, index)` identifies a WAL record, not an individual emitted capture - an entity upsert with 5
+     * local mutations produces 6 captures that all share the same pair. The index is advanced before criteria
+     * filtering is applied, so it stays stable and comparable across requests using different filters.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value index = 2;</code>
      */
@@ -48,7 +57,8 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
      */
     protected $entityPrimaryKey = null;
     /**
-     * the operation that was performed
+     * The kind of change that produced this capture. Together with `area`, it determines which arm of `body` (if
+     * present) carries the payload - see the `body` oneof comment for the mapping.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureOperation operation = 6;</code>
      */
@@ -68,9 +78,18 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Google\Protobuf\Int64Value $version
-     *           the version of the catalog where the operation was performed
+     *           The catalog version the operation was committed in. Strictly monotonic across the stream: ascending in a
+     *           forward stream, descending in a reverse stream.
      *     @type \Google\Protobuf\Int32Value $index
-     *           the index of the event within the enclosed transaction, index 0 is the transaction lead event
+     *           A direction-stable physical position of the underlying WAL record within its transaction, not a delivery
+     *           counter: a forward stream assigns `1..mutationCount` ascending, a reverse stream assigns `mutationCount..1`
+     *           descending, so the same physical record gets the same index regardless of direction - but indices are
+     *           therefore NOT monotonic within a transaction when read in reverse (the transaction header is emitted at
+     *           index `0`, then indices count down from `mutationCount`). Nested local mutations do not get their own
+     *           index: they inherit the `(version, index)` pair of the entity mutation record they belong to, so
+     *           `(version, index)` identifies a WAL record, not an individual emitted capture - an entity upsert with 5
+     *           local mutations produces 6 captures that all share the same pair. The index is advanced before criteria
+     *           filtering is applied, so it stays stable and comparable across requests using different filters.
      *     @type int $area
      *           the area of the operation
      *     @type \Google\Protobuf\StringValue $entityType
@@ -80,11 +99,17 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
      *           the primary key of the entity that was affected by the operation
      *           (null for schema operations)
      *     @type int $operation
-     *           the operation that was performed
+     *           The kind of change that produced this capture. Together with `area`, it determines which arm of `body` (if
+     *           present) carries the payload - see the `body` oneof comment for the mapping.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcEntitySchemaMutation $schemaMutation
+     *           Set for a SCHEMA area mutation. See the `body` comment above for the full arm-selection mapping.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcEntityMutation $entityMutation
+     *           Set for the top-level DATA area entity mutation. See the `body` comment above.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcLocalMutation $localMutation
+     *           Set for a DATA area field-level mutation nested inside an entity upsert. See the `body`
+     *           comment above and the `index` field comment for how it shares its parent's `(version, index)`.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcInfrastructureMutation $infrastructureMutation
+     *           Set for the INFRASTRUCTURE area transaction header. See the `body` comment above.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $timestamp
      *           Represents the timestamp of the commit.
      * }
@@ -95,7 +120,8 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * the version of the catalog where the operation was performed
+     * The catalog version the operation was committed in. Strictly monotonic across the stream: ascending in a
+     * forward stream, descending in a reverse stream.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value version = 1;</code>
      * @return \Google\Protobuf\Int64Value|null
@@ -118,7 +144,8 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getVersion()</code>
 
-     * the version of the catalog where the operation was performed
+     * The catalog version the operation was committed in. Strictly monotonic across the stream: ascending in a
+     * forward stream, descending in a reverse stream.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value version = 1;</code>
      * @return int|string|null
@@ -129,7 +156,8 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * the version of the catalog where the operation was performed
+     * The catalog version the operation was committed in. Strictly monotonic across the stream: ascending in a
+     * forward stream, descending in a reverse stream.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value version = 1;</code>
      * @param \Google\Protobuf\Int64Value $var
@@ -146,7 +174,8 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int64Value object.
 
-     * the version of the catalog where the operation was performed
+     * The catalog version the operation was committed in. Strictly monotonic across the stream: ascending in a
+     * forward stream, descending in a reverse stream.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value version = 1;</code>
      * @param int|string|null $var
@@ -158,7 +187,15 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
         return $this;}
 
     /**
-     * the index of the event within the enclosed transaction, index 0 is the transaction lead event
+     * A direction-stable physical position of the underlying WAL record within its transaction, not a delivery
+     * counter: a forward stream assigns `1..mutationCount` ascending, a reverse stream assigns `mutationCount..1`
+     * descending, so the same physical record gets the same index regardless of direction - but indices are
+     * therefore NOT monotonic within a transaction when read in reverse (the transaction header is emitted at
+     * index `0`, then indices count down from `mutationCount`). Nested local mutations do not get their own
+     * index: they inherit the `(version, index)` pair of the entity mutation record they belong to, so
+     * `(version, index)` identifies a WAL record, not an individual emitted capture - an entity upsert with 5
+     * local mutations produces 6 captures that all share the same pair. The index is advanced before criteria
+     * filtering is applied, so it stays stable and comparable across requests using different filters.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value index = 2;</code>
      * @return \Google\Protobuf\Int32Value|null
@@ -181,7 +218,15 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getIndex()</code>
 
-     * the index of the event within the enclosed transaction, index 0 is the transaction lead event
+     * A direction-stable physical position of the underlying WAL record within its transaction, not a delivery
+     * counter: a forward stream assigns `1..mutationCount` ascending, a reverse stream assigns `mutationCount..1`
+     * descending, so the same physical record gets the same index regardless of direction - but indices are
+     * therefore NOT monotonic within a transaction when read in reverse (the transaction header is emitted at
+     * index `0`, then indices count down from `mutationCount`). Nested local mutations do not get their own
+     * index: they inherit the `(version, index)` pair of the entity mutation record they belong to, so
+     * `(version, index)` identifies a WAL record, not an individual emitted capture - an entity upsert with 5
+     * local mutations produces 6 captures that all share the same pair. The index is advanced before criteria
+     * filtering is applied, so it stays stable and comparable across requests using different filters.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value index = 2;</code>
      * @return int|null
@@ -192,7 +237,15 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * the index of the event within the enclosed transaction, index 0 is the transaction lead event
+     * A direction-stable physical position of the underlying WAL record within its transaction, not a delivery
+     * counter: a forward stream assigns `1..mutationCount` ascending, a reverse stream assigns `mutationCount..1`
+     * descending, so the same physical record gets the same index regardless of direction - but indices are
+     * therefore NOT monotonic within a transaction when read in reverse (the transaction header is emitted at
+     * index `0`, then indices count down from `mutationCount`). Nested local mutations do not get their own
+     * index: they inherit the `(version, index)` pair of the entity mutation record they belong to, so
+     * `(version, index)` identifies a WAL record, not an individual emitted capture - an entity upsert with 5
+     * local mutations produces 6 captures that all share the same pair. The index is advanced before criteria
+     * filtering is applied, so it stays stable and comparable across requests using different filters.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value index = 2;</code>
      * @param \Google\Protobuf\Int32Value $var
@@ -209,7 +262,15 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int32Value object.
 
-     * the index of the event within the enclosed transaction, index 0 is the transaction lead event
+     * A direction-stable physical position of the underlying WAL record within its transaction, not a delivery
+     * counter: a forward stream assigns `1..mutationCount` ascending, a reverse stream assigns `mutationCount..1`
+     * descending, so the same physical record gets the same index regardless of direction - but indices are
+     * therefore NOT monotonic within a transaction when read in reverse (the transaction header is emitted at
+     * index `0`, then indices count down from `mutationCount`). Nested local mutations do not get their own
+     * index: they inherit the `(version, index)` pair of the entity mutation record they belong to, so
+     * `(version, index)` identifies a WAL record, not an individual emitted capture - an entity upsert with 5
+     * local mutations produces 6 captures that all share the same pair. The index is advanced before criteria
+     * filtering is applied, so it stays stable and comparable across requests using different filters.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value index = 2;</code>
      * @param int|null $var
@@ -381,7 +442,8 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
         return $this;}
 
     /**
-     * the operation that was performed
+     * The kind of change that produced this capture. Together with `area`, it determines which arm of `body` (if
+     * present) carries the payload - see the `body` oneof comment for the mapping.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureOperation operation = 6;</code>
      * @return int
@@ -392,7 +454,8 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * the operation that was performed
+     * The kind of change that produced this capture. Together with `area`, it determines which arm of `body` (if
+     * present) carries the payload - see the `body` oneof comment for the mapping.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureOperation operation = 6;</code>
      * @param int $var
@@ -407,6 +470,8 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     * Set for a SCHEMA area mutation. See the `body` comment above for the full arm-selection mapping.
+     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntitySchemaMutation schemaMutation = 7;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcEntitySchemaMutation|null
      */
@@ -421,6 +486,8 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     * Set for a SCHEMA area mutation. See the `body` comment above for the full arm-selection mapping.
+     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntitySchemaMutation schemaMutation = 7;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcEntitySchemaMutation $var
      * @return $this
@@ -434,6 +501,8 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     * Set for the top-level DATA area entity mutation. See the `body` comment above.
+     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntityMutation entityMutation = 8;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcEntityMutation|null
      */
@@ -448,6 +517,8 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     * Set for the top-level DATA area entity mutation. See the `body` comment above.
+     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntityMutation entityMutation = 8;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcEntityMutation $var
      * @return $this
@@ -461,6 +532,9 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     * Set for a DATA area field-level mutation nested inside an entity upsert. See the `body`
+     * comment above and the `index` field comment for how it shares its parent's `(version, index)`.
+     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLocalMutation localMutation = 9;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcLocalMutation|null
      */
@@ -475,6 +549,9 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     * Set for a DATA area field-level mutation nested inside an entity upsert. See the `body`
+     * comment above and the `index` field comment for how it shares its parent's `(version, index)`.
+     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcLocalMutation localMutation = 9;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcLocalMutation $var
      * @return $this
@@ -488,6 +565,8 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     * Set for the INFRASTRUCTURE area transaction header. See the `body` comment above.
+     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcInfrastructureMutation infrastructureMutation = 10;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcInfrastructureMutation|null
      */
@@ -502,6 +581,8 @@ class GrpcChangeCatalogCapture extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     * Set for the INFRASTRUCTURE area transaction header. See the `body` comment above.
+     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcInfrastructureMutation infrastructureMutation = 10;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcInfrastructureMutation $var
      * @return $this

@@ -32,8 +32,8 @@ class GrpcEntityReference extends \Google\Protobuf\Internal\Message
      */
     protected $primaryKey = 0;
     /**
-     * value is deprecated, it was available only for entity references used in entity body, in other use-cases it was left
-     * as zero - which was a mistake in the design.
+     * Deprecated since 2024.10 - value is deprecated, it was available only for entity references
+     * used in entity body, in other use-cases it was left as zero - which was a mistake in the design.
      * in order to get the entity version you need to fetch the entity itself (with entity body).
      *
      * Generated from protobuf field <code>int32 version = 3 [deprecated = true];</code>
@@ -62,8 +62,8 @@ class GrpcEntityReference extends \Google\Protobuf\Internal\Message
      *           Unique Integer positive number representing the entity. Can be used for fast lookup for
      *           entity (entities). Primary key must be unique within the same entity type.
      *     @type int $version
-     *           value is deprecated, it was available only for entity references used in entity body, in other use-cases it was left
-     *           as zero - which was a mistake in the design.
+     *           Deprecated since 2024.10 - value is deprecated, it was available only for entity references
+     *           used in entity body, in other use-cases it was left as zero - which was a mistake in the design.
      *           in order to get the entity version you need to fetch the entity itself (with entity body).
      *     @type \Google\Protobuf\Int32Value $referenceVersion
      *           Contains version of this reference and gets increased with any entity type update. Allows to execute
@@ -134,8 +134,8 @@ class GrpcEntityReference extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * value is deprecated, it was available only for entity references used in entity body, in other use-cases it was left
-     * as zero - which was a mistake in the design.
+     * Deprecated since 2024.10 - value is deprecated, it was available only for entity references
+     * used in entity body, in other use-cases it was left as zero - which was a mistake in the design.
      * in order to get the entity version you need to fetch the entity itself (with entity body).
      *
      * Generated from protobuf field <code>int32 version = 3 [deprecated = true];</code>
@@ -149,8 +149,8 @@ class GrpcEntityReference extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * value is deprecated, it was available only for entity references used in entity body, in other use-cases it was left
-     * as zero - which was a mistake in the design.
+     * Deprecated since 2024.10 - value is deprecated, it was available only for entity references
+     * used in entity body, in other use-cases it was left as zero - which was a mistake in the design.
      * in order to get the entity version you need to fetch the entity itself (with entity body).
      *
      * Generated from protobuf field <code>int32 version = 3 [deprecated = true];</code>

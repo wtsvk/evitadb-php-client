@@ -9,6 +9,8 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
+ * This mutation allows to remove an existing `price` of the entity, identified by price ID, price list and currency.
+ *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcRemovePriceMutation</code>
  */
 class GrpcRemovePriceMutation extends \Google\Protobuf\Internal\Message

@@ -49,6 +49,22 @@ class EvitaManagementServiceClient extends \Grpc\BaseStub {
     }
 
     /**
+     * Procedure used to obtain the curated subset of the engine configuration that is safe to expose to any client.
+     * Unlike GetConfiguration this procedure is available also when the engine runs in read-only mode.
+     * @param \Google\Protobuf\GPBEmpty $argument input argument
+     * @param array $metadata metadata
+     * @param array $options call options
+     * @return \Grpc\UnaryCall
+     */
+    public function GetEngineSettings(\Google\Protobuf\GPBEmpty $argument,
+      $metadata = [], $options = []) {
+        return $this->_simpleRequest('/io.evitadb.externalApi.grpc.generated.EvitaManagementService/GetEngineSettings',
+        $argument,
+        ['\Wtsvk\EvitaDbClient\Protocol\GrpcEvitaEngineSettingsResponse', 'decode'],
+        $metadata, $options);
+    }
+
+    /**
      * Procedure used to obtain catalog statistics.
      * @param \Google\Protobuf\GPBEmpty $argument input argument
      * @param array $metadata metadata
@@ -64,7 +80,8 @@ class EvitaManagementServiceClient extends \Grpc\BaseStub {
     }
 
     /**
-     * Procedure used to restore a catalog from backup.
+     * Procedure used to restore a catalog from a client-uploaded backup via true gRPC client
+     * streaming; see `RestoreCatalogUnary` for the chunked-unary alternative.
      * @param array $metadata metadata
      * @param array $options call options
      * @return \Grpc\ClientStreamingCall
@@ -76,7 +93,8 @@ class EvitaManagementServiceClient extends \Grpc\BaseStub {
     }
 
     /**
-     * Procedure used to restore a catalog from backup (unary version for gRPC/web).
+     * Procedure used to restore a catalog from a client-uploaded backup, one chunk per call (unary
+     * version for gRPC/web, where true client streaming as in `RestoreCatalog` is unavailable).
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcRestoreCatalogUnaryRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
@@ -91,7 +109,8 @@ class EvitaManagementServiceClient extends \Grpc\BaseStub {
     }
 
     /**
-     * Procedure used to restore a catalog from backup.
+     * Procedure used to restore a catalog from a backup file already stored on the server, without
+     * re-uploading it.
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcRestoreCatalogFromServerFileRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
@@ -196,7 +215,7 @@ class EvitaManagementServiceClient extends \Grpc\BaseStub {
     }
 
     /**
-     * Procedure used to get file contents
+     * Procedure used to get file contents, streamed back to the client in chunks.
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcFetchFileRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options

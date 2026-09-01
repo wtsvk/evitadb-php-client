@@ -9,14 +9,14 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Structure that holds a map of values stored inside map of the complex object.
+ * Structure that holds a map-typed node of a complex associated data value's tree.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.DataItemMap</code>
  */
 class DataItemMap extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The stored named fields with associated values.
+     * The child nodes of this map node, keyed by property name.
      *
      * Generated from protobuf field <code>map<string, .io.evitadb.externalApi.grpc.generated.GrpcDataItem> data = 1;</code>
      */
@@ -29,7 +29,7 @@ class DataItemMap extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type array|\Google\Protobuf\Internal\MapField $data
-     *           The stored named fields with associated values.
+     *           The child nodes of this map node, keyed by property name.
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +38,7 @@ class DataItemMap extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The stored named fields with associated values.
+     * The child nodes of this map node, keyed by property name.
      *
      * Generated from protobuf field <code>map<string, .io.evitadb.externalApi.grpc.generated.GrpcDataItem> data = 1;</code>
      * @return \Google\Protobuf\Internal\MapField
@@ -49,7 +49,7 @@ class DataItemMap extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The stored named fields with associated values.
+     * The child nodes of this map node, keyed by property name.
      *
      * Generated from protobuf field <code>map<string, .io.evitadb.externalApi.grpc.generated.GrpcDataItem> data = 1;</code>
      * @param array|\Google\Protobuf\Internal\MapField $var

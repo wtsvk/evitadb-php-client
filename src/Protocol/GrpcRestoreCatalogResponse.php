@@ -9,20 +9,24 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Response to a catalog restore request.
+ * Response to a catalog restore request. Returned by both `RestoreCatalog` and
+ * `RestoreCatalogFromServerFile`.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcRestoreCatalogResponse</code>
  */
 class GrpcRestoreCatalogResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * returns the number of bytes read from the backup file
+     * Total number of bytes read from the backup file (bytes). Only meaningful for `RestoreCatalog`,
+     * where it reports the cumulative size of the uploaded stream; always 0 for
+     * `RestoreCatalogFromServerFile`, which does not populate this field.
      *
      * Generated from protobuf field <code>int64 read = 1;</code>
      */
     protected $read = 0;
     /**
-     * the task that is used to restore the catalog and getting its progress
+     * The task tracking the restore operation; poll its status (`GetTaskStatus`) to observe restore
+     * progress.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTaskStatus task = 3;</code>
      */
@@ -35,9 +39,12 @@ class GrpcRestoreCatalogResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type int|string $read
-     *           returns the number of bytes read from the backup file
+     *           Total number of bytes read from the backup file (bytes). Only meaningful for `RestoreCatalog`,
+     *           where it reports the cumulative size of the uploaded stream; always 0 for
+     *           `RestoreCatalogFromServerFile`, which does not populate this field.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcTaskStatus $task
-     *           the task that is used to restore the catalog and getting its progress
+     *           The task tracking the restore operation; poll its status (`GetTaskStatus`) to observe restore
+     *           progress.
      * }
      */
     public function __construct($data = NULL) {
@@ -46,7 +53,9 @@ class GrpcRestoreCatalogResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * returns the number of bytes read from the backup file
+     * Total number of bytes read from the backup file (bytes). Only meaningful for `RestoreCatalog`,
+     * where it reports the cumulative size of the uploaded stream; always 0 for
+     * `RestoreCatalogFromServerFile`, which does not populate this field.
      *
      * Generated from protobuf field <code>int64 read = 1;</code>
      * @return int|string
@@ -57,7 +66,9 @@ class GrpcRestoreCatalogResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * returns the number of bytes read from the backup file
+     * Total number of bytes read from the backup file (bytes). Only meaningful for `RestoreCatalog`,
+     * where it reports the cumulative size of the uploaded stream; always 0 for
+     * `RestoreCatalogFromServerFile`, which does not populate this field.
      *
      * Generated from protobuf field <code>int64 read = 1;</code>
      * @param int|string $var
@@ -72,7 +83,8 @@ class GrpcRestoreCatalogResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * the task that is used to restore the catalog and getting its progress
+     * The task tracking the restore operation; poll its status (`GetTaskStatus`) to observe restore
+     * progress.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTaskStatus task = 3;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcTaskStatus|null
@@ -93,7 +105,8 @@ class GrpcRestoreCatalogResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * the task that is used to restore the catalog and getting its progress
+     * The task tracking the restore operation; poll its status (`GetTaskStatus`) to observe restore
+     * progress.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTaskStatus task = 3;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcTaskStatus $var

@@ -9,7 +9,9 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Response to an evitaDB configuration request.
+ * Response to an evitaDB configuration request. This RPC (and therefore this response) is
+ * unavailable while the engine runs in read-only mode - see GrpcEvitaEngineSettingsResponse for
+ * the smaller, always-available subset of configuration.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcEvitaConfigurationResponse</code>
  */

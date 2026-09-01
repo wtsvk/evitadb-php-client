@@ -68,7 +68,7 @@ class GrpcEntitySchema extends \Google\Protobuf\Internal\Message
      * referred by multiple child entities. Hierarchy is always composed of entities of same type.
      * Each entity must be part of at most single hierarchy (tree).
      * Hierarchy can limit returned entities by using filtering constraints. It's also used for
-     * computation of extra data - such as `hierarchyParentsOfSelf`. It can also invert type of returned entities in case extra result
+     * computation of extra data - such as the `parents` requirement. It can also invert type of returned entities in case extra result
      * `hierarchyOfSelf` is requested.
      *
      * Generated from protobuf field <code>bool withHierarchy = 6;</code>
@@ -190,7 +190,7 @@ class GrpcEntitySchema extends \Google\Protobuf\Internal\Message
      * of extra data. If the price information is not indexed, it is still available on the entity itself (i.e. entity
      * can define its price), but it is not possible to work with the price information in any other way (calculating
      * price histogram, filtering, sorting by price, etc.).
-     * Prices can be also set as non-indexed individually by setting {&#64;link PriceContract#indexed()} to false.
+     * Prices can be also set as non-indexed individually via the individual price's own `indexed` flag.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEntityScope priceIndexedInScopes = 18;</code>
      */
@@ -201,6 +201,13 @@ class GrpcEntitySchema extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>int64 catalogSchemaVersion = 19;</code>
      */
     protected $catalogSchemaVersion = 0;
+    /**
+     * Contains the entity-level conflict resolution setting. When not set (absent), the entity schema inherits the
+     * resolved conflict resolution from the catalog / transaction options.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolution conflictResolution = 20;</code>
+     */
+    protected $conflictResolution = null;
 
     /**
      * Constructor.
@@ -233,7 +240,7 @@ class GrpcEntitySchema extends \Google\Protobuf\Internal\Message
      *           referred by multiple child entities. Hierarchy is always composed of entities of same type.
      *           Each entity must be part of at most single hierarchy (tree).
      *           Hierarchy can limit returned entities by using filtering constraints. It's also used for
-     *           computation of extra data - such as `hierarchyParentsOfSelf`. It can also invert type of returned entities in case extra result
+     *           computation of extra data - such as the `parents` requirement. It can also invert type of returned entities in case extra result
      *           `hierarchyOfSelf` is requested.
      *     @type bool $withPrice
      *           Contains `true` when entities of this type holds price information.
@@ -307,9 +314,12 @@ class GrpcEntitySchema extends \Google\Protobuf\Internal\Message
      *           of extra data. If the price information is not indexed, it is still available on the entity itself (i.e. entity
      *           can define its price), but it is not possible to work with the price information in any other way (calculating
      *           price histogram, filtering, sorting by price, etc.).
-     *           Prices can be also set as non-indexed individually by setting {&#64;link PriceContract#indexed()} to false.
+     *           Prices can be also set as non-indexed individually via the individual price's own `indexed` flag.
      *     @type int|string $catalogSchemaVersion
      *           Contains current version of the catalog schema this entity schema belongs to.
+     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolution $conflictResolution
+     *           Contains the entity-level conflict resolution setting. When not set (absent), the entity schema inherits the
+     *           resolved conflict resolution from the catalog / transaction options.
      * }
      */
     public function __construct($data = NULL) {
@@ -550,7 +560,7 @@ class GrpcEntitySchema extends \Google\Protobuf\Internal\Message
      * referred by multiple child entities. Hierarchy is always composed of entities of same type.
      * Each entity must be part of at most single hierarchy (tree).
      * Hierarchy can limit returned entities by using filtering constraints. It's also used for
-     * computation of extra data - such as `hierarchyParentsOfSelf`. It can also invert type of returned entities in case extra result
+     * computation of extra data - such as the `parents` requirement. It can also invert type of returned entities in case extra result
      * `hierarchyOfSelf` is requested.
      *
      * Generated from protobuf field <code>bool withHierarchy = 6;</code>
@@ -568,7 +578,7 @@ class GrpcEntitySchema extends \Google\Protobuf\Internal\Message
      * referred by multiple child entities. Hierarchy is always composed of entities of same type.
      * Each entity must be part of at most single hierarchy (tree).
      * Hierarchy can limit returned entities by using filtering constraints. It's also used for
-     * computation of extra data - such as `hierarchyParentsOfSelf`. It can also invert type of returned entities in case extra result
+     * computation of extra data - such as the `parents` requirement. It can also invert type of returned entities in case extra result
      * `hierarchyOfSelf` is requested.
      *
      * Generated from protobuf field <code>bool withHierarchy = 6;</code>
@@ -964,7 +974,7 @@ class GrpcEntitySchema extends \Google\Protobuf\Internal\Message
      * of extra data. If the price information is not indexed, it is still available on the entity itself (i.e. entity
      * can define its price), but it is not possible to work with the price information in any other way (calculating
      * price histogram, filtering, sorting by price, etc.).
-     * Prices can be also set as non-indexed individually by setting {&#64;link PriceContract#indexed()} to false.
+     * Prices can be also set as non-indexed individually via the individual price's own `indexed` flag.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEntityScope priceIndexedInScopes = 18;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -979,7 +989,7 @@ class GrpcEntitySchema extends \Google\Protobuf\Internal\Message
      * of extra data. If the price information is not indexed, it is still available on the entity itself (i.e. entity
      * can define its price), but it is not possible to work with the price information in any other way (calculating
      * price histogram, filtering, sorting by price, etc.).
-     * Prices can be also set as non-indexed individually by setting {&#64;link PriceContract#indexed()} to false.
+     * Prices can be also set as non-indexed individually via the individual price's own `indexed` flag.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEntityScope priceIndexedInScopes = 18;</code>
      * @param array<int>|\Google\Protobuf\Internal\RepeatedField $var
@@ -1015,6 +1025,44 @@ class GrpcEntitySchema extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkInt64($var);
         $this->catalogSchemaVersion = $var;
+
+        return $this;
+    }
+
+    /**
+     * Contains the entity-level conflict resolution setting. When not set (absent), the entity schema inherits the
+     * resolved conflict resolution from the catalog / transaction options.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolution conflictResolution = 20;</code>
+     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolution|null
+     */
+    public function getConflictResolution()
+    {
+        return $this->conflictResolution;
+    }
+
+    public function hasConflictResolution()
+    {
+        return isset($this->conflictResolution);
+    }
+
+    public function clearConflictResolution()
+    {
+        unset($this->conflictResolution);
+    }
+
+    /**
+     * Contains the entity-level conflict resolution setting. When not set (absent), the entity schema inherits the
+     * resolved conflict resolution from the catalog / transaction options.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolution conflictResolution = 20;</code>
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolution $var
+     * @return $this
+     */
+    public function setConflictResolution($var)
+    {
+        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolution::class);
+        $this->conflictResolution = $var;
 
         return $this;
     }

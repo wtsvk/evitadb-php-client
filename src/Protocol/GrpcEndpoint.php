@@ -9,20 +9,24 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Information about a system endpoint of particular purpose derived from name
+ * A named endpoint exposed by an external API, distinct from the API's own base URL(s) (see
+ * `GrpcApiStatus.endpoints`).
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcEndpoint</code>
  */
 class GrpcEndpoint extends \Google\Protobuf\Internal\Message
 {
     /**
-     * logical name of the endpoint
+     * Logical name identifying what the endpoint serves. For the system API - currently the only API
+     * that populates `GrpcApiStatus.endpoints` - this is one of `serverNameUrl`,
+     * `serverCertificateUrl`, `clientCertificateUrl`, `clientPrivateKeyUrl`.
      *
      * Generated from protobuf field <code>string name = 1;</code>
      */
     protected $name = '';
     /**
-     * absolute URL of the endpoint
+     * Absolute URL(s) the endpoint is reachable on - one per configured host binding, so this
+     * commonly holds more than one URL even though the field name is singular.
      *
      * Generated from protobuf field <code>repeated string url = 2;</code>
      */
@@ -35,9 +39,12 @@ class GrpcEndpoint extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $name
-     *           logical name of the endpoint
+     *           Logical name identifying what the endpoint serves. For the system API - currently the only API
+     *           that populates `GrpcApiStatus.endpoints` - this is one of `serverNameUrl`,
+     *           `serverCertificateUrl`, `clientCertificateUrl`, `clientPrivateKeyUrl`.
      *     @type array<string>|\Google\Protobuf\Internal\RepeatedField $url
-     *           absolute URL of the endpoint
+     *           Absolute URL(s) the endpoint is reachable on - one per configured host binding, so this
+     *           commonly holds more than one URL even though the field name is singular.
      * }
      */
     public function __construct($data = NULL) {
@@ -46,7 +53,9 @@ class GrpcEndpoint extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * logical name of the endpoint
+     * Logical name identifying what the endpoint serves. For the system API - currently the only API
+     * that populates `GrpcApiStatus.endpoints` - this is one of `serverNameUrl`,
+     * `serverCertificateUrl`, `clientCertificateUrl`, `clientPrivateKeyUrl`.
      *
      * Generated from protobuf field <code>string name = 1;</code>
      * @return string
@@ -57,7 +66,9 @@ class GrpcEndpoint extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * logical name of the endpoint
+     * Logical name identifying what the endpoint serves. For the system API - currently the only API
+     * that populates `GrpcApiStatus.endpoints` - this is one of `serverNameUrl`,
+     * `serverCertificateUrl`, `clientCertificateUrl`, `clientPrivateKeyUrl`.
      *
      * Generated from protobuf field <code>string name = 1;</code>
      * @param string $var
@@ -72,7 +83,8 @@ class GrpcEndpoint extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * absolute URL of the endpoint
+     * Absolute URL(s) the endpoint is reachable on - one per configured host binding, so this
+     * commonly holds more than one URL even though the field name is singular.
      *
      * Generated from protobuf field <code>repeated string url = 2;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -83,7 +95,8 @@ class GrpcEndpoint extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * absolute URL of the endpoint
+     * Absolute URL(s) the endpoint is reachable on - one per configured host binding, so this
+     * commonly holds more than one URL even though the field name is singular.
      *
      * Generated from protobuf field <code>repeated string url = 2;</code>
      * @param array<string>|\Google\Protobuf\Internal\RepeatedField $var
