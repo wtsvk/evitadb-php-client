@@ -115,11 +115,11 @@ $pk = $client->writeTransaction(function (WriteTransactionContext $tx) use ($new
 
 #### Rollback semantics
 
-EvitaDB's gRPC `Close()` RPC has no rollback flag — calling it always commits. The PHP client therefore handles the two paths differently:
-
 - **Normal return**: session is closed via `Close()` with the configured commit behavior (commits server-side).
-- **Exception inside the callable**: the session is **intentionally orphaned** (no `Close()` is sent). The EvitaDB server's session timeout will discard the buffered transaction, giving you a deferred-but-real rollback. The exception propagates out of `writeTransaction()` unchanged.
-- **Deterministic rollback**: pass `dryRun: true` — the server discards all changes on close regardless of outcome.
+- **Exception inside the callable**: session is closed via `Close()` with `rollback: true` — the server discards all pending mutations immediately. The exception propagates out of `writeTransaction()` unchanged. If the rollback close itself fails (e.g. transport error), that failure is swallowed; the session is never committed and the server's session timeout discards it.
+- **Discard regardless of outcome**: pass `dryRun: true` — the server discards all changes on close even on normal return.
+
+> **Requires EvitaDB 2026.2+.** Older servers silently ignore the unknown `rollback` field and `Close()` would *commit* the partial changes. Pair each package version with the EvitaDB version from the compatibility table below.
 
 ```php
 $client->writeTransaction(
@@ -250,7 +250,7 @@ For a specific EvitaDB version, pin the package version that matches (e.g. `^0.2
 ## Architecture
 
 - `src/EvitaDbConnectionInterface.php` / `src/EvitaDbConnection.php` — server-level operations (`isHealthy`, `defineCatalog`, `getCatalogNames`, `deleteCatalog`) and factory for catalog-scoped clients via `catalog()`.
-- `src/EvitaDbClientInterface.php` / `src/EvitaDbClient.php` — catalog-scoped gRPC client with a transaction-only public surface: `writeTransaction()` and `readTransaction()`. The catalog is bound at construction. Session management, commit behavior, and rollback-on-exception (session orphaning) are all handled internally.
+- `src/EvitaDbClientInterface.php` / `src/EvitaDbClient.php` — catalog-scoped gRPC client with a transaction-only public surface: `writeTransaction()` and `readTransaction()`. The catalog is bound at construction. Session management, commit behavior, and rollback-on-exception (`Close()` with `rollback: true`) are all handled internally.
 - `src/EntityFetch.php` — mutable fluent builder for specifying what entity content to return (attributes, prices, references, etc.). Construct fresh per query.
 - `src/QueryBuilder.php` — mutable fluent builder producing EvitaQL `GrpcQueryRequest` messages. Supports filtering, ordering, pagination, and custom `EntityFetch`.
 - `src/Transaction/` — `ReadTransactionContext` and `WriteTransactionContext` interfaces consumers receive inside `readTransaction()` / `writeTransaction()` callables. Concrete implementations: `ReadOnlySessionScopedContext` (read-only) and `ReadWriteSessionScopedContext` (read + write), both backed by one EvitaDB session and sharing read code via the `SessionScopedReads` trait.
