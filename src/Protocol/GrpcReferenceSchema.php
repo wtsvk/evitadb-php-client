@@ -69,7 +69,7 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
     protected $entityType = '';
     /**
      * Contains `true` if `entityType` refers to any existing entity that is maintained by Evita.
-     * DEPRECATED!!! use referencedEntityTypeManaged instead
+     * Deprecated since 2024.10 - use referencedEntityTypeManaged instead
      *
      * Generated from protobuf field <code>bool entityTypeRelatesToEntity = 6 [deprecated = true];</code>
      * @deprecated
@@ -84,7 +84,7 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
     protected $groupType = null;
     /**
      * Contains `true` if `groupType` refers to any existing entity that is maintained by Evita.
-     * DEPRECATED!!! use referencedGroupTypeManaged instead
+     * Deprecated since 2024.10 - use referencedGroupTypeManaged instead
      *
      * Generated from protobuf field <code>bool groupTypeRelatesToEntity = 8 [deprecated = true];</code>
      * @deprecated
@@ -98,7 +98,7 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
      * Each indexed reference occupies (memory/disk) space in the form of index. When reference is not indexed,
      * the entity cannot be looked up by reference attributes or relation existence itself, but the data can be
      * fetched.
-     * deprecated in favor of `indexedInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `indexedInScopes`
      *
      * Generated from protobuf field <code>bool indexed = 9 [deprecated = true];</code>
      * @deprecated
@@ -111,7 +111,7 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
      * Do not mark reference as faceted unless you want it among `facetStatistics`. Each faceted reference
      * occupies (memory/disk) space in the form of index.
      * Reference that was marked as faceted is called Facet.
-     * deprecated in favor of `facetedInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `facetedInScopes`
      *
      * Generated from protobuf field <code>bool faceted = 10 [deprecated = true];</code>
      * @deprecated
@@ -225,7 +225,7 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
      * Each indexed reference occupies (memory/disk) space in the form of index. When reference is not indexed,
      * the entity cannot be looked up by reference attributes or relation existence itself, but the data can be
      * fetched.
-     * deprecated in favor of `scopedIndexTypes`
+     * Deprecated since 2025.6 - deprecated in favor of `scopedIndexTypes`
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEntityScope indexedInScopes = 26 [deprecated = true];</code>
      * @deprecated
@@ -249,6 +249,45 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexType scopedIndexTypes = 28;</code>
      */
     private $scopedIndexTypes;
+    /**
+     * Scoped reference indexed components that specify which parts of a reference relationship
+     * (referenced entity, referenced group entity) are indexed per scope.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexedComponents scopedIndexedComponents = 29;</code>
+     */
+    private $scopedIndexedComponents;
+    /**
+     * Contains true if the indexed components property settings of the reflected reference is
+     * inherited from the target reference.
+     *
+     * Generated from protobuf field <code>bool indexedComponentsInherited = 30;</code>
+     */
+    protected $indexedComponentsInherited = false;
+    /**
+     * Per-scope expressions that narrow which entities participate in faceting.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedFacetedPartially facetedPartially = 31;</code>
+     */
+    private $facetedPartially;
+    /**
+     * Per-scope bucketed histogram configurations defining index name and value expression.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedHistogramIndexDefinition bucketed = 32;</code>
+     */
+    private $bucketed;
+    /**
+     * Per-scope expressions that narrow which entities participate in bucketed histogram computation.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedBucketedPartially bucketedPartially = 33;</code>
+     */
+    private $bucketedPartially;
+    /**
+     * Contains the per-reference override of the conflict resolution granularity. Defaults to inherited (follow the
+     * resolved conflict resolution). On reflected references this is always inherited.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 34;</code>
+     */
+    protected $conflictResolutionOverride = 0;
 
     /**
      * Constructor.
@@ -277,13 +316,13 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
      *           that identifies type some external resource not maintained by Evita.
      *     @type bool $entityTypeRelatesToEntity
      *           Contains `true` if `entityType` refers to any existing entity that is maintained by Evita.
-     *           DEPRECATED!!! use referencedEntityTypeManaged instead
+     *           Deprecated since 2024.10 - use referencedEntityTypeManaged instead
      *     @type \Google\Protobuf\StringValue $groupType
      *           Reference to `Entity.type` of the referenced entity. Might be also `String` that identifies type some external
      *           resource not maintained by Evita.
      *     @type bool $groupTypeRelatesToEntity
      *           Contains `true` if `groupType` refers to any existing entity that is maintained by Evita.
-     *           DEPRECATED!!! use referencedGroupTypeManaged instead
+     *           Deprecated since 2024.10 - use referencedGroupTypeManaged instead
      *     @type bool $indexed
      *           Contains `true` if the index for this reference should be created and maintained allowing to filter by
      *           `reference_{reference name}_having` filtering constraints. Index is also required when reference is
@@ -292,7 +331,7 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
      *           Each indexed reference occupies (memory/disk) space in the form of index. When reference is not indexed,
      *           the entity cannot be looked up by reference attributes or relation existence itself, but the data can be
      *           fetched.
-     *           deprecated in favor of `indexedInScopes`
+     *           Deprecated since 2024.12 - deprecated in favor of `indexedInScopes`
      *     @type bool $faceted
      *           Contains `true` if the statistics data for this reference should be maintained and this allowing to get
      *           `facetStatistics` for this reference or use `facet_{reference name}_inSet`
@@ -300,7 +339,7 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
      *           Do not mark reference as faceted unless you want it among `facetStatistics`. Each faceted reference
      *           occupies (memory/disk) space in the form of index.
      *           Reference that was marked as faceted is called Facet.
-     *           deprecated in favor of `facetedInScopes`
+     *           Deprecated since 2024.12 - deprecated in favor of `facetedInScopes`
      *     @type array|\Google\Protobuf\Internal\MapField $attributes
      *           Attributes related to reference allows defining set of data that are fetched in bulk along with the entity body.
      *           Attributes may be indexed for fast filtering (`AttributeSchema.filterable`) or can be used to sort along
@@ -349,7 +388,7 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
      *           Each indexed reference occupies (memory/disk) space in the form of index. When reference is not indexed,
      *           the entity cannot be looked up by reference attributes or relation existence itself, but the data can be
      *           fetched.
-     *           deprecated in favor of `scopedIndexTypes`
+     *           Deprecated since 2025.6 - deprecated in favor of `scopedIndexTypes`
      *     @type array<int>|\Google\Protobuf\Internal\RepeatedField $facetedInScopes
      *           Contains `true` if the statistics data for this reference should be maintained and this allowing to get
      *           `facetStatistics` for this reference or use `facet_{reference name}_inSet`
@@ -360,6 +399,21 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcScopedReferenceIndexType>|\Google\Protobuf\Internal\RepeatedField $scopedIndexTypes
      *           Scoped reference index types that define both the scope and the type of index for the reference.
      *           This replaces the deprecated `indexedInScopes` field with more granular control over indexing.
+     *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcScopedReferenceIndexedComponents>|\Google\Protobuf\Internal\RepeatedField $scopedIndexedComponents
+     *           Scoped reference indexed components that specify which parts of a reference relationship
+     *           (referenced entity, referenced group entity) are indexed per scope.
+     *     @type bool $indexedComponentsInherited
+     *           Contains true if the indexed components property settings of the reflected reference is
+     *           inherited from the target reference.
+     *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcScopedFacetedPartially>|\Google\Protobuf\Internal\RepeatedField $facetedPartially
+     *           Per-scope expressions that narrow which entities participate in faceting.
+     *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcScopedHistogramIndexDefinition>|\Google\Protobuf\Internal\RepeatedField $bucketed
+     *           Per-scope bucketed histogram configurations defining index name and value expression.
+     *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcScopedBucketedPartially>|\Google\Protobuf\Internal\RepeatedField $bucketedPartially
+     *           Per-scope expressions that narrow which entities participate in bucketed histogram computation.
+     *     @type int $conflictResolutionOverride
+     *           Contains the per-reference override of the conflict resolution granularity. Defaults to inherited (follow the
+     *           resolved conflict resolution). On reflected references this is always inherited.
      * }
      */
     public function __construct($data = NULL) {
@@ -597,7 +651,7 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
 
     /**
      * Contains `true` if `entityType` refers to any existing entity that is maintained by Evita.
-     * DEPRECATED!!! use referencedEntityTypeManaged instead
+     * Deprecated since 2024.10 - use referencedEntityTypeManaged instead
      *
      * Generated from protobuf field <code>bool entityTypeRelatesToEntity = 6 [deprecated = true];</code>
      * @return bool
@@ -611,7 +665,7 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
 
     /**
      * Contains `true` if `entityType` refers to any existing entity that is maintained by Evita.
-     * DEPRECATED!!! use referencedEntityTypeManaged instead
+     * Deprecated since 2024.10 - use referencedEntityTypeManaged instead
      *
      * Generated from protobuf field <code>bool entityTypeRelatesToEntity = 6 [deprecated = true];</code>
      * @param bool $var
@@ -696,7 +750,7 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
 
     /**
      * Contains `true` if `groupType` refers to any existing entity that is maintained by Evita.
-     * DEPRECATED!!! use referencedGroupTypeManaged instead
+     * Deprecated since 2024.10 - use referencedGroupTypeManaged instead
      *
      * Generated from protobuf field <code>bool groupTypeRelatesToEntity = 8 [deprecated = true];</code>
      * @return bool
@@ -710,7 +764,7 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
 
     /**
      * Contains `true` if `groupType` refers to any existing entity that is maintained by Evita.
-     * DEPRECATED!!! use referencedGroupTypeManaged instead
+     * Deprecated since 2024.10 - use referencedGroupTypeManaged instead
      *
      * Generated from protobuf field <code>bool groupTypeRelatesToEntity = 8 [deprecated = true];</code>
      * @param bool $var
@@ -734,7 +788,7 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
      * Each indexed reference occupies (memory/disk) space in the form of index. When reference is not indexed,
      * the entity cannot be looked up by reference attributes or relation existence itself, but the data can be
      * fetched.
-     * deprecated in favor of `indexedInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `indexedInScopes`
      *
      * Generated from protobuf field <code>bool indexed = 9 [deprecated = true];</code>
      * @return bool
@@ -754,7 +808,7 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
      * Each indexed reference occupies (memory/disk) space in the form of index. When reference is not indexed,
      * the entity cannot be looked up by reference attributes or relation existence itself, but the data can be
      * fetched.
-     * deprecated in favor of `indexedInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `indexedInScopes`
      *
      * Generated from protobuf field <code>bool indexed = 9 [deprecated = true];</code>
      * @param bool $var
@@ -777,7 +831,7 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
      * Do not mark reference as faceted unless you want it among `facetStatistics`. Each faceted reference
      * occupies (memory/disk) space in the form of index.
      * Reference that was marked as faceted is called Facet.
-     * deprecated in favor of `facetedInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `facetedInScopes`
      *
      * Generated from protobuf field <code>bool faceted = 10 [deprecated = true];</code>
      * @return bool
@@ -796,7 +850,7 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
      * Do not mark reference as faceted unless you want it among `facetStatistics`. Each faceted reference
      * occupies (memory/disk) space in the form of index.
      * Reference that was marked as faceted is called Facet.
-     * deprecated in favor of `facetedInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `facetedInScopes`
      *
      * Generated from protobuf field <code>bool faceted = 10 [deprecated = true];</code>
      * @param bool $var
@@ -1271,7 +1325,7 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
      * Each indexed reference occupies (memory/disk) space in the form of index. When reference is not indexed,
      * the entity cannot be looked up by reference attributes or relation existence itself, but the data can be
      * fetched.
-     * deprecated in favor of `scopedIndexTypes`
+     * Deprecated since 2025.6 - deprecated in favor of `scopedIndexTypes`
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEntityScope indexedInScopes = 26 [deprecated = true];</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -1291,7 +1345,7 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
      * Each indexed reference occupies (memory/disk) space in the form of index. When reference is not indexed,
      * the entity cannot be looked up by reference attributes or relation existence itself, but the data can be
      * fetched.
-     * deprecated in favor of `scopedIndexTypes`
+     * Deprecated since 2025.6 - deprecated in favor of `scopedIndexTypes`
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEntityScope indexedInScopes = 26 [deprecated = true];</code>
      * @param array<int>|\Google\Protobuf\Internal\RepeatedField $var
@@ -1367,6 +1421,168 @@ class GrpcReferenceSchema extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcScopedReferenceIndexType::class);
         $this->scopedIndexTypes = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Scoped reference indexed components that specify which parts of a reference relationship
+     * (referenced entity, referenced group entity) are indexed per scope.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexedComponents scopedIndexedComponents = 29;</code>
+     * @return \Google\Protobuf\Internal\RepeatedField
+     */
+    public function getScopedIndexedComponents()
+    {
+        return $this->scopedIndexedComponents;
+    }
+
+    /**
+     * Scoped reference indexed components that specify which parts of a reference relationship
+     * (referenced entity, referenced group entity) are indexed per scope.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedReferenceIndexedComponents scopedIndexedComponents = 29;</code>
+     * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcScopedReferenceIndexedComponents>|\Google\Protobuf\Internal\RepeatedField $var
+     * @return $this
+     */
+    public function setScopedIndexedComponents($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcScopedReferenceIndexedComponents::class);
+        $this->scopedIndexedComponents = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Contains true if the indexed components property settings of the reflected reference is
+     * inherited from the target reference.
+     *
+     * Generated from protobuf field <code>bool indexedComponentsInherited = 30;</code>
+     * @return bool
+     */
+    public function getIndexedComponentsInherited()
+    {
+        return $this->indexedComponentsInherited;
+    }
+
+    /**
+     * Contains true if the indexed components property settings of the reflected reference is
+     * inherited from the target reference.
+     *
+     * Generated from protobuf field <code>bool indexedComponentsInherited = 30;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setIndexedComponentsInherited($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->indexedComponentsInherited = $var;
+
+        return $this;
+    }
+
+    /**
+     * Per-scope expressions that narrow which entities participate in faceting.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedFacetedPartially facetedPartially = 31;</code>
+     * @return \Google\Protobuf\Internal\RepeatedField
+     */
+    public function getFacetedPartially()
+    {
+        return $this->facetedPartially;
+    }
+
+    /**
+     * Per-scope expressions that narrow which entities participate in faceting.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedFacetedPartially facetedPartially = 31;</code>
+     * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcScopedFacetedPartially>|\Google\Protobuf\Internal\RepeatedField $var
+     * @return $this
+     */
+    public function setFacetedPartially($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcScopedFacetedPartially::class);
+        $this->facetedPartially = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Per-scope bucketed histogram configurations defining index name and value expression.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedHistogramIndexDefinition bucketed = 32;</code>
+     * @return \Google\Protobuf\Internal\RepeatedField
+     */
+    public function getBucketed()
+    {
+        return $this->bucketed;
+    }
+
+    /**
+     * Per-scope bucketed histogram configurations defining index name and value expression.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedHistogramIndexDefinition bucketed = 32;</code>
+     * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcScopedHistogramIndexDefinition>|\Google\Protobuf\Internal\RepeatedField $var
+     * @return $this
+     */
+    public function setBucketed($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcScopedHistogramIndexDefinition::class);
+        $this->bucketed = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Per-scope expressions that narrow which entities participate in bucketed histogram computation.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedBucketedPartially bucketedPartially = 33;</code>
+     * @return \Google\Protobuf\Internal\RepeatedField
+     */
+    public function getBucketedPartially()
+    {
+        return $this->bucketedPartially;
+    }
+
+    /**
+     * Per-scope expressions that narrow which entities participate in bucketed histogram computation.
+     *
+     * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedBucketedPartially bucketedPartially = 33;</code>
+     * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcScopedBucketedPartially>|\Google\Protobuf\Internal\RepeatedField $var
+     * @return $this
+     */
+    public function setBucketedPartially($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcScopedBucketedPartially::class);
+        $this->bucketedPartially = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Contains the per-reference override of the conflict resolution granularity. Defaults to inherited (follow the
+     * resolved conflict resolution). On reflected references this is always inherited.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 34;</code>
+     * @return int
+     */
+    public function getConflictResolutionOverride()
+    {
+        return $this->conflictResolutionOverride;
+    }
+
+    /**
+     * Contains the per-reference override of the conflict resolution granularity. Defaults to inherited (follow the
+     * resolved conflict resolution). On reflected references this is always inherited.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 34;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setConflictResolutionOverride($var)
+    {
+        GPBUtil::checkEnum($var, \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolutionOverride::class);
+        $this->conflictResolutionOverride = $var;
 
         return $this;
     }

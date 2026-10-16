@@ -17,9 +17,8 @@ use Wtsvk\EvitaDbClient\Protocol\GrpcUpsertEntityResponse;
  *
  * All calls share a single underlying EvitaDB session. Mutations are accumulated
  * server-side and committed when the enclosing transaction callable returns
- * normally; on exception the session is closed without waiting for visibility,
- * but pending mutations may still be persisted (EvitaDB does not support runtime
- * rollback at close — see EvitaDbClient::transaction docblock).
+ * normally; on exception the session is closed with rollback and all pending
+ * mutations are discarded (see EvitaDbClientInterface::writeTransaction docblock).
  */
 interface WriteTransactionContext extends ReadTransactionContext
 {

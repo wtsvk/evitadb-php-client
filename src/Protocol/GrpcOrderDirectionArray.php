@@ -16,7 +16,7 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcOrderDirectionArray extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Value that supports storing an OrderDirection array.
+     * The individual OrderDirection values, in their original order.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcOrderDirection value = 1;</code>
      */
@@ -29,7 +29,7 @@ class GrpcOrderDirectionArray extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type array<int>|\Google\Protobuf\Internal\RepeatedField $value
-     *           Value that supports storing an OrderDirection array.
+     *           The individual OrderDirection values, in their original order.
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +38,7 @@ class GrpcOrderDirectionArray extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Value that supports storing an OrderDirection array.
+     * The individual OrderDirection values, in their original order.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcOrderDirection value = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -49,7 +49,7 @@ class GrpcOrderDirectionArray extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Value that supports storing an OrderDirection array.
+     * The individual OrderDirection values, in their original order.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcOrderDirection value = 1;</code>
      * @param array<int>|\Google\Protobuf\Internal\RepeatedField $var

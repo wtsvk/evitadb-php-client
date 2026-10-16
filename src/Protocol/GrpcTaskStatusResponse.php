@@ -16,7 +16,12 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcTaskStatusResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Task status if found
+     * Status of the requested task. If no task exists for the given id, the server currently does
+     * not send this response message at all, rather than sending it with this field unset - for
+     * this unary call, that means the call does not complete normally rather than yielding an empty
+     * result (the bundled Java driver, for one, surfaces this as a `StatusRuntimeException` with
+     * status `INTERNAL`). Prefer `GetTaskStatuses` (plural) if an unknown id must not surface as an
+     * error, since it returns a normal (possibly empty) response instead.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTaskStatus taskStatus = 1;</code>
      */
@@ -29,7 +34,12 @@ class GrpcTaskStatusResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcTaskStatus $taskStatus
-     *           Task status if found
+     *           Status of the requested task. If no task exists for the given id, the server currently does
+     *           not send this response message at all, rather than sending it with this field unset - for
+     *           this unary call, that means the call does not complete normally rather than yielding an empty
+     *           result (the bundled Java driver, for one, surfaces this as a `StatusRuntimeException` with
+     *           status `INTERNAL`). Prefer `GetTaskStatuses` (plural) if an unknown id must not surface as an
+     *           error, since it returns a normal (possibly empty) response instead.
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +48,12 @@ class GrpcTaskStatusResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Task status if found
+     * Status of the requested task. If no task exists for the given id, the server currently does
+     * not send this response message at all, rather than sending it with this field unset - for
+     * this unary call, that means the call does not complete normally rather than yielding an empty
+     * result (the bundled Java driver, for one, surfaces this as a `StatusRuntimeException` with
+     * status `INTERNAL`). Prefer `GetTaskStatuses` (plural) if an unknown id must not surface as an
+     * error, since it returns a normal (possibly empty) response instead.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTaskStatus taskStatus = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcTaskStatus|null
@@ -59,7 +74,12 @@ class GrpcTaskStatusResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Task status if found
+     * Status of the requested task. If no task exists for the given id, the server currently does
+     * not send this response message at all, rather than sending it with this field unset - for
+     * this unary call, that means the call does not complete normally rather than yielding an empty
+     * result (the bundled Java driver, for one, surfaces this as a `StatusRuntimeException` with
+     * status `INTERNAL`). Prefer `GetTaskStatuses` (plural) if an unknown id must not surface as an
+     * error, since it returns a normal (possibly empty) response instead.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTaskStatus taskStatus = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcTaskStatus $var

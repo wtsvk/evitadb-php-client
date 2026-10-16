@@ -124,7 +124,8 @@ final class EvitaDbClientTest extends TestCase
             ->method('CloseSession')
             ->with(
                 static::callback(static fn (GrpcCloseRequest $request): bool =>
-                    $request->getCommitBehaviour() === GrpcCommitBehavior::WAIT_FOR_CHANGES_VISIBLE),
+                    $request->getCommitBehaviour() === GrpcCommitBehavior::WAIT_FOR_CHANGES_VISIBLE
+                    && ! $request->getRollback()),
                 static::anything(),
             )
             ->willReturn($this->createUnaryCall(null, STATUS_OK));
@@ -166,19 +167,49 @@ final class EvitaDbClientTest extends TestCase
         );
     }
 
-    public function testWriteTransactionOrphansSessionOnExceptionWithoutClosing(): void
+    public function testWriteTransactionClosesSessionWithRollbackOnException(): void
     {
         $this->mockSessionCreation();
 
         /** @var EvitaSessionServiceClient&MockObject $sessionServiceMock */
         $sessionServiceMock = static::createMock(EvitaSessionServiceClient::class);
         $sessionServiceMock
-            ->expects(static::never())
-            ->method('CloseSession');
+            ->expects(static::once())
+            ->method('CloseSession')
+            ->with(
+                static::callback(static fn (GrpcCloseRequest $request): bool => $request->getRollback()),
+                static::anything(),
+            )
+            ->willReturn($this->createUnaryCall(null, STATUS_OK));
 
         $client = new EvitaDbClient(
             evitaService: $this->evitaService,
             sessionService: $sessionServiceMock,
+            catalog: self::CATALOG,
+        );
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('callable failed');
+
+        $client->writeTransaction(
+            fn: static function (): never {
+                throw new RuntimeException('callable failed');
+            },
+        );
+    }
+
+    public function testWriteTransactionRethrowsOriginalExceptionWhenRollbackCloseFails(): void
+    {
+        $this->mockSessionCreation();
+
+        $sessionServiceStub = static::createStub(EvitaSessionServiceClient::class);
+        $sessionServiceStub
+            ->method('CloseSession')
+            ->willReturn($this->createUnaryCall(null, 14, 'unavailable'));
+
+        $client = new EvitaDbClient(
+            evitaService: $this->evitaService,
+            sessionService: $sessionServiceStub,
             catalog: self::CATALOG,
         );
 

@@ -16,7 +16,7 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcBigDecimalArray extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Value that supports storing a BigDecimal array.
+     * The individual BigDecimal elements, in their original order.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcBigDecimal value = 1;</code>
      */
@@ -29,7 +29,7 @@ class GrpcBigDecimalArray extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal>|\Google\Protobuf\Internal\RepeatedField $value
-     *           Value that supports storing a BigDecimal array.
+     *           The individual BigDecimal elements, in their original order.
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +38,7 @@ class GrpcBigDecimalArray extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Value that supports storing a BigDecimal array.
+     * The individual BigDecimal elements, in their original order.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcBigDecimal value = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -49,7 +49,7 @@ class GrpcBigDecimalArray extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Value that supports storing a BigDecimal array.
+     * The individual BigDecimal elements, in their original order.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcBigDecimal value = 1;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal>|\Google\Protobuf\Internal\RepeatedField $var

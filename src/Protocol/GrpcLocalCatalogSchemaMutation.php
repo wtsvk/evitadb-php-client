@@ -79,6 +79,10 @@ class GrpcLocalCatalogSchemaMutation extends \Google\Protobuf\Internal\Message
      *           Mutation is responsible for renaming an existing `EntitySchema`.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcRemoveEntitySchemaMutation $removeEntitySchemaMutation
      *           Mutation is responsible for removing an existing `EntitySchema` - or more precisely the entity collection instance itself.
+     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcSetAttributeSchemaConflictResolutionOverrideMutation $setAttributeSchemaConflictResolutionOverrideMutation
+     *           Mutation is responsible for setting value `AttributeSchema.conflictResolutionOverride` in `CatalogSchema`.
+     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcModifyCatalogSchemaConflictResolutionMutation $modifyCatalogSchemaConflictResolutionMutation
+     *           Mutation is responsible for setting value to a `CatalogSchema.conflictResolution` in `CatalogSchema`.
      * }
      */
     public function __construct($data = NULL) {
@@ -761,6 +765,68 @@ class GrpcLocalCatalogSchemaMutation extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcRemoveEntitySchemaMutation::class);
         $this->writeOneof(33, $var);
+
+        return $this;
+    }
+
+    /**
+     * Mutation is responsible for setting value `AttributeSchema.conflictResolutionOverride` in `CatalogSchema`.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSetAttributeSchemaConflictResolutionOverrideMutation setAttributeSchemaConflictResolutionOverrideMutation = 34;</code>
+     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcSetAttributeSchemaConflictResolutionOverrideMutation|null
+     */
+    public function getSetAttributeSchemaConflictResolutionOverrideMutation()
+    {
+        return $this->readOneof(34);
+    }
+
+    public function hasSetAttributeSchemaConflictResolutionOverrideMutation()
+    {
+        return $this->hasOneof(34);
+    }
+
+    /**
+     * Mutation is responsible for setting value `AttributeSchema.conflictResolutionOverride` in `CatalogSchema`.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSetAttributeSchemaConflictResolutionOverrideMutation setAttributeSchemaConflictResolutionOverrideMutation = 34;</code>
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcSetAttributeSchemaConflictResolutionOverrideMutation $var
+     * @return $this
+     */
+    public function setSetAttributeSchemaConflictResolutionOverrideMutation($var)
+    {
+        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcSetAttributeSchemaConflictResolutionOverrideMutation::class);
+        $this->writeOneof(34, $var);
+
+        return $this;
+    }
+
+    /**
+     * Mutation is responsible for setting value to a `CatalogSchema.conflictResolution` in `CatalogSchema`.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcModifyCatalogSchemaConflictResolutionMutation modifyCatalogSchemaConflictResolutionMutation = 35;</code>
+     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcModifyCatalogSchemaConflictResolutionMutation|null
+     */
+    public function getModifyCatalogSchemaConflictResolutionMutation()
+    {
+        return $this->readOneof(35);
+    }
+
+    public function hasModifyCatalogSchemaConflictResolutionMutation()
+    {
+        return $this->hasOneof(35);
+    }
+
+    /**
+     * Mutation is responsible for setting value to a `CatalogSchema.conflictResolution` in `CatalogSchema`.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcModifyCatalogSchemaConflictResolutionMutation modifyCatalogSchemaConflictResolutionMutation = 35;</code>
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcModifyCatalogSchemaConflictResolutionMutation $var
+     * @return $this
+     */
+    public function setModifyCatalogSchemaConflictResolutionMutation($var)
+    {
+        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcModifyCatalogSchemaConflictResolutionMutation::class);
+        $this->writeOneof(35, $var);
 
         return $this;
     }

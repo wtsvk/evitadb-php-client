@@ -25,6 +25,9 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
 {
     /**
+     * Contains unique name of the attribute. Case-sensitive. Distinguishes one attribute from another within
+     * a single entity type or, for global attributes, within the entire catalog.
+     *
      * Generated from protobuf field <code>string name = 1;</code>
      */
     protected $name = '';
@@ -45,7 +48,7 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
      * having certain value of this attribute among other entities in the same collection.
      * As an example of unique attribute can be EAN - there is no sense in having two entities with same EAN, and it's
      * better to have this ensured by the database engine.
-     * deprecated in favor of `uniqueInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `uniqueInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcAttributeUniquenessType unique = 4 [deprecated = true];</code>
      * @deprecated
@@ -57,7 +60,7 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
      * (memory/disk) space in the form of index.
      * When attribute is filterable, extra result `attributeHistogram`
      * can be requested for this attribute.
-     * deprecated in favor of `filterableInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `filterableInScopes`
      *
      * Generated from protobuf field <code>bool filterable = 5 [deprecated = true];</code>
      * @deprecated
@@ -67,7 +70,7 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
      * When attribute is sortable, it is possible to sort entities by this attribute. Do not mark attribute
      * as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
      * (memory/disk) space in the form of index..
-     * deprecated in favor of `sortableInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `sortableInScopes`
      *
      * Generated from protobuf field <code>bool sortable = 6 [deprecated = true];</code>
      * @deprecated
@@ -112,8 +115,8 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
     protected $defaultValue = null;
     /**
      * Determines how many fractional places are important when entities are compared during filtering or sorting. It is
-     * significant to know that all values of this attribute will be converted to {&#64;link java.lang.Integer}, so the attribute
-     * number must not ever exceed maximum limits of {&#64;link java.lang.Integer} type when scaling the number by the power
+     * significant to know that all values of this attribute will be converted to `Integer`, so the attribute
+     * number must not ever exceed maximum limits of `Integer` type when scaling the number by the power
      * of ten using `indexedDecimalPlaces` as exponent.
      *
      * Generated from protobuf field <code>int32 indexedDecimalPlaces = 12;</code>
@@ -124,7 +127,7 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
      * entity having certain value of this attribute in entire catalog.
      * As an example of unique attribute can be URL - there is no sense in having two entities with same URL, and it's
      * better to have this ensured by the database engine.
-     * deprecated in favor of `uniqueGloballyInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `uniqueGloballyInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcGlobalAttributeUniquenessType uniqueGlobally = 13 [deprecated = true];</code>
      * @deprecated
@@ -172,6 +175,13 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcScopedGlobalAttributeUniquenessType uniqueGloballyInScopes = 18;</code>
      */
     private $uniqueGloballyInScopes;
+    /**
+     * Contains the per-attribute override of the conflict resolution granularity. Defaults to inherited (follow the
+     * resolved conflict resolution).
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 19;</code>
+     */
+    protected $conflictResolutionOverride = 0;
 
     /**
      * Constructor.
@@ -180,6 +190,8 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $name
+     *           Contains unique name of the attribute. Case-sensitive. Distinguishes one attribute from another within
+     *           a single entity type or, for global attributes, within the entire catalog.
      *     @type \Google\Protobuf\StringValue $description
      *           optional description of the attribute
      *     @type \Google\Protobuf\StringValue $deprecationNotice
@@ -189,19 +201,19 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
      *           having certain value of this attribute among other entities in the same collection.
      *           As an example of unique attribute can be EAN - there is no sense in having two entities with same EAN, and it's
      *           better to have this ensured by the database engine.
-     *           deprecated in favor of `uniqueInScopes`
+     *           Deprecated since 2024.12 - deprecated in favor of `uniqueInScopes`
      *     @type bool $filterable
      *           When attribute is filterable, it is possible to filter entities by this attribute. Do not mark attribute
      *           as filterable unless you know that you'll search entities by this attribute. Each filterable attribute occupies
      *           (memory/disk) space in the form of index.
      *           When attribute is filterable, extra result `attributeHistogram`
      *           can be requested for this attribute.
-     *           deprecated in favor of `filterableInScopes`
+     *           Deprecated since 2024.12 - deprecated in favor of `filterableInScopes`
      *     @type bool $sortable
      *           When attribute is sortable, it is possible to sort entities by this attribute. Do not mark attribute
      *           as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
      *           (memory/disk) space in the form of index..
-     *           deprecated in favor of `sortableInScopes`
+     *           Deprecated since 2024.12 - deprecated in favor of `sortableInScopes`
      *     @type bool $localized
      *           When attribute is localized, it has to be ALWAYS used in connection with specific `Locale`.
      *     @type bool $nullable
@@ -221,15 +233,15 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
      *           non-null checks even if no attributes of such name are specified.
      *     @type int $indexedDecimalPlaces
      *           Determines how many fractional places are important when entities are compared during filtering or sorting. It is
-     *           significant to know that all values of this attribute will be converted to {&#64;link java.lang.Integer}, so the attribute
-     *           number must not ever exceed maximum limits of {&#64;link java.lang.Integer} type when scaling the number by the power
+     *           significant to know that all values of this attribute will be converted to `Integer`, so the attribute
+     *           number must not ever exceed maximum limits of `Integer` type when scaling the number by the power
      *           of ten using `indexedDecimalPlaces` as exponent.
      *     @type int $uniqueGlobally
      *           When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
      *           entity having certain value of this attribute in entire catalog.
      *           As an example of unique attribute can be URL - there is no sense in having two entities with same URL, and it's
      *           better to have this ensured by the database engine.
-     *           deprecated in favor of `uniqueGloballyInScopes`
+     *           Deprecated since 2024.12 - deprecated in favor of `uniqueGloballyInScopes`
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcNameVariant>|\Google\Protobuf\Internal\RepeatedField $nameVariant
      *           Contains attribute name converted to different naming conventions.
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcScopedAttributeUniquenessType>|\Google\Protobuf\Internal\RepeatedField $uniqueInScopes
@@ -252,6 +264,9 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
      *           entity having certain value of this attribute in entire catalog.
      *           As an example of unique attribute can be URL - there is no sense in having two entities with same URL, and it's
      *           better to have this ensured by the database engine.
+     *     @type int $conflictResolutionOverride
+     *           Contains the per-attribute override of the conflict resolution granularity. Defaults to inherited (follow the
+     *           resolved conflict resolution).
      * }
      */
     public function __construct($data = NULL) {
@@ -260,6 +275,9 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     * Contains unique name of the attribute. Case-sensitive. Distinguishes one attribute from another within
+     * a single entity type or, for global attributes, within the entire catalog.
+     *
      * Generated from protobuf field <code>string name = 1;</code>
      * @return string
      */
@@ -269,6 +287,9 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     * Contains unique name of the attribute. Case-sensitive. Distinguishes one attribute from another within
+     * a single entity type or, for global attributes, within the entire catalog.
+     *
      * Generated from protobuf field <code>string name = 1;</code>
      * @param string $var
      * @return $this
@@ -412,7 +433,7 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
      * having certain value of this attribute among other entities in the same collection.
      * As an example of unique attribute can be EAN - there is no sense in having two entities with same EAN, and it's
      * better to have this ensured by the database engine.
-     * deprecated in favor of `uniqueInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `uniqueInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcAttributeUniquenessType unique = 4 [deprecated = true];</code>
      * @return int
@@ -429,7 +450,7 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
      * having certain value of this attribute among other entities in the same collection.
      * As an example of unique attribute can be EAN - there is no sense in having two entities with same EAN, and it's
      * better to have this ensured by the database engine.
-     * deprecated in favor of `uniqueInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `uniqueInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcAttributeUniquenessType unique = 4 [deprecated = true];</code>
      * @param int $var
@@ -451,7 +472,7 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
      * (memory/disk) space in the form of index.
      * When attribute is filterable, extra result `attributeHistogram`
      * can be requested for this attribute.
-     * deprecated in favor of `filterableInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `filterableInScopes`
      *
      * Generated from protobuf field <code>bool filterable = 5 [deprecated = true];</code>
      * @return bool
@@ -469,7 +490,7 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
      * (memory/disk) space in the form of index.
      * When attribute is filterable, extra result `attributeHistogram`
      * can be requested for this attribute.
-     * deprecated in favor of `filterableInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `filterableInScopes`
      *
      * Generated from protobuf field <code>bool filterable = 5 [deprecated = true];</code>
      * @param bool $var
@@ -489,7 +510,7 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
      * When attribute is sortable, it is possible to sort entities by this attribute. Do not mark attribute
      * as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
      * (memory/disk) space in the form of index..
-     * deprecated in favor of `sortableInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `sortableInScopes`
      *
      * Generated from protobuf field <code>bool sortable = 6 [deprecated = true];</code>
      * @return bool
@@ -505,7 +526,7 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
      * When attribute is sortable, it is possible to sort entities by this attribute. Do not mark attribute
      * as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
      * (memory/disk) space in the form of index..
-     * deprecated in favor of `sortableInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `sortableInScopes`
      *
      * Generated from protobuf field <code>bool sortable = 6 [deprecated = true];</code>
      * @param bool $var
@@ -677,8 +698,8 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
 
     /**
      * Determines how many fractional places are important when entities are compared during filtering or sorting. It is
-     * significant to know that all values of this attribute will be converted to {&#64;link java.lang.Integer}, so the attribute
-     * number must not ever exceed maximum limits of {&#64;link java.lang.Integer} type when scaling the number by the power
+     * significant to know that all values of this attribute will be converted to `Integer`, so the attribute
+     * number must not ever exceed maximum limits of `Integer` type when scaling the number by the power
      * of ten using `indexedDecimalPlaces` as exponent.
      *
      * Generated from protobuf field <code>int32 indexedDecimalPlaces = 12;</code>
@@ -691,8 +712,8 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
 
     /**
      * Determines how many fractional places are important when entities are compared during filtering or sorting. It is
-     * significant to know that all values of this attribute will be converted to {&#64;link java.lang.Integer}, so the attribute
-     * number must not ever exceed maximum limits of {&#64;link java.lang.Integer} type when scaling the number by the power
+     * significant to know that all values of this attribute will be converted to `Integer`, so the attribute
+     * number must not ever exceed maximum limits of `Integer` type when scaling the number by the power
      * of ten using `indexedDecimalPlaces` as exponent.
      *
      * Generated from protobuf field <code>int32 indexedDecimalPlaces = 12;</code>
@@ -712,7 +733,7 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
      * entity having certain value of this attribute in entire catalog.
      * As an example of unique attribute can be URL - there is no sense in having two entities with same URL, and it's
      * better to have this ensured by the database engine.
-     * deprecated in favor of `uniqueGloballyInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `uniqueGloballyInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcGlobalAttributeUniquenessType uniqueGlobally = 13 [deprecated = true];</code>
      * @return int
@@ -729,7 +750,7 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
      * entity having certain value of this attribute in entire catalog.
      * As an example of unique attribute can be URL - there is no sense in having two entities with same URL, and it's
      * better to have this ensured by the database engine.
-     * deprecated in favor of `uniqueGloballyInScopes`
+     * Deprecated since 2024.12 - deprecated in favor of `uniqueGloballyInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcGlobalAttributeUniquenessType uniqueGlobally = 13 [deprecated = true];</code>
      * @param int $var
@@ -895,6 +916,34 @@ class GrpcGlobalAttributeSchema extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Wtsvk\EvitaDbClient\Protocol\GrpcScopedGlobalAttributeUniquenessType::class);
         $this->uniqueGloballyInScopes = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Contains the per-attribute override of the conflict resolution granularity. Defaults to inherited (follow the
+     * resolved conflict resolution).
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 19;</code>
+     * @return int
+     */
+    public function getConflictResolutionOverride()
+    {
+        return $this->conflictResolutionOverride;
+    }
+
+    /**
+     * Contains the per-attribute override of the conflict resolution granularity. Defaults to inherited (follow the
+     * resolved conflict resolution).
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 19;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setConflictResolutionOverride($var)
+    {
+        GPBUtil::checkEnum($var, \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolutionOverride::class);
+        $this->conflictResolutionOverride = $var;
 
         return $this;
     }

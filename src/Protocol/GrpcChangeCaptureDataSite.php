@@ -10,37 +10,43 @@ use Google\Protobuf\Internal\GPBUtil;
 
 /**
  * Record describing the location and form of the CDC data event in the evitaDB that should be captured.
+ * Every field below is an independent, optional filter (logically ANDed together when several are set); an
+ * unset/empty field imposes no restriction on that dimension.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureDataSite</code>
  */
 class GrpcChangeCaptureDataSite extends \Google\Protobuf\Internal\Message
 {
     /**
-     * the name of the intercepted entity type
+     * Restricts capture to mutations of the named entity type. If `null`, matches data mutations for any entity
+     * type.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue entityType = 1;</code>
      */
     protected $entityType = null;
     /**
-     * the primary key of the intercepted entity
+     * Restricts capture to mutations of the entity with this primary key. If `null`, matches any primary key
+     * within the entity type filter above.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value entityPrimaryKey = 2;</code>
      */
     protected $entityPrimaryKey = null;
     /**
-     * the intercepted type of operation
+     * Restricts capture to the listed operation types. If empty, matches any operation.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureOperation operation = 3;</code>
      */
     private $operation;
     /**
-     * the name of the intercepted container type
+     * Restricts capture to the listed container types (e.g. attribute, associated data, reference). If empty,
+     * matches any container type.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureContainerType containerType = 4;</code>
      */
     private $containerType;
     /**
-     * the name of the container (e.g. attribute name, associated data name, reference name)
+     * Restricts capture to containers with one of the listed names (e.g. attribute name, associated data name,
+     * reference name). If empty, matches containers of any name.
      *
      * Generated from protobuf field <code>repeated string containerName = 5;</code>
      */
@@ -53,15 +59,19 @@ class GrpcChangeCaptureDataSite extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Google\Protobuf\StringValue $entityType
-     *           the name of the intercepted entity type
+     *           Restricts capture to mutations of the named entity type. If `null`, matches data mutations for any entity
+     *           type.
      *     @type \Google\Protobuf\Int32Value $entityPrimaryKey
-     *           the primary key of the intercepted entity
+     *           Restricts capture to mutations of the entity with this primary key. If `null`, matches any primary key
+     *           within the entity type filter above.
      *     @type array<int>|\Google\Protobuf\Internal\RepeatedField $operation
-     *           the intercepted type of operation
+     *           Restricts capture to the listed operation types. If empty, matches any operation.
      *     @type array<int>|\Google\Protobuf\Internal\RepeatedField $containerType
-     *           the name of the intercepted container type
+     *           Restricts capture to the listed container types (e.g. attribute, associated data, reference). If empty,
+     *           matches any container type.
      *     @type array<string>|\Google\Protobuf\Internal\RepeatedField $containerName
-     *           the name of the container (e.g. attribute name, associated data name, reference name)
+     *           Restricts capture to containers with one of the listed names (e.g. attribute name, associated data name,
+     *           reference name). If empty, matches containers of any name.
      * }
      */
     public function __construct($data = NULL) {
@@ -70,7 +80,8 @@ class GrpcChangeCaptureDataSite extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * the name of the intercepted entity type
+     * Restricts capture to mutations of the named entity type. If `null`, matches data mutations for any entity
+     * type.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue entityType = 1;</code>
      * @return \Google\Protobuf\StringValue|null
@@ -93,7 +104,8 @@ class GrpcChangeCaptureDataSite extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getEntityType()</code>
 
-     * the name of the intercepted entity type
+     * Restricts capture to mutations of the named entity type. If `null`, matches data mutations for any entity
+     * type.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue entityType = 1;</code>
      * @return string|null
@@ -104,7 +116,8 @@ class GrpcChangeCaptureDataSite extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * the name of the intercepted entity type
+     * Restricts capture to mutations of the named entity type. If `null`, matches data mutations for any entity
+     * type.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue entityType = 1;</code>
      * @param \Google\Protobuf\StringValue $var
@@ -121,7 +134,8 @@ class GrpcChangeCaptureDataSite extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\StringValue object.
 
-     * the name of the intercepted entity type
+     * Restricts capture to mutations of the named entity type. If `null`, matches data mutations for any entity
+     * type.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue entityType = 1;</code>
      * @param string|null $var
@@ -133,7 +147,8 @@ class GrpcChangeCaptureDataSite extends \Google\Protobuf\Internal\Message
         return $this;}
 
     /**
-     * the primary key of the intercepted entity
+     * Restricts capture to mutations of the entity with this primary key. If `null`, matches any primary key
+     * within the entity type filter above.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value entityPrimaryKey = 2;</code>
      * @return \Google\Protobuf\Int32Value|null
@@ -156,7 +171,8 @@ class GrpcChangeCaptureDataSite extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getEntityPrimaryKey()</code>
 
-     * the primary key of the intercepted entity
+     * Restricts capture to mutations of the entity with this primary key. If `null`, matches any primary key
+     * within the entity type filter above.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value entityPrimaryKey = 2;</code>
      * @return int|null
@@ -167,7 +183,8 @@ class GrpcChangeCaptureDataSite extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * the primary key of the intercepted entity
+     * Restricts capture to mutations of the entity with this primary key. If `null`, matches any primary key
+     * within the entity type filter above.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value entityPrimaryKey = 2;</code>
      * @param \Google\Protobuf\Int32Value $var
@@ -184,7 +201,8 @@ class GrpcChangeCaptureDataSite extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int32Value object.
 
-     * the primary key of the intercepted entity
+     * Restricts capture to mutations of the entity with this primary key. If `null`, matches any primary key
+     * within the entity type filter above.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value entityPrimaryKey = 2;</code>
      * @param int|null $var
@@ -196,7 +214,7 @@ class GrpcChangeCaptureDataSite extends \Google\Protobuf\Internal\Message
         return $this;}
 
     /**
-     * the intercepted type of operation
+     * Restricts capture to the listed operation types. If empty, matches any operation.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureOperation operation = 3;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -207,7 +225,7 @@ class GrpcChangeCaptureDataSite extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * the intercepted type of operation
+     * Restricts capture to the listed operation types. If empty, matches any operation.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureOperation operation = 3;</code>
      * @param array<int>|\Google\Protobuf\Internal\RepeatedField $var
@@ -222,7 +240,8 @@ class GrpcChangeCaptureDataSite extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * the name of the intercepted container type
+     * Restricts capture to the listed container types (e.g. attribute, associated data, reference). If empty,
+     * matches any container type.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureContainerType containerType = 4;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -233,7 +252,8 @@ class GrpcChangeCaptureDataSite extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * the name of the intercepted container type
+     * Restricts capture to the listed container types (e.g. attribute, associated data, reference). If empty,
+     * matches any container type.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureContainerType containerType = 4;</code>
      * @param array<int>|\Google\Protobuf\Internal\RepeatedField $var
@@ -248,7 +268,8 @@ class GrpcChangeCaptureDataSite extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * the name of the container (e.g. attribute name, associated data name, reference name)
+     * Restricts capture to containers with one of the listed names (e.g. attribute name, associated data name,
+     * reference name). If empty, matches containers of any name.
      *
      * Generated from protobuf field <code>repeated string containerName = 5;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -259,7 +280,8 @@ class GrpcChangeCaptureDataSite extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * the name of the container (e.g. attribute name, associated data name, reference name)
+     * Restricts capture to containers with one of the listed names (e.g. attribute name, associated data name,
+     * reference name). If empty, matches containers of any name.
      *
      * Generated from protobuf field <code>repeated string containerName = 5;</code>
      * @param array<string>|\Google\Protobuf\Internal\RepeatedField $var

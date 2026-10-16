@@ -35,11 +35,12 @@ class GrpcBucket extends \Google\Protobuf\Internal\Message
      */
     protected $requested = false;
     /**
-     * Relative frequency value used for visualization purposes.
-     * For standard histograms: percentage of total occurrences (0-100).
-     * For equalized histograms: normalized value density (0-100) accounting for both
-     * occurrences and bucket width, scaled so all buckets sum to 100. Higher values
-     * indicate denser data concentration in this bucket.
+     * Rendering intensity of the bucket's bar, on a 0-100 scale. Never a count and never a probability.
+     * For standard histograms: percentage of total occurrences, summing to 100 across the histogram.
+     * For equalized histograms: the smoothed value density at the bucket, normalised against the maximum
+     * of the density curve, so the value lies in (0, 100] where 100 is the tallest point of the
+     * distribution. These values do NOT sum to 100 and there are no empty buckets - scale bars against
+     * the constant 100, never against the sum or the tallest returned bucket.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal relativeFrequency = 5;</code>
      */
@@ -59,11 +60,12 @@ class GrpcBucket extends \Google\Protobuf\Internal\Message
      *     @type bool $requested
      *           Contains true if the `bucket` is overlapping the attribute between filtering constraint
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal $relativeFrequency
-     *           Relative frequency value used for visualization purposes.
-     *           For standard histograms: percentage of total occurrences (0-100).
-     *           For equalized histograms: normalized value density (0-100) accounting for both
-     *           occurrences and bucket width, scaled so all buckets sum to 100. Higher values
-     *           indicate denser data concentration in this bucket.
+     *           Rendering intensity of the bucket's bar, on a 0-100 scale. Never a count and never a probability.
+     *           For standard histograms: percentage of total occurrences, summing to 100 across the histogram.
+     *           For equalized histograms: the smoothed value density at the bucket, normalised against the maximum
+     *           of the density curve, so the value lies in (0, 100] where 100 is the tallest point of the
+     *           distribution. These values do NOT sum to 100 and there are no empty buckets - scale bars against
+     *           the constant 100, never against the sum or the tallest returned bucket.
      * }
      */
     public function __construct($data = NULL) {
@@ -162,11 +164,12 @@ class GrpcBucket extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Relative frequency value used for visualization purposes.
-     * For standard histograms: percentage of total occurrences (0-100).
-     * For equalized histograms: normalized value density (0-100) accounting for both
-     * occurrences and bucket width, scaled so all buckets sum to 100. Higher values
-     * indicate denser data concentration in this bucket.
+     * Rendering intensity of the bucket's bar, on a 0-100 scale. Never a count and never a probability.
+     * For standard histograms: percentage of total occurrences, summing to 100 across the histogram.
+     * For equalized histograms: the smoothed value density at the bucket, normalised against the maximum
+     * of the density curve, so the value lies in (0, 100] where 100 is the tallest point of the
+     * distribution. These values do NOT sum to 100 and there are no empty buckets - scale bars against
+     * the constant 100, never against the sum or the tallest returned bucket.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal relativeFrequency = 5;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal|null
@@ -187,11 +190,12 @@ class GrpcBucket extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Relative frequency value used for visualization purposes.
-     * For standard histograms: percentage of total occurrences (0-100).
-     * For equalized histograms: normalized value density (0-100) accounting for both
-     * occurrences and bucket width, scaled so all buckets sum to 100. Higher values
-     * indicate denser data concentration in this bucket.
+     * Rendering intensity of the bucket's bar, on a 0-100 scale. Never a count and never a probability.
+     * For standard histograms: percentage of total occurrences, summing to 100 across the histogram.
+     * For equalized histograms: the smoothed value density at the bucket, normalised against the maximum
+     * of the density curve, so the value lies in (0, 100] where 100 is the tallest point of the
+     * distribution. These values do NOT sum to 100 and there are no empty buckets - scale bars against
+     * the constant 100, never against the sum or the tallest returned bucket.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal relativeFrequency = 5;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal $var

@@ -20,7 +20,7 @@ class GrpcTrafficRecordingType
      */
     const TRAFFIC_RECORDING_SESSION_START = 0;
     /**
-     ** evitaDB session closed.
+     * evitaDB session closed.
      *
      * Generated from protobuf enum <code>TRAFFIC_RECORDING_SESSION_FINISH = 1;</code>
      */

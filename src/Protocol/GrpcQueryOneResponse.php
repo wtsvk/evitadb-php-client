@@ -9,26 +9,34 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Response for query request executed when searched for exactly one entity. The used field is decided by the require block in the query.
+ * Response for a query executed via QueryOne, i.e. expecting zero or one matching entity. At most one of
+ * `entityReference`/`sealedEntity`/`binaryEntity` is populated. If an entity matched, which one is chosen
+ * the same way as in `GrpcDataChunk`: no `entityFetch` requirement in the query's `require` block yields
+ * `entityReference`; an `entityFetch` requirement yields `sealedEntity` (structured form) or `binaryEntity`
+ * (binary storage form), depending on whether the session uses the binary storage format. If no entity
+ * matched the query, all three fields are left unset - this is not an error.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcQueryOneResponse</code>
  */
 class GrpcQueryOneResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Entity reference of the found entity.
+     * The matched entity as a reference (type + primary key only). See the message-level comment for when
+     * this field (vs. the other two) is populated.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntityReference entityReference = 1;</code>
      */
     protected $entityReference = null;
     /**
-     * Sealed entity of the found entity.
+     * The matched entity, fully fetched in structured (non-binary) form. See the message-level comment for
+     * when this field (vs. the other two) is populated.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity sealedEntity = 2;</code>
      */
     protected $sealedEntity = null;
     /**
-     * Binary entity of the found entity.
+     * The matched entity, fully fetched in the server's binary storage format. See the message-level comment
+     * for when this field (vs. the other two) is populated.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBinaryEntity binaryEntity = 3;</code>
      */
@@ -41,11 +49,14 @@ class GrpcQueryOneResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcEntityReference $entityReference
-     *           Entity reference of the found entity.
+     *           The matched entity as a reference (type + primary key only). See the message-level comment for when
+     *           this field (vs. the other two) is populated.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity $sealedEntity
-     *           Sealed entity of the found entity.
+     *           The matched entity, fully fetched in structured (non-binary) form. See the message-level comment for
+     *           when this field (vs. the other two) is populated.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcBinaryEntity $binaryEntity
-     *           Binary entity of the found entity.
+     *           The matched entity, fully fetched in the server's binary storage format. See the message-level comment
+     *           for when this field (vs. the other two) is populated.
      * }
      */
     public function __construct($data = NULL) {
@@ -54,7 +65,8 @@ class GrpcQueryOneResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Entity reference of the found entity.
+     * The matched entity as a reference (type + primary key only). See the message-level comment for when
+     * this field (vs. the other two) is populated.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntityReference entityReference = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcEntityReference|null
@@ -75,7 +87,8 @@ class GrpcQueryOneResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Entity reference of the found entity.
+     * The matched entity as a reference (type + primary key only). See the message-level comment for when
+     * this field (vs. the other two) is populated.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntityReference entityReference = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcEntityReference $var
@@ -90,7 +103,8 @@ class GrpcQueryOneResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Sealed entity of the found entity.
+     * The matched entity, fully fetched in structured (non-binary) form. See the message-level comment for
+     * when this field (vs. the other two) is populated.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity sealedEntity = 2;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity|null
@@ -111,7 +125,8 @@ class GrpcQueryOneResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Sealed entity of the found entity.
+     * The matched entity, fully fetched in structured (non-binary) form. See the message-level comment for
+     * when this field (vs. the other two) is populated.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity sealedEntity = 2;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity $var
@@ -126,7 +141,8 @@ class GrpcQueryOneResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Binary entity of the found entity.
+     * The matched entity, fully fetched in the server's binary storage format. See the message-level comment
+     * for when this field (vs. the other two) is populated.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBinaryEntity binaryEntity = 3;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcBinaryEntity|null
@@ -147,7 +163,8 @@ class GrpcQueryOneResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Binary entity of the found entity.
+     * The matched entity, fully fetched in the server's binary storage format. See the message-level comment
+     * for when this field (vs. the other two) is populated.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBinaryEntity binaryEntity = 3;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcBinaryEntity $var

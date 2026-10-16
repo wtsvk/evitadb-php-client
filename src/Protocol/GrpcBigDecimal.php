@@ -16,7 +16,10 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcBigDecimal extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The string serialized value.
+     * The decimal value serialized as a string in the canonical form produced by
+     * `BigDecimal#toString()`, with the exponent marker lower-cased and its `+` sign stripped
+     * (e.g. `2.5e8` rather than `2.5E+8`). Preserves the original scale so the value round-trips
+     * exactly.
      *
      * Generated from protobuf field <code>string valueString = 1;</code>
      */
@@ -29,7 +32,10 @@ class GrpcBigDecimal extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $valueString
-     *           The string serialized value.
+     *           The decimal value serialized as a string in the canonical form produced by
+     *           `BigDecimal#toString()`, with the exponent marker lower-cased and its `+` sign stripped
+     *           (e.g. `2.5e8` rather than `2.5E+8`). Preserves the original scale so the value round-trips
+     *           exactly.
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +44,10 @@ class GrpcBigDecimal extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The string serialized value.
+     * The decimal value serialized as a string in the canonical form produced by
+     * `BigDecimal#toString()`, with the exponent marker lower-cased and its `+` sign stripped
+     * (e.g. `2.5e8` rather than `2.5E+8`). Preserves the original scale so the value round-trips
+     * exactly.
      *
      * Generated from protobuf field <code>string valueString = 1;</code>
      * @return string
@@ -49,7 +58,10 @@ class GrpcBigDecimal extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The string serialized value.
+     * The decimal value serialized as a string in the canonical form produced by
+     * `BigDecimal#toString()`, with the exponent marker lower-cased and its `+` sign stripped
+     * (e.g. `2.5e8` rather than `2.5E+8`). Preserves the original scale so the value round-trips
+     * exactly.
      *
      * Generated from protobuf field <code>string valueString = 1;</code>
      * @param string $var

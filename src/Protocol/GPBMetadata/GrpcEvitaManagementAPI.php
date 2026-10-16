@@ -20,7 +20,7 @@ class GrpcEvitaManagementAPI
         \GPBMetadata\Google\Protobuf\Wrappers::initOnce();
         $pool->internalAddGeneratedFile(
             '
-í/
+Ú2
 GrpcEvitaManagementAPI.proto%io.evitadb.externalApi.grpc.generatedGrpcEnums.protoGrpcEvitaDataTypes.protogoogle/protobuf/wrappers.proto"Ú
 GrpcEvitaServerStatusResponse
 version (	L
@@ -52,7 +52,13 @@ catalogsOk (BP
 name (	
 url (	"7
 GrpcEvitaConfigurationResponse
-configuration (	"}
+configuration (	"õ
+GrpcEvitaEngineSettingsResponseY
+conflictResolution (2=.io.evitadb.externalApi.grpc.generated.GrpcConflictResolution
+timeTravelEnabled ( 
+changeDataCaptureEnabled (
+trafficRecordingEnabled (
+queryCacheEnabled ("}
 "GrpcEvitaCatalogStatisticsResponseW
 catalogStatistics (2<.io.evitadb.externalApi.grpc.generated.GrpcCatalogStatistics"D
 GrpcRestoreCatalogRequest
@@ -132,10 +138,11 @@ pageNumber (E
 classifier (	
 words (	"l
 GrpcReservedKeywordsResponseL
-keywords (2:.io.evitadb.externalApi.grpc.generated.GrpcReservedKeyword2ƒ
+keywords (2:.io.evitadb.externalApi.grpc.generated.GrpcReservedKeyword2ø
 EvitaManagementServicel
 ServerStatus.google.protobuf.EmptyD.io.evitadb.externalApi.grpc.generated.GrpcEvitaServerStatusResponseq
-GetConfiguration.google.protobuf.EmptyE.io.evitadb.externalApi.grpc.generated.GrpcEvitaConfigurationResponsey
+GetConfiguration.google.protobuf.EmptyE.io.evitadb.externalApi.grpc.generated.GrpcEvitaConfigurationResponses
+GetEngineSettings.google.protobuf.EmptyF.io.evitadb.externalApi.grpc.generated.GrpcEvitaEngineSettingsResponsey
 GetCatalogStatistics.google.protobuf.EmptyI.io.evitadb.externalApi.grpc.generated.GrpcEvitaCatalogStatisticsResponse—
 RestoreCatalog@.io.evitadb.externalApi.grpc.generated.GrpcRestoreCatalogRequestA.io.evitadb.externalApi.grpc.generated.GrpcRestoreCatalogResponse(¤
 RestoreCatalogUnaryE.io.evitadb.externalApi.grpc.generated.GrpcRestoreCatalogUnaryRequestF.io.evitadb.externalApi.grpc.generated.GrpcRestoreCatalogUnaryResponse±

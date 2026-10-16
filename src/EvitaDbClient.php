@@ -69,7 +69,13 @@ final class EvitaDbClient implements EvitaDbClientInterface
             catalog: $this->catalog,
         );
 
-        $result = $fn($context);
+        try {
+            $result = $fn($context);
+        } catch (Throwable $e) {
+            $this->rollbackSession($sessionId);
+
+            throw $e;
+        }
 
         $this->closeSession(
             sessionId: $sessionId,
@@ -151,21 +157,47 @@ final class EvitaDbClient implements EvitaDbClientInterface
     }
 
     /**
-     * Closes the session via gRPC `Close()` (which always commits server-side).
+     * Closes the session via gRPC `Close()` with `rollback: true`, so the server
+     * discards all pending mutations immediately.
+     *
+     * Close failures are swallowed: the exception thrown by the callable is the
+     * one the consumer needs to see, and a session whose close failed is still
+     * discarded by the server's session timeout (it is never committed).
+     */
+    private function rollbackSession(string $sessionId): void
+    {
+        try {
+            $this->closeSession(
+                sessionId: $sessionId,
+                commitBehavior: SessionCommitBehavior::WaitForConflictResolution,
+                rollback: true,
+            );
+        } catch (Throwable) {
+            // Intentionally ignored — see docblock.
+        }
+    }
+
+    /**
+     * Closes the session via gRPC `Close()` — commits server-side, or discards
+     * pending mutations when `$rollback` is true.
      *
      * Failures propagate so the caller of `writeTransaction()` learns when a
-     * commit didn't actually happen. Caller in `readTransaction()` wraps this
-     * in its own try/catch to swallow read-only close failures.
+     * commit didn't actually happen. Callers in `readTransaction()` and
+     * `rollbackSession()` wrap this in their own try/catch to swallow close failures.
      *
      * @throws EvitaDbConnectionException Transport-level failure of the close call.
      * @throws EvitaDbStatusException Server returned a non-OK status on close.
      */
-    private function closeSession(string $sessionId, SessionCommitBehavior $commitBehavior): void
-    {
+    private function closeSession(
+        string $sessionId,
+        SessionCommitBehavior $commitBehavior,
+        bool $rollback = false,
+    ): void {
         try {
             $request = new GrpcCloseRequest();
             $request->setCatalogName($this->catalog);
             $request->setCommitBehaviour($commitBehavior->value);
+            $request->setRollback($rollback);
 
             [, $rawStatus] = $this->sessionService
                 ->CloseSession($request, $this->sessionMeta($sessionId))

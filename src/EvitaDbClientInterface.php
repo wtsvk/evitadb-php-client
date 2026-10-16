@@ -14,11 +14,12 @@ interface EvitaDbClientInterface
     /**
      * Open a read-write session, run the callable, commit on normal return.
      *
-     * On exception inside the callable, the session is intentionally orphaned:
-     * the EvitaDB server's gRPC Close() RPC has no rollback semantics — calling
-     * it always commits. The only way to roll back pending mutations over gRPC
-     * is to let the server's session timeout discard the buffered transaction.
-     * To get a deterministic rollback regardless of outcome, pass $dryRun=true.
+     * On exception inside the callable, the session is closed with the gRPC
+     * Close() `rollback` flag set, so the server discards all pending mutations
+     * immediately; the original exception is then rethrown unchanged. If that
+     * rollback close itself fails, the failure is swallowed — the session is
+     * never committed and the server's session timeout discards it.
+     * To discard changes regardless of outcome, pass $dryRun=true.
      *
      * If the callable returns normally but the close call fails (transport
      * error or non-OK status), an EvitaDbConnectionException / EvitaDbStatusException

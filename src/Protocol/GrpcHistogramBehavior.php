@@ -31,19 +31,21 @@ class GrpcHistogramBehavior
      */
     const OPTIMIZED = 1;
     /**
-     * Histogram always contains the number of buckets you asked for.
-     * Bucket boundaries are positioned based on cumulative frequency distribution, so each bucket covers
-     * approximately equal portion of total records.
+     * Histogram will never contain more buckets than you asked for, and contains fewer whenever a single value is held
+     * by so many entities that it collapses several quantile intervals into one.
+     * Bucket boundaries are positioned on the empirical quantile function, so each bucket covers approximately equal
+     * portion of total records. Every boundary is a value the data actually contains, so no bucket is ever empty.
+     * `relativeFrequency` carries the smoothed value density normalised to the curve maximum, in the range (0, 100].
      *
      * Generated from protobuf enum <code>EQUALIZED = 2;</code>
      */
     const EQUALIZED = 2;
     /**
-     * Histogram will never contain more buckets than you asked for, but may contain less when the data is scarce.
-     * Bucket boundaries are positioned based on cumulative frequency distribution, so each bucket covers
-     * approximately equal portion of total records.
+     * Deprecated: use EQUALIZED instead. Identical to EQUALIZED - the equalised algorithm never emits an empty bucket,
+     * so there is nothing for the "optimized" variant to drop; the constant is kept because it is part of the published
+     * query grammar.
      *
-     * Generated from protobuf enum <code>EQUALIZED_OPTIMIZED = 3;</code>
+     * Generated from protobuf enum <code>EQUALIZED_OPTIMIZED = 3 [deprecated = true];</code>
      */
     const EQUALIZED_OPTIMIZED = 3;
 

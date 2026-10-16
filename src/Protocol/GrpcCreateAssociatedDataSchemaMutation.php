@@ -59,6 +59,12 @@ class GrpcCreateAssociatedDataSchemaMutation extends \Google\Protobuf\Internal\M
      * Generated from protobuf field <code>bool nullable = 6;</code>
      */
     protected $nullable = false;
+    /**
+     * The per-associated-data override of the conflict resolution granularity.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 7;</code>
+     */
+    protected $conflictResolutionOverride = 0;
 
     /**
      * Constructor.
@@ -85,6 +91,8 @@ class GrpcCreateAssociatedDataSchemaMutation extends \Google\Protobuf\Internal\M
      *     @type bool $nullable
      *           When associated data is nullable, its values may be missing in the entities. Otherwise, the system will enforce
      *           non-null checks upon upserting of the entity.
+     *     @type int $conflictResolutionOverride
+     *           The per-associated-data override of the conflict resolution granularity.
      * }
      */
     public function __construct($data = NULL) {
@@ -336,6 +344,32 @@ class GrpcCreateAssociatedDataSchemaMutation extends \Google\Protobuf\Internal\M
     {
         GPBUtil::checkBool($var);
         $this->nullable = $var;
+
+        return $this;
+    }
+
+    /**
+     * The per-associated-data override of the conflict resolution granularity.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 7;</code>
+     * @return int
+     */
+    public function getConflictResolutionOverride()
+    {
+        return $this->conflictResolutionOverride;
+    }
+
+    /**
+     * The per-associated-data override of the conflict resolution granularity.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 7;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setConflictResolutionOverride($var)
+    {
+        GPBUtil::checkEnum($var, \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolutionOverride::class);
+        $this->conflictResolutionOverride = $var;
 
         return $this;
     }
