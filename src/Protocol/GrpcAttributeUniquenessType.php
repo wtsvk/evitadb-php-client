@@ -7,7 +7,7 @@ namespace Wtsvk\EvitaDbClient\Protocol;
 use UnexpectedValueException;
 
 /**
- * This enum represents the uniqueness type of an {&#64;link AttributeSchema}. It is used to determine whether the attribute
+ * This enum represents the uniqueness type of an `AttributeSchema`. It is used to determine whether the attribute
  * value must be unique among all the entity attributes of this type or whether it must be unique only among attributes
  * of the same locale.
  *
@@ -28,7 +28,7 @@ class GrpcAttributeUniquenessType
      */
     const UNIQUE_WITHIN_COLLECTION = 1;
     /**
-     * The localized attribute value must be unique among all values of the same {&#64;link Locale} among all the entities
+     * The localized attribute value must be unique among all values of the same `Locale` among all the entities
      * using of the same collection.
      *
      * Generated from protobuf enum <code>UNIQUE_WITHIN_COLLECTION_LOCALE = 2;</code>

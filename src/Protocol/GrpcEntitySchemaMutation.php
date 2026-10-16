@@ -47,6 +47,9 @@ class GrpcEntitySchemaMutation extends \Google\Protobuf\Internal\Message
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcSetAssociatedDataSchemaNullableMutation $setAssociatedDataSchemaNullableMutation
      *           Mutation is responsible for setting value to a `AssociatedDataSchema.nullable` in `EntitySchema`.
      *           Mutation can be used for altering also the existing `AssociatedDataSchema` alone.
+     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcSetAssociatedDataSchemaConflictResolutionOverrideMutation $setAssociatedDataSchemaConflictResolutionOverrideMutation
+     *           Mutation is responsible for setting value to a `AssociatedDataSchema.conflictResolutionOverride` in `EntitySchema`.
+     *           Mutation can be used for altering also the existing `AssociatedDataSchema` alone.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcCreateAttributeSchemaMutation $createAttributeSchemaMutation
      *           Mutation is responsible for setting up a new `AttributeSchema` in the `EntitySchema`.
      *           Mutation can be used for altering also the existing `AttributeSchema` alone.
@@ -88,6 +91,8 @@ class GrpcEntitySchemaMutation extends \Google\Protobuf\Internal\Message
      *           Mutation can be used for altering also the existing `AttributeSchema` or `GlobalAttributeSchema` alone.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcUseGlobalAttributeSchemaMutation $useGlobalAttributeSchemaMutation
      *           Mutation is responsible for introducing a `GlobalAttributeSchema` into an `EvitaSession`.
+     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcSetAttributeSchemaConflictResolutionOverrideMutation $setAttributeSchemaConflictResolutionOverrideMutation
+     *           Mutation is responsible for setting value `AttributeSchema.conflictResolutionOverride` in `EntitySchema`.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcAllowCurrencyInEntitySchemaMutation $allowCurrencyInEntitySchemaMutation
      *           Mutation is responsible for adding one or more currencies to a `EntitySchema.currencies` in `EntitySchema`.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcAllowEvolutionModeInEntitySchemaMutation $allowEvolutionModeInEntitySchemaMutation
@@ -118,6 +123,8 @@ class GrpcEntitySchemaMutation extends \Google\Protobuf\Internal\Message
      *           Mutation is responsible for setting up a new `EntitySchema` in the `CatalogSchema`.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcModifyEntitySchemaMutation $modifyEntitySchemaMutation
      *           Mutation is responsible for modifying existing `EntitySchema` in the `CatalogSchema`.
+     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcModifyEntitySchemaConflictResolutionMutation $modifyEntitySchemaConflictResolutionMutation
+     *           Mutation is responsible for setting value to a `EntitySchema.conflictResolution` in `EntitySchema`.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcCreateReferenceSchemaMutation $createReferenceSchemaMutation
      *           Mutation is responsible for setting up a new `ReferenceSchema` in the `EntitySchema`.
      *           Mutation can be used for altering also the existing `ReferenceSchema` alone.
@@ -157,6 +164,12 @@ class GrpcEntitySchemaMutation extends \Google\Protobuf\Internal\Message
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcModifyReferenceSortableAttributeCompoundSchemaMutation $ModifyReferenceSortableAttributeCompoundSchemaMutation
      *           Mutation is a holder for a single `SortableAttributeCompoundSchema` that affect any of
      *           `ReferenceSchema.sortableAttributeCompound` in the `EntitySchema`.
+     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcSetReferenceSchemaBucketedMutation $setReferenceSchemaBucketedMutation
+     *           Mutation is responsible for setting bucketed histogram configuration on a `ReferenceSchema`
+     *           in `EntitySchema`. Mutation can be used for altering also the existing `ReferenceSchema` alone.
+     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcSetReferenceSchemaConflictResolutionOverrideMutation $setReferenceSchemaConflictResolutionOverrideMutation
+     *           Mutation is responsible for setting value to a `ReferenceSchema.conflictResolutionOverride` in `EntitySchema`.
+     *           Mutation can be used for altering also the existing `ReferenceSchema` alone.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcCreateSortableAttributeCompoundSchemaMutation $createSortableAttributeCompoundSchemaMutation
      *           Mutation is responsible for setting up a new `SortableAttributeCompoundSchema` in the `EntitySchema`.
      *           Mutation can be used for altering also the existing `SortableAttributeCompoundSchema` alone.
@@ -439,6 +452,39 @@ class GrpcEntitySchemaMutation extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcSetAssociatedDataSchemaNullableMutation::class);
         $this->writeOneof(8, $var);
+
+        return $this;
+    }
+
+    /**
+     * Mutation is responsible for setting value to a `AssociatedDataSchema.conflictResolutionOverride` in `EntitySchema`.
+     * Mutation can be used for altering also the existing `AssociatedDataSchema` alone.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSetAssociatedDataSchemaConflictResolutionOverrideMutation setAssociatedDataSchemaConflictResolutionOverrideMutation = 9;</code>
+     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcSetAssociatedDataSchemaConflictResolutionOverrideMutation|null
+     */
+    public function getSetAssociatedDataSchemaConflictResolutionOverrideMutation()
+    {
+        return $this->readOneof(9);
+    }
+
+    public function hasSetAssociatedDataSchemaConflictResolutionOverrideMutation()
+    {
+        return $this->hasOneof(9);
+    }
+
+    /**
+     * Mutation is responsible for setting value to a `AssociatedDataSchema.conflictResolutionOverride` in `EntitySchema`.
+     * Mutation can be used for altering also the existing `AssociatedDataSchema` alone.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSetAssociatedDataSchemaConflictResolutionOverrideMutation setAssociatedDataSchemaConflictResolutionOverrideMutation = 9;</code>
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcSetAssociatedDataSchemaConflictResolutionOverrideMutation $var
+     * @return $this
+     */
+    public function setSetAssociatedDataSchemaConflictResolutionOverrideMutation($var)
+    {
+        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcSetAssociatedDataSchemaConflictResolutionOverrideMutation::class);
+        $this->writeOneof(9, $var);
 
         return $this;
     }
@@ -899,6 +945,37 @@ class GrpcEntitySchemaMutation extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcUseGlobalAttributeSchemaMutation::class);
         $this->writeOneof(33, $var);
+
+        return $this;
+    }
+
+    /**
+     * Mutation is responsible for setting value `AttributeSchema.conflictResolutionOverride` in `EntitySchema`.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSetAttributeSchemaConflictResolutionOverrideMutation setAttributeSchemaConflictResolutionOverrideMutation = 34;</code>
+     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcSetAttributeSchemaConflictResolutionOverrideMutation|null
+     */
+    public function getSetAttributeSchemaConflictResolutionOverrideMutation()
+    {
+        return $this->readOneof(34);
+    }
+
+    public function hasSetAttributeSchemaConflictResolutionOverrideMutation()
+    {
+        return $this->hasOneof(34);
+    }
+
+    /**
+     * Mutation is responsible for setting value `AttributeSchema.conflictResolutionOverride` in `EntitySchema`.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSetAttributeSchemaConflictResolutionOverrideMutation setAttributeSchemaConflictResolutionOverrideMutation = 34;</code>
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcSetAttributeSchemaConflictResolutionOverrideMutation $var
+     * @return $this
+     */
+    public function setSetAttributeSchemaConflictResolutionOverrideMutation($var)
+    {
+        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcSetAttributeSchemaConflictResolutionOverrideMutation::class);
+        $this->writeOneof(34, $var);
 
         return $this;
     }
@@ -1369,6 +1446,37 @@ class GrpcEntitySchemaMutation extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     * Mutation is responsible for setting value to a `EntitySchema.conflictResolution` in `EntitySchema`.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcModifyEntitySchemaConflictResolutionMutation modifyEntitySchemaConflictResolutionMutation = 65;</code>
+     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcModifyEntitySchemaConflictResolutionMutation|null
+     */
+    public function getModifyEntitySchemaConflictResolutionMutation()
+    {
+        return $this->readOneof(65);
+    }
+
+    public function hasModifyEntitySchemaConflictResolutionMutation()
+    {
+        return $this->hasOneof(65);
+    }
+
+    /**
+     * Mutation is responsible for setting value to a `EntitySchema.conflictResolution` in `EntitySchema`.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcModifyEntitySchemaConflictResolutionMutation modifyEntitySchemaConflictResolutionMutation = 65;</code>
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcModifyEntitySchemaConflictResolutionMutation $var
+     * @return $this
+     */
+    public function setModifyEntitySchemaConflictResolutionMutation($var)
+    {
+        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcModifyEntitySchemaConflictResolutionMutation::class);
+        $this->writeOneof(65, $var);
+
+        return $this;
+    }
+
+    /**
      * Mutation is responsible for setting up a new `ReferenceSchema` in the `EntitySchema`.
      * Mutation can be used for altering also the existing `ReferenceSchema` alone.
      *
@@ -1820,6 +1928,72 @@ class GrpcEntitySchemaMutation extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcModifyReferenceSortableAttributeCompoundSchemaMutation::class);
         $this->writeOneof(93, $var);
+
+        return $this;
+    }
+
+    /**
+     * Mutation is responsible for setting bucketed histogram configuration on a `ReferenceSchema`
+     * in `EntitySchema`. Mutation can be used for altering also the existing `ReferenceSchema` alone.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSetReferenceSchemaBucketedMutation setReferenceSchemaBucketedMutation = 94;</code>
+     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcSetReferenceSchemaBucketedMutation|null
+     */
+    public function getSetReferenceSchemaBucketedMutation()
+    {
+        return $this->readOneof(94);
+    }
+
+    public function hasSetReferenceSchemaBucketedMutation()
+    {
+        return $this->hasOneof(94);
+    }
+
+    /**
+     * Mutation is responsible for setting bucketed histogram configuration on a `ReferenceSchema`
+     * in `EntitySchema`. Mutation can be used for altering also the existing `ReferenceSchema` alone.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSetReferenceSchemaBucketedMutation setReferenceSchemaBucketedMutation = 94;</code>
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcSetReferenceSchemaBucketedMutation $var
+     * @return $this
+     */
+    public function setSetReferenceSchemaBucketedMutation($var)
+    {
+        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcSetReferenceSchemaBucketedMutation::class);
+        $this->writeOneof(94, $var);
+
+        return $this;
+    }
+
+    /**
+     * Mutation is responsible for setting value to a `ReferenceSchema.conflictResolutionOverride` in `EntitySchema`.
+     * Mutation can be used for altering also the existing `ReferenceSchema` alone.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSetReferenceSchemaConflictResolutionOverrideMutation setReferenceSchemaConflictResolutionOverrideMutation = 95;</code>
+     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcSetReferenceSchemaConflictResolutionOverrideMutation|null
+     */
+    public function getSetReferenceSchemaConflictResolutionOverrideMutation()
+    {
+        return $this->readOneof(95);
+    }
+
+    public function hasSetReferenceSchemaConflictResolutionOverrideMutation()
+    {
+        return $this->hasOneof(95);
+    }
+
+    /**
+     * Mutation is responsible for setting value to a `ReferenceSchema.conflictResolutionOverride` in `EntitySchema`.
+     * Mutation can be used for altering also the existing `ReferenceSchema` alone.
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSetReferenceSchemaConflictResolutionOverrideMutation setReferenceSchemaConflictResolutionOverrideMutation = 95;</code>
+     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcSetReferenceSchemaConflictResolutionOverrideMutation $var
+     * @return $this
+     */
+    public function setSetReferenceSchemaConflictResolutionOverrideMutation($var)
+    {
+        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcSetReferenceSchemaConflictResolutionOverrideMutation::class);
+        $this->writeOneof(95, $var);
 
         return $this;
     }

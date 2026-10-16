@@ -24,9 +24,10 @@ class GrpcDeleteEntityResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcEntityReference $entityReference
-     *           The deleted entity reference.
+     *           The deleted entity as a reference (type + primary key only).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity $entity
-     *           The deleted entity.
+     *           The deleted entity, fully fetched (as it was immediately before deletion) per
+     *           `GrpcDeleteEntityRequest.require`.
      * }
      */
     public function __construct($data = NULL) {
@@ -35,7 +36,7 @@ class GrpcDeleteEntityResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The deleted entity reference.
+     * The deleted entity as a reference (type + primary key only).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntityReference entityReference = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcEntityReference|null
@@ -51,7 +52,7 @@ class GrpcDeleteEntityResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The deleted entity reference.
+     * The deleted entity as a reference (type + primary key only).
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntityReference entityReference = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcEntityReference $var
@@ -66,7 +67,8 @@ class GrpcDeleteEntityResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The deleted entity.
+     * The deleted entity, fully fetched (as it was immediately before deletion) per
+     * `GrpcDeleteEntityRequest.require`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity entity = 2;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity|null
@@ -82,7 +84,8 @@ class GrpcDeleteEntityResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The deleted entity.
+     * The deleted entity, fully fetched (as it was immediately before deletion) per
+     * `GrpcDeleteEntityRequest.require`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity entity = 2;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity $var

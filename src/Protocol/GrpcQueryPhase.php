@@ -139,6 +139,12 @@ class GrpcQueryPhase
      * Generated from protobuf enum <code>FETCHING_PARENTS = 20;</code>
      */
     const FETCHING_PARENTS = 20;
+    /**
+     * Aggregate phase covering orchestration of all referenced entity loads (predicate setup, ID collection, dedup, recursive dispatch).
+     *
+     * Generated from protobuf enum <code>FETCHING_REFERENCE_BODIES = 21;</code>
+     */
+    const FETCHING_REFERENCE_BODIES = 21;
 
     private static $valueToName = [
         self::OVERALL => 'OVERALL',
@@ -162,6 +168,7 @@ class GrpcQueryPhase
         self::FETCHING => 'FETCHING',
         self::FETCHING_REFERENCES => 'FETCHING_REFERENCES',
         self::FETCHING_PARENTS => 'FETCHING_PARENTS',
+        self::FETCHING_REFERENCE_BODIES => 'FETCHING_REFERENCE_BODIES',
     ];
 
     public static function name($value)

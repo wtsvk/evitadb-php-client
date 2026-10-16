@@ -16,7 +16,7 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcEntityCollectionSizeRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The entity type of the collection - (count of entities stored).
+     * The entity type (collection name) whose size (count of entities stored) should be returned.
      *
      * Generated from protobuf field <code>string entityType = 1;</code>
      */
@@ -29,7 +29,7 @@ class GrpcEntityCollectionSizeRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $entityType
-     *           The entity type of the collection - (count of entities stored).
+     *           The entity type (collection name) whose size (count of entities stored) should be returned.
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +38,7 @@ class GrpcEntityCollectionSizeRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The entity type of the collection - (count of entities stored).
+     * The entity type (collection name) whose size (count of entities stored) should be returned.
      *
      * Generated from protobuf field <code>string entityType = 1;</code>
      * @return string
@@ -49,7 +49,7 @@ class GrpcEntityCollectionSizeRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The entity type of the collection - (count of entities stored).
+     * The entity type (collection name) whose size (count of entities stored) should be returned.
      *
      * Generated from protobuf field <code>string entityType = 1;</code>
      * @param string $var

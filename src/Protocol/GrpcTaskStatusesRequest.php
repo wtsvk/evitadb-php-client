@@ -16,27 +16,29 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcTaskStatusesRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Page number of the task statuses to be listed.
+     * Page number of the task statuses to be listed. Page-based paging: 1-indexed, page 1 is the
+     * first page (see `io.evitadb.dataType.PaginatedList#getPageNumber`).
      *
      * Generated from protobuf field <code>int32 pageNumber = 1;</code>
      */
     protected $pageNumber = 0;
     /**
-     * Number of task statuses per page.
+     * Number of task statuses per page. No server-side maximum is enforced.
      *
      * Generated from protobuf field <code>int32 pageSize = 2;</code>
      */
     protected $pageSize = 0;
     /**
-     * Optional taskType of the listed task, passing non-null value
-     * in this argument filters the returned status to only those that are related to the tasks of specified type
+     * Task type names to filter by (matched against `GrpcTaskStatus.taskType`); a task matches if
+     * its type is any of the listed values. Empty (the default) means no filtering by type.
      *
      * Generated from protobuf field <code>repeated .google.protobuf.StringValue taskType = 3;</code>
      */
     private $taskType;
     /**
-     * Optional set of simplified task states, passing list of enums in this argument
-     * filters the returned statuses to only those that match this simplified status
+     * Simplified task states to filter by; a task matches if its state is any of the listed values.
+     * Empty (the default) means no filtering by state. When both `taskType` and `simplifiedState`
+     * are non-empty, a task must satisfy both filters.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTaskSimplifiedState simplifiedState = 4;</code>
      */
@@ -49,15 +51,17 @@ class GrpcTaskStatusesRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type int $pageNumber
-     *           Page number of the task statuses to be listed.
+     *           Page number of the task statuses to be listed. Page-based paging: 1-indexed, page 1 is the
+     *           first page (see `io.evitadb.dataType.PaginatedList#getPageNumber`).
      *     @type int $pageSize
-     *           Number of task statuses per page.
+     *           Number of task statuses per page. No server-side maximum is enforced.
      *     @type array<\Google\Protobuf\StringValue>|\Google\Protobuf\Internal\RepeatedField $taskType
-     *           Optional taskType of the listed task, passing non-null value
-     *           in this argument filters the returned status to only those that are related to the tasks of specified type
+     *           Task type names to filter by (matched against `GrpcTaskStatus.taskType`); a task matches if
+     *           its type is any of the listed values. Empty (the default) means no filtering by type.
      *     @type array<int>|\Google\Protobuf\Internal\RepeatedField $simplifiedState
-     *           Optional set of simplified task states, passing list of enums in this argument
-     *           filters the returned statuses to only those that match this simplified status
+     *           Simplified task states to filter by; a task matches if its state is any of the listed values.
+     *           Empty (the default) means no filtering by state. When both `taskType` and `simplifiedState`
+     *           are non-empty, a task must satisfy both filters.
      * }
      */
     public function __construct($data = NULL) {
@@ -66,7 +70,8 @@ class GrpcTaskStatusesRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Page number of the task statuses to be listed.
+     * Page number of the task statuses to be listed. Page-based paging: 1-indexed, page 1 is the
+     * first page (see `io.evitadb.dataType.PaginatedList#getPageNumber`).
      *
      * Generated from protobuf field <code>int32 pageNumber = 1;</code>
      * @return int
@@ -77,7 +82,8 @@ class GrpcTaskStatusesRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Page number of the task statuses to be listed.
+     * Page number of the task statuses to be listed. Page-based paging: 1-indexed, page 1 is the
+     * first page (see `io.evitadb.dataType.PaginatedList#getPageNumber`).
      *
      * Generated from protobuf field <code>int32 pageNumber = 1;</code>
      * @param int $var
@@ -92,7 +98,7 @@ class GrpcTaskStatusesRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Number of task statuses per page.
+     * Number of task statuses per page. No server-side maximum is enforced.
      *
      * Generated from protobuf field <code>int32 pageSize = 2;</code>
      * @return int
@@ -103,7 +109,7 @@ class GrpcTaskStatusesRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Number of task statuses per page.
+     * Number of task statuses per page. No server-side maximum is enforced.
      *
      * Generated from protobuf field <code>int32 pageSize = 2;</code>
      * @param int $var
@@ -118,8 +124,8 @@ class GrpcTaskStatusesRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional taskType of the listed task, passing non-null value
-     * in this argument filters the returned status to only those that are related to the tasks of specified type
+     * Task type names to filter by (matched against `GrpcTaskStatus.taskType`); a task matches if
+     * its type is any of the listed values. Empty (the default) means no filtering by type.
      *
      * Generated from protobuf field <code>repeated .google.protobuf.StringValue taskType = 3;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -130,8 +136,8 @@ class GrpcTaskStatusesRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional taskType of the listed task, passing non-null value
-     * in this argument filters the returned status to only those that are related to the tasks of specified type
+     * Task type names to filter by (matched against `GrpcTaskStatus.taskType`); a task matches if
+     * its type is any of the listed values. Empty (the default) means no filtering by type.
      *
      * Generated from protobuf field <code>repeated .google.protobuf.StringValue taskType = 3;</code>
      * @param array<\Google\Protobuf\StringValue>|\Google\Protobuf\Internal\RepeatedField $var
@@ -146,8 +152,9 @@ class GrpcTaskStatusesRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional set of simplified task states, passing list of enums in this argument
-     * filters the returned statuses to only those that match this simplified status
+     * Simplified task states to filter by; a task matches if its state is any of the listed values.
+     * Empty (the default) means no filtering by state. When both `taskType` and `simplifiedState`
+     * are non-empty, a task must satisfy both filters.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTaskSimplifiedState simplifiedState = 4;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -158,8 +165,9 @@ class GrpcTaskStatusesRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional set of simplified task states, passing list of enums in this argument
-     * filters the returned statuses to only those that match this simplified status
+     * Simplified task states to filter by; a task matches if its state is any of the listed values.
+     * Empty (the default) means no filtering by state. When both `taskType` and `simplifiedState`
+     * are non-empty, a task must satisfy both filters.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTaskSimplifiedState simplifiedState = 4;</code>
      * @param array<int>|\Google\Protobuf\Internal\RepeatedField $var

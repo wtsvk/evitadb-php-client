@@ -19,7 +19,7 @@ class GrpcEntitySchemaMutations
         \GPBMetadata\Google\Protobuf\Wrappers::initOnce();
         $pool->internalAddGeneratedFile(
             '
-œ
+ﬂ
 GrpcEntitySchemaMutations.proto%io.evitadb.externalApi.grpc.generatedGrpcEnums.protogoogle/protobuf/wrappers.proto"4
 GrpcCreateEntitySchemaMutation
 
@@ -47,7 +47,9 @@ currencies (23.io.evitadb.externalApi.grpc.generated.GrpcCurrency"É
 /GrpcModifyEntitySchemaDeprecationNoticeMutation7
 deprecationNotice (2.google.protobuf.StringValue"^
 )GrpcModifyEntitySchemaDescriptionMutation1
-description (2.google.protobuf.StringValue"U
+description (2.google.protobuf.StringValue"ç
+0GrpcModifyEntitySchemaConflictResolutionMutationY
+conflictResolution (2=.io.evitadb.externalApi.grpc.generated.GrpcConflictResolution"U
 2GrpcSetEntitySchemaWithGeneratedPrimaryKeyMutation
 withGeneratedPrimaryKey ("í
 (GrpcSetEntitySchemaWithHierarchyMutation

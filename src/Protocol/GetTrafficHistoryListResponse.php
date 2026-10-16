@@ -16,7 +16,7 @@ use Google\Protobuf\Internal\GPBUtil;
 class GetTrafficHistoryListResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The list of traffic records that match the criteria
+     * The matching traffic records, up to the requested `limit`.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTrafficRecord trafficRecord = 1;</code>
      */
@@ -29,7 +29,7 @@ class GetTrafficHistoryListResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcTrafficRecord>|\Google\Protobuf\Internal\RepeatedField $trafficRecord
-     *           The list of traffic records that match the criteria
+     *           The matching traffic records, up to the requested `limit`.
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +38,7 @@ class GetTrafficHistoryListResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The list of traffic records that match the criteria
+     * The matching traffic records, up to the requested `limit`.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTrafficRecord trafficRecord = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -49,7 +49,7 @@ class GetTrafficHistoryListResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The list of traffic records that match the criteria
+     * The matching traffic records, up to the requested `limit`.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTrafficRecord trafficRecord = 1;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcTrafficRecord>|\Google\Protobuf\Internal\RepeatedField $var

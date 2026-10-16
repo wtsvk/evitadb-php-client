@@ -33,37 +33,42 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
      */
     protected $taskName = '';
     /**
-     * Identification of the task
+     * Unique identifier of this task instance; use it to reference this task in status lookups or
+     * cancellation requests.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid taskId = 3;</code>
      */
     protected $taskId = null;
     /**
-     * Name of the catalog the task is related to (optional)
+     * Name of the catalog this task operates on. Unset for tasks that are not scoped to a single
+     * catalog (e.g. server-wide/system tasks).
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue catalogName = 4;</code>
      */
     protected $catalogName = null;
     /**
-     * Date and time when the task was issued
+     * Date and time when the task was issued for execution (queued to run). Unset while the task is
+     * still pending and has not yet been issued.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime issued = 5;</code>
      */
     protected $issued = null;
     /**
-     * Date and time when the task was started
+     * Date and time when the task started executing. Unset before execution begins.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime started = 6;</code>
      */
     protected $started = null;
     /**
-     * Date and time when the task was finished
+     * Date and time when the task finished executing, successfully or with an error. Unset while
+     * the task is still running.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime finished = 7;</code>
      */
     protected $finished = null;
     /**
-     * Simplified state of the status
+     * Coarse-grained lifecycle state of the task (queued, running, finished or failed), derived
+     * from the task's more detailed internal state.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTaskSimplifiedState simplifiedState = 8;</code>
      */
@@ -75,25 +80,28 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
      */
     protected $progress = 0;
     /**
-     * Configuration settings of the task
+     * String representation (`toString()`) of the task's configuration settings. Read back as an
+     * empty string if unset.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue settings = 10;</code>
      */
     protected $settings = null;
     /**
-     * Exception that occurred during the task execution
+     * Public-safe error message if the task failed. Unset while the task is running or if it
+     * completed without error.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue exception = 13;</code>
      */
     protected $exception = null;
     /**
-     * List of task traits
+     * Capabilities available for this task instance (e.g. whether it can be manually started,
+     * cancelled, or must be explicitly stopped).
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTaskTrait trait = 14;</code>
      */
     private $trait;
     /**
-     * Date and time when the task was created
+     * Date and time when this task status record was created; always set, and precedes `issued`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime created = 15;</code>
      */
@@ -116,31 +124,40 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
      *     @type string $taskName
      *           Longer, human-readable name of the task
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcUuid $taskId
-     *           Identification of the task
+     *           Unique identifier of this task instance; use it to reference this task in status lookups or
+     *           cancellation requests.
      *     @type \Google\Protobuf\StringValue $catalogName
-     *           Name of the catalog the task is related to (optional)
+     *           Name of the catalog this task operates on. Unset for tasks that are not scoped to a single
+     *           catalog (e.g. server-wide/system tasks).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $issued
-     *           Date and time when the task was issued
+     *           Date and time when the task was issued for execution (queued to run). Unset while the task is
+     *           still pending and has not yet been issued.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $started
-     *           Date and time when the task was started
+     *           Date and time when the task started executing. Unset before execution begins.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $finished
-     *           Date and time when the task was finished
+     *           Date and time when the task finished executing, successfully or with an error. Unset while
+     *           the task is still running.
      *     @type int $simplifiedState
-     *           Simplified state of the status
+     *           Coarse-grained lifecycle state of the task (queued, running, finished or failed), derived
+     *           from the task's more detailed internal state.
      *     @type int $progress
      *           Progress of the task (0-100)
      *     @type \Google\Protobuf\StringValue $settings
-     *           Configuration settings of the task
+     *           String representation (`toString()`) of the task's configuration settings. Read back as an
+     *           empty string if unset.
      *     @type \Google\Protobuf\StringValue $text
-     *           Textual result of the task
+     *           String representation (`toString()`) of the task's result object, used for any result other
+     *           than a fetchable file.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcFile $file
-     *           File that was created by the task and is available for fetching
+     *           The file produced by the task (e.g. a backup archive), available for fetching by `fileId`.
      *     @type \Google\Protobuf\StringValue $exception
-     *           Exception that occurred during the task execution
+     *           Public-safe error message if the task failed. Unset while the task is running or if it
+     *           completed without error.
      *     @type array<int>|\Google\Protobuf\Internal\RepeatedField $trait
-     *           List of task traits
+     *           Capabilities available for this task instance (e.g. whether it can be manually started,
+     *           cancelled, or must be explicitly stopped).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $created
-     *           Date and time when the task was created
+     *           Date and time when this task status record was created; always set, and precedes `issued`.
      * }
      */
     public function __construct($data = NULL) {
@@ -211,7 +228,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Identification of the task
+     * Unique identifier of this task instance; use it to reference this task in status lookups or
+     * cancellation requests.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid taskId = 3;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcUuid|null
@@ -232,7 +250,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Identification of the task
+     * Unique identifier of this task instance; use it to reference this task in status lookups or
+     * cancellation requests.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid taskId = 3;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcUuid $var
@@ -247,7 +266,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Name of the catalog the task is related to (optional)
+     * Name of the catalog this task operates on. Unset for tasks that are not scoped to a single
+     * catalog (e.g. server-wide/system tasks).
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue catalogName = 4;</code>
      * @return \Google\Protobuf\StringValue|null
@@ -270,7 +290,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getCatalogName()</code>
 
-     * Name of the catalog the task is related to (optional)
+     * Name of the catalog this task operates on. Unset for tasks that are not scoped to a single
+     * catalog (e.g. server-wide/system tasks).
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue catalogName = 4;</code>
      * @return string|null
@@ -281,7 +302,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Name of the catalog the task is related to (optional)
+     * Name of the catalog this task operates on. Unset for tasks that are not scoped to a single
+     * catalog (e.g. server-wide/system tasks).
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue catalogName = 4;</code>
      * @param \Google\Protobuf\StringValue $var
@@ -298,7 +320,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\StringValue object.
 
-     * Name of the catalog the task is related to (optional)
+     * Name of the catalog this task operates on. Unset for tasks that are not scoped to a single
+     * catalog (e.g. server-wide/system tasks).
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue catalogName = 4;</code>
      * @param string|null $var
@@ -310,7 +333,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
         return $this;}
 
     /**
-     * Date and time when the task was issued
+     * Date and time when the task was issued for execution (queued to run). Unset while the task is
+     * still pending and has not yet been issued.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime issued = 5;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime|null
@@ -331,7 +355,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Date and time when the task was issued
+     * Date and time when the task was issued for execution (queued to run). Unset while the task is
+     * still pending and has not yet been issued.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime issued = 5;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $var
@@ -346,7 +371,7 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Date and time when the task was started
+     * Date and time when the task started executing. Unset before execution begins.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime started = 6;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime|null
@@ -367,7 +392,7 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Date and time when the task was started
+     * Date and time when the task started executing. Unset before execution begins.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime started = 6;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $var
@@ -382,7 +407,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Date and time when the task was finished
+     * Date and time when the task finished executing, successfully or with an error. Unset while
+     * the task is still running.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime finished = 7;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime|null
@@ -403,7 +429,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Date and time when the task was finished
+     * Date and time when the task finished executing, successfully or with an error. Unset while
+     * the task is still running.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime finished = 7;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $var
@@ -418,7 +445,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Simplified state of the status
+     * Coarse-grained lifecycle state of the task (queued, running, finished or failed), derived
+     * from the task's more detailed internal state.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTaskSimplifiedState simplifiedState = 8;</code>
      * @return int
@@ -429,7 +457,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Simplified state of the status
+     * Coarse-grained lifecycle state of the task (queued, running, finished or failed), derived
+     * from the task's more detailed internal state.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTaskSimplifiedState simplifiedState = 8;</code>
      * @param int $var
@@ -470,7 +499,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration settings of the task
+     * String representation (`toString()`) of the task's configuration settings. Read back as an
+     * empty string if unset.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue settings = 10;</code>
      * @return \Google\Protobuf\StringValue|null
@@ -493,7 +523,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getSettings()</code>
 
-     * Configuration settings of the task
+     * String representation (`toString()`) of the task's configuration settings. Read back as an
+     * empty string if unset.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue settings = 10;</code>
      * @return string|null
@@ -504,7 +535,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration settings of the task
+     * String representation (`toString()`) of the task's configuration settings. Read back as an
+     * empty string if unset.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue settings = 10;</code>
      * @param \Google\Protobuf\StringValue $var
@@ -521,7 +553,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\StringValue object.
 
-     * Configuration settings of the task
+     * String representation (`toString()`) of the task's configuration settings. Read back as an
+     * empty string if unset.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue settings = 10;</code>
      * @param string|null $var
@@ -533,7 +566,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
         return $this;}
 
     /**
-     * Textual result of the task
+     * String representation (`toString()`) of the task's result object, used for any result other
+     * than a fetchable file.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue text = 11;</code>
      * @return \Google\Protobuf\StringValue|null
@@ -551,7 +585,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getText()</code>
 
-     * Textual result of the task
+     * String representation (`toString()`) of the task's result object, used for any result other
+     * than a fetchable file.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue text = 11;</code>
      * @return string|null
@@ -562,7 +597,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Textual result of the task
+     * String representation (`toString()`) of the task's result object, used for any result other
+     * than a fetchable file.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue text = 11;</code>
      * @param \Google\Protobuf\StringValue $var
@@ -579,7 +615,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\StringValue object.
 
-     * Textual result of the task
+     * String representation (`toString()`) of the task's result object, used for any result other
+     * than a fetchable file.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue text = 11;</code>
      * @param string|null $var
@@ -591,7 +628,7 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
         return $this;}
 
     /**
-     * File that was created by the task and is available for fetching
+     * The file produced by the task (e.g. a backup archive), available for fetching by `fileId`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcFile file = 12;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcFile|null
@@ -607,7 +644,7 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * File that was created by the task and is available for fetching
+     * The file produced by the task (e.g. a backup archive), available for fetching by `fileId`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcFile file = 12;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcFile $var
@@ -622,7 +659,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Exception that occurred during the task execution
+     * Public-safe error message if the task failed. Unset while the task is running or if it
+     * completed without error.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue exception = 13;</code>
      * @return \Google\Protobuf\StringValue|null
@@ -645,7 +683,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getException()</code>
 
-     * Exception that occurred during the task execution
+     * Public-safe error message if the task failed. Unset while the task is running or if it
+     * completed without error.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue exception = 13;</code>
      * @return string|null
@@ -656,7 +695,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Exception that occurred during the task execution
+     * Public-safe error message if the task failed. Unset while the task is running or if it
+     * completed without error.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue exception = 13;</code>
      * @param \Google\Protobuf\StringValue $var
@@ -673,7 +713,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\StringValue object.
 
-     * Exception that occurred during the task execution
+     * Public-safe error message if the task failed. Unset while the task is running or if it
+     * completed without error.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue exception = 13;</code>
      * @param string|null $var
@@ -685,7 +726,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
         return $this;}
 
     /**
-     * List of task traits
+     * Capabilities available for this task instance (e.g. whether it can be manually started,
+     * cancelled, or must be explicitly stopped).
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTaskTrait trait = 14;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -696,7 +738,8 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * List of task traits
+     * Capabilities available for this task instance (e.g. whether it can be manually started,
+     * cancelled, or must be explicitly stopped).
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTaskTrait trait = 14;</code>
      * @param array<int>|\Google\Protobuf\Internal\RepeatedField $var
@@ -711,7 +754,7 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Date and time when the task was created
+     * Date and time when this task status record was created; always set, and precedes `issued`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime created = 15;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime|null
@@ -732,7 +775,7 @@ class GrpcTaskStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Date and time when the task was created
+     * Date and time when this task status record was created; always set, and precedes `issued`.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime created = 15;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $var
