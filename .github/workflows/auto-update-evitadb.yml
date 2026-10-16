@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -81,32 +81,30 @@ jobs:
             { print }
           ' README.md > /tmp/readme && mv /tmp/readme README.md
 
-      - name: Regenerate proto files and PHP stubs
+      - name: Sync proto files from EvitaDB image
         if: steps.latest.outputs.version != steps.current.outputs.version && steps.pr_check.outputs.exists == 'false'
-        # Run the entire regen pipeline INSIDE namely/protoc-all so we get a known-good
+        # Runs on the host — ubuntu-latest already ships docker, jq and unzip.
+        run: bash scripts/sync-protos.sh
+
+      - name: Regenerate PHP stubs
+        if: steps.latest.outputs.version != steps.current.outputs.version && steps.pr_check.outputs.exists == 'false'
+        # Run only the protoc step INSIDE namely/protoc-all so we get a known-good
         # protoc + grpc_php_plugin without copying ELF binaries onto the host (which is
-        # fragile across glibc versions). The Docker socket is mounted so sync-protos.sh
-        # can pull evitadb/evitadb via the host's docker daemon. Files written inside the
-        # container are root-owned; chown them back to the runner uid before the next step.
+        # fragile across glibc versions). Do NOT apt-get anything in this image: it is
+        # Debian 11 (bullseye), EOL — its security pool returns 404 and apt exits 100.
+        # Files written inside the container are root-owned; chown them back to the
+        # runner uid before the next step.
         run: |
           docker run --rm \
             -v "$PWD:/work" \
-            -v /var/run/docker.sock:/var/run/docker.sock \
             -w /work \
             -e HOST_UID="$(id -u)" \
             -e HOST_GID="$(id -g)" \
             --entrypoint bash \
             namely/protoc-all:1.51_2 -c '
               set -e
-              export DEBIAN_FRONTEND=noninteractive
-              rm -f /etc/apt/sources.list.d/nodesource* || true
-              apt-get update -qq >/dev/null 2>&1
-              apt-get install -qq -y jq docker.io unzip >/dev/null 2>&1
-
-              bash scripts/sync-protos.sh
               bash scripts/build-proto.sh
-
-              chown -R "$HOST_UID:$HOST_GID" proto/ src/Protocol/
+              chown -R "$HOST_UID:$HOST_GID" src/Protocol/
             '
 
       - name: Check for proto/stub changes
@@ -140,3 +138,16 @@ jobs:
             --body "Automated PR — protos and stubs regenerated for EvitaDB **${{ steps.latest.outputs.version }}** (was ${{ steps.current.outputs.version }}). Review the diff, verify CI passes, then merge." \
             --base main \
             --head "$BRANCH"
+
+      - name: Close superseded auto-update PRs
+        if: steps.latest.outputs.version != steps.current.outputs.version && steps.pr_check.outputs.exists == 'false' && steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: auto-update/evitadb-${{ steps.latest.outputs.version }}
+          LATEST: ${{ steps.latest.outputs.version }}
+        run: |
+          gh pr list --state open --json number,headRefName \
+            --jq ".[] | select(.headRefName | startswith(\"auto-update/evitadb-\")) | select(.headRefName != \"$BRANCH\") | .number" \
+            | while read -r PR; do
+                gh pr close "$PR" --delete-branch --comment "Superseded by the auto-update PR for EvitaDB $LATEST."
+              done
