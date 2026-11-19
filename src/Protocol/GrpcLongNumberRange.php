@@ -9,24 +9,20 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Representation of LongNumberRange structures. At least one of `from`/`to` should be set; if
- * both are absent, the range decodes to the degenerate range `[0,0]` rather than being unbounded
- * in both directions.
+ * Representation of LongNumberRange structures with optional from and to values.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcLongNumberRange</code>
  */
 class GrpcLongNumberRange extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The inclusive lower bound of the range. If unset (while `to` is set), the range is unbounded
-     * below.
+     * The lower bound of the range.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value from = 1;</code>
      */
     protected $from = null;
     /**
-     * The inclusive upper bound of the range. If unset (while `from` is set), the range is unbounded
-     * above.
+     * The upper bound of the range.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value to = 2;</code>
      */
@@ -39,11 +35,9 @@ class GrpcLongNumberRange extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Google\Protobuf\Int64Value $from
-     *           The inclusive lower bound of the range. If unset (while `to` is set), the range is unbounded
-     *           below.
+     *           The lower bound of the range.
      *     @type \Google\Protobuf\Int64Value $to
-     *           The inclusive upper bound of the range. If unset (while `from` is set), the range is unbounded
-     *           above.
+     *           The upper bound of the range.
      * }
      */
     public function __construct($data = NULL) {
@@ -52,8 +46,7 @@ class GrpcLongNumberRange extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The inclusive lower bound of the range. If unset (while `to` is set), the range is unbounded
-     * below.
+     * The lower bound of the range.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value from = 1;</code>
      * @return \Google\Protobuf\Int64Value|null
@@ -76,8 +69,7 @@ class GrpcLongNumberRange extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getFrom()</code>
 
-     * The inclusive lower bound of the range. If unset (while `to` is set), the range is unbounded
-     * below.
+     * The lower bound of the range.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value from = 1;</code>
      * @return int|string|null
@@ -88,8 +80,7 @@ class GrpcLongNumberRange extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The inclusive lower bound of the range. If unset (while `to` is set), the range is unbounded
-     * below.
+     * The lower bound of the range.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value from = 1;</code>
      * @param \Google\Protobuf\Int64Value $var
@@ -106,8 +97,7 @@ class GrpcLongNumberRange extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int64Value object.
 
-     * The inclusive lower bound of the range. If unset (while `to` is set), the range is unbounded
-     * below.
+     * The lower bound of the range.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value from = 1;</code>
      * @param int|string|null $var
@@ -119,8 +109,7 @@ class GrpcLongNumberRange extends \Google\Protobuf\Internal\Message
         return $this;}
 
     /**
-     * The inclusive upper bound of the range. If unset (while `from` is set), the range is unbounded
-     * above.
+     * The upper bound of the range.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value to = 2;</code>
      * @return \Google\Protobuf\Int64Value|null
@@ -143,8 +132,7 @@ class GrpcLongNumberRange extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getTo()</code>
 
-     * The inclusive upper bound of the range. If unset (while `from` is set), the range is unbounded
-     * above.
+     * The upper bound of the range.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value to = 2;</code>
      * @return int|string|null
@@ -155,8 +143,7 @@ class GrpcLongNumberRange extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The inclusive upper bound of the range. If unset (while `from` is set), the range is unbounded
-     * above.
+     * The upper bound of the range.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value to = 2;</code>
      * @param \Google\Protobuf\Int64Value $var
@@ -173,8 +160,7 @@ class GrpcLongNumberRange extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int64Value object.
 
-     * The inclusive upper bound of the range. If unset (while `from` is set), the range is unbounded
-     * above.
+     * The upper bound of the range.
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value to = 2;</code>
      * @param int|string|null $var

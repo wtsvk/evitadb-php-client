@@ -9,76 +9,69 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * A page or strip of entities, in one of three representations (references, full sealed entities, or
- * binary entities) depending on what the query's `require` block asked for. Only one representation is
- * populated per response and only one of the two pagination descriptors below is set, matching whichever
- * paging requirement (`page()`/`strip()`) the query used.
+ * Structure that represents a data chunk of entities. Only one of the entity fields should be set in one response.
+ * That is decided by require block in a query, so as the pagination method used.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcDataChunk</code>
  */
 class GrpcDataChunk extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Entity references (type + primary key only, no content). Populated when the query's `require` block
-     * has no `entityFetch` requirement; `sealedEntities`/`binaryEntities` are then both empty.
+     * Collection of entity references.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEntityReference entityReferences = 1;</code>
      */
     private $entityReferences;
     /**
-     * Fully fetched entities in structured (non-binary) form. Populated when `require` has an `entityFetch`
-     * requirement and the session is not using the binary storage format; `entityReferences`/`binaryEntities`
-     * are then both empty.
+     * Collection of sealed entities.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcSealedEntity sealedEntities = 2;</code>
      */
     private $sealedEntities;
     /**
-     * Fully fetched entities in the server's binary storage format, for clients that decode entities
-     * themselves. Populated when `require` has an `entityFetch` requirement and the session uses the binary
-     * storage format; `entityReferences`/`sealedEntities` are then both empty.
+     * Collection of binary entities.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcBinaryEntity binaryEntities = 3;</code>
      */
     private $binaryEntities;
     /**
-     * Total number of records matching the query across all pages/strips, not just this chunk's size.
+     * The total number of records.
      *
      * Generated from protobuf field <code>int32 totalRecordCount = 6;</code>
      */
     protected $totalRecordCount = 0;
     /**
-     * True if this chunk is the first page/strip of the result set.
+     * True, if this is the first page.
      *
      * Generated from protobuf field <code>bool isFirst = 7;</code>
      */
     protected $isFirst = false;
     /**
-     * True if this chunk is the last page/strip of the result set.
+     * True, if this is the last page.
      *
      * Generated from protobuf field <code>bool isLast = 8;</code>
      */
     protected $isLast = false;
     /**
-     * True if a preceding page/strip exists.
+     * True, if there is a previous page.
      *
      * Generated from protobuf field <code>bool hasPrevious = 9;</code>
      */
     protected $hasPrevious = false;
     /**
-     * True if a following page/strip exists.
+     * True, if there is a next page.
      *
      * Generated from protobuf field <code>bool hasNext = 10;</code>
      */
     protected $hasNext = false;
     /**
-     * True if the entire result set fits within this single chunk.
+     * True, if this is a single page.
      *
      * Generated from protobuf field <code>bool isSinglePage = 11;</code>
      */
     protected $isSinglePage = false;
     /**
-     * True if this chunk (and the entire result set) contains no records.
+     * True, if this is an empty page.
      *
      * Generated from protobuf field <code>bool isEmpty = 12;</code>
      */
@@ -92,34 +85,29 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcEntityReference>|\Google\Protobuf\Internal\RepeatedField $entityReferences
-     *           Entity references (type + primary key only, no content). Populated when the query's `require` block
-     *           has no `entityFetch` requirement; `sealedEntities`/`binaryEntities` are then both empty.
+     *           Collection of entity references.
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity>|\Google\Protobuf\Internal\RepeatedField $sealedEntities
-     *           Fully fetched entities in structured (non-binary) form. Populated when `require` has an `entityFetch`
-     *           requirement and the session is not using the binary storage format; `entityReferences`/`binaryEntities`
-     *           are then both empty.
+     *           Collection of sealed entities.
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcBinaryEntity>|\Google\Protobuf\Internal\RepeatedField $binaryEntities
-     *           Fully fetched entities in the server's binary storage format, for clients that decode entities
-     *           themselves. Populated when `require` has an `entityFetch` requirement and the session uses the binary
-     *           storage format; `entityReferences`/`sealedEntities` are then both empty.
+     *           Collection of binary entities.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcPaginatedList $paginatedList
-     *           Set when the query used page-based paging (`page()`).
+     *           The paginated list.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcStripList $stripList
-     *           Set when the query used strip/offset-based paging (`strip()`).
+     *           The strip list.
      *     @type int $totalRecordCount
-     *           Total number of records matching the query across all pages/strips, not just this chunk's size.
+     *           The total number of records.
      *     @type bool $isFirst
-     *           True if this chunk is the first page/strip of the result set.
+     *           True, if this is the first page.
      *     @type bool $isLast
-     *           True if this chunk is the last page/strip of the result set.
+     *           True, if this is the last page.
      *     @type bool $hasPrevious
-     *           True if a preceding page/strip exists.
+     *           True, if there is a previous page.
      *     @type bool $hasNext
-     *           True if a following page/strip exists.
+     *           True, if there is a next page.
      *     @type bool $isSinglePage
-     *           True if the entire result set fits within this single chunk.
+     *           True, if this is a single page.
      *     @type bool $isEmpty
-     *           True if this chunk (and the entire result set) contains no records.
+     *           True, if this is an empty page.
      * }
      */
     public function __construct($data = NULL) {
@@ -128,8 +116,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Entity references (type + primary key only, no content). Populated when the query's `require` block
-     * has no `entityFetch` requirement; `sealedEntities`/`binaryEntities` are then both empty.
+     * Collection of entity references.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEntityReference entityReferences = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -140,8 +127,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Entity references (type + primary key only, no content). Populated when the query's `require` block
-     * has no `entityFetch` requirement; `sealedEntities`/`binaryEntities` are then both empty.
+     * Collection of entity references.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEntityReference entityReferences = 1;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcEntityReference>|\Google\Protobuf\Internal\RepeatedField $var
@@ -156,9 +142,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Fully fetched entities in structured (non-binary) form. Populated when `require` has an `entityFetch`
-     * requirement and the session is not using the binary storage format; `entityReferences`/`binaryEntities`
-     * are then both empty.
+     * Collection of sealed entities.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcSealedEntity sealedEntities = 2;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -169,9 +153,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Fully fetched entities in structured (non-binary) form. Populated when `require` has an `entityFetch`
-     * requirement and the session is not using the binary storage format; `entityReferences`/`binaryEntities`
-     * are then both empty.
+     * Collection of sealed entities.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcSealedEntity sealedEntities = 2;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity>|\Google\Protobuf\Internal\RepeatedField $var
@@ -186,9 +168,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Fully fetched entities in the server's binary storage format, for clients that decode entities
-     * themselves. Populated when `require` has an `entityFetch` requirement and the session uses the binary
-     * storage format; `entityReferences`/`sealedEntities` are then both empty.
+     * Collection of binary entities.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcBinaryEntity binaryEntities = 3;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -199,9 +179,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Fully fetched entities in the server's binary storage format, for clients that decode entities
-     * themselves. Populated when `require` has an `entityFetch` requirement and the session uses the binary
-     * storage format; `entityReferences`/`sealedEntities` are then both empty.
+     * Collection of binary entities.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcBinaryEntity binaryEntities = 3;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcBinaryEntity>|\Google\Protobuf\Internal\RepeatedField $var
@@ -216,7 +194,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Set when the query used page-based paging (`page()`).
+     * The paginated list.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcPaginatedList paginatedList = 4;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcPaginatedList|null
@@ -232,7 +210,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Set when the query used page-based paging (`page()`).
+     * The paginated list.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcPaginatedList paginatedList = 4;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcPaginatedList $var
@@ -247,7 +225,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Set when the query used strip/offset-based paging (`strip()`).
+     * The strip list.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcStripList stripList = 5;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcStripList|null
@@ -263,7 +241,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Set when the query used strip/offset-based paging (`strip()`).
+     * The strip list.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcStripList stripList = 5;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcStripList $var
@@ -278,7 +256,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Total number of records matching the query across all pages/strips, not just this chunk's size.
+     * The total number of records.
      *
      * Generated from protobuf field <code>int32 totalRecordCount = 6;</code>
      * @return int
@@ -289,7 +267,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Total number of records matching the query across all pages/strips, not just this chunk's size.
+     * The total number of records.
      *
      * Generated from protobuf field <code>int32 totalRecordCount = 6;</code>
      * @param int $var
@@ -304,7 +282,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * True if this chunk is the first page/strip of the result set.
+     * True, if this is the first page.
      *
      * Generated from protobuf field <code>bool isFirst = 7;</code>
      * @return bool
@@ -315,7 +293,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * True if this chunk is the first page/strip of the result set.
+     * True, if this is the first page.
      *
      * Generated from protobuf field <code>bool isFirst = 7;</code>
      * @param bool $var
@@ -330,7 +308,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * True if this chunk is the last page/strip of the result set.
+     * True, if this is the last page.
      *
      * Generated from protobuf field <code>bool isLast = 8;</code>
      * @return bool
@@ -341,7 +319,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * True if this chunk is the last page/strip of the result set.
+     * True, if this is the last page.
      *
      * Generated from protobuf field <code>bool isLast = 8;</code>
      * @param bool $var
@@ -356,7 +334,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * True if a preceding page/strip exists.
+     * True, if there is a previous page.
      *
      * Generated from protobuf field <code>bool hasPrevious = 9;</code>
      * @return bool
@@ -367,7 +345,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * True if a preceding page/strip exists.
+     * True, if there is a previous page.
      *
      * Generated from protobuf field <code>bool hasPrevious = 9;</code>
      * @param bool $var
@@ -382,7 +360,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * True if a following page/strip exists.
+     * True, if there is a next page.
      *
      * Generated from protobuf field <code>bool hasNext = 10;</code>
      * @return bool
@@ -393,7 +371,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * True if a following page/strip exists.
+     * True, if there is a next page.
      *
      * Generated from protobuf field <code>bool hasNext = 10;</code>
      * @param bool $var
@@ -408,7 +386,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * True if the entire result set fits within this single chunk.
+     * True, if this is a single page.
      *
      * Generated from protobuf field <code>bool isSinglePage = 11;</code>
      * @return bool
@@ -419,7 +397,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * True if the entire result set fits within this single chunk.
+     * True, if this is a single page.
      *
      * Generated from protobuf field <code>bool isSinglePage = 11;</code>
      * @param bool $var
@@ -434,7 +412,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * True if this chunk (and the entire result set) contains no records.
+     * True, if this is an empty page.
      *
      * Generated from protobuf field <code>bool isEmpty = 12;</code>
      * @return bool
@@ -445,7 +423,7 @@ class GrpcDataChunk extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * True if this chunk (and the entire result set) contains no records.
+     * True, if this is an empty page.
      *
      * Generated from protobuf field <code>bool isEmpty = 12;</code>
      * @param bool $var

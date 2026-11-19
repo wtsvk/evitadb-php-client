@@ -9,19 +9,14 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Response to GetTransactionOverview request. Entries preserve the relative order of the requested
- * `catalogVersion` list, but a version unknown to history - purged, or never committed - is omitted
- * rather than padded with an empty entry. The response can therefore be shorter than the request, and
- * can be empty; it is not an error to ask for a version history no longer holds.
+ * Response to GetTransactionOverview request.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GetTransactionOverviewResponse</code>
  */
 class GetTransactionOverviewResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The transaction overviews for those requested catalog versions that are still known to history, in
-     * request order. Because unknown versions are omitted rather than padded, positions do not line up
-     * with the request - correlate each entry by its own `catalogVersion` field, never by index.
+     * The list of transaction overviews that match the requested catalog versions
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTransactionOverview transactionOverviews = 1;</code>
      */
@@ -34,9 +29,7 @@ class GetTransactionOverviewResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcTransactionOverview>|\Google\Protobuf\Internal\RepeatedField $transactionOverviews
-     *           The transaction overviews for those requested catalog versions that are still known to history, in
-     *           request order. Because unknown versions are omitted rather than padded, positions do not line up
-     *           with the request - correlate each entry by its own `catalogVersion` field, never by index.
+     *           The list of transaction overviews that match the requested catalog versions
      * }
      */
     public function __construct($data = NULL) {
@@ -45,9 +38,7 @@ class GetTransactionOverviewResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The transaction overviews for those requested catalog versions that are still known to history, in
-     * request order. Because unknown versions are omitted rather than padded, positions do not line up
-     * with the request - correlate each entry by its own `catalogVersion` field, never by index.
+     * The list of transaction overviews that match the requested catalog versions
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTransactionOverview transactionOverviews = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -58,9 +49,7 @@ class GetTransactionOverviewResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The transaction overviews for those requested catalog versions that are still known to history, in
-     * request order. Because unknown versions are omitted rather than padded, positions do not line up
-     * with the request - correlate each entry by its own `catalogVersion` field, never by index.
+     * The list of transaction overviews that match the requested catalog versions
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTransactionOverview transactionOverviews = 1;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcTransactionOverview>|\Google\Protobuf\Internal\RepeatedField $var

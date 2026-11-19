@@ -9,15 +9,14 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Response to a file deletion request.
+ * Response to a task statuses request.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcDeleteFileToFetchResponse</code>
  */
 class GrpcDeleteFileToFetchResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * True if the file existed and was deleted; false if no file exists for the given id. Any other
-     * failure during deletion is reported as a gRPC error rather than `false`.
+     * true if the file was found and deleted
      *
      * Generated from protobuf field <code>bool success = 1;</code>
      */
@@ -30,8 +29,7 @@ class GrpcDeleteFileToFetchResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type bool $success
-     *           True if the file existed and was deleted; false if no file exists for the given id. Any other
-     *           failure during deletion is reported as a gRPC error rather than `false`.
+     *           true if the file was found and deleted
      * }
      */
     public function __construct($data = NULL) {
@@ -40,8 +38,7 @@ class GrpcDeleteFileToFetchResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * True if the file existed and was deleted; false if no file exists for the given id. Any other
-     * failure during deletion is reported as a gRPC error rather than `false`.
+     * true if the file was found and deleted
      *
      * Generated from protobuf field <code>bool success = 1;</code>
      * @return bool
@@ -52,8 +49,7 @@ class GrpcDeleteFileToFetchResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * True if the file existed and was deleted; false if no file exists for the given id. Any other
-     * failure during deletion is reported as a gRPC error rather than `false`.
+     * true if the file was found and deleted
      *
      * Generated from protobuf field <code>bool success = 1;</code>
      * @param bool $var

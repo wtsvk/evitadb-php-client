@@ -9,17 +9,14 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Wrapper for representing an array of strings. Also used to carry a Character array — each
- * element is then a single-character string; which Java array type applies is determined by the
- * accompanying GrpcEvitaDataType (STRING_ARRAY vs CHARACTER_ARRAY).
+ * Wrapper for representing an array of strings.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcStringArray</code>
  */
 class GrpcStringArray extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The individual string (or, for a character array, single-character) elements, in their
-     * original order.
+     * Value that supports storing a string array.
      *
      * Generated from protobuf field <code>repeated string value = 1;</code>
      */
@@ -32,8 +29,7 @@ class GrpcStringArray extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type array<string>|\Google\Protobuf\Internal\RepeatedField $value
-     *           The individual string (or, for a character array, single-character) elements, in their
-     *           original order.
+     *           Value that supports storing a string array.
      * }
      */
     public function __construct($data = NULL) {
@@ -42,8 +38,7 @@ class GrpcStringArray extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The individual string (or, for a character array, single-character) elements, in their
-     * original order.
+     * Value that supports storing a string array.
      *
      * Generated from protobuf field <code>repeated string value = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -54,8 +49,7 @@ class GrpcStringArray extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The individual string (or, for a character array, single-character) elements, in their
-     * original order.
+     * Value that supports storing a string array.
      *
      * Generated from protobuf field <code>repeated string value = 1;</code>
      * @param array<string>|\Google\Protobuf\Internal\RepeatedField $var

@@ -16,8 +16,7 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcCurrency extends \Google\Protobuf\Internal\Message
 {
     /**
-     * ISO 4217 three-letter currency code (e.g. `USD`, `EUR`), resolved via
-     * `Currency#getInstance(String)`.
+     * The currency code of the currency.
      *
      * Generated from protobuf field <code>string code = 1;</code>
      */
@@ -30,8 +29,7 @@ class GrpcCurrency extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $code
-     *           ISO 4217 three-letter currency code (e.g. `USD`, `EUR`), resolved via
-     *           `Currency#getInstance(String)`.
+     *           The currency code of the currency.
      * }
      */
     public function __construct($data = NULL) {
@@ -40,8 +38,7 @@ class GrpcCurrency extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * ISO 4217 three-letter currency code (e.g. `USD`, `EUR`), resolved via
-     * `Currency#getInstance(String)`.
+     * The currency code of the currency.
      *
      * Generated from protobuf field <code>string code = 1;</code>
      * @return string
@@ -52,8 +49,7 @@ class GrpcCurrency extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * ISO 4217 three-letter currency code (e.g. `USD`, `EUR`), resolved via
-     * `Currency#getInstance(String)`.
+     * The currency code of the currency.
      *
      * Generated from protobuf field <code>string code = 1;</code>
      * @param string $var

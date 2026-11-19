@@ -22,15 +22,13 @@ class GrpcEvitaSessionResponse extends \Google\Protobuf\Internal\Message
      */
     protected $sessionId = '';
     /**
-     * Type of the created session - read-only vs. read-write, and whether fetched entities are returned in binary
-     * form for the Java driver (`BINARY_*` variants). See `GrpcSessionType`.
+     * Type of the created session.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSessionType sessionType = 2;</code>
      */
     protected $sessionType = 0;
     /**
-     * Effective commit behaviour of the created session, applied when the session is closed implicitly via
-     * `close()`. See `GrpcCommitBehavior` for the available durability/performance trade-offs.
+     * Commit behaviour
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCommitBehavior commitBehaviour = 3;</code>
      */
@@ -57,11 +55,9 @@ class GrpcEvitaSessionResponse extends \Google\Protobuf\Internal\Message
      *     @type string $sessionId
      *           UUID of the created session.
      *     @type int $sessionType
-     *           Type of the created session - read-only vs. read-write, and whether fetched entities are returned in binary
-     *           form for the Java driver (`BINARY_*` variants). See `GrpcSessionType`.
+     *           Type of the created session.
      *     @type int $commitBehaviour
-     *           Effective commit behaviour of the created session, applied when the session is closed implicitly via
-     *           `close()`. See `GrpcCommitBehavior` for the available durability/performance trade-offs.
+     *           Commit behaviour
      *     @type int $catalogState
      *           State of the catalog after the session was created.
      *     @type string $catalogId
@@ -100,8 +96,7 @@ class GrpcEvitaSessionResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Type of the created session - read-only vs. read-write, and whether fetched entities are returned in binary
-     * form for the Java driver (`BINARY_*` variants). See `GrpcSessionType`.
+     * Type of the created session.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSessionType sessionType = 2;</code>
      * @return int
@@ -112,8 +107,7 @@ class GrpcEvitaSessionResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Type of the created session - read-only vs. read-write, and whether fetched entities are returned in binary
-     * form for the Java driver (`BINARY_*` variants). See `GrpcSessionType`.
+     * Type of the created session.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSessionType sessionType = 2;</code>
      * @param int $var
@@ -128,8 +122,7 @@ class GrpcEvitaSessionResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Effective commit behaviour of the created session, applied when the session is closed implicitly via
-     * `close()`. See `GrpcCommitBehavior` for the available durability/performance trade-offs.
+     * Commit behaviour
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCommitBehavior commitBehaviour = 3;</code>
      * @return int
@@ -140,8 +133,7 @@ class GrpcEvitaSessionResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Effective commit behaviour of the created session, applied when the session is closed implicitly via
-     * `close()`. See `GrpcCommitBehavior` for the available durability/performance trade-offs.
+     * Commit behaviour
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCommitBehavior commitBehaviour = 3;</code>
      * @param int $var

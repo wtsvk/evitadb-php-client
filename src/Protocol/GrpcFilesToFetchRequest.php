@@ -9,29 +9,27 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Request to list files available for fetching, in paginated form.
+ * Request to list files to fetch in paginated form.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcFilesToFetchRequest</code>
  */
 class GrpcFilesToFetchRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Page number of the files to be listed. Page-based paging: 1-indexed, page 1 is the first page
-     * (see `io.evitadb.dataType.PaginatedList#getPageNumber`).
+     * Page number of the task statuses to be listed.
      *
      * Generated from protobuf field <code>int32 pageNumber = 1;</code>
      */
     protected $pageNumber = 0;
     /**
-     * Number of files per page. No server-side maximum is enforced.
+     * Number of task statuses per page.
      *
      * Generated from protobuf field <code>int32 pageSize = 2;</code>
      */
     protected $pageSize = 0;
     /**
-     * File origins to filter by (see `GrpcFile.origin` - usually the `taskType` of the task that
-     * produced the file, e.g. `BackupTask`); a file matches if its origin is any of the listed
-     * values. Empty (the default) means no filtering - files of all origins are returned.
+     * Optional origin of the files (derived from taskType), passing non-null value
+     * in this argument filters the returned files to only those that are related to the specified origin
      *
      * Generated from protobuf field <code>repeated .google.protobuf.StringValue origin = 3;</code>
      */
@@ -44,14 +42,12 @@ class GrpcFilesToFetchRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type int $pageNumber
-     *           Page number of the files to be listed. Page-based paging: 1-indexed, page 1 is the first page
-     *           (see `io.evitadb.dataType.PaginatedList#getPageNumber`).
+     *           Page number of the task statuses to be listed.
      *     @type int $pageSize
-     *           Number of files per page. No server-side maximum is enforced.
+     *           Number of task statuses per page.
      *     @type array<\Google\Protobuf\StringValue>|\Google\Protobuf\Internal\RepeatedField $origin
-     *           File origins to filter by (see `GrpcFile.origin` - usually the `taskType` of the task that
-     *           produced the file, e.g. `BackupTask`); a file matches if its origin is any of the listed
-     *           values. Empty (the default) means no filtering - files of all origins are returned.
+     *           Optional origin of the files (derived from taskType), passing non-null value
+     *           in this argument filters the returned files to only those that are related to the specified origin
      * }
      */
     public function __construct($data = NULL) {
@@ -60,8 +56,7 @@ class GrpcFilesToFetchRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Page number of the files to be listed. Page-based paging: 1-indexed, page 1 is the first page
-     * (see `io.evitadb.dataType.PaginatedList#getPageNumber`).
+     * Page number of the task statuses to be listed.
      *
      * Generated from protobuf field <code>int32 pageNumber = 1;</code>
      * @return int
@@ -72,8 +67,7 @@ class GrpcFilesToFetchRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Page number of the files to be listed. Page-based paging: 1-indexed, page 1 is the first page
-     * (see `io.evitadb.dataType.PaginatedList#getPageNumber`).
+     * Page number of the task statuses to be listed.
      *
      * Generated from protobuf field <code>int32 pageNumber = 1;</code>
      * @param int $var
@@ -88,7 +82,7 @@ class GrpcFilesToFetchRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Number of files per page. No server-side maximum is enforced.
+     * Number of task statuses per page.
      *
      * Generated from protobuf field <code>int32 pageSize = 2;</code>
      * @return int
@@ -99,7 +93,7 @@ class GrpcFilesToFetchRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Number of files per page. No server-side maximum is enforced.
+     * Number of task statuses per page.
      *
      * Generated from protobuf field <code>int32 pageSize = 2;</code>
      * @param int $var
@@ -114,9 +108,8 @@ class GrpcFilesToFetchRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * File origins to filter by (see `GrpcFile.origin` - usually the `taskType` of the task that
-     * produced the file, e.g. `BackupTask`); a file matches if its origin is any of the listed
-     * values. Empty (the default) means no filtering - files of all origins are returned.
+     * Optional origin of the files (derived from taskType), passing non-null value
+     * in this argument filters the returned files to only those that are related to the specified origin
      *
      * Generated from protobuf field <code>repeated .google.protobuf.StringValue origin = 3;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -127,9 +120,8 @@ class GrpcFilesToFetchRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * File origins to filter by (see `GrpcFile.origin` - usually the `taskType` of the task that
-     * produced the file, e.g. `BackupTask`); a file matches if its origin is any of the listed
-     * values. Empty (the default) means no filtering - files of all origins are returned.
+     * Optional origin of the files (derived from taskType), passing non-null value
+     * in this argument filters the returned files to only those that are related to the specified origin
      *
      * Generated from protobuf field <code>repeated .google.protobuf.StringValue origin = 3;</code>
      * @param array<\Google\Protobuf\StringValue>|\Google\Protobuf\Internal\RepeatedField $var

@@ -9,32 +9,26 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Request for deleting all entities matched by a query. Beware: without a `page()`/`strip()` requirement
- * in the query's `require` block to bound the result, at most 20 entities are deleted (the engine's
- * default page size) - add an explicit `page()`/`strip()` requirement to remove more.
+ * Request for deleting a collection of entities specified by a query.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcDeleteEntitiesRequest</code>
  */
 class GrpcDeleteEntitiesRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The string part of the parametrised query. `?`/`&#64;name` placeholders are bound the same way as
-     * `positionalQueryParams`/`namedQueryParams` on `GrpcEntityRequest` - see there for the full binding
-     * contract.
+     * The string part of the parametrised query.
      *
      * Generated from protobuf field <code>string query = 1;</code>
      */
     protected $query = '';
     /**
-     * Values for the `?` positional placeholders in `query`, bound in encounter order (FIFO) - see
-     * `GrpcEntityRequest.positionalQueryParams` for the full binding contract.
+     * The positional query parameters.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcQueryParam positionalQueryParams = 2;</code>
      */
     private $positionalQueryParams;
     /**
-     * Values for the `&#64;name` named placeholders in `query`, keyed by name (without the `&#64;` prefix) - see
-     * `GrpcEntityRequest.namedQueryParams` for the full binding contract.
+     * The named query parameters.
      *
      * Generated from protobuf field <code>map<string, .io.evitadb.externalApi.grpc.generated.GrpcQueryParam> namedQueryParams = 3;</code>
      */
@@ -47,15 +41,11 @@ class GrpcDeleteEntitiesRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $query
-     *           The string part of the parametrised query. `?`/`&#64;name` placeholders are bound the same way as
-     *           `positionalQueryParams`/`namedQueryParams` on `GrpcEntityRequest` - see there for the full binding
-     *           contract.
+     *           The string part of the parametrised query.
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcQueryParam>|\Google\Protobuf\Internal\RepeatedField $positionalQueryParams
-     *           Values for the `?` positional placeholders in `query`, bound in encounter order (FIFO) - see
-     *           `GrpcEntityRequest.positionalQueryParams` for the full binding contract.
+     *           The positional query parameters.
      *     @type array|\Google\Protobuf\Internal\MapField $namedQueryParams
-     *           Values for the `&#64;name` named placeholders in `query`, keyed by name (without the `&#64;` prefix) - see
-     *           `GrpcEntityRequest.namedQueryParams` for the full binding contract.
+     *           The named query parameters.
      * }
      */
     public function __construct($data = NULL) {
@@ -64,9 +54,7 @@ class GrpcDeleteEntitiesRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The string part of the parametrised query. `?`/`&#64;name` placeholders are bound the same way as
-     * `positionalQueryParams`/`namedQueryParams` on `GrpcEntityRequest` - see there for the full binding
-     * contract.
+     * The string part of the parametrised query.
      *
      * Generated from protobuf field <code>string query = 1;</code>
      * @return string
@@ -77,9 +65,7 @@ class GrpcDeleteEntitiesRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The string part of the parametrised query. `?`/`&#64;name` placeholders are bound the same way as
-     * `positionalQueryParams`/`namedQueryParams` on `GrpcEntityRequest` - see there for the full binding
-     * contract.
+     * The string part of the parametrised query.
      *
      * Generated from protobuf field <code>string query = 1;</code>
      * @param string $var
@@ -94,8 +80,7 @@ class GrpcDeleteEntitiesRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Values for the `?` positional placeholders in `query`, bound in encounter order (FIFO) - see
-     * `GrpcEntityRequest.positionalQueryParams` for the full binding contract.
+     * The positional query parameters.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcQueryParam positionalQueryParams = 2;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -106,8 +91,7 @@ class GrpcDeleteEntitiesRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Values for the `?` positional placeholders in `query`, bound in encounter order (FIFO) - see
-     * `GrpcEntityRequest.positionalQueryParams` for the full binding contract.
+     * The positional query parameters.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcQueryParam positionalQueryParams = 2;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcQueryParam>|\Google\Protobuf\Internal\RepeatedField $var
@@ -122,8 +106,7 @@ class GrpcDeleteEntitiesRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Values for the `&#64;name` named placeholders in `query`, keyed by name (without the `&#64;` prefix) - see
-     * `GrpcEntityRequest.namedQueryParams` for the full binding contract.
+     * The named query parameters.
      *
      * Generated from protobuf field <code>map<string, .io.evitadb.externalApi.grpc.generated.GrpcQueryParam> namedQueryParams = 3;</code>
      * @return \Google\Protobuf\Internal\MapField
@@ -134,8 +117,7 @@ class GrpcDeleteEntitiesRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Values for the `&#64;name` named placeholders in `query`, keyed by name (without the `&#64;` prefix) - see
-     * `GrpcEntityRequest.namedQueryParams` for the full binding contract.
+     * The named query parameters.
      *
      * Generated from protobuf field <code>map<string, .io.evitadb.externalApi.grpc.generated.GrpcQueryParam> namedQueryParams = 3;</code>
      * @param array|\Google\Protobuf\Internal\MapField $var

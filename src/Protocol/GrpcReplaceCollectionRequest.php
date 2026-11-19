@@ -9,25 +9,18 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Request for replacing an entity collection's contents with those of another collection. On success,
- * `entityTypeToBeReplaced` is purged and its name is taken over by the (dropped) `entityTypeToBeReplacedWith`
- * collection. If an error occurs mid-operation, both collections are guaranteed to be left untouched under
- * their original names.
- *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcReplaceCollectionRequest</code>
  */
 class GrpcReplaceCollectionRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Name of the collection that will be replaced: its current contents are dropped, and it will end up
-     * holding the contents of `entityTypeToBeReplacedWith` under this same name.
+     * Name of the entity collection that will be replaced and dropped (new name)
      *
      * Generated from protobuf field <code>string entityTypeToBeReplaced = 1;</code>
      */
     protected $entityTypeToBeReplaced = '';
     /**
-     * Name of the collection whose contents become the new contents of `entityTypeToBeReplaced`. This
-     * collection itself no longer exists under its own name once the replacement completes.
+     * Name of the entity collection that will become the successor of the original collection (old name)
      *
      * Generated from protobuf field <code>string entityTypeToBeReplacedWith = 2;</code>
      */
@@ -40,11 +33,9 @@ class GrpcReplaceCollectionRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $entityTypeToBeReplaced
-     *           Name of the collection that will be replaced: its current contents are dropped, and it will end up
-     *           holding the contents of `entityTypeToBeReplacedWith` under this same name.
+     *           Name of the entity collection that will be replaced and dropped (new name)
      *     @type string $entityTypeToBeReplacedWith
-     *           Name of the collection whose contents become the new contents of `entityTypeToBeReplaced`. This
-     *           collection itself no longer exists under its own name once the replacement completes.
+     *           Name of the entity collection that will become the successor of the original collection (old name)
      * }
      */
     public function __construct($data = NULL) {
@@ -53,8 +44,7 @@ class GrpcReplaceCollectionRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Name of the collection that will be replaced: its current contents are dropped, and it will end up
-     * holding the contents of `entityTypeToBeReplacedWith` under this same name.
+     * Name of the entity collection that will be replaced and dropped (new name)
      *
      * Generated from protobuf field <code>string entityTypeToBeReplaced = 1;</code>
      * @return string
@@ -65,8 +55,7 @@ class GrpcReplaceCollectionRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Name of the collection that will be replaced: its current contents are dropped, and it will end up
-     * holding the contents of `entityTypeToBeReplacedWith` under this same name.
+     * Name of the entity collection that will be replaced and dropped (new name)
      *
      * Generated from protobuf field <code>string entityTypeToBeReplaced = 1;</code>
      * @param string $var
@@ -81,8 +70,7 @@ class GrpcReplaceCollectionRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Name of the collection whose contents become the new contents of `entityTypeToBeReplaced`. This
-     * collection itself no longer exists under its own name once the replacement completes.
+     * Name of the entity collection that will become the successor of the original collection (old name)
      *
      * Generated from protobuf field <code>string entityTypeToBeReplacedWith = 2;</code>
      * @return string
@@ -93,8 +81,7 @@ class GrpcReplaceCollectionRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Name of the collection whose contents become the new contents of `entityTypeToBeReplaced`. This
-     * collection itself no longer exists under its own name once the replacement completes.
+     * Name of the entity collection that will become the successor of the original collection (old name)
      *
      * Generated from protobuf field <code>string entityTypeToBeReplacedWith = 2;</code>
      * @param string $var

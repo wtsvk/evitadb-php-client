@@ -22,8 +22,7 @@ class GrpcQueryTelemetry extends \Google\Protobuf\Internal\Message
      */
     protected $operation = 0;
     /**
-     * Number of nanoseconds elapsed since the root step of this telemetry tree began - the root step itself
-     * therefore always reports 0. This is not a wall-clock timestamp and must not be rendered as a date.
+     * Date and time of the start of this step in nanoseconds.
      *
      * Generated from protobuf field <code>int64 start = 2;</code>
      */
@@ -46,13 +45,6 @@ class GrpcQueryTelemetry extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>int64 spentTime = 5;</code>
      */
     protected $spentTime = 0;
-    /**
-     * Wall-clock instant at which the query began. Set only on the root step - it anchors the whole tree in time,
-     * so the wall-clock position of any other node is startedAt plus that node's start offset.
-     *
-     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime startedAt = 6;</code>
-     */
-    protected $startedAt = null;
 
     /**
      * Constructor.
@@ -63,17 +55,13 @@ class GrpcQueryTelemetry extends \Google\Protobuf\Internal\Message
      *     @type int $operation
      *           Phase of the query processing.
      *     @type int|string $start
-     *           Number of nanoseconds elapsed since the root step of this telemetry tree began - the root step itself
-     *           therefore always reports 0. This is not a wall-clock timestamp and must not be rendered as a date.
+     *           Date and time of the start of this step in nanoseconds.
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcQueryTelemetry>|\Google\Protobuf\Internal\RepeatedField $steps
      *           Internal steps of this telemetry step (operation decomposition).
      *     @type array<string>|\Google\Protobuf\Internal\RepeatedField $arguments
      *           Arguments of the processing phase.
      *     @type int|string $spentTime
      *           Duration in nanoseconds.
-     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $startedAt
-     *           Wall-clock instant at which the query began. Set only on the root step - it anchors the whole tree in time,
-     *           so the wall-clock position of any other node is startedAt plus that node's start offset.
      * }
      */
     public function __construct($data = NULL) {
@@ -108,8 +96,7 @@ class GrpcQueryTelemetry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Number of nanoseconds elapsed since the root step of this telemetry tree began - the root step itself
-     * therefore always reports 0. This is not a wall-clock timestamp and must not be rendered as a date.
+     * Date and time of the start of this step in nanoseconds.
      *
      * Generated from protobuf field <code>int64 start = 2;</code>
      * @return int|string
@@ -120,8 +107,7 @@ class GrpcQueryTelemetry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Number of nanoseconds elapsed since the root step of this telemetry tree began - the root step itself
-     * therefore always reports 0. This is not a wall-clock timestamp and must not be rendered as a date.
+     * Date and time of the start of this step in nanoseconds.
      *
      * Generated from protobuf field <code>int64 start = 2;</code>
      * @param int|string $var
@@ -209,44 +195,6 @@ class GrpcQueryTelemetry extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkInt64($var);
         $this->spentTime = $var;
-
-        return $this;
-    }
-
-    /**
-     * Wall-clock instant at which the query began. Set only on the root step - it anchors the whole tree in time,
-     * so the wall-clock position of any other node is startedAt plus that node's start offset.
-     *
-     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime startedAt = 6;</code>
-     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime|null
-     */
-    public function getStartedAt()
-    {
-        return $this->startedAt;
-    }
-
-    public function hasStartedAt()
-    {
-        return isset($this->startedAt);
-    }
-
-    public function clearStartedAt()
-    {
-        unset($this->startedAt);
-    }
-
-    /**
-     * Wall-clock instant at which the query began. Set only on the root step - it anchors the whole tree in time,
-     * so the wall-clock position of any other node is startedAt plus that node's start offset.
-     *
-     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime startedAt = 6;</code>
-     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $var
-     * @return $this
-     */
-    public function setStartedAt($var)
-    {
-        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime::class);
-        $this->startedAt = $var;
 
         return $this;
     }

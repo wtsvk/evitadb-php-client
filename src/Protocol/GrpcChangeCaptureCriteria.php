@@ -9,7 +9,7 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Record for the criteria of the capture request allowing to limit mutations to specific area of interest and its
+ * Record for the criteria of the capture request allowing to limit mutations to specific area of interest an its
  * properties.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureCriteria</code>
@@ -17,9 +17,7 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcChangeCaptureCriteria extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The area of capture - SCHEMA, DATA or INFRASTRUCTURE. If `schemaSite`/`dataSite` below is set, it determines
-     * the effective area and this field is ignored; this field is only consulted when neither site is set, which
-     * is also the only way to select INFRASTRUCTURE (it has no site message of its own).
+     * The area of capture - either schema or data (correlates with the site)
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureArea area = 1;</code>
      */
@@ -33,9 +31,7 @@ class GrpcChangeCaptureCriteria extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type int $area
-     *           The area of capture - SCHEMA, DATA or INFRASTRUCTURE. If `schemaSite`/`dataSite` below is set, it determines
-     *           the effective area and this field is ignored; this field is only consulted when neither site is set, which
-     *           is also the only way to select INFRASTRUCTURE (it has no site message of its own).
+     *           The area of capture - either schema or data (correlates with the site)
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcChangeCaptureSchemaSite $schemaSite
      *           Criteria for schema capture
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcChangeCaptureDataSite $dataSite
@@ -48,9 +44,7 @@ class GrpcChangeCaptureCriteria extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The area of capture - SCHEMA, DATA or INFRASTRUCTURE. If `schemaSite`/`dataSite` below is set, it determines
-     * the effective area and this field is ignored; this field is only consulted when neither site is set, which
-     * is also the only way to select INFRASTRUCTURE (it has no site message of its own).
+     * The area of capture - either schema or data (correlates with the site)
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureArea area = 1;</code>
      * @return int
@@ -61,9 +55,7 @@ class GrpcChangeCaptureCriteria extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The area of capture - SCHEMA, DATA or INFRASTRUCTURE. If `schemaSite`/`dataSite` below is set, it determines
-     * the effective area and this field is ignored; this field is only consulted when neither site is set, which
-     * is also the only way to select INFRASTRUCTURE (it has no site message of its own).
+     * The area of capture - either schema or data (correlates with the site)
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureArea area = 1;</code>
      * @param int $var

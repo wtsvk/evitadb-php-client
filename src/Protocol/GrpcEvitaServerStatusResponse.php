@@ -46,16 +46,14 @@ class GrpcEvitaServerStatusResponse extends \Google\Protobuf\Internal\Message
      */
     protected $catalogsCorrupted = 0;
     /**
-     * Deprecated since 2025.7 - number of catalogs that are active and has been successfully loaded,
-     * renamed to `catalogsActive`
+     * Number of catalogs that are active and has been successfully loaded, renamed to `catalogsActive`
      *
      * Generated from protobuf field <code>int32 catalogsOk = 6 [deprecated = true];</code>
      * @deprecated
      */
     protected $catalogsOk = 0;
     /**
-     * Health problems currently detected by any of the server's health probes, deduplicated. Empty
-     * means no problems were detected.
+     * Health problems
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcHealthProblem healthProblems = 7;</code>
      */
@@ -67,10 +65,7 @@ class GrpcEvitaServerStatusResponse extends \Google\Protobuf\Internal\Message
      */
     protected $readiness = 0;
     /**
-     * Status keyed by API code, for every external API registered on the classpath - including ones
-     * that are disabled (`GrpcApiStatus.enabled == false`) or have no registered provider (in which
-     * case `baseUrl` and `endpoints` are empty). Presence in this map does not imply the API is
-     * enabled or reachable; check `GrpcApiStatus.enabled`/`ready`.
+     * Information about all available APIs
      *
      * Generated from protobuf field <code>map<string, .io.evitadb.externalApi.grpc.generated.GrpcApiStatus> api = 9;</code>
      */
@@ -94,10 +89,7 @@ class GrpcEvitaServerStatusResponse extends \Google\Protobuf\Internal\Message
      */
     protected $catalogsInactive = 0;
     /**
-     * Monotonically increasing version number of the engine's own state, distinct from any single
-     * catalog's version - incremented once for each committed engine-level change (e.g. a catalog
-     * being created, removed, renamed, or having its format upgraded or read-only mode toggled).
-     * Ordinary data mutations within a catalog do not advance it.
+     * The version of the current evitaDB server engine state (change in engine state).
      *
      * Generated from protobuf field <code>int64 engineVersion = 13;</code>
      */
@@ -126,18 +118,13 @@ class GrpcEvitaServerStatusResponse extends \Google\Protobuf\Internal\Message
      *     @type int $catalogsCorrupted
      *           Number of corrupted catalogs
      *     @type int $catalogsOk
-     *           Deprecated since 2025.7 - number of catalogs that are active and has been successfully loaded,
-     *           renamed to `catalogsActive`
+     *           Number of catalogs that are active and has been successfully loaded, renamed to `catalogsActive`
      *     @type array<int>|\Google\Protobuf\Internal\RepeatedField $healthProblems
-     *           Health problems currently detected by any of the server's health probes, deduplicated. Empty
-     *           means no problems were detected.
+     *           Health problems
      *     @type int $readiness
      *           Overall readiness of the evitaDB server
      *     @type array|\Google\Protobuf\Internal\MapField $api
-     *           Status keyed by API code, for every external API registered on the classpath - including ones
-     *           that are disabled (`GrpcApiStatus.enabled == false`) or have no registered provider (in which
-     *           case `baseUrl` and `endpoints` are empty). Presence in this map does not imply the API is
-     *           enabled or reachable; check `GrpcApiStatus.enabled`/`ready`.
+     *           Information about all available APIs
      *     @type bool $readOnly
      *           Flag indicating that the server is in read-only mode
      *     @type int $catalogsActive
@@ -145,10 +132,7 @@ class GrpcEvitaServerStatusResponse extends \Google\Protobuf\Internal\Message
      *     @type int $catalogsInactive
      *           Number of inactive catalogs
      *     @type int|string $engineVersion
-     *           Monotonically increasing version number of the engine's own state, distinct from any single
-     *           catalog's version - incremented once for each committed engine-level change (e.g. a catalog
-     *           being created, removed, renamed, or having its format upgraded or read-only mode toggled).
-     *           Ordinary data mutations within a catalog do not advance it.
+     *           The version of the current evitaDB server engine state (change in engine state).
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $introducedAt
      *           The date and time when the current engine version was introduced (last engine level change occurred).
      * }
@@ -299,8 +283,7 @@ class GrpcEvitaServerStatusResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Deprecated since 2025.7 - number of catalogs that are active and has been successfully loaded,
-     * renamed to `catalogsActive`
+     * Number of catalogs that are active and has been successfully loaded, renamed to `catalogsActive`
      *
      * Generated from protobuf field <code>int32 catalogsOk = 6 [deprecated = true];</code>
      * @return int
@@ -313,8 +296,7 @@ class GrpcEvitaServerStatusResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Deprecated since 2025.7 - number of catalogs that are active and has been successfully loaded,
-     * renamed to `catalogsActive`
+     * Number of catalogs that are active and has been successfully loaded, renamed to `catalogsActive`
      *
      * Generated from protobuf field <code>int32 catalogsOk = 6 [deprecated = true];</code>
      * @param int $var
@@ -331,8 +313,7 @@ class GrpcEvitaServerStatusResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Health problems currently detected by any of the server's health probes, deduplicated. Empty
-     * means no problems were detected.
+     * Health problems
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcHealthProblem healthProblems = 7;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -343,8 +324,7 @@ class GrpcEvitaServerStatusResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Health problems currently detected by any of the server's health probes, deduplicated. Empty
-     * means no problems were detected.
+     * Health problems
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcHealthProblem healthProblems = 7;</code>
      * @param array<int>|\Google\Protobuf\Internal\RepeatedField $var
@@ -385,10 +365,7 @@ class GrpcEvitaServerStatusResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Status keyed by API code, for every external API registered on the classpath - including ones
-     * that are disabled (`GrpcApiStatus.enabled == false`) or have no registered provider (in which
-     * case `baseUrl` and `endpoints` are empty). Presence in this map does not imply the API is
-     * enabled or reachable; check `GrpcApiStatus.enabled`/`ready`.
+     * Information about all available APIs
      *
      * Generated from protobuf field <code>map<string, .io.evitadb.externalApi.grpc.generated.GrpcApiStatus> api = 9;</code>
      * @return \Google\Protobuf\Internal\MapField
@@ -399,10 +376,7 @@ class GrpcEvitaServerStatusResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Status keyed by API code, for every external API registered on the classpath - including ones
-     * that are disabled (`GrpcApiStatus.enabled == false`) or have no registered provider (in which
-     * case `baseUrl` and `endpoints` are empty). Presence in this map does not imply the API is
-     * enabled or reachable; check `GrpcApiStatus.enabled`/`ready`.
+     * Information about all available APIs
      *
      * Generated from protobuf field <code>map<string, .io.evitadb.externalApi.grpc.generated.GrpcApiStatus> api = 9;</code>
      * @param array|\Google\Protobuf\Internal\MapField $var
@@ -495,10 +469,7 @@ class GrpcEvitaServerStatusResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Monotonically increasing version number of the engine's own state, distinct from any single
-     * catalog's version - incremented once for each committed engine-level change (e.g. a catalog
-     * being created, removed, renamed, or having its format upgraded or read-only mode toggled).
-     * Ordinary data mutations within a catalog do not advance it.
+     * The version of the current evitaDB server engine state (change in engine state).
      *
      * Generated from protobuf field <code>int64 engineVersion = 13;</code>
      * @return int|string
@@ -509,10 +480,7 @@ class GrpcEvitaServerStatusResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Monotonically increasing version number of the engine's own state, distinct from any single
-     * catalog's version - incremented once for each committed engine-level change (e.g. a catalog
-     * being created, removed, renamed, or having its format upgraded or read-only mode toggled).
-     * Ordinary data mutations within a catalog do not advance it.
+     * The version of the current evitaDB server engine state (change in engine state).
      *
      * Generated from protobuf field <code>int64 engineVersion = 13;</code>
      * @param int|string $var

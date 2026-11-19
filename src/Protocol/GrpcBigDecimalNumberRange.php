@@ -9,32 +9,26 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Representation of BigDecimalNumberRange structures. At least one of `from`/`to` should be set;
- * if both are absent, the range decodes to the degenerate range `[0,0]` rather than being
- * unbounded in both directions.
+ * Representation of BigDecimalNumberRange structures with optional from and to values.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcBigDecimalNumberRange</code>
  */
 class GrpcBigDecimalNumberRange extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The inclusive lower bound of the range. If unset (while `to` is set), the range is unbounded
-     * below.
+     * The lower bound of the range.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal from = 1;</code>
      */
     protected $from = null;
     /**
-     * The inclusive upper bound of the range. If unset (while `from` is set), the range is unbounded
-     * above.
+     * The upper bound of the range.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal to = 2;</code>
      */
     protected $to = null;
     /**
-     * The number of fractional digits retained (rounded half-up) when comparing values against this
-     * range: both bounds and the compared value are scaled to this precision first, so digits beyond
-     * it are ignored for range-membership comparisons.
+     * The number of decimal places to compare.
      *
      * Generated from protobuf field <code>int32 decimalPlacesToCompare = 3;</code>
      */
@@ -47,15 +41,11 @@ class GrpcBigDecimalNumberRange extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal $from
-     *           The inclusive lower bound of the range. If unset (while `to` is set), the range is unbounded
-     *           below.
+     *           The lower bound of the range.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal $to
-     *           The inclusive upper bound of the range. If unset (while `from` is set), the range is unbounded
-     *           above.
+     *           The upper bound of the range.
      *     @type int $decimalPlacesToCompare
-     *           The number of fractional digits retained (rounded half-up) when comparing values against this
-     *           range: both bounds and the compared value are scaled to this precision first, so digits beyond
-     *           it are ignored for range-membership comparisons.
+     *           The number of decimal places to compare.
      * }
      */
     public function __construct($data = NULL) {
@@ -64,8 +54,7 @@ class GrpcBigDecimalNumberRange extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The inclusive lower bound of the range. If unset (while `to` is set), the range is unbounded
-     * below.
+     * The lower bound of the range.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal from = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal|null
@@ -86,8 +75,7 @@ class GrpcBigDecimalNumberRange extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The inclusive lower bound of the range. If unset (while `to` is set), the range is unbounded
-     * below.
+     * The lower bound of the range.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal from = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal $var
@@ -102,8 +90,7 @@ class GrpcBigDecimalNumberRange extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The inclusive upper bound of the range. If unset (while `from` is set), the range is unbounded
-     * above.
+     * The upper bound of the range.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal to = 2;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal|null
@@ -124,8 +111,7 @@ class GrpcBigDecimalNumberRange extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The inclusive upper bound of the range. If unset (while `from` is set), the range is unbounded
-     * above.
+     * The upper bound of the range.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcBigDecimal to = 2;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcBigDecimal $var
@@ -140,9 +126,7 @@ class GrpcBigDecimalNumberRange extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The number of fractional digits retained (rounded half-up) when comparing values against this
-     * range: both bounds and the compared value are scaled to this precision first, so digits beyond
-     * it are ignored for range-membership comparisons.
+     * The number of decimal places to compare.
      *
      * Generated from protobuf field <code>int32 decimalPlacesToCompare = 3;</code>
      * @return int
@@ -153,9 +137,7 @@ class GrpcBigDecimalNumberRange extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The number of fractional digits retained (rounded half-up) when comparing values against this
-     * range: both bounds and the compared value are scaled to this precision first, so digits beyond
-     * it are ignored for range-membership comparisons.
+     * The number of decimal places to compare.
      *
      * Generated from protobuf field <code>int32 decimalPlacesToCompare = 3;</code>
      * @param int $var

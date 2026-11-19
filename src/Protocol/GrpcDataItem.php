@@ -9,8 +9,7 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Structure that holds one node of a complex (structured) associated data value's recursive tree.
- * A node is either a leaf primitive value, an array of child nodes, or a map of named child nodes.
+ * Structure that holds a complex object. It can be either a map or an array of values.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcDataItem</code>
  */
@@ -25,11 +24,11 @@ class GrpcDataItem extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcEvitaValue $primitiveValue
-     *           Leaf node: the primitive value at this position of the tree (evitaDB `DataItemValue`).
+     *           Primitive value.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcDataItemArray $arrayValue
-     *           Array node: the ordered child nodes at this position of the tree (evitaDB `DataItemArray`).
+     *           The array of values.
      *     @type \Wtsvk\EvitaDbClient\Protocol\DataItemMap $mapValue
-     *           Map node: the named child nodes at this position of the tree (evitaDB `DataItemMap`).
+     *           The map of values.
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +37,7 @@ class GrpcDataItem extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Leaf node: the primitive value at this position of the tree (evitaDB `DataItemValue`).
+     * Primitive value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEvitaValue primitiveValue = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcEvitaValue|null
@@ -54,7 +53,7 @@ class GrpcDataItem extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Leaf node: the primitive value at this position of the tree (evitaDB `DataItemValue`).
+     * Primitive value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEvitaValue primitiveValue = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcEvitaValue $var
@@ -69,7 +68,7 @@ class GrpcDataItem extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array node: the ordered child nodes at this position of the tree (evitaDB `DataItemArray`).
+     * The array of values.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcDataItemArray arrayValue = 4;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcDataItemArray|null
@@ -85,7 +84,7 @@ class GrpcDataItem extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Array node: the ordered child nodes at this position of the tree (evitaDB `DataItemArray`).
+     * The array of values.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcDataItemArray arrayValue = 4;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcDataItemArray $var
@@ -100,7 +99,7 @@ class GrpcDataItem extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Map node: the named child nodes at this position of the tree (evitaDB `DataItemMap`).
+     * The map of values.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.DataItemMap mapValue = 5;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\DataItemMap|null
@@ -116,7 +115,7 @@ class GrpcDataItem extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Map node: the named child nodes at this position of the tree (evitaDB `DataItemMap`).
+     * The map of values.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.DataItemMap mapValue = 5;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\DataItemMap $var

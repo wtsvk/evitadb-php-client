@@ -16,16 +16,13 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcQueryResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The fetched page or strip of entities (in whichever of the three representations the query's
-     * `require` block asked for - see `GrpcDataChunk`).
+     * The fetched record page with entities.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcDataChunk recordPage = 1;</code>
      */
     protected $recordPage = null;
     /**
-     * Extra results computed by `require` constraints beyond the entity page itself (facet summary,
-     * hierarchy statistics, price histograms, etc.). Unset (default) if the query's `require` block
-     * requested none of these.
+     * The computed extra results.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcExtraResults extraResults = 2;</code>
      */
@@ -38,12 +35,9 @@ class GrpcQueryResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcDataChunk $recordPage
-     *           The fetched page or strip of entities (in whichever of the three representations the query's
-     *           `require` block asked for - see `GrpcDataChunk`).
+     *           The fetched record page with entities.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcExtraResults $extraResults
-     *           Extra results computed by `require` constraints beyond the entity page itself (facet summary,
-     *           hierarchy statistics, price histograms, etc.). Unset (default) if the query's `require` block
-     *           requested none of these.
+     *           The computed extra results.
      * }
      */
     public function __construct($data = NULL) {
@@ -52,8 +46,7 @@ class GrpcQueryResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The fetched page or strip of entities (in whichever of the three representations the query's
-     * `require` block asked for - see `GrpcDataChunk`).
+     * The fetched record page with entities.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcDataChunk recordPage = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcDataChunk|null
@@ -74,8 +67,7 @@ class GrpcQueryResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The fetched page or strip of entities (in whichever of the three representations the query's
-     * `require` block asked for - see `GrpcDataChunk`).
+     * The fetched record page with entities.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcDataChunk recordPage = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcDataChunk $var
@@ -90,9 +82,7 @@ class GrpcQueryResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Extra results computed by `require` constraints beyond the entity page itself (facet summary,
-     * hierarchy statistics, price histograms, etc.). Unset (default) if the query's `require` block
-     * requested none of these.
+     * The computed extra results.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcExtraResults extraResults = 2;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcExtraResults|null
@@ -113,9 +103,7 @@ class GrpcQueryResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Extra results computed by `require` constraints beyond the entity page itself (facet summary,
-     * hierarchy statistics, price histograms, etc.). Unset (default) if the query's `require` block
-     * requested none of these.
+     * The computed extra results.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcExtraResults extraResults = 2;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcExtraResults $var

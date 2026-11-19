@@ -9,15 +9,14 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Response to a request for a single file available for fetching. If no file exists for the given
- * id, the call fails with an error instead of returning this message.
+ * Response to a task statuses request.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcFileToFetchResponse</code>
  */
 class GrpcFileToFetchResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Descriptor of the requested file.
+     * File to fetch.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcFile fileToFetch = 1;</code>
      */
@@ -30,7 +29,7 @@ class GrpcFileToFetchResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcFile $fileToFetch
-     *           Descriptor of the requested file.
+     *           File to fetch.
      * }
      */
     public function __construct($data = NULL) {
@@ -39,7 +38,7 @@ class GrpcFileToFetchResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Descriptor of the requested file.
+     * File to fetch.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcFile fileToFetch = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcFile|null
@@ -60,7 +59,7 @@ class GrpcFileToFetchResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Descriptor of the requested file.
+     * File to fetch.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcFile fileToFetch = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcFile $var

@@ -9,17 +9,14 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Wrapper for representing an array of OffsetDateTimes. Also used to carry LocalDateTime,
- * LocalDate and LocalTime arrays; which Java array type applies is determined by the accompanying
- * GrpcEvitaDataType (OFFSET_DATE_TIME_ARRAY, LOCAL_DATE_TIME_ARRAY, LOCAL_DATE_ARRAY or
- * LOCAL_TIME_ARRAY).
+ * Wrapper for representing an array of OffsetDateTimes.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTimeArray</code>
  */
 class GrpcOffsetDateTimeArray extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The individual date/time elements, in their original order.
+     * Value that supports storing an OffsetDateTime array.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime value = 1;</code>
      */
@@ -32,7 +29,7 @@ class GrpcOffsetDateTimeArray extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime>|\Google\Protobuf\Internal\RepeatedField $value
-     *           The individual date/time elements, in their original order.
+     *           Value that supports storing an OffsetDateTime array.
      * }
      */
     public function __construct($data = NULL) {
@@ -41,7 +38,7 @@ class GrpcOffsetDateTimeArray extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The individual date/time elements, in their original order.
+     * Value that supports storing an OffsetDateTime array.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime value = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -52,7 +49,7 @@ class GrpcOffsetDateTimeArray extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The individual date/time elements, in their original order.
+     * Value that supports storing an OffsetDateTime array.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime value = 1;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime>|\Google\Protobuf\Internal\RepeatedField $var

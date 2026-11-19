@@ -9,24 +9,20 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Representation of DateTimeRange structures. At least one of `from`/`to` should be set; if both
- * are absent, the range decodes to a degenerate range anchored at the Unix epoch
- * (1970-01-01T00:00:00Z) rather than being unbounded in both directions.
+ * Representation of DateTimeRange structures with optional from and to values.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcDateTimeRange</code>
  */
 class GrpcDateTimeRange extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The inclusive lower bound (start) of the range. If unset (while `to` is set), the range is
-     * unbounded below (open start).
+     * The lower bound of the range.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime from = 1;</code>
      */
     protected $from = null;
     /**
-     * The inclusive upper bound (end) of the range. If unset (while `from` is set), the range is
-     * unbounded above (open end).
+     * The upper bound of the range.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime to = 2;</code>
      */
@@ -39,11 +35,9 @@ class GrpcDateTimeRange extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $from
-     *           The inclusive lower bound (start) of the range. If unset (while `to` is set), the range is
-     *           unbounded below (open start).
+     *           The lower bound of the range.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $to
-     *           The inclusive upper bound (end) of the range. If unset (while `from` is set), the range is
-     *           unbounded above (open end).
+     *           The upper bound of the range.
      * }
      */
     public function __construct($data = NULL) {
@@ -52,8 +46,7 @@ class GrpcDateTimeRange extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The inclusive lower bound (start) of the range. If unset (while `to` is set), the range is
-     * unbounded below (open start).
+     * The lower bound of the range.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime from = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime|null
@@ -74,8 +67,7 @@ class GrpcDateTimeRange extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The inclusive lower bound (start) of the range. If unset (while `to` is set), the range is
-     * unbounded below (open start).
+     * The lower bound of the range.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime from = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $var
@@ -90,8 +82,7 @@ class GrpcDateTimeRange extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The inclusive upper bound (end) of the range. If unset (while `from` is set), the range is
-     * unbounded above (open end).
+     * The upper bound of the range.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime to = 2;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime|null
@@ -112,8 +103,7 @@ class GrpcDateTimeRange extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The inclusive upper bound (end) of the range. If unset (while `from` is set), the range is
-     * unbounded above (open end).
+     * The upper bound of the range.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime to = 2;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $var

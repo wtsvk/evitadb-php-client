@@ -9,7 +9,7 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Record for the criteria of the capture request allowing to limit mutations to specific area of interest and its
+ * Record for the criteria of the capture request allowing to limit mutations to specific area of interest an its
  * properties.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcTrafficRecordingCaptureCriteria</code>
@@ -17,63 +17,58 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Determines whether only basic information about the traffic recording is returned, or the actual event
-     * content as well (see the `body` oneof on `GrpcTrafficRecord`).
+     * content determines whether only basic information about the traffic recording is returned or the actual content
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficRecordingContent content = 1;</code>
      */
     protected $content = 0;
     /**
-     * The lower time bound (inclusive) for returned traffic records. If unset, no time-based lower bound is applied.
+     * since specifies the time from which the traffic recording should be returned
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime since = 2;</code>
      */
     protected $since = null;
     /**
-     * The session sequence ID (see `GrpcTrafficRecord#sessionSequenceOrder`) from which the traffic recording should
-     * be returned (inclusive). If unset, no session-sequence lower bound is applied.
+     * sinceSessionSequenceId specifies the session sequence ID from which the traffic recording should be returned
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value sinceSessionSequenceId = 3;</code>
      */
     protected $sinceSessionSequenceId = null;
     /**
-     * The record offset within the session identified by `sinceSessionSequenceId` from which the traffic recording
-     * should be returned (the offset is relative to the session sequence ID and starts from 0); allows continuing to
-     * fetch a session's traffic recording from the last fetched record when the session was not fully fetched in a
-     * previous call. If unset, records are returned from the start of the session.
+     * sinceRecordSessionOffset specifies the record session offset from which the traffic recording should be returned
+     *                          (the offset is relative to the session sequence ID and starts from 0), offset allows
+     *                          to continue fetching the traffic recording from the last fetched record when session
+     *                          was not fully fetched
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value sinceRecordSessionOffset = 4;</code>
      */
     protected $sinceRecordSessionOffset = null;
     /**
-     * The types of traffic recording to be returned. If empty, records of all types are returned.
+     * type specifies the types of traffic recording to be returned
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTrafficRecordingType type = 5;</code>
      */
     private $type;
     /**
-     * The session IDs to limit the returned traffic recording to. If empty, records from all sessions are considered.
+     * sessionId specifies the session ID from which the traffic recording should be returned
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcUuid sessionId = 6;</code>
      */
     private $sessionId;
     /**
-     * The minimum duration (milliseconds) the traffic recording operation must have taken to be returned. If unset,
-     * no minimum-duration filter is applied.
+     * longerThan specifies the minimum duration in milliseconds of the traffic recording to be returned
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value longerThanMilliseconds = 7;</code>
      */
     protected $longerThanMilliseconds = null;
     /**
-     * The minimum number of bytes the record must have fetched from the permanent storage to be returned. If unset,
-     * no minimum-size filter is applied.
+     * fetchingMoreBytesThan specifies the minimum number of bytes that record should have fetched from the disk
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value fetchingMoreBytesThan = 8;</code>
      */
     protected $fetchingMoreBytesThan = null;
     /**
-     * The client labels the traffic recording must have (both name and value must match). If empty, no label filter
-     * is applied.
+     * labels specifies the client labels that the traffic recording must have (both name and value must match)
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcQueryLabel labels = 9;</code>
      */
@@ -86,31 +81,26 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
      *     Optional. Data for populating the Message object.
      *
      *     @type int $content
-     *           Determines whether only basic information about the traffic recording is returned, or the actual event
-     *           content as well (see the `body` oneof on `GrpcTrafficRecord`).
+     *           content determines whether only basic information about the traffic recording is returned or the actual content
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $since
-     *           The lower time bound (inclusive) for returned traffic records. If unset, no time-based lower bound is applied.
+     *           since specifies the time from which the traffic recording should be returned
      *     @type \Google\Protobuf\Int64Value $sinceSessionSequenceId
-     *           The session sequence ID (see `GrpcTrafficRecord#sessionSequenceOrder`) from which the traffic recording should
-     *           be returned (inclusive). If unset, no session-sequence lower bound is applied.
+     *           sinceSessionSequenceId specifies the session sequence ID from which the traffic recording should be returned
      *     @type \Google\Protobuf\Int32Value $sinceRecordSessionOffset
-     *           The record offset within the session identified by `sinceSessionSequenceId` from which the traffic recording
-     *           should be returned (the offset is relative to the session sequence ID and starts from 0); allows continuing to
-     *           fetch a session's traffic recording from the last fetched record when the session was not fully fetched in a
-     *           previous call. If unset, records are returned from the start of the session.
+     *           sinceRecordSessionOffset specifies the record session offset from which the traffic recording should be returned
+     *                                    (the offset is relative to the session sequence ID and starts from 0), offset allows
+     *                                    to continue fetching the traffic recording from the last fetched record when session
+     *                                    was not fully fetched
      *     @type array<int>|\Google\Protobuf\Internal\RepeatedField $type
-     *           The types of traffic recording to be returned. If empty, records of all types are returned.
+     *           type specifies the types of traffic recording to be returned
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcUuid>|\Google\Protobuf\Internal\RepeatedField $sessionId
-     *           The session IDs to limit the returned traffic recording to. If empty, records from all sessions are considered.
+     *           sessionId specifies the session ID from which the traffic recording should be returned
      *     @type \Google\Protobuf\Int32Value $longerThanMilliseconds
-     *           The minimum duration (milliseconds) the traffic recording operation must have taken to be returned. If unset,
-     *           no minimum-duration filter is applied.
+     *           longerThan specifies the minimum duration in milliseconds of the traffic recording to be returned
      *     @type \Google\Protobuf\Int32Value $fetchingMoreBytesThan
-     *           The minimum number of bytes the record must have fetched from the permanent storage to be returned. If unset,
-     *           no minimum-size filter is applied.
+     *           fetchingMoreBytesThan specifies the minimum number of bytes that record should have fetched from the disk
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcQueryLabel>|\Google\Protobuf\Internal\RepeatedField $labels
-     *           The client labels the traffic recording must have (both name and value must match). If empty, no label filter
-     *           is applied.
+     *           labels specifies the client labels that the traffic recording must have (both name and value must match)
      * }
      */
     public function __construct($data = NULL) {
@@ -119,8 +109,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     }
 
     /**
-     * Determines whether only basic information about the traffic recording is returned, or the actual event
-     * content as well (see the `body` oneof on `GrpcTrafficRecord`).
+     * content determines whether only basic information about the traffic recording is returned or the actual content
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficRecordingContent content = 1;</code>
      * @return int
@@ -131,8 +120,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     }
 
     /**
-     * Determines whether only basic information about the traffic recording is returned, or the actual event
-     * content as well (see the `body` oneof on `GrpcTrafficRecord`).
+     * content determines whether only basic information about the traffic recording is returned or the actual content
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficRecordingContent content = 1;</code>
      * @param int $var
@@ -147,7 +135,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     }
 
     /**
-     * The lower time bound (inclusive) for returned traffic records. If unset, no time-based lower bound is applied.
+     * since specifies the time from which the traffic recording should be returned
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime since = 2;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime|null
@@ -168,7 +156,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     }
 
     /**
-     * The lower time bound (inclusive) for returned traffic records. If unset, no time-based lower bound is applied.
+     * since specifies the time from which the traffic recording should be returned
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime since = 2;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $var
@@ -183,8 +171,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     }
 
     /**
-     * The session sequence ID (see `GrpcTrafficRecord#sessionSequenceOrder`) from which the traffic recording should
-     * be returned (inclusive). If unset, no session-sequence lower bound is applied.
+     * sinceSessionSequenceId specifies the session sequence ID from which the traffic recording should be returned
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value sinceSessionSequenceId = 3;</code>
      * @return \Google\Protobuf\Int64Value|null
@@ -207,8 +194,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     /**
      * Returns the unboxed value from <code>getSinceSessionSequenceId()</code>
 
-     * The session sequence ID (see `GrpcTrafficRecord#sessionSequenceOrder`) from which the traffic recording should
-     * be returned (inclusive). If unset, no session-sequence lower bound is applied.
+     * sinceSessionSequenceId specifies the session sequence ID from which the traffic recording should be returned
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value sinceSessionSequenceId = 3;</code>
      * @return int|string|null
@@ -219,8 +205,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     }
 
     /**
-     * The session sequence ID (see `GrpcTrafficRecord#sessionSequenceOrder`) from which the traffic recording should
-     * be returned (inclusive). If unset, no session-sequence lower bound is applied.
+     * sinceSessionSequenceId specifies the session sequence ID from which the traffic recording should be returned
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value sinceSessionSequenceId = 3;</code>
      * @param \Google\Protobuf\Int64Value $var
@@ -237,8 +222,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int64Value object.
 
-     * The session sequence ID (see `GrpcTrafficRecord#sessionSequenceOrder`) from which the traffic recording should
-     * be returned (inclusive). If unset, no session-sequence lower bound is applied.
+     * sinceSessionSequenceId specifies the session sequence ID from which the traffic recording should be returned
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value sinceSessionSequenceId = 3;</code>
      * @param int|string|null $var
@@ -250,10 +234,10 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
         return $this;}
 
     /**
-     * The record offset within the session identified by `sinceSessionSequenceId` from which the traffic recording
-     * should be returned (the offset is relative to the session sequence ID and starts from 0); allows continuing to
-     * fetch a session's traffic recording from the last fetched record when the session was not fully fetched in a
-     * previous call. If unset, records are returned from the start of the session.
+     * sinceRecordSessionOffset specifies the record session offset from which the traffic recording should be returned
+     *                          (the offset is relative to the session sequence ID and starts from 0), offset allows
+     *                          to continue fetching the traffic recording from the last fetched record when session
+     *                          was not fully fetched
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value sinceRecordSessionOffset = 4;</code>
      * @return \Google\Protobuf\Int32Value|null
@@ -276,10 +260,10 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     /**
      * Returns the unboxed value from <code>getSinceRecordSessionOffset()</code>
 
-     * The record offset within the session identified by `sinceSessionSequenceId` from which the traffic recording
-     * should be returned (the offset is relative to the session sequence ID and starts from 0); allows continuing to
-     * fetch a session's traffic recording from the last fetched record when the session was not fully fetched in a
-     * previous call. If unset, records are returned from the start of the session.
+     * sinceRecordSessionOffset specifies the record session offset from which the traffic recording should be returned
+     *                          (the offset is relative to the session sequence ID and starts from 0), offset allows
+     *                          to continue fetching the traffic recording from the last fetched record when session
+     *                          was not fully fetched
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value sinceRecordSessionOffset = 4;</code>
      * @return int|null
@@ -290,10 +274,10 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     }
 
     /**
-     * The record offset within the session identified by `sinceSessionSequenceId` from which the traffic recording
-     * should be returned (the offset is relative to the session sequence ID and starts from 0); allows continuing to
-     * fetch a session's traffic recording from the last fetched record when the session was not fully fetched in a
-     * previous call. If unset, records are returned from the start of the session.
+     * sinceRecordSessionOffset specifies the record session offset from which the traffic recording should be returned
+     *                          (the offset is relative to the session sequence ID and starts from 0), offset allows
+     *                          to continue fetching the traffic recording from the last fetched record when session
+     *                          was not fully fetched
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value sinceRecordSessionOffset = 4;</code>
      * @param \Google\Protobuf\Int32Value $var
@@ -310,10 +294,10 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int32Value object.
 
-     * The record offset within the session identified by `sinceSessionSequenceId` from which the traffic recording
-     * should be returned (the offset is relative to the session sequence ID and starts from 0); allows continuing to
-     * fetch a session's traffic recording from the last fetched record when the session was not fully fetched in a
-     * previous call. If unset, records are returned from the start of the session.
+     * sinceRecordSessionOffset specifies the record session offset from which the traffic recording should be returned
+     *                          (the offset is relative to the session sequence ID and starts from 0), offset allows
+     *                          to continue fetching the traffic recording from the last fetched record when session
+     *                          was not fully fetched
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value sinceRecordSessionOffset = 4;</code>
      * @param int|null $var
@@ -325,7 +309,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
         return $this;}
 
     /**
-     * The types of traffic recording to be returned. If empty, records of all types are returned.
+     * type specifies the types of traffic recording to be returned
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTrafficRecordingType type = 5;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -336,7 +320,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     }
 
     /**
-     * The types of traffic recording to be returned. If empty, records of all types are returned.
+     * type specifies the types of traffic recording to be returned
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTrafficRecordingType type = 5;</code>
      * @param array<int>|\Google\Protobuf\Internal\RepeatedField $var
@@ -351,7 +335,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     }
 
     /**
-     * The session IDs to limit the returned traffic recording to. If empty, records from all sessions are considered.
+     * sessionId specifies the session ID from which the traffic recording should be returned
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcUuid sessionId = 6;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -362,7 +346,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     }
 
     /**
-     * The session IDs to limit the returned traffic recording to. If empty, records from all sessions are considered.
+     * sessionId specifies the session ID from which the traffic recording should be returned
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcUuid sessionId = 6;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcUuid>|\Google\Protobuf\Internal\RepeatedField $var
@@ -377,8 +361,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     }
 
     /**
-     * The minimum duration (milliseconds) the traffic recording operation must have taken to be returned. If unset,
-     * no minimum-duration filter is applied.
+     * longerThan specifies the minimum duration in milliseconds of the traffic recording to be returned
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value longerThanMilliseconds = 7;</code>
      * @return \Google\Protobuf\Int32Value|null
@@ -401,8 +384,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     /**
      * Returns the unboxed value from <code>getLongerThanMilliseconds()</code>
 
-     * The minimum duration (milliseconds) the traffic recording operation must have taken to be returned. If unset,
-     * no minimum-duration filter is applied.
+     * longerThan specifies the minimum duration in milliseconds of the traffic recording to be returned
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value longerThanMilliseconds = 7;</code>
      * @return int|null
@@ -413,8 +395,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     }
 
     /**
-     * The minimum duration (milliseconds) the traffic recording operation must have taken to be returned. If unset,
-     * no minimum-duration filter is applied.
+     * longerThan specifies the minimum duration in milliseconds of the traffic recording to be returned
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value longerThanMilliseconds = 7;</code>
      * @param \Google\Protobuf\Int32Value $var
@@ -431,8 +412,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int32Value object.
 
-     * The minimum duration (milliseconds) the traffic recording operation must have taken to be returned. If unset,
-     * no minimum-duration filter is applied.
+     * longerThan specifies the minimum duration in milliseconds of the traffic recording to be returned
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value longerThanMilliseconds = 7;</code>
      * @param int|null $var
@@ -444,8 +424,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
         return $this;}
 
     /**
-     * The minimum number of bytes the record must have fetched from the permanent storage to be returned. If unset,
-     * no minimum-size filter is applied.
+     * fetchingMoreBytesThan specifies the minimum number of bytes that record should have fetched from the disk
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value fetchingMoreBytesThan = 8;</code>
      * @return \Google\Protobuf\Int32Value|null
@@ -468,8 +447,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     /**
      * Returns the unboxed value from <code>getFetchingMoreBytesThan()</code>
 
-     * The minimum number of bytes the record must have fetched from the permanent storage to be returned. If unset,
-     * no minimum-size filter is applied.
+     * fetchingMoreBytesThan specifies the minimum number of bytes that record should have fetched from the disk
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value fetchingMoreBytesThan = 8;</code>
      * @return int|null
@@ -480,8 +458,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     }
 
     /**
-     * The minimum number of bytes the record must have fetched from the permanent storage to be returned. If unset,
-     * no minimum-size filter is applied.
+     * fetchingMoreBytesThan specifies the minimum number of bytes that record should have fetched from the disk
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value fetchingMoreBytesThan = 8;</code>
      * @param \Google\Protobuf\Int32Value $var
@@ -498,8 +475,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int32Value object.
 
-     * The minimum number of bytes the record must have fetched from the permanent storage to be returned. If unset,
-     * no minimum-size filter is applied.
+     * fetchingMoreBytesThan specifies the minimum number of bytes that record should have fetched from the disk
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value fetchingMoreBytesThan = 8;</code>
      * @param int|null $var
@@ -511,8 +487,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
         return $this;}
 
     /**
-     * The client labels the traffic recording must have (both name and value must match). If empty, no label filter
-     * is applied.
+     * labels specifies the client labels that the traffic recording must have (both name and value must match)
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcQueryLabel labels = 9;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -523,8 +498,7 @@ class GrpcTrafficRecordingCaptureCriteria extends \Google\Protobuf\Internal\Mess
     }
 
     /**
-     * The client labels the traffic recording must have (both name and value must match). If empty, no label filter
-     * is applied.
+     * labels specifies the client labels that the traffic recording must have (both name and value must match)
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcQueryLabel labels = 9;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcQueryLabel>|\Google\Protobuf\Internal\RepeatedField $var

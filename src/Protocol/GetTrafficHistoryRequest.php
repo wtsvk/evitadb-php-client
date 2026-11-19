@@ -9,16 +9,14 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Request for the streaming variant of the traffic history query; unlike GetTrafficHistoryListRequest, all
- * matching records are streamed back without a result cap.
+ * Request to GetTrafficHistory request.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GetTrafficHistoryRequest</code>
  */
 class GetTrafficHistoryRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The criteria of the traffic recording, allowing constraints on the returned records. If unset, no filters
-     * are applied and all recorded traffic is streamed back.
+     * The criteria of the traffic recording, allows to define constraints on the returned records
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficRecordingCaptureCriteria criteria = 1;</code>
      */
@@ -31,8 +29,7 @@ class GetTrafficHistoryRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficRecordingCaptureCriteria $criteria
-     *           The criteria of the traffic recording, allowing constraints on the returned records. If unset, no filters
-     *           are applied and all recorded traffic is streamed back.
+     *           The criteria of the traffic recording, allows to define constraints on the returned records
      * }
      */
     public function __construct($data = NULL) {
@@ -41,8 +38,7 @@ class GetTrafficHistoryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The criteria of the traffic recording, allowing constraints on the returned records. If unset, no filters
-     * are applied and all recorded traffic is streamed back.
+     * The criteria of the traffic recording, allows to define constraints on the returned records
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficRecordingCaptureCriteria criteria = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficRecordingCaptureCriteria|null
@@ -63,8 +59,7 @@ class GetTrafficHistoryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The criteria of the traffic recording, allowing constraints on the returned records. If unset, no filters
-     * are applied and all recorded traffic is streamed back.
+     * The criteria of the traffic recording, allows to define constraints on the returned records
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficRecordingCaptureCriteria criteria = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficRecordingCaptureCriteria $var

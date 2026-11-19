@@ -9,22 +9,20 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Response to DeleteEntities request that deletes all entities matched by the sent query.
+ * Response to DeleteEntities request that deletes all entities that match the sent query..
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcDeleteEntitiesResponse</code>
  */
 class GrpcDeleteEntitiesResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Total number of entities deleted.
+     * Count of deleted entities.
      *
      * Generated from protobuf field <code>int32 deletedEntities = 1;</code>
      */
     protected $deletedEntities = 0;
     /**
-     * The deleted entities' bodies, fully fetched (as they were immediately before deletion) per the
-     * `require` block of the query in `GrpcDeleteEntitiesRequest`. Empty if that `require` block had no
-     * `entityFetch` requirement.
+     * The deleted entity bodies.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcSealedEntity deletedEntityBodies = 2;</code>
      */
@@ -37,11 +35,9 @@ class GrpcDeleteEntitiesResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type int $deletedEntities
-     *           Total number of entities deleted.
+     *           Count of deleted entities.
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity>|\Google\Protobuf\Internal\RepeatedField $deletedEntityBodies
-     *           The deleted entities' bodies, fully fetched (as they were immediately before deletion) per the
-     *           `require` block of the query in `GrpcDeleteEntitiesRequest`. Empty if that `require` block had no
-     *           `entityFetch` requirement.
+     *           The deleted entity bodies.
      * }
      */
     public function __construct($data = NULL) {
@@ -50,7 +46,7 @@ class GrpcDeleteEntitiesResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Total number of entities deleted.
+     * Count of deleted entities.
      *
      * Generated from protobuf field <code>int32 deletedEntities = 1;</code>
      * @return int
@@ -61,7 +57,7 @@ class GrpcDeleteEntitiesResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Total number of entities deleted.
+     * Count of deleted entities.
      *
      * Generated from protobuf field <code>int32 deletedEntities = 1;</code>
      * @param int $var
@@ -76,9 +72,7 @@ class GrpcDeleteEntitiesResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The deleted entities' bodies, fully fetched (as they were immediately before deletion) per the
-     * `require` block of the query in `GrpcDeleteEntitiesRequest`. Empty if that `require` block had no
-     * `entityFetch` requirement.
+     * The deleted entity bodies.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcSealedEntity deletedEntityBodies = 2;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -89,9 +83,7 @@ class GrpcDeleteEntitiesResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The deleted entities' bodies, fully fetched (as they were immediately before deletion) per the
-     * `require` block of the query in `GrpcDeleteEntitiesRequest`. Empty if that `require` block had no
-     * `entityFetch` requirement.
+     * The deleted entity bodies.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcSealedEntity deletedEntityBodies = 2;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity>|\Google\Protobuf\Internal\RepeatedField $var

@@ -9,48 +9,32 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Request for GetMutationsHistory / GetMutationsHistoryForward, a streamed read of past mutations that
- * match the given criteria - the unpaged sibling of GetMutationsHistoryPage / GetMutationsHistoryPageForward.
- * GetMutationsHistory delivers them reverse-chronologically (newest first); GetMutationsHistoryForward
- * delivers them chronologically (oldest first). The two RPCs share this same request message; `sinceVersion`
- * switches meaning by direction.
+ * Request to GetMutationsHistoryPage request.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GetMutationsHistoryRequest</code>
  */
 class GetMutationsHistoryRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Catalog version to anchor the search at (inclusive). For GetMutationsHistory (reverse), an upper bound -
-     * the anchor to start from and go backward; if unset, defaults to the engine's last applied catalog
-     * version (this default differs from the paged RPC's, which anchors on the session's current catalog
-     * version instead - the two can diverge under concurrent writes). For GetMutationsHistoryForward
-     * (forward), a lower bound - the anchor to start from and go forward; if unset, defaults to the oldest
-     * version known to the catalog's mutation history. A forward `sinceVersion` past the newest available
-     * version is not rejected - it simply yields an empty stream.
+     * Starting point for the search (catalog version)
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value sinceVersion = 1;</code>
      */
     protected $sinceVersion = null;
     /**
-     * Index of the mutation within `sinceVersion` to anchor the search at (inclusive). A version's mutations
-     * are numbered from 1 upward; the transaction header itself occupies index 0. If unset, no index-based
-     * filtering is applied within `sinceVersion` - all of that version's mutations are included.
+     * Starting point for the search (index of the mutation within catalog version)
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value sinceIndex = 2;</code>
      */
     protected $sinceIndex = null;
     /**
-     * Criteria mutations must match to be included (entity type, mutation kind, area, etc.). An empty list
-     * applies no criteria-based filtering.
+     * The criteria of the capture, allows to define constraints on the returned mutations
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureCriteria criteria = 3;</code>
      */
     private $criteria;
     /**
-     * Whether the response carries only mutation headers (`CHANGE_HEADER`, the default - proto3 zero value -
-     * when this field is left unset) or full mutation bodies (`CHANGE_BODY`). Only `CHANGE_BODY` carries
-     * enough information (e.g. `mutationCount` on the transaction header) to verify a transaction was
-     * received in full.
+     * The scope of the returned data - either header of the mutation, or the whole mutation
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureContent content = 4;</code>
      */
@@ -63,25 +47,13 @@ class GetMutationsHistoryRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Google\Protobuf\Int64Value $sinceVersion
-     *           Catalog version to anchor the search at (inclusive). For GetMutationsHistory (reverse), an upper bound -
-     *           the anchor to start from and go backward; if unset, defaults to the engine's last applied catalog
-     *           version (this default differs from the paged RPC's, which anchors on the session's current catalog
-     *           version instead - the two can diverge under concurrent writes). For GetMutationsHistoryForward
-     *           (forward), a lower bound - the anchor to start from and go forward; if unset, defaults to the oldest
-     *           version known to the catalog's mutation history. A forward `sinceVersion` past the newest available
-     *           version is not rejected - it simply yields an empty stream.
+     *           Starting point for the search (catalog version)
      *     @type \Google\Protobuf\Int32Value $sinceIndex
-     *           Index of the mutation within `sinceVersion` to anchor the search at (inclusive). A version's mutations
-     *           are numbered from 1 upward; the transaction header itself occupies index 0. If unset, no index-based
-     *           filtering is applied within `sinceVersion` - all of that version's mutations are included.
+     *           Starting point for the search (index of the mutation within catalog version)
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcChangeCaptureCriteria>|\Google\Protobuf\Internal\RepeatedField $criteria
-     *           Criteria mutations must match to be included (entity type, mutation kind, area, etc.). An empty list
-     *           applies no criteria-based filtering.
+     *           The criteria of the capture, allows to define constraints on the returned mutations
      *     @type int $content
-     *           Whether the response carries only mutation headers (`CHANGE_HEADER`, the default - proto3 zero value -
-     *           when this field is left unset) or full mutation bodies (`CHANGE_BODY`). Only `CHANGE_BODY` carries
-     *           enough information (e.g. `mutationCount` on the transaction header) to verify a transaction was
-     *           received in full.
+     *           The scope of the returned data - either header of the mutation, or the whole mutation
      * }
      */
     public function __construct($data = NULL) {
@@ -90,13 +62,7 @@ class GetMutationsHistoryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Catalog version to anchor the search at (inclusive). For GetMutationsHistory (reverse), an upper bound -
-     * the anchor to start from and go backward; if unset, defaults to the engine's last applied catalog
-     * version (this default differs from the paged RPC's, which anchors on the session's current catalog
-     * version instead - the two can diverge under concurrent writes). For GetMutationsHistoryForward
-     * (forward), a lower bound - the anchor to start from and go forward; if unset, defaults to the oldest
-     * version known to the catalog's mutation history. A forward `sinceVersion` past the newest available
-     * version is not rejected - it simply yields an empty stream.
+     * Starting point for the search (catalog version)
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value sinceVersion = 1;</code>
      * @return \Google\Protobuf\Int64Value|null
@@ -119,13 +85,7 @@ class GetMutationsHistoryRequest extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getSinceVersion()</code>
 
-     * Catalog version to anchor the search at (inclusive). For GetMutationsHistory (reverse), an upper bound -
-     * the anchor to start from and go backward; if unset, defaults to the engine's last applied catalog
-     * version (this default differs from the paged RPC's, which anchors on the session's current catalog
-     * version instead - the two can diverge under concurrent writes). For GetMutationsHistoryForward
-     * (forward), a lower bound - the anchor to start from and go forward; if unset, defaults to the oldest
-     * version known to the catalog's mutation history. A forward `sinceVersion` past the newest available
-     * version is not rejected - it simply yields an empty stream.
+     * Starting point for the search (catalog version)
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value sinceVersion = 1;</code>
      * @return int|string|null
@@ -136,13 +96,7 @@ class GetMutationsHistoryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Catalog version to anchor the search at (inclusive). For GetMutationsHistory (reverse), an upper bound -
-     * the anchor to start from and go backward; if unset, defaults to the engine's last applied catalog
-     * version (this default differs from the paged RPC's, which anchors on the session's current catalog
-     * version instead - the two can diverge under concurrent writes). For GetMutationsHistoryForward
-     * (forward), a lower bound - the anchor to start from and go forward; if unset, defaults to the oldest
-     * version known to the catalog's mutation history. A forward `sinceVersion` past the newest available
-     * version is not rejected - it simply yields an empty stream.
+     * Starting point for the search (catalog version)
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value sinceVersion = 1;</code>
      * @param \Google\Protobuf\Int64Value $var
@@ -159,13 +113,7 @@ class GetMutationsHistoryRequest extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int64Value object.
 
-     * Catalog version to anchor the search at (inclusive). For GetMutationsHistory (reverse), an upper bound -
-     * the anchor to start from and go backward; if unset, defaults to the engine's last applied catalog
-     * version (this default differs from the paged RPC's, which anchors on the session's current catalog
-     * version instead - the two can diverge under concurrent writes). For GetMutationsHistoryForward
-     * (forward), a lower bound - the anchor to start from and go forward; if unset, defaults to the oldest
-     * version known to the catalog's mutation history. A forward `sinceVersion` past the newest available
-     * version is not rejected - it simply yields an empty stream.
+     * Starting point for the search (catalog version)
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value sinceVersion = 1;</code>
      * @param int|string|null $var
@@ -177,9 +125,7 @@ class GetMutationsHistoryRequest extends \Google\Protobuf\Internal\Message
         return $this;}
 
     /**
-     * Index of the mutation within `sinceVersion` to anchor the search at (inclusive). A version's mutations
-     * are numbered from 1 upward; the transaction header itself occupies index 0. If unset, no index-based
-     * filtering is applied within `sinceVersion` - all of that version's mutations are included.
+     * Starting point for the search (index of the mutation within catalog version)
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value sinceIndex = 2;</code>
      * @return \Google\Protobuf\Int32Value|null
@@ -202,9 +148,7 @@ class GetMutationsHistoryRequest extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getSinceIndex()</code>
 
-     * Index of the mutation within `sinceVersion` to anchor the search at (inclusive). A version's mutations
-     * are numbered from 1 upward; the transaction header itself occupies index 0. If unset, no index-based
-     * filtering is applied within `sinceVersion` - all of that version's mutations are included.
+     * Starting point for the search (index of the mutation within catalog version)
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value sinceIndex = 2;</code>
      * @return int|null
@@ -215,9 +159,7 @@ class GetMutationsHistoryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Index of the mutation within `sinceVersion` to anchor the search at (inclusive). A version's mutations
-     * are numbered from 1 upward; the transaction header itself occupies index 0. If unset, no index-based
-     * filtering is applied within `sinceVersion` - all of that version's mutations are included.
+     * Starting point for the search (index of the mutation within catalog version)
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value sinceIndex = 2;</code>
      * @param \Google\Protobuf\Int32Value $var
@@ -234,9 +176,7 @@ class GetMutationsHistoryRequest extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int32Value object.
 
-     * Index of the mutation within `sinceVersion` to anchor the search at (inclusive). A version's mutations
-     * are numbered from 1 upward; the transaction header itself occupies index 0. If unset, no index-based
-     * filtering is applied within `sinceVersion` - all of that version's mutations are included.
+     * Starting point for the search (index of the mutation within catalog version)
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value sinceIndex = 2;</code>
      * @param int|null $var
@@ -248,8 +188,7 @@ class GetMutationsHistoryRequest extends \Google\Protobuf\Internal\Message
         return $this;}
 
     /**
-     * Criteria mutations must match to be included (entity type, mutation kind, area, etc.). An empty list
-     * applies no criteria-based filtering.
+     * The criteria of the capture, allows to define constraints on the returned mutations
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureCriteria criteria = 3;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -260,8 +199,7 @@ class GetMutationsHistoryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Criteria mutations must match to be included (entity type, mutation kind, area, etc.). An empty list
-     * applies no criteria-based filtering.
+     * The criteria of the capture, allows to define constraints on the returned mutations
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureCriteria criteria = 3;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcChangeCaptureCriteria>|\Google\Protobuf\Internal\RepeatedField $var
@@ -276,10 +214,7 @@ class GetMutationsHistoryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether the response carries only mutation headers (`CHANGE_HEADER`, the default - proto3 zero value -
-     * when this field is left unset) or full mutation bodies (`CHANGE_BODY`). Only `CHANGE_BODY` carries
-     * enough information (e.g. `mutationCount` on the transaction header) to verify a transaction was
-     * received in full.
+     * The scope of the returned data - either header of the mutation, or the whole mutation
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureContent content = 4;</code>
      * @return int
@@ -290,10 +225,7 @@ class GetMutationsHistoryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether the response carries only mutation headers (`CHANGE_HEADER`, the default - proto3 zero value -
-     * when this field is left unset) or full mutation bodies (`CHANGE_BODY`). Only `CHANGE_BODY` carries
-     * enough information (e.g. `mutationCount` on the transaction header) to verify a transaction was
-     * received in full.
+     * The scope of the returned data - either header of the mutation, or the whole mutation
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcChangeCaptureContent content = 4;</code>
      * @param int $var

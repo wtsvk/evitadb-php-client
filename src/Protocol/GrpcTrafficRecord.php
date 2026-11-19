@@ -72,8 +72,7 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
      */
     protected $ioFetchCount = 0;
     /**
-     * The error message the operation this record represents finished with. If unset, the operation completed
-     * without error.
+     * Returns non-null error message if the action the recording relates to finished with an error.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue finishedWithError = 10;</code>
      */
@@ -107,25 +106,15 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
      *     @type int $ioFetchCount
      *           The number of objects fetched from the permanent storage.
      *     @type \Google\Protobuf\StringValue $finishedWithError
-     *           The error message the operation this record represents finished with. If unset, the operation completed
-     *           without error.
+     *           Returns non-null error message if the action the recording relates to finished with an error.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficMutationContainer $mutation
-     *           Present when `type` is `TRAFFIC_RECORDING_MUTATION` - the entity or schema mutation that was executed.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficQueryContainer $query
-     *           Present when `type` is `TRAFFIC_RECORDING_QUERY` - the internal evitaDB query (evitaQL) that was executed.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficEntityEnrichmentContainer $enrichment
-     *           Present when `type` is `TRAFFIC_RECORDING_ENRICHMENT` - the entity enrichment call that was executed.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficEntityFetchContainer $fetch
-     *           Present when `type` is `TRAFFIC_RECORDING_FETCH` - the single entity fetch call that was executed.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficSessionCloseContainer $sessionClose
-     *           Present when `type` is `TRAFFIC_RECORDING_SESSION_FINISH` - statistics collected over the closed session.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficSessionStartContainer $sessionStart
-     *           Present when `type` is `TRAFFIC_RECORDING_SESSION_START` - metadata about the newly opened session.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficSourceQueryContainer $sourceQuery
-     *           Present when `type` is `TRAFFIC_RECORDING_SOURCE_QUERY` - the raw, unparsed query as received from the client.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficSourceQueryStatisticsContainer $sourceQueryStatistics
-     *           Present when `type` is `TRAFFIC_RECORDING_SOURCE_QUERY_STATISTICS` - statistics aggregated over all
-     *           operations related to a single source query.
      * }
      */
     public function __construct($data = NULL) {
@@ -392,8 +381,7 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The error message the operation this record represents finished with. If unset, the operation completed
-     * without error.
+     * Returns non-null error message if the action the recording relates to finished with an error.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue finishedWithError = 10;</code>
      * @return \Google\Protobuf\StringValue|null
@@ -416,8 +404,7 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getFinishedWithError()</code>
 
-     * The error message the operation this record represents finished with. If unset, the operation completed
-     * without error.
+     * Returns non-null error message if the action the recording relates to finished with an error.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue finishedWithError = 10;</code>
      * @return string|null
@@ -428,8 +415,7 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The error message the operation this record represents finished with. If unset, the operation completed
-     * without error.
+     * Returns non-null error message if the action the recording relates to finished with an error.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue finishedWithError = 10;</code>
      * @param \Google\Protobuf\StringValue $var
@@ -446,8 +432,7 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\StringValue object.
 
-     * The error message the operation this record represents finished with. If unset, the operation completed
-     * without error.
+     * Returns non-null error message if the action the recording relates to finished with an error.
      *
      * Generated from protobuf field <code>.google.protobuf.StringValue finishedWithError = 10;</code>
      * @param string|null $var
@@ -459,8 +444,6 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
         return $this;}
 
     /**
-     * Present when `type` is `TRAFFIC_RECORDING_MUTATION` - the entity or schema mutation that was executed.
-     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficMutationContainer mutation = 101;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficMutationContainer|null
      */
@@ -475,8 +458,6 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Present when `type` is `TRAFFIC_RECORDING_MUTATION` - the entity or schema mutation that was executed.
-     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficMutationContainer mutation = 101;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficMutationContainer $var
      * @return $this
@@ -490,8 +471,6 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Present when `type` is `TRAFFIC_RECORDING_QUERY` - the internal evitaDB query (evitaQL) that was executed.
-     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficQueryContainer query = 102;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficQueryContainer|null
      */
@@ -506,8 +485,6 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Present when `type` is `TRAFFIC_RECORDING_QUERY` - the internal evitaDB query (evitaQL) that was executed.
-     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficQueryContainer query = 102;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficQueryContainer $var
      * @return $this
@@ -521,8 +498,6 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Present when `type` is `TRAFFIC_RECORDING_ENRICHMENT` - the entity enrichment call that was executed.
-     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficEntityEnrichmentContainer enrichment = 103;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficEntityEnrichmentContainer|null
      */
@@ -537,8 +512,6 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Present when `type` is `TRAFFIC_RECORDING_ENRICHMENT` - the entity enrichment call that was executed.
-     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficEntityEnrichmentContainer enrichment = 103;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficEntityEnrichmentContainer $var
      * @return $this
@@ -552,8 +525,6 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Present when `type` is `TRAFFIC_RECORDING_FETCH` - the single entity fetch call that was executed.
-     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficEntityFetchContainer fetch = 104;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficEntityFetchContainer|null
      */
@@ -568,8 +539,6 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Present when `type` is `TRAFFIC_RECORDING_FETCH` - the single entity fetch call that was executed.
-     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficEntityFetchContainer fetch = 104;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficEntityFetchContainer $var
      * @return $this
@@ -583,8 +552,6 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Present when `type` is `TRAFFIC_RECORDING_SESSION_FINISH` - statistics collected over the closed session.
-     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficSessionCloseContainer sessionClose = 105;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficSessionCloseContainer|null
      */
@@ -599,8 +566,6 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Present when `type` is `TRAFFIC_RECORDING_SESSION_FINISH` - statistics collected over the closed session.
-     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficSessionCloseContainer sessionClose = 105;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficSessionCloseContainer $var
      * @return $this
@@ -614,8 +579,6 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Present when `type` is `TRAFFIC_RECORDING_SESSION_START` - metadata about the newly opened session.
-     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficSessionStartContainer sessionStart = 106;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficSessionStartContainer|null
      */
@@ -630,8 +593,6 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Present when `type` is `TRAFFIC_RECORDING_SESSION_START` - metadata about the newly opened session.
-     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficSessionStartContainer sessionStart = 106;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficSessionStartContainer $var
      * @return $this
@@ -645,8 +606,6 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Present when `type` is `TRAFFIC_RECORDING_SOURCE_QUERY` - the raw, unparsed query as received from the client.
-     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficSourceQueryContainer sourceQuery = 107;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficSourceQueryContainer|null
      */
@@ -661,8 +620,6 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Present when `type` is `TRAFFIC_RECORDING_SOURCE_QUERY` - the raw, unparsed query as received from the client.
-     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficSourceQueryContainer sourceQuery = 107;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficSourceQueryContainer $var
      * @return $this
@@ -676,9 +633,6 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Present when `type` is `TRAFFIC_RECORDING_SOURCE_QUERY_STATISTICS` - statistics aggregated over all
-     * operations related to a single source query.
-     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficSourceQueryStatisticsContainer sourceQueryStatistics = 108;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficSourceQueryStatisticsContainer|null
      */
@@ -693,9 +647,6 @@ class GrpcTrafficRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Present when `type` is `TRAFFIC_RECORDING_SOURCE_QUERY_STATISTICS` - statistics aggregated over all
-     * operations related to a single source query.
-     *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTrafficSourceQueryStatisticsContainer sourceQueryStatistics = 108;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcTrafficSourceQueryStatisticsContainer $var
      * @return $this

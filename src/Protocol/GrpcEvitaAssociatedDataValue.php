@@ -9,24 +9,22 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Structure that holds a single associated-data value, which is either one of the primitive/array
- * Evita data types (wrapped by `GrpcEvitaValue`) or a complex (structured) object.
+ * Structure that holds AssociatedData value. Might be one of the supported data types or a JSON string that will be
+ * internally converted into ComplexDataObject.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcEvitaAssociatedDataValue</code>
  */
 class GrpcEvitaAssociatedDataValue extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The concrete Evita data type of the stored value, including `COMPLEX_DATA_OBJECT` when the
-     * value is a structured object described via `root` (or the deprecated `jsonValue`).
+     * The type of the stored value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEvitaAssociatedDataDataType.GrpcEvitaDataType type = 100;</code>
      */
     protected $type = 0;
     /**
-     * Version of this associated data value; increases on every update to enable optimistic locking
-     * (concurrent-modification detection). May be null if this value is nested within a larger
-     * complex object.
+     * Contains version of this value and gets increased with any entity type update. Allows to execute
+     *			optimistic locking i.e. avoiding parallel modifications.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value version = 3;</code>
      */
@@ -40,24 +38,16 @@ class GrpcEvitaAssociatedDataValue extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcEvitaValue $primitiveValue
-     *           A primitive or array Evita value (see `GrpcEvitaValue`), used whenever the associated data
-     *           is not a complex/structured object.
+     *           Primitive value.
      *     @type string $jsonValue
-     *           JSON-encoded `ComplexDataObject` value.
-     *           Deprecated since 2025.4 - deprecated in favor of `root`: this legacy JSON encoding loses
-     *           precise data type information.
-     *           TOBEDONE #538: remove once no client older than 2025.4 remains in use
-     *           (https://github.com/FgForrest/evitaDB/issues/538)
+     *           JSON string value, this old approach led to data type loss and is deprecated.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcDataItem $root
-     *           The root node of a complex (structured) object's tree, recursively described by
-     *           `GrpcDataItem`. Used as the modern replacement for the deprecated `jsonValue` encoding.
+     *           The array of values.
      *     @type int $type
-     *           The concrete Evita data type of the stored value, including `COMPLEX_DATA_OBJECT` when the
-     *           value is a structured object described via `root` (or the deprecated `jsonValue`).
+     *           The type of the stored value.
      *     @type \Google\Protobuf\Int32Value $version
-     *           Version of this associated data value; increases on every update to enable optimistic locking
-     *           (concurrent-modification detection). May be null if this value is nested within a larger
-     *           complex object.
+     *           Contains version of this value and gets increased with any entity type update. Allows to execute
+     *          			optimistic locking i.e. avoiding parallel modifications.
      * }
      */
     public function __construct($data = NULL) {
@@ -66,8 +56,7 @@ class GrpcEvitaAssociatedDataValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * A primitive or array Evita value (see `GrpcEvitaValue`), used whenever the associated data
-     * is not a complex/structured object.
+     * Primitive value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEvitaValue primitiveValue = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcEvitaValue|null
@@ -83,8 +72,7 @@ class GrpcEvitaAssociatedDataValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * A primitive or array Evita value (see `GrpcEvitaValue`), used whenever the associated data
-     * is not a complex/structured object.
+     * Primitive value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEvitaValue primitiveValue = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcEvitaValue $var
@@ -99,11 +87,7 @@ class GrpcEvitaAssociatedDataValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * JSON-encoded `ComplexDataObject` value.
-     * Deprecated since 2025.4 - deprecated in favor of `root`: this legacy JSON encoding loses
-     * precise data type information.
-     * TOBEDONE #538: remove once no client older than 2025.4 remains in use
-     * (https://github.com/FgForrest/evitaDB/issues/538)
+     * JSON string value, this old approach led to data type loss and is deprecated.
      *
      * Generated from protobuf field <code>string jsonValue = 2 [deprecated = true];</code>
      * @return string
@@ -122,11 +106,7 @@ class GrpcEvitaAssociatedDataValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * JSON-encoded `ComplexDataObject` value.
-     * Deprecated since 2025.4 - deprecated in favor of `root`: this legacy JSON encoding loses
-     * precise data type information.
-     * TOBEDONE #538: remove once no client older than 2025.4 remains in use
-     * (https://github.com/FgForrest/evitaDB/issues/538)
+     * JSON string value, this old approach led to data type loss and is deprecated.
      *
      * Generated from protobuf field <code>string jsonValue = 2 [deprecated = true];</code>
      * @param string $var
@@ -143,8 +123,7 @@ class GrpcEvitaAssociatedDataValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The root node of a complex (structured) object's tree, recursively described by
-     * `GrpcDataItem`. Used as the modern replacement for the deprecated `jsonValue` encoding.
+     * The array of values.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcDataItem root = 4;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcDataItem|null
@@ -160,8 +139,7 @@ class GrpcEvitaAssociatedDataValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The root node of a complex (structured) object's tree, recursively described by
-     * `GrpcDataItem`. Used as the modern replacement for the deprecated `jsonValue` encoding.
+     * The array of values.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcDataItem root = 4;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcDataItem $var
@@ -176,8 +154,7 @@ class GrpcEvitaAssociatedDataValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The concrete Evita data type of the stored value, including `COMPLEX_DATA_OBJECT` when the
-     * value is a structured object described via `root` (or the deprecated `jsonValue`).
+     * The type of the stored value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEvitaAssociatedDataDataType.GrpcEvitaDataType type = 100;</code>
      * @return int
@@ -188,8 +165,7 @@ class GrpcEvitaAssociatedDataValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The concrete Evita data type of the stored value, including `COMPLEX_DATA_OBJECT` when the
-     * value is a structured object described via `root` (or the deprecated `jsonValue`).
+     * The type of the stored value.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEvitaAssociatedDataDataType.GrpcEvitaDataType type = 100;</code>
      * @param int $var
@@ -204,9 +180,8 @@ class GrpcEvitaAssociatedDataValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Version of this associated data value; increases on every update to enable optimistic locking
-     * (concurrent-modification detection). May be null if this value is nested within a larger
-     * complex object.
+     * Contains version of this value and gets increased with any entity type update. Allows to execute
+     *			optimistic locking i.e. avoiding parallel modifications.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value version = 3;</code>
      * @return \Google\Protobuf\Int32Value|null
@@ -229,9 +204,8 @@ class GrpcEvitaAssociatedDataValue extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getVersion()</code>
 
-     * Version of this associated data value; increases on every update to enable optimistic locking
-     * (concurrent-modification detection). May be null if this value is nested within a larger
-     * complex object.
+     * Contains version of this value and gets increased with any entity type update. Allows to execute
+     *			optimistic locking i.e. avoiding parallel modifications.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value version = 3;</code>
      * @return int|null
@@ -242,9 +216,8 @@ class GrpcEvitaAssociatedDataValue extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Version of this associated data value; increases on every update to enable optimistic locking
-     * (concurrent-modification detection). May be null if this value is nested within a larger
-     * complex object.
+     * Contains version of this value and gets increased with any entity type update. Allows to execute
+     *			optimistic locking i.e. avoiding parallel modifications.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value version = 3;</code>
      * @param \Google\Protobuf\Int32Value $var
@@ -261,9 +234,8 @@ class GrpcEvitaAssociatedDataValue extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int32Value object.
 
-     * Version of this associated data value; increases on every update to enable optimistic locking
-     * (concurrent-modification detection). May be null if this value is nested within a larger
-     * complex object.
+     * Contains version of this value and gets increased with any entity type update. Allows to execute
+     *			optimistic locking i.e. avoiding parallel modifications.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value version = 3;</code>
      * @param int|null $var

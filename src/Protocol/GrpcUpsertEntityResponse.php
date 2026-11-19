@@ -9,7 +9,7 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Response to UpsertEntity request.
+ * Response to UpsertEntity request. The used field is decided by the require block in the query.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcUpsertEntityResponse</code>
  */
@@ -24,12 +24,11 @@ class GrpcUpsertEntityResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcEntityReference $entityReference
-     *           The upserted entity as a reference (type + primary key only).
+     *           The upserted entity reference.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity $entity
-     *           The upserted entity, fully fetched per `GrpcUpsertEntityRequest.require`.
+     *           The upserted entity.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcEntityReferenceWithAssignedPrimaryKeys $entityReferenceWithAssignedPrimaryKeys
-     *           The upserted entity reference together with any reference primary keys that were reassigned as a
-     *           side effect of the upsert.
+     *           The upserted entity reference with reassigned primary keys
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +37,7 @@ class GrpcUpsertEntityResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The upserted entity as a reference (type + primary key only).
+     * The upserted entity reference.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntityReference entityReference = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcEntityReference|null
@@ -54,7 +53,7 @@ class GrpcUpsertEntityResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The upserted entity as a reference (type + primary key only).
+     * The upserted entity reference.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntityReference entityReference = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcEntityReference $var
@@ -69,7 +68,7 @@ class GrpcUpsertEntityResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The upserted entity, fully fetched per `GrpcUpsertEntityRequest.require`.
+     * The upserted entity.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity entity = 2;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity|null
@@ -85,7 +84,7 @@ class GrpcUpsertEntityResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The upserted entity, fully fetched per `GrpcUpsertEntityRequest.require`.
+     * The upserted entity.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcSealedEntity entity = 2;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcSealedEntity $var
@@ -100,8 +99,7 @@ class GrpcUpsertEntityResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The upserted entity reference together with any reference primary keys that were reassigned as a
-     * side effect of the upsert.
+     * The upserted entity reference with reassigned primary keys
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntityReferenceWithAssignedPrimaryKeys entityReferenceWithAssignedPrimaryKeys = 3;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcEntityReferenceWithAssignedPrimaryKeys|null
@@ -117,8 +115,7 @@ class GrpcUpsertEntityResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The upserted entity reference together with any reference primary keys that were reassigned as a
-     * side effect of the upsert.
+     * The upserted entity reference with reassigned primary keys
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEntityReferenceWithAssignedPrimaryKeys entityReferenceWithAssignedPrimaryKeys = 3;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcEntityReferenceWithAssignedPrimaryKeys $var

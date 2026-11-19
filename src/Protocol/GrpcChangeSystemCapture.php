@@ -34,12 +34,17 @@ class GrpcChangeSystemCapture extends \Google\Protobuf\Internal\Message
      */
     protected $operation = 0;
     /**
+     * optional body of the operation when it is requested by the GrpcContent
+     *
+     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEngineMutation systemMutation = 4;</code>
+     */
+    protected $systemMutation = null;
+    /**
      * Represents the timestamp of the commit.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime timestamp = 5;</code>
      */
     protected $timestamp = null;
-    protected $body;
 
     /**
      * Constructor.
@@ -54,9 +59,7 @@ class GrpcChangeSystemCapture extends \Google\Protobuf\Internal\Message
      *     @type int $operation
      *           the operation that was performed
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcEngineMutation $systemMutation
-     *           Engine mutation body - durable, WAL-replicated event (ENGINE area).
-     *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcHostSystemEvent $hostEvent
-     *           Host event body (HOST area, opt-in only).
+     *           optional body of the operation when it is requested by the GrpcContent
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $timestamp
      *           Represents the timestamp of the commit.
      * }
@@ -145,23 +148,28 @@ class GrpcChangeSystemCapture extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Engine mutation body - durable, WAL-replicated event (ENGINE area).
+     * optional body of the operation when it is requested by the GrpcContent
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEngineMutation systemMutation = 4;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcEngineMutation|null
      */
     public function getSystemMutation()
     {
-        return $this->readOneof(4);
+        return $this->systemMutation;
     }
 
     public function hasSystemMutation()
     {
-        return $this->hasOneof(4);
+        return isset($this->systemMutation);
+    }
+
+    public function clearSystemMutation()
+    {
+        unset($this->systemMutation);
     }
 
     /**
-     * Engine mutation body - durable, WAL-replicated event (ENGINE area).
+     * optional body of the operation when it is requested by the GrpcContent
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcEngineMutation systemMutation = 4;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcEngineMutation $var
@@ -170,38 +178,7 @@ class GrpcChangeSystemCapture extends \Google\Protobuf\Internal\Message
     public function setSystemMutation($var)
     {
         GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcEngineMutation::class);
-        $this->writeOneof(4, $var);
-
-        return $this;
-    }
-
-    /**
-     * Host event body (HOST area, opt-in only).
-     *
-     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcHostSystemEvent hostEvent = 6;</code>
-     * @return \Wtsvk\EvitaDbClient\Protocol\GrpcHostSystemEvent|null
-     */
-    public function getHostEvent()
-    {
-        return $this->readOneof(6);
-    }
-
-    public function hasHostEvent()
-    {
-        return $this->hasOneof(6);
-    }
-
-    /**
-     * Host event body (HOST area, opt-in only).
-     *
-     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcHostSystemEvent hostEvent = 6;</code>
-     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcHostSystemEvent $var
-     * @return $this
-     */
-    public function setHostEvent($var)
-    {
-        GPBUtil::checkMessage($var, \Wtsvk\EvitaDbClient\Protocol\GrpcHostSystemEvent::class);
-        $this->writeOneof(6, $var);
+        $this->systemMutation = $var;
 
         return $this;
     }
@@ -240,14 +217,6 @@ class GrpcChangeSystemCapture extends \Google\Protobuf\Internal\Message
         $this->timestamp = $var;
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBody()
-    {
-        return $this->whichOneof("body");
     }
 
 }

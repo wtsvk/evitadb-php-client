@@ -9,34 +9,26 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Request for specifying a full EvitaQL query (filter, order and require blocks) to be executed.
+ * Request for specifying a query to be executed.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcQueryRequest</code>
  */
 class GrpcQueryRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The string part of the parametrised query, e.g. `query(collection('Product'), filterBy(entityPrimaryKeyInSet(?)))`.
-     * Parameter values are not embedded in this string but supplied separately via `positionalQueryParams`/
-     * `namedQueryParams` below. A `?` placeholder is a positional parameter, an `&#64;name` placeholder is a
-     * named parameter - see `positionalQueryParams` for the full binding contract, which applies identically here.
+     * The string part of the parametrised query.
      *
      * Generated from protobuf field <code>string query = 1;</code>
      */
     protected $query = '';
     /**
-     * Values for the `?` positional placeholders in `query`, bound in encounter order: the first `?` in the
-     * parsed string binds to `positionalQueryParams[0]`, the second to `positionalQueryParams[1]`, and so on
-     * (FIFO). Supplying fewer values than there are `?` placeholders fails the request with "Missing argument
-     * of index N."; extra values are ignored.
+     * The positional query parameters.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcQueryParam positionalQueryParams = 2;</code>
      */
     private $positionalQueryParams;
     /**
-     * Values for the `&#64;name` named placeholders in `query`, keyed by the name used after `&#64;` in the string
-     * (without the `&#64;` prefix). An `&#64;name` placeholder with no matching map entry fails the request with
-     * "Missing argument of name `name`."; extra map entries are ignored.
+     * The named query parameters.
      *
      * Generated from protobuf field <code>map<string, .io.evitadb.externalApi.grpc.generated.GrpcQueryParam> namedQueryParams = 3;</code>
      */
@@ -49,19 +41,11 @@ class GrpcQueryRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $query
-     *           The string part of the parametrised query, e.g. `query(collection('Product'), filterBy(entityPrimaryKeyInSet(?)))`.
-     *           Parameter values are not embedded in this string but supplied separately via `positionalQueryParams`/
-     *           `namedQueryParams` below. A `?` placeholder is a positional parameter, an `&#64;name` placeholder is a
-     *           named parameter - see `positionalQueryParams` for the full binding contract, which applies identically here.
+     *           The string part of the parametrised query.
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcQueryParam>|\Google\Protobuf\Internal\RepeatedField $positionalQueryParams
-     *           Values for the `?` positional placeholders in `query`, bound in encounter order: the first `?` in the
-     *           parsed string binds to `positionalQueryParams[0]`, the second to `positionalQueryParams[1]`, and so on
-     *           (FIFO). Supplying fewer values than there are `?` placeholders fails the request with "Missing argument
-     *           of index N."; extra values are ignored.
+     *           The positional query parameters.
      *     @type array|\Google\Protobuf\Internal\MapField $namedQueryParams
-     *           Values for the `&#64;name` named placeholders in `query`, keyed by the name used after `&#64;` in the string
-     *           (without the `&#64;` prefix). An `&#64;name` placeholder with no matching map entry fails the request with
-     *           "Missing argument of name `name`."; extra map entries are ignored.
+     *           The named query parameters.
      * }
      */
     public function __construct($data = NULL) {
@@ -70,10 +54,7 @@ class GrpcQueryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The string part of the parametrised query, e.g. `query(collection('Product'), filterBy(entityPrimaryKeyInSet(?)))`.
-     * Parameter values are not embedded in this string but supplied separately via `positionalQueryParams`/
-     * `namedQueryParams` below. A `?` placeholder is a positional parameter, an `&#64;name` placeholder is a
-     * named parameter - see `positionalQueryParams` for the full binding contract, which applies identically here.
+     * The string part of the parametrised query.
      *
      * Generated from protobuf field <code>string query = 1;</code>
      * @return string
@@ -84,10 +65,7 @@ class GrpcQueryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The string part of the parametrised query, e.g. `query(collection('Product'), filterBy(entityPrimaryKeyInSet(?)))`.
-     * Parameter values are not embedded in this string but supplied separately via `positionalQueryParams`/
-     * `namedQueryParams` below. A `?` placeholder is a positional parameter, an `&#64;name` placeholder is a
-     * named parameter - see `positionalQueryParams` for the full binding contract, which applies identically here.
+     * The string part of the parametrised query.
      *
      * Generated from protobuf field <code>string query = 1;</code>
      * @param string $var
@@ -102,10 +80,7 @@ class GrpcQueryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Values for the `?` positional placeholders in `query`, bound in encounter order: the first `?` in the
-     * parsed string binds to `positionalQueryParams[0]`, the second to `positionalQueryParams[1]`, and so on
-     * (FIFO). Supplying fewer values than there are `?` placeholders fails the request with "Missing argument
-     * of index N."; extra values are ignored.
+     * The positional query parameters.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcQueryParam positionalQueryParams = 2;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -116,10 +91,7 @@ class GrpcQueryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Values for the `?` positional placeholders in `query`, bound in encounter order: the first `?` in the
-     * parsed string binds to `positionalQueryParams[0]`, the second to `positionalQueryParams[1]`, and so on
-     * (FIFO). Supplying fewer values than there are `?` placeholders fails the request with "Missing argument
-     * of index N."; extra values are ignored.
+     * The positional query parameters.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcQueryParam positionalQueryParams = 2;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcQueryParam>|\Google\Protobuf\Internal\RepeatedField $var
@@ -134,9 +106,7 @@ class GrpcQueryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Values for the `&#64;name` named placeholders in `query`, keyed by the name used after `&#64;` in the string
-     * (without the `&#64;` prefix). An `&#64;name` placeholder with no matching map entry fails the request with
-     * "Missing argument of name `name`."; extra map entries are ignored.
+     * The named query parameters.
      *
      * Generated from protobuf field <code>map<string, .io.evitadb.externalApi.grpc.generated.GrpcQueryParam> namedQueryParams = 3;</code>
      * @return \Google\Protobuf\Internal\MapField
@@ -147,9 +117,7 @@ class GrpcQueryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Values for the `&#64;name` named placeholders in `query`, keyed by the name used after `&#64;` in the string
-     * (without the `&#64;` prefix). An `&#64;name` placeholder with no matching map entry fails the request with
-     * "Missing argument of name `name`."; extra map entries are ignored.
+     * The named query parameters.
      *
      * Generated from protobuf field <code>map<string, .io.evitadb.externalApi.grpc.generated.GrpcQueryParam> namedQueryParams = 3;</code>
      * @param array|\Google\Protobuf\Internal\MapField $var
