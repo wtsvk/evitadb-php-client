@@ -9,17 +9,14 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Wrapper for representing an array of IntegerNumberRanges. Also used to carry ByteNumberRange
- * and ShortNumberRange arrays; which Java array type applies is determined by the accompanying
- * GrpcEvitaDataType (BYTE_NUMBER_RANGE_ARRAY, SHORT_NUMBER_RANGE_ARRAY or
- * INTEGER_NUMBER_RANGE_ARRAY).
+ * Wrapper for representing an array of IntegerNumberRanges.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcIntegerNumberRangeArray</code>
  */
 class GrpcIntegerNumberRangeArray extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The individual IntegerNumberRange elements, in their original order.
+     * Value that supports storing an IntegerNumberRange array.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcIntegerNumberRange value = 1;</code>
      */
@@ -32,7 +29,7 @@ class GrpcIntegerNumberRangeArray extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcIntegerNumberRange>|\Google\Protobuf\Internal\RepeatedField $value
-     *           The individual IntegerNumberRange elements, in their original order.
+     *           Value that supports storing an IntegerNumberRange array.
      * }
      */
     public function __construct($data = NULL) {
@@ -41,7 +38,7 @@ class GrpcIntegerNumberRangeArray extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The individual IntegerNumberRange elements, in their original order.
+     * Value that supports storing an IntegerNumberRange array.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcIntegerNumberRange value = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -52,7 +49,7 @@ class GrpcIntegerNumberRangeArray extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The individual IntegerNumberRange elements, in their original order.
+     * Value that supports storing an IntegerNumberRange array.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcIntegerNumberRange value = 1;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcIntegerNumberRange>|\Google\Protobuf\Internal\RepeatedField $var

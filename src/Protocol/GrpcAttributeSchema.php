@@ -60,7 +60,7 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
      * having certain value of this attribute among other entities in the same collection.
      * As an example of unique attribute can be EAN - there is no sense in having two entities with same EAN, and it's
      * better to have this ensured by the database engine.
-     * Deprecated since 2024.12 - deprecated in favor of `uniqueInScopes`
+     * deprecated in favor of `uniqueInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcAttributeUniquenessType unique = 5 [deprecated = true];</code>
      * @deprecated
@@ -68,11 +68,11 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
     protected $unique = 0;
     /**
      * When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
-     * entity having certain value of this attribute in the entire catalog.
-     * The type of the unique attribute must implement the `Comparable` interface.
+     * entity having certain value of this attribute in entire {&#64;link CatalogContract}.
+     * {&#64;link AttributeSchemaContract#getType() Type} of the unique attribute must implement {&#64;link Comparable} interface.
      * As an example of unique attribute can be URL - there is no sense in having two entities with same URL, and it's
      * better to have this ensured by the database engine.
-     * Deprecated since 2024.12 - deprecated in favor of `uniqueGloballyInScopes`
+     * deprecated in favor of `uniqueGloballyInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcGlobalAttributeUniquenessType uniqueGlobally = 6 [deprecated = true];</code>
      * @deprecated
@@ -84,7 +84,7 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
      * (memory/disk) space in the form of index.
      * When attribute is filterable, extra result `attributeHistogram`
      * can be requested for this attribute.
-     * Deprecated since 2024.12 - deprecated in favor of `filterableInScopes`
+     * deprecated in favor of `filterableInScopes`
      *
      * Generated from protobuf field <code>bool filterable = 7 [deprecated = true];</code>
      * @deprecated
@@ -94,7 +94,7 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
      * When attribute is sortable, it is possible to sort entities by this attribute. Do not mark attribute
      * as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
      * (memory/disk) space in the form of index.
-     * Deprecated since 2024.12 - deprecated in favor of `sortableInScopes`
+     * deprecated in favor of `sortableInScopes`
      *
      * Generated from protobuf field <code>bool sortable = 8 [deprecated = true];</code>
      * @deprecated
@@ -115,7 +115,7 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
     protected $nullable = false;
     /**
      * Representative flag marks the attribute as one of the most important attributes in the entity, or when used
-     * on a reference-level attribute schema, it marks attributes distinguishing duplicated
+     * on reference level in the {&#64;link ReferenceSchemaContract} it marks attributes distinguishing duplicated
      * references to the same entity and is a key attribute for creating distinct indexes for such references.
      * In overall, representative attributes should be used in developer tools along with the entity's primary key to
      * describe the entity or reference to that entity. If the flag is used correctly, it can be very helpful to
@@ -171,8 +171,8 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
     private $uniqueInScopes;
     /**
      * When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
-     * entity having certain value of this attribute in the entire catalog.
-     * The type of the unique attribute must implement the `Comparable` interface.
+     * entity having certain value of this attribute in entire {&#64;link CatalogContract}.
+     * {&#64;link AttributeSchemaContract#getType() Type} of the unique attribute must implement {&#64;link Comparable} interface.
      * As an example of unique attribute can be URL - there is no sense in having two entities with same URL, and it's
      * better to have this ensured by the database engine.
      *
@@ -197,13 +197,6 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEntityScope sortableInScopes = 20;</code>
      */
     private $sortableInScopes;
-    /**
-     * Contains the per-attribute override of the conflict resolution granularity. Defaults to inherited (follow the
-     * resolved conflict resolution).
-     *
-     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 21;</code>
-     */
-    protected $conflictResolutionOverride = 0;
 
     /**
      * Constructor.
@@ -228,26 +221,26 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
      *           having certain value of this attribute among other entities in the same collection.
      *           As an example of unique attribute can be EAN - there is no sense in having two entities with same EAN, and it's
      *           better to have this ensured by the database engine.
-     *           Deprecated since 2024.12 - deprecated in favor of `uniqueInScopes`
+     *           deprecated in favor of `uniqueInScopes`
      *     @type int $uniqueGlobally
      *           When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
-     *           entity having certain value of this attribute in the entire catalog.
-     *           The type of the unique attribute must implement the `Comparable` interface.
+     *           entity having certain value of this attribute in entire {&#64;link CatalogContract}.
+     *           {&#64;link AttributeSchemaContract#getType() Type} of the unique attribute must implement {&#64;link Comparable} interface.
      *           As an example of unique attribute can be URL - there is no sense in having two entities with same URL, and it's
      *           better to have this ensured by the database engine.
-     *           Deprecated since 2024.12 - deprecated in favor of `uniqueGloballyInScopes`
+     *           deprecated in favor of `uniqueGloballyInScopes`
      *     @type bool $filterable
      *           When attribute is filterable, it is possible to filter entities by this attribute. Do not mark attribute
      *           as filterable unless you know that you'll search entities by this attribute. Each filterable attribute occupies
      *           (memory/disk) space in the form of index.
      *           When attribute is filterable, extra result `attributeHistogram`
      *           can be requested for this attribute.
-     *           Deprecated since 2024.12 - deprecated in favor of `filterableInScopes`
+     *           deprecated in favor of `filterableInScopes`
      *     @type bool $sortable
      *           When attribute is sortable, it is possible to sort entities by this attribute. Do not mark attribute
      *           as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
      *           (memory/disk) space in the form of index.
-     *           Deprecated since 2024.12 - deprecated in favor of `sortableInScopes`
+     *           deprecated in favor of `sortableInScopes`
      *     @type bool $localized
      *           When attribute is localized, it has to be ALWAYS used in connection with specific `Locale`.
      *     @type bool $nullable
@@ -255,7 +248,7 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
      *           non-null checks upon upserting of the entity.
      *     @type bool $representative
      *           Representative flag marks the attribute as one of the most important attributes in the entity, or when used
-     *           on a reference-level attribute schema, it marks attributes distinguishing duplicated
+     *           on reference level in the {&#64;link ReferenceSchemaContract} it marks attributes distinguishing duplicated
      *           references to the same entity and is a key attribute for creating distinct indexes for such references.
      *           In overall, representative attributes should be used in developer tools along with the entity's primary key to
      *           describe the entity or reference to that entity. If the flag is used correctly, it can be very helpful to
@@ -283,8 +276,8 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
      *           better to have this ensured by the database engine.
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcScopedGlobalAttributeUniquenessType>|\Google\Protobuf\Internal\RepeatedField $uniqueGloballyInScopes
      *           When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
-     *           entity having certain value of this attribute in the entire catalog.
-     *           The type of the unique attribute must implement the `Comparable` interface.
+     *           entity having certain value of this attribute in entire {&#64;link CatalogContract}.
+     *           {&#64;link AttributeSchemaContract#getType() Type} of the unique attribute must implement {&#64;link Comparable} interface.
      *           As an example of unique attribute can be URL - there is no sense in having two entities with same URL, and it's
      *           better to have this ensured by the database engine.
      *     @type array<int>|\Google\Protobuf\Internal\RepeatedField $filterableInScopes
@@ -297,9 +290,6 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
      *           When attribute is sortable, it is possible to sort entities by this attribute. Do not mark attribute
      *           as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
      *           (memory/disk) space in the form of index.
-     *     @type int $conflictResolutionOverride
-     *           Contains the per-attribute override of the conflict resolution granularity. Defaults to inherited (follow the
-     *           resolved conflict resolution).
      * }
      */
     public function __construct($data = NULL) {
@@ -504,7 +494,7 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
      * having certain value of this attribute among other entities in the same collection.
      * As an example of unique attribute can be EAN - there is no sense in having two entities with same EAN, and it's
      * better to have this ensured by the database engine.
-     * Deprecated since 2024.12 - deprecated in favor of `uniqueInScopes`
+     * deprecated in favor of `uniqueInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcAttributeUniquenessType unique = 5 [deprecated = true];</code>
      * @return int
@@ -521,7 +511,7 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
      * having certain value of this attribute among other entities in the same collection.
      * As an example of unique attribute can be EAN - there is no sense in having two entities with same EAN, and it's
      * better to have this ensured by the database engine.
-     * Deprecated since 2024.12 - deprecated in favor of `uniqueInScopes`
+     * deprecated in favor of `uniqueInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcAttributeUniquenessType unique = 5 [deprecated = true];</code>
      * @param int $var
@@ -539,11 +529,11 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
 
     /**
      * When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
-     * entity having certain value of this attribute in the entire catalog.
-     * The type of the unique attribute must implement the `Comparable` interface.
+     * entity having certain value of this attribute in entire {&#64;link CatalogContract}.
+     * {&#64;link AttributeSchemaContract#getType() Type} of the unique attribute must implement {&#64;link Comparable} interface.
      * As an example of unique attribute can be URL - there is no sense in having two entities with same URL, and it's
      * better to have this ensured by the database engine.
-     * Deprecated since 2024.12 - deprecated in favor of `uniqueGloballyInScopes`
+     * deprecated in favor of `uniqueGloballyInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcGlobalAttributeUniquenessType uniqueGlobally = 6 [deprecated = true];</code>
      * @return int
@@ -557,11 +547,11 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
 
     /**
      * When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
-     * entity having certain value of this attribute in the entire catalog.
-     * The type of the unique attribute must implement the `Comparable` interface.
+     * entity having certain value of this attribute in entire {&#64;link CatalogContract}.
+     * {&#64;link AttributeSchemaContract#getType() Type} of the unique attribute must implement {&#64;link Comparable} interface.
      * As an example of unique attribute can be URL - there is no sense in having two entities with same URL, and it's
      * better to have this ensured by the database engine.
-     * Deprecated since 2024.12 - deprecated in favor of `uniqueGloballyInScopes`
+     * deprecated in favor of `uniqueGloballyInScopes`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcGlobalAttributeUniquenessType uniqueGlobally = 6 [deprecated = true];</code>
      * @param int $var
@@ -583,7 +573,7 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
      * (memory/disk) space in the form of index.
      * When attribute is filterable, extra result `attributeHistogram`
      * can be requested for this attribute.
-     * Deprecated since 2024.12 - deprecated in favor of `filterableInScopes`
+     * deprecated in favor of `filterableInScopes`
      *
      * Generated from protobuf field <code>bool filterable = 7 [deprecated = true];</code>
      * @return bool
@@ -601,7 +591,7 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
      * (memory/disk) space in the form of index.
      * When attribute is filterable, extra result `attributeHistogram`
      * can be requested for this attribute.
-     * Deprecated since 2024.12 - deprecated in favor of `filterableInScopes`
+     * deprecated in favor of `filterableInScopes`
      *
      * Generated from protobuf field <code>bool filterable = 7 [deprecated = true];</code>
      * @param bool $var
@@ -621,7 +611,7 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
      * When attribute is sortable, it is possible to sort entities by this attribute. Do not mark attribute
      * as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
      * (memory/disk) space in the form of index.
-     * Deprecated since 2024.12 - deprecated in favor of `sortableInScopes`
+     * deprecated in favor of `sortableInScopes`
      *
      * Generated from protobuf field <code>bool sortable = 8 [deprecated = true];</code>
      * @return bool
@@ -637,7 +627,7 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
      * When attribute is sortable, it is possible to sort entities by this attribute. Do not mark attribute
      * as sortable unless you know that you'll sort entities along this attribute. Each sortable attribute occupies
      * (memory/disk) space in the form of index.
-     * Deprecated since 2024.12 - deprecated in favor of `sortableInScopes`
+     * deprecated in favor of `sortableInScopes`
      *
      * Generated from protobuf field <code>bool sortable = 8 [deprecated = true];</code>
      * @param bool $var
@@ -709,7 +699,7 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
 
     /**
      * Representative flag marks the attribute as one of the most important attributes in the entity, or when used
-     * on a reference-level attribute schema, it marks attributes distinguishing duplicated
+     * on reference level in the {&#64;link ReferenceSchemaContract} it marks attributes distinguishing duplicated
      * references to the same entity and is a key attribute for creating distinct indexes for such references.
      * In overall, representative attributes should be used in developer tools along with the entity's primary key to
      * describe the entity or reference to that entity. If the flag is used correctly, it can be very helpful to
@@ -726,7 +716,7 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
 
     /**
      * Representative flag marks the attribute as one of the most important attributes in the entity, or when used
-     * on a reference-level attribute schema, it marks attributes distinguishing duplicated
+     * on reference level in the {&#64;link ReferenceSchemaContract} it marks attributes distinguishing duplicated
      * references to the same entity and is a key attribute for creating distinct indexes for such references.
      * In overall, representative attributes should be used in developer tools along with the entity's primary key to
      * describe the entity or reference to that entity. If the flag is used correctly, it can be very helpful to
@@ -929,8 +919,8 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
 
     /**
      * When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
-     * entity having certain value of this attribute in the entire catalog.
-     * The type of the unique attribute must implement the `Comparable` interface.
+     * entity having certain value of this attribute in entire {&#64;link CatalogContract}.
+     * {&#64;link AttributeSchemaContract#getType() Type} of the unique attribute must implement {&#64;link Comparable} interface.
      * As an example of unique attribute can be URL - there is no sense in having two entities with same URL, and it's
      * better to have this ensured by the database engine.
      *
@@ -944,8 +934,8 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
 
     /**
      * When attribute is unique globally it is automatically filterable, and it is ensured there is exactly one single
-     * entity having certain value of this attribute in the entire catalog.
-     * The type of the unique attribute must implement the `Comparable` interface.
+     * entity having certain value of this attribute in entire {&#64;link CatalogContract}.
+     * {&#64;link AttributeSchemaContract#getType() Type} of the unique attribute must implement {&#64;link Comparable} interface.
      * As an example of unique attribute can be URL - there is no sense in having two entities with same URL, and it's
      * better to have this ensured by the database engine.
      *
@@ -1021,34 +1011,6 @@ class GrpcAttributeSchema extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Wtsvk\EvitaDbClient\Protocol\GrpcEntityScope::class);
         $this->sortableInScopes = $arr;
-
-        return $this;
-    }
-
-    /**
-     * Contains the per-attribute override of the conflict resolution granularity. Defaults to inherited (follow the
-     * resolved conflict resolution).
-     *
-     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 21;</code>
-     * @return int
-     */
-    public function getConflictResolutionOverride()
-    {
-        return $this->conflictResolutionOverride;
-    }
-
-    /**
-     * Contains the per-attribute override of the conflict resolution granularity. Defaults to inherited (follow the
-     * resolved conflict resolution).
-     *
-     * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverride conflictResolutionOverride = 21;</code>
-     * @param int $var
-     * @return $this
-     */
-    public function setConflictResolutionOverride($var)
-    {
-        GPBUtil::checkEnum($var, \Wtsvk\EvitaDbClient\Protocol\GrpcConflictResolutionOverride::class);
-        $this->conflictResolutionOverride = $var;
 
         return $this;
     }

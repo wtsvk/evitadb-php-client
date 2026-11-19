@@ -9,39 +9,33 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * One message of the RegisterChangeCatalogCapture stream. `responseType` selects which payload is
- * meaningful: `ACKNOWLEDGEMENT` (subscription set up; `heartBeat` populated, `capture` is not),
- * `CHANGE` (`capture` populated, `heartBeat` is not), or `HEARTBEAT` (`heartBeat` populated, `capture`
- * is not) - the periodic keep-alive sent while no matching mutation has occurred.
+ * Response to RegisterChangeCatalogCapture request.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcRegisterChangeCatalogCaptureResponse</code>
  */
 class GrpcRegisterChangeCatalogCaptureResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Identification of the registered subscription. Present on every message, not just the initial
-     * acknowledgement.
+     * Identification of the registered capture
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid uuid = 1;</code>
      */
     protected $uuid = null;
     /**
-     * The single mutation (CDC event) delivered by this message. Populated only when `responseType` is
-     * `CHANGE`; unset otherwise.
+     * The list of mutations (CDC events) that match the criteria
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcChangeCatalogCapture capture = 2;</code>
      */
     protected $capture = null;
     /**
-     * Which payload field (`capture` or `heartBeat`) is populated on this message - see the message-level
-     * comment above.
+     * The type of the response - when subscription is set-up, acknowledgement is sent
+     * Then with each capture event, the type is set to `change`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCaptureResponseType responseType = 3;</code>
      */
     protected $responseType = 0;
     /**
-     * Heartbeat information. Populated when `responseType` is `ACKNOWLEDGEMENT` or `HEARTBEAT`; unset when
-     * `responseType` is `CHANGE`.
+     * Optional heartbeat information, is non-null only if the response is a heartbeat or acknowledgement
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcHeartBeat heartBeat = 4;</code>
      */
@@ -54,17 +48,14 @@ class GrpcRegisterChangeCatalogCaptureResponse extends \Google\Protobuf\Internal
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcUuid $uuid
-     *           Identification of the registered subscription. Present on every message, not just the initial
-     *           acknowledgement.
+     *           Identification of the registered capture
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcChangeCatalogCapture $capture
-     *           The single mutation (CDC event) delivered by this message. Populated only when `responseType` is
-     *           `CHANGE`; unset otherwise.
+     *           The list of mutations (CDC events) that match the criteria
      *     @type int $responseType
-     *           Which payload field (`capture` or `heartBeat`) is populated on this message - see the message-level
-     *           comment above.
+     *           The type of the response - when subscription is set-up, acknowledgement is sent
+     *           Then with each capture event, the type is set to `change`
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcHeartBeat $heartBeat
-     *           Heartbeat information. Populated when `responseType` is `ACKNOWLEDGEMENT` or `HEARTBEAT`; unset when
-     *           `responseType` is `CHANGE`.
+     *           Optional heartbeat information, is non-null only if the response is a heartbeat or acknowledgement
      * }
      */
     public function __construct($data = NULL) {
@@ -73,8 +64,7 @@ class GrpcRegisterChangeCatalogCaptureResponse extends \Google\Protobuf\Internal
     }
 
     /**
-     * Identification of the registered subscription. Present on every message, not just the initial
-     * acknowledgement.
+     * Identification of the registered capture
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid uuid = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcUuid|null
@@ -95,8 +85,7 @@ class GrpcRegisterChangeCatalogCaptureResponse extends \Google\Protobuf\Internal
     }
 
     /**
-     * Identification of the registered subscription. Present on every message, not just the initial
-     * acknowledgement.
+     * Identification of the registered capture
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid uuid = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcUuid $var
@@ -111,8 +100,7 @@ class GrpcRegisterChangeCatalogCaptureResponse extends \Google\Protobuf\Internal
     }
 
     /**
-     * The single mutation (CDC event) delivered by this message. Populated only when `responseType` is
-     * `CHANGE`; unset otherwise.
+     * The list of mutations (CDC events) that match the criteria
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcChangeCatalogCapture capture = 2;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcChangeCatalogCapture|null
@@ -133,8 +121,7 @@ class GrpcRegisterChangeCatalogCaptureResponse extends \Google\Protobuf\Internal
     }
 
     /**
-     * The single mutation (CDC event) delivered by this message. Populated only when `responseType` is
-     * `CHANGE`; unset otherwise.
+     * The list of mutations (CDC events) that match the criteria
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcChangeCatalogCapture capture = 2;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcChangeCatalogCapture $var
@@ -149,8 +136,8 @@ class GrpcRegisterChangeCatalogCaptureResponse extends \Google\Protobuf\Internal
     }
 
     /**
-     * Which payload field (`capture` or `heartBeat`) is populated on this message - see the message-level
-     * comment above.
+     * The type of the response - when subscription is set-up, acknowledgement is sent
+     * Then with each capture event, the type is set to `change`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCaptureResponseType responseType = 3;</code>
      * @return int
@@ -161,8 +148,8 @@ class GrpcRegisterChangeCatalogCaptureResponse extends \Google\Protobuf\Internal
     }
 
     /**
-     * Which payload field (`capture` or `heartBeat`) is populated on this message - see the message-level
-     * comment above.
+     * The type of the response - when subscription is set-up, acknowledgement is sent
+     * Then with each capture event, the type is set to `change`
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCaptureResponseType responseType = 3;</code>
      * @param int $var
@@ -177,8 +164,7 @@ class GrpcRegisterChangeCatalogCaptureResponse extends \Google\Protobuf\Internal
     }
 
     /**
-     * Heartbeat information. Populated when `responseType` is `ACKNOWLEDGEMENT` or `HEARTBEAT`; unset when
-     * `responseType` is `CHANGE`.
+     * Optional heartbeat information, is non-null only if the response is a heartbeat or acknowledgement
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcHeartBeat heartBeat = 4;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcHeartBeat|null
@@ -199,8 +185,7 @@ class GrpcRegisterChangeCatalogCaptureResponse extends \Google\Protobuf\Internal
     }
 
     /**
-     * Heartbeat information. Populated when `responseType` is `ACKNOWLEDGEMENT` or `HEARTBEAT`; unset when
-     * `responseType` is `CHANGE`.
+     * Optional heartbeat information, is non-null only if the response is a heartbeat or acknowledgement
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcHeartBeat heartBeat = 4;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcHeartBeat $var

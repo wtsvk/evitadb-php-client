@@ -9,34 +9,32 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Response to a request to list files available for fetching.
+ * Response to a get files to fetch request.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcFilesToFetchResponse</code>
  */
 class GrpcFilesToFetchResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The page size that was actually applied (echoes the request's `pageSize`).
+     * The size of the page.
      *
      * Generated from protobuf field <code>int32 pageSize = 1;</code>
      */
     protected $pageSize = 0;
     /**
-     * The page number that was actually applied (echoes the request's `pageNumber`); 1-indexed, see
-     * `GrpcFilesToFetchRequest.pageNumber` for the paging model.
+     * The number of the page.
      *
      * Generated from protobuf field <code>int32 pageNumber = 2;</code>
      */
     protected $pageNumber = 0;
     /**
-     * Files on this page, matching the origin filter from the request.
+     * Collection of files to fetch.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcFile filesToFetch = 3;</code>
      */
     private $filesToFetch;
     /**
-     * Total number of files matching the request's origin filter across all pages, not just this
-     * one.
+     * Total number of files to fetch.
      *
      * Generated from protobuf field <code>int32 totalNumberOfRecords = 4;</code>
      */
@@ -49,15 +47,13 @@ class GrpcFilesToFetchResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type int $pageSize
-     *           The page size that was actually applied (echoes the request's `pageSize`).
+     *           The size of the page.
      *     @type int $pageNumber
-     *           The page number that was actually applied (echoes the request's `pageNumber`); 1-indexed, see
-     *           `GrpcFilesToFetchRequest.pageNumber` for the paging model.
+     *           The number of the page.
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcFile>|\Google\Protobuf\Internal\RepeatedField $filesToFetch
-     *           Files on this page, matching the origin filter from the request.
+     *           Collection of files to fetch.
      *     @type int $totalNumberOfRecords
-     *           Total number of files matching the request's origin filter across all pages, not just this
-     *           one.
+     *           Total number of files to fetch.
      * }
      */
     public function __construct($data = NULL) {
@@ -66,7 +62,7 @@ class GrpcFilesToFetchResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The page size that was actually applied (echoes the request's `pageSize`).
+     * The size of the page.
      *
      * Generated from protobuf field <code>int32 pageSize = 1;</code>
      * @return int
@@ -77,7 +73,7 @@ class GrpcFilesToFetchResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The page size that was actually applied (echoes the request's `pageSize`).
+     * The size of the page.
      *
      * Generated from protobuf field <code>int32 pageSize = 1;</code>
      * @param int $var
@@ -92,8 +88,7 @@ class GrpcFilesToFetchResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The page number that was actually applied (echoes the request's `pageNumber`); 1-indexed, see
-     * `GrpcFilesToFetchRequest.pageNumber` for the paging model.
+     * The number of the page.
      *
      * Generated from protobuf field <code>int32 pageNumber = 2;</code>
      * @return int
@@ -104,8 +99,7 @@ class GrpcFilesToFetchResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The page number that was actually applied (echoes the request's `pageNumber`); 1-indexed, see
-     * `GrpcFilesToFetchRequest.pageNumber` for the paging model.
+     * The number of the page.
      *
      * Generated from protobuf field <code>int32 pageNumber = 2;</code>
      * @param int $var
@@ -120,7 +114,7 @@ class GrpcFilesToFetchResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Files on this page, matching the origin filter from the request.
+     * Collection of files to fetch.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcFile filesToFetch = 3;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -131,7 +125,7 @@ class GrpcFilesToFetchResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Files on this page, matching the origin filter from the request.
+     * Collection of files to fetch.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcFile filesToFetch = 3;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcFile>|\Google\Protobuf\Internal\RepeatedField $var
@@ -146,8 +140,7 @@ class GrpcFilesToFetchResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Total number of files matching the request's origin filter across all pages, not just this
-     * one.
+     * Total number of files to fetch.
      *
      * Generated from protobuf field <code>int32 totalNumberOfRecords = 4;</code>
      * @return int
@@ -158,8 +151,7 @@ class GrpcFilesToFetchResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Total number of files matching the request's origin filter across all pages, not just this
-     * one.
+     * Total number of files to fetch.
      *
      * Generated from protobuf field <code>int32 totalNumberOfRecords = 4;</code>
      * @param int $var

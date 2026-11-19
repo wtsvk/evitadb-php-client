@@ -9,7 +9,7 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Response to GetTransactionId request, returned after a new transaction is opened.
+ * Request for opening a transaction.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcTransactionResponse</code>
  */

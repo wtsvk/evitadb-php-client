@@ -16,28 +16,26 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcCatalogStatistics extends \Google\Protobuf\Internal\Message
 {
     /**
-     * unique identifier of the catalog
+     * name of the catalog
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid catalogId = 1;</code>
      */
     protected $catalogId = null;
     /**
-     * The catalog's unique name, used to address it via the API.
+     * name of the catalog
      *
      * Generated from protobuf field <code>string catalogName = 2;</code>
      */
     protected $catalogName = '';
     /**
      * true if the catalog is corrupted (other data will be not available)
-     * Deprecated since 2025.7 - deprecated in favor of `catalogState` (compare against `CORRUPTED`)
      *
      * Generated from protobuf field <code>bool corrupted = 3 [deprecated = true];</code>
      * @deprecated
      */
     protected $corrupted = false;
     /**
-     * Current lifecycle state of the catalog. Reflects `CORRUPTED` when the catalog failed to load
-     * consistently, or `UNKNOWN_CATALOG_STATE` if the state could not be determined.
+     * current state of the catalog, null for corrupted catalog
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCatalogState catalogState = 4;</code>
      */
@@ -92,15 +90,13 @@ class GrpcCatalogStatistics extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcUuid $catalogId
-     *           unique identifier of the catalog
+     *           name of the catalog
      *     @type string $catalogName
-     *           The catalog's unique name, used to address it via the API.
+     *           name of the catalog
      *     @type bool $corrupted
      *           true if the catalog is corrupted (other data will be not available)
-     *           Deprecated since 2025.7 - deprecated in favor of `catalogState` (compare against `CORRUPTED`)
      *     @type int $catalogState
-     *           Current lifecycle state of the catalog. Reflects `CORRUPTED` when the catalog failed to load
-     *           consistently, or `UNKNOWN_CATALOG_STATE` if the state could not be determined.
+     *           current state of the catalog, null for corrupted catalog
      *     @type int|string $catalogVersion
      *           version of the catalog, -1 for corrupted catalog
      *     @type int|string $totalRecords
@@ -123,7 +119,7 @@ class GrpcCatalogStatistics extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * unique identifier of the catalog
+     * name of the catalog
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid catalogId = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcUuid|null
@@ -144,7 +140,7 @@ class GrpcCatalogStatistics extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * unique identifier of the catalog
+     * name of the catalog
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid catalogId = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcUuid $var
@@ -159,7 +155,7 @@ class GrpcCatalogStatistics extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The catalog's unique name, used to address it via the API.
+     * name of the catalog
      *
      * Generated from protobuf field <code>string catalogName = 2;</code>
      * @return string
@@ -170,7 +166,7 @@ class GrpcCatalogStatistics extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The catalog's unique name, used to address it via the API.
+     * name of the catalog
      *
      * Generated from protobuf field <code>string catalogName = 2;</code>
      * @param string $var
@@ -186,7 +182,6 @@ class GrpcCatalogStatistics extends \Google\Protobuf\Internal\Message
 
     /**
      * true if the catalog is corrupted (other data will be not available)
-     * Deprecated since 2025.7 - deprecated in favor of `catalogState` (compare against `CORRUPTED`)
      *
      * Generated from protobuf field <code>bool corrupted = 3 [deprecated = true];</code>
      * @return bool
@@ -200,7 +195,6 @@ class GrpcCatalogStatistics extends \Google\Protobuf\Internal\Message
 
     /**
      * true if the catalog is corrupted (other data will be not available)
-     * Deprecated since 2025.7 - deprecated in favor of `catalogState` (compare against `CORRUPTED`)
      *
      * Generated from protobuf field <code>bool corrupted = 3 [deprecated = true];</code>
      * @param bool $var
@@ -217,8 +211,7 @@ class GrpcCatalogStatistics extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Current lifecycle state of the catalog. Reflects `CORRUPTED` when the catalog failed to load
-     * consistently, or `UNKNOWN_CATALOG_STATE` if the state could not be determined.
+     * current state of the catalog, null for corrupted catalog
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCatalogState catalogState = 4;</code>
      * @return int
@@ -229,8 +222,7 @@ class GrpcCatalogStatistics extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Current lifecycle state of the catalog. Reflects `CORRUPTED` when the catalog failed to load
-     * consistently, or `UNKNOWN_CATALOG_STATE` if the state could not be determined.
+     * current state of the catalog, null for corrupted catalog
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcCatalogState catalogState = 4;</code>
      * @param int $var

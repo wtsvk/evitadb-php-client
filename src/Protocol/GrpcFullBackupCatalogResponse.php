@@ -9,16 +9,14 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Response to a catalog full backup request (a backup that includes the entire catalog history, not just
- * the current state).
+ * Response to a catalog full backup request.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcFullBackupCatalogResponse</code>
  */
 class GrpcFullBackupCatalogResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Handle to the asynchronous backup task; use it to poll or stream the task's progress and, once
-     * finished, retrieve the resulting backup file.
+     * the task that is used to backup the catalog and getting its progress
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTaskStatus taskStatus = 1;</code>
      */
@@ -31,8 +29,7 @@ class GrpcFullBackupCatalogResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcTaskStatus $taskStatus
-     *           Handle to the asynchronous backup task; use it to poll or stream the task's progress and, once
-     *           finished, retrieve the resulting backup file.
+     *           the task that is used to backup the catalog and getting its progress
      * }
      */
     public function __construct($data = NULL) {
@@ -41,8 +38,7 @@ class GrpcFullBackupCatalogResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Handle to the asynchronous backup task; use it to poll or stream the task's progress and, once
-     * finished, retrieve the resulting backup file.
+     * the task that is used to backup the catalog and getting its progress
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTaskStatus taskStatus = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcTaskStatus|null
@@ -63,8 +59,7 @@ class GrpcFullBackupCatalogResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Handle to the asynchronous backup task; use it to poll or stream the task's progress and, once
-     * finished, retrieve the resulting backup file.
+     * the task that is used to backup the catalog and getting its progress
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcTaskStatus taskStatus = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcTaskStatus $var

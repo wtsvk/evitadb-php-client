@@ -18,12 +18,10 @@ class GrpcCatalogSchemaMutations
         \GPBMetadata\Google\Protobuf\Wrappers::initOnce();
         $pool->internalAddGeneratedFile(
             '
-Ô
+Ã
  GrpcCatalogSchemaMutations.proto%io.evitadb.externalApi.grpc.generatedgoogle/protobuf/wrappers.proto"_
 *GrpcModifyCatalogSchemaDescriptionMutation1
-description (2.google.protobuf.StringValue"Ž
-1GrpcModifyCatalogSchemaConflictResolutionMutationY
-conflictResolution (2=.io.evitadb.externalApi.grpc.generated.GrpcConflictResolution"ˆ
+description (2.google.protobuf.StringValue"ˆ
 -GrpcAllowEvolutionModeInCatalogSchemaMutationW
 evolutionModes (2?.io.evitadb.externalApi.grpc.generated.GrpcCatalogEvolutionMode"‹
 0GrpcDisallowEvolutionModeInCatalogSchemaMutationW

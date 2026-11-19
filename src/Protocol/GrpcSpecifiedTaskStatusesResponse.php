@@ -16,8 +16,7 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcSpecifiedTaskStatusesResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Statuses of the requested tasks that were found, in no particular order; ids from the request
-     * that don't match any known task are simply absent here, no error is raised for them.
+     * Collection of task statuses.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTaskStatus taskStatus = 1;</code>
      */
@@ -30,8 +29,7 @@ class GrpcSpecifiedTaskStatusesResponse extends \Google\Protobuf\Internal\Messag
      *     Optional. Data for populating the Message object.
      *
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcTaskStatus>|\Google\Protobuf\Internal\RepeatedField $taskStatus
-     *           Statuses of the requested tasks that were found, in no particular order; ids from the request
-     *           that don't match any known task are simply absent here, no error is raised for them.
+     *           Collection of task statuses.
      * }
      */
     public function __construct($data = NULL) {
@@ -40,8 +38,7 @@ class GrpcSpecifiedTaskStatusesResponse extends \Google\Protobuf\Internal\Messag
     }
 
     /**
-     * Statuses of the requested tasks that were found, in no particular order; ids from the request
-     * that don't match any known task are simply absent here, no error is raised for them.
+     * Collection of task statuses.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTaskStatus taskStatus = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -52,8 +49,7 @@ class GrpcSpecifiedTaskStatusesResponse extends \Google\Protobuf\Internal\Messag
     }
 
     /**
-     * Statuses of the requested tasks that were found, in no particular order; ids from the request
-     * that don't match any known task are simply absent here, no error is raised for them.
+     * Collection of task statuses.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcTaskStatus taskStatus = 1;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcTaskStatus>|\Google\Protobuf\Internal\RepeatedField $var

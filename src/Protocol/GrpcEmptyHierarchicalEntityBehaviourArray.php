@@ -16,7 +16,7 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcEmptyHierarchicalEntityBehaviourArray extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The individual EmptyHierarchicalEntityBehaviour values, in their original order.
+     * Value that supports storing an EmptyHierarchicalEntityBehaviour array.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEmptyHierarchicalEntityBehaviour value = 1;</code>
      */
@@ -29,7 +29,7 @@ class GrpcEmptyHierarchicalEntityBehaviourArray extends \Google\Protobuf\Interna
      *     Optional. Data for populating the Message object.
      *
      *     @type array<int>|\Google\Protobuf\Internal\RepeatedField $value
-     *           The individual EmptyHierarchicalEntityBehaviour values, in their original order.
+     *           Value that supports storing an EmptyHierarchicalEntityBehaviour array.
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +38,7 @@ class GrpcEmptyHierarchicalEntityBehaviourArray extends \Google\Protobuf\Interna
     }
 
     /**
-     * The individual EmptyHierarchicalEntityBehaviour values, in their original order.
+     * Value that supports storing an EmptyHierarchicalEntityBehaviour array.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEmptyHierarchicalEntityBehaviour value = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -49,7 +49,7 @@ class GrpcEmptyHierarchicalEntityBehaviourArray extends \Google\Protobuf\Interna
     }
 
     /**
-     * The individual EmptyHierarchicalEntityBehaviour values, in their original order.
+     * Value that supports storing an EmptyHierarchicalEntityBehaviour array.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcEmptyHierarchicalEntityBehaviour value = 1;</code>
      * @param array<int>|\Google\Protobuf\Internal\RepeatedField $var

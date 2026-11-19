@@ -78,7 +78,6 @@ class GrpcUpsertPriceMutation extends \Google\Protobuf\Internal\Message
      * entity but won't be considered when evaluating search query. These prices may be
      * used for "informational" prices such as reference price (the crossed out price often found on e-commerce sites
      * as "usual price") but are not considered as the "selling" price.
-     * Deprecated since 2024.10 - RENAMED TO "indexed"
      *
      * Generated from protobuf field <code>bool sellable = 9 [deprecated = true];</code>
      * @deprecated
@@ -131,7 +130,6 @@ class GrpcUpsertPriceMutation extends \Google\Protobuf\Internal\Message
      *           entity but won't be considered when evaluating search query. These prices may be
      *           used for "informational" prices such as reference price (the crossed out price often found on e-commerce sites
      *           as "usual price") but are not considered as the "selling" price.
-     *           Deprecated since 2024.10 - RENAMED TO "indexed"
      *     @type bool $indexed
      *           Controls whether price is subject to filtering / sorting logic, non-indexed prices will be fetched along with
      *           entity but won't be considered when evaluating search query. These prices may be
@@ -470,7 +468,6 @@ class GrpcUpsertPriceMutation extends \Google\Protobuf\Internal\Message
      * entity but won't be considered when evaluating search query. These prices may be
      * used for "informational" prices such as reference price (the crossed out price often found on e-commerce sites
      * as "usual price") but are not considered as the "selling" price.
-     * Deprecated since 2024.10 - RENAMED TO "indexed"
      *
      * Generated from protobuf field <code>bool sellable = 9 [deprecated = true];</code>
      * @return bool
@@ -487,7 +484,6 @@ class GrpcUpsertPriceMutation extends \Google\Protobuf\Internal\Message
      * entity but won't be considered when evaluating search query. These prices may be
      * used for "informational" prices such as reference price (the crossed out price often found on e-commerce sites
      * as "usual price") but are not considered as the "selling" price.
-     * Deprecated since 2024.10 - RENAMED TO "indexed"
      *
      * Generated from protobuf field <code>bool sellable = 9 [deprecated = true];</code>
      * @param bool $var

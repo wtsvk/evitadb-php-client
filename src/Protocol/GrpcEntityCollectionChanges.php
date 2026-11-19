@@ -16,8 +16,6 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcEntityCollectionChanges extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The name (entity type) of the entity collection these counts apply to.
-     *
      * Generated from protobuf field <code>string entityName = 1;</code>
      */
     protected $entityName = '';
@@ -47,7 +45,6 @@ class GrpcEntityCollectionChanges extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $entityName
-     *           The name (entity type) of the entity collection these counts apply to.
      *     @type int $schemaChanges
      *           The number of schema altering mutations.
      *     @type int $upserted
@@ -62,8 +59,6 @@ class GrpcEntityCollectionChanges extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The name (entity type) of the entity collection these counts apply to.
-     *
      * Generated from protobuf field <code>string entityName = 1;</code>
      * @return string
      */
@@ -73,8 +68,6 @@ class GrpcEntityCollectionChanges extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The name (entity type) of the entity collection these counts apply to.
-     *
      * Generated from protobuf field <code>string entityName = 1;</code>
      * @param string $var
      * @return $this

@@ -9,44 +9,33 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * One chunk of a catalog restore uploaded via repeated unary calls, used where true client-side
- * streaming (as in `GrpcRestoreCatalogRequest`) is unavailable, e.g. gRPC-Web. The client calls
- * `RestoreCatalogUnary` once per chunk, feeding back the `fileId` it received in the previous
- * response so the server appends to the same upload; see `GrpcRestoreCatalogUnaryResponse`.
+ * Request to restore a catalog.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcRestoreCatalogUnaryRequest</code>
  */
 class GrpcRestoreCatalogUnaryRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Name of the target catalog into which the backup will be restored.
-     * Must not clash with the name of any existing catalog.
+     * Name of the catalog where the backup will be restored
+     * The name must not clash with any of existing catalogs
      *
      * Generated from protobuf field <code>string catalogName = 1;</code>
      */
     protected $catalogName = '';
     /**
-     * One chunk of the binary backup ZIP archive; the server appends it to the chunks already
-     * received for this upload (identified by `fileId`).
+     * Binary contents of the backup file.
      *
      * Generated from protobuf field <code>bytes backupFile = 2;</code>
      */
     protected $backupFile = '';
     /**
-     * Identifies the upload this chunk continues.
-     * If unset, this is the first chunk of a new upload: the server allocates a new upload id and
-     * returns it as `fileId` in the response. If set, it must be a `fileId` previously returned for
-     * this same upload, and this chunk is appended to it.
+     * Identification of the task (for continuation purpose)
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid fileId = 3;</code>
      */
     protected $fileId = null;
     /**
-     * Total size of the complete backup file (bytes), as expected once all chunks have been
-     * received; sent with every chunk. Once the bytes received so far reach exactly this size, the
-     * restore starts automatically. If more bytes are received than this, the server still returns
-     * a normal response for that (final) chunk and only afterwards discards the partial upload - an
-     * overshoot is not guaranteed to surface to the client as an error, so do not exceed it.
+     * Total size of uploaded file in Bytes, when the size is reached, restore automatically starts
      *
      * Generated from protobuf field <code>int64 totalSizeInBytes = 4;</code>
      */
@@ -59,22 +48,14 @@ class GrpcRestoreCatalogUnaryRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $catalogName
-     *           Name of the target catalog into which the backup will be restored.
-     *           Must not clash with the name of any existing catalog.
+     *           Name of the catalog where the backup will be restored
+     *           The name must not clash with any of existing catalogs
      *     @type string $backupFile
-     *           One chunk of the binary backup ZIP archive; the server appends it to the chunks already
-     *           received for this upload (identified by `fileId`).
+     *           Binary contents of the backup file.
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcUuid $fileId
-     *           Identifies the upload this chunk continues.
-     *           If unset, this is the first chunk of a new upload: the server allocates a new upload id and
-     *           returns it as `fileId` in the response. If set, it must be a `fileId` previously returned for
-     *           this same upload, and this chunk is appended to it.
+     *           Identification of the task (for continuation purpose)
      *     @type int|string $totalSizeInBytes
-     *           Total size of the complete backup file (bytes), as expected once all chunks have been
-     *           received; sent with every chunk. Once the bytes received so far reach exactly this size, the
-     *           restore starts automatically. If more bytes are received than this, the server still returns
-     *           a normal response for that (final) chunk and only afterwards discards the partial upload - an
-     *           overshoot is not guaranteed to surface to the client as an error, so do not exceed it.
+     *           Total size of uploaded file in Bytes, when the size is reached, restore automatically starts
      * }
      */
     public function __construct($data = NULL) {
@@ -83,8 +64,8 @@ class GrpcRestoreCatalogUnaryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Name of the target catalog into which the backup will be restored.
-     * Must not clash with the name of any existing catalog.
+     * Name of the catalog where the backup will be restored
+     * The name must not clash with any of existing catalogs
      *
      * Generated from protobuf field <code>string catalogName = 1;</code>
      * @return string
@@ -95,8 +76,8 @@ class GrpcRestoreCatalogUnaryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Name of the target catalog into which the backup will be restored.
-     * Must not clash with the name of any existing catalog.
+     * Name of the catalog where the backup will be restored
+     * The name must not clash with any of existing catalogs
      *
      * Generated from protobuf field <code>string catalogName = 1;</code>
      * @param string $var
@@ -111,8 +92,7 @@ class GrpcRestoreCatalogUnaryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * One chunk of the binary backup ZIP archive; the server appends it to the chunks already
-     * received for this upload (identified by `fileId`).
+     * Binary contents of the backup file.
      *
      * Generated from protobuf field <code>bytes backupFile = 2;</code>
      * @return string
@@ -123,8 +103,7 @@ class GrpcRestoreCatalogUnaryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * One chunk of the binary backup ZIP archive; the server appends it to the chunks already
-     * received for this upload (identified by `fileId`).
+     * Binary contents of the backup file.
      *
      * Generated from protobuf field <code>bytes backupFile = 2;</code>
      * @param string $var
@@ -139,10 +118,7 @@ class GrpcRestoreCatalogUnaryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Identifies the upload this chunk continues.
-     * If unset, this is the first chunk of a new upload: the server allocates a new upload id and
-     * returns it as `fileId` in the response. If set, it must be a `fileId` previously returned for
-     * this same upload, and this chunk is appended to it.
+     * Identification of the task (for continuation purpose)
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid fileId = 3;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcUuid|null
@@ -163,10 +139,7 @@ class GrpcRestoreCatalogUnaryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Identifies the upload this chunk continues.
-     * If unset, this is the first chunk of a new upload: the server allocates a new upload id and
-     * returns it as `fileId` in the response. If set, it must be a `fileId` previously returned for
-     * this same upload, and this chunk is appended to it.
+     * Identification of the task (for continuation purpose)
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid fileId = 3;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcUuid $var
@@ -181,11 +154,7 @@ class GrpcRestoreCatalogUnaryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Total size of the complete backup file (bytes), as expected once all chunks have been
-     * received; sent with every chunk. Once the bytes received so far reach exactly this size, the
-     * restore starts automatically. If more bytes are received than this, the server still returns
-     * a normal response for that (final) chunk and only afterwards discards the partial upload - an
-     * overshoot is not guaranteed to surface to the client as an error, so do not exceed it.
+     * Total size of uploaded file in Bytes, when the size is reached, restore automatically starts
      *
      * Generated from protobuf field <code>int64 totalSizeInBytes = 4;</code>
      * @return int|string
@@ -196,11 +165,7 @@ class GrpcRestoreCatalogUnaryRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Total size of the complete backup file (bytes), as expected once all chunks have been
-     * received; sent with every chunk. Once the bytes received so far reach exactly this size, the
-     * restore starts automatically. If more bytes are received than this, the server still returns
-     * a normal response for that (final) chunk and only afterwards discards the partial upload - an
-     * overshoot is not guaranteed to surface to the client as an error, so do not exceed it.
+     * Total size of uploaded file in Bytes, when the size is reached, restore automatically starts
      *
      * Generated from protobuf field <code>int64 totalSizeInBytes = 4;</code>
      * @param int|string $var

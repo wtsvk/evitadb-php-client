@@ -16,8 +16,7 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcLocale extends \Google\Protobuf\Internal\Message
 {
     /**
-     * IETF BCP 47 language tag (e.g. `en-US`, `cs-CZ`), resolved server-side via
-     * `Locale#forLanguageTag(String)`.
+     * The language tag of the locale.
      *
      * Generated from protobuf field <code>string languageTag = 1;</code>
      */
@@ -30,8 +29,7 @@ class GrpcLocale extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $languageTag
-     *           IETF BCP 47 language tag (e.g. `en-US`, `cs-CZ`), resolved server-side via
-     *           `Locale#forLanguageTag(String)`.
+     *           The language tag of the locale.
      * }
      */
     public function __construct($data = NULL) {
@@ -40,8 +38,7 @@ class GrpcLocale extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * IETF BCP 47 language tag (e.g. `en-US`, `cs-CZ`), resolved server-side via
-     * `Locale#forLanguageTag(String)`.
+     * The language tag of the locale.
      *
      * Generated from protobuf field <code>string languageTag = 1;</code>
      * @return string
@@ -52,8 +49,7 @@ class GrpcLocale extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * IETF BCP 47 language tag (e.g. `en-US`, `cs-CZ`), resolved server-side via
-     * `Locale#forLanguageTag(String)`.
+     * The language tag of the locale.
      *
      * Generated from protobuf field <code>string languageTag = 1;</code>
      * @param string $var

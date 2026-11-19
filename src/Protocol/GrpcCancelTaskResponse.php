@@ -9,15 +9,14 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Response to a cancel task request.
+ * Request to get cancel task status by id
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcCancelTaskResponse</code>
  */
 class GrpcCancelTaskResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * True if a task with the given id existed and was successfully canceled; false if no such task
-     * exists, or the task could no longer be canceled (e.g. it had already finished).
+     * true if the task was found and canceled
      *
      * Generated from protobuf field <code>bool success = 1;</code>
      */
@@ -30,8 +29,7 @@ class GrpcCancelTaskResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type bool $success
-     *           True if a task with the given id existed and was successfully canceled; false if no such task
-     *           exists, or the task could no longer be canceled (e.g. it had already finished).
+     *           true if the task was found and canceled
      * }
      */
     public function __construct($data = NULL) {
@@ -40,8 +38,7 @@ class GrpcCancelTaskResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * True if a task with the given id existed and was successfully canceled; false if no such task
-     * exists, or the task could no longer be canceled (e.g. it had already finished).
+     * true if the task was found and canceled
      *
      * Generated from protobuf field <code>bool success = 1;</code>
      * @return bool
@@ -52,8 +49,7 @@ class GrpcCancelTaskResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * True if a task with the given id existed and was successfully canceled; false if no such task
-     * exists, or the task could no longer be canceled (e.g. it had already finished).
+     * true if the task was found and canceled
      *
      * Generated from protobuf field <code>bool success = 1;</code>
      * @param bool $var

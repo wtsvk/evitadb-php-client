@@ -240,6 +240,7 @@ Each row in the matrix below marks the **first** package version that introduced
 
 | Package | EvitaDB |
 |---------|---------|
+| 0.7.x   | 2026.1.20 |
 | 0.6.x   | 2026.2.20 |
 | 0.5.x   | 2026.1.9 |
 | 0.2.x   | 2026.1.8 |

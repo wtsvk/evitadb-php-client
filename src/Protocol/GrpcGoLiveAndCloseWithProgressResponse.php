@@ -9,19 +9,12 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * One message of the GoLiveAndCloseWithProgress stream. Intermediate messages report only
- * `progressInPercent` (throttled to at most once per second, and only when the percentage has
- * increased); `catalogVersion`/`catalogSchemaVersion` are left at their zero default on those messages
- * since they are not yet meaningful. The final message always carries `progressInPercent == 100` together
- * with a populated `catalogVersion`/`catalogSchemaVersion`, and ends the stream.
- *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcGoLiveAndCloseWithProgressResponse</code>
  */
 class GrpcGoLiveAndCloseWithProgressResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Contains next catalog version. Only populated on the final message (`progressInPercent == 100`); left
-     * at its default (`0`) on intermediate progress-only messages.
+     * Contains next catalog version
      *
      * Generated from protobuf field <code>int64 catalogVersion = 1;</code>
      */
@@ -29,15 +22,13 @@ class GrpcGoLiveAndCloseWithProgressResponse extends \Google\Protobuf\Internal\M
     /**
      * Contains the version of the catalog schema that will be valid at the moment of closing the session.
      * If session relates to a writable transaction, this schema version becomes valid at the moment the next catalog
-     * version (i.e. the one that is returned in the response) becomes visible. Only populated on the final
-     * message (`progressInPercent == 100`); left at its default (`0`) on intermediate progress-only messages.
+     * version (i.e. the one that is returned in the response) becomes visible.
      *
      * Generated from protobuf field <code>int32 catalogSchemaVersion = 2;</code>
      */
     protected $catalogSchemaVersion = 0;
     /**
-     * Progress of the go-live operation, 0-100. Monotonically increasing across messages; the final message
-     * in the stream always carries 100.
+     * The progress of the go live operation in percents.
      *
      * Generated from protobuf field <code>int32 progressInPercent = 3;</code>
      */
@@ -50,16 +41,13 @@ class GrpcGoLiveAndCloseWithProgressResponse extends \Google\Protobuf\Internal\M
      *     Optional. Data for populating the Message object.
      *
      *     @type int|string $catalogVersion
-     *           Contains next catalog version. Only populated on the final message (`progressInPercent == 100`); left
-     *           at its default (`0`) on intermediate progress-only messages.
+     *           Contains next catalog version
      *     @type int $catalogSchemaVersion
      *           Contains the version of the catalog schema that will be valid at the moment of closing the session.
      *           If session relates to a writable transaction, this schema version becomes valid at the moment the next catalog
-     *           version (i.e. the one that is returned in the response) becomes visible. Only populated on the final
-     *           message (`progressInPercent == 100`); left at its default (`0`) on intermediate progress-only messages.
+     *           version (i.e. the one that is returned in the response) becomes visible.
      *     @type int $progressInPercent
-     *           Progress of the go-live operation, 0-100. Monotonically increasing across messages; the final message
-     *           in the stream always carries 100.
+     *           The progress of the go live operation in percents.
      * }
      */
     public function __construct($data = NULL) {
@@ -68,8 +56,7 @@ class GrpcGoLiveAndCloseWithProgressResponse extends \Google\Protobuf\Internal\M
     }
 
     /**
-     * Contains next catalog version. Only populated on the final message (`progressInPercent == 100`); left
-     * at its default (`0`) on intermediate progress-only messages.
+     * Contains next catalog version
      *
      * Generated from protobuf field <code>int64 catalogVersion = 1;</code>
      * @return int|string
@@ -80,8 +67,7 @@ class GrpcGoLiveAndCloseWithProgressResponse extends \Google\Protobuf\Internal\M
     }
 
     /**
-     * Contains next catalog version. Only populated on the final message (`progressInPercent == 100`); left
-     * at its default (`0`) on intermediate progress-only messages.
+     * Contains next catalog version
      *
      * Generated from protobuf field <code>int64 catalogVersion = 1;</code>
      * @param int|string $var
@@ -98,8 +84,7 @@ class GrpcGoLiveAndCloseWithProgressResponse extends \Google\Protobuf\Internal\M
     /**
      * Contains the version of the catalog schema that will be valid at the moment of closing the session.
      * If session relates to a writable transaction, this schema version becomes valid at the moment the next catalog
-     * version (i.e. the one that is returned in the response) becomes visible. Only populated on the final
-     * message (`progressInPercent == 100`); left at its default (`0`) on intermediate progress-only messages.
+     * version (i.e. the one that is returned in the response) becomes visible.
      *
      * Generated from protobuf field <code>int32 catalogSchemaVersion = 2;</code>
      * @return int
@@ -112,8 +97,7 @@ class GrpcGoLiveAndCloseWithProgressResponse extends \Google\Protobuf\Internal\M
     /**
      * Contains the version of the catalog schema that will be valid at the moment of closing the session.
      * If session relates to a writable transaction, this schema version becomes valid at the moment the next catalog
-     * version (i.e. the one that is returned in the response) becomes visible. Only populated on the final
-     * message (`progressInPercent == 100`); left at its default (`0`) on intermediate progress-only messages.
+     * version (i.e. the one that is returned in the response) becomes visible.
      *
      * Generated from protobuf field <code>int32 catalogSchemaVersion = 2;</code>
      * @param int $var
@@ -128,8 +112,7 @@ class GrpcGoLiveAndCloseWithProgressResponse extends \Google\Protobuf\Internal\M
     }
 
     /**
-     * Progress of the go-live operation, 0-100. Monotonically increasing across messages; the final message
-     * in the stream always carries 100.
+     * The progress of the go live operation in percents.
      *
      * Generated from protobuf field <code>int32 progressInPercent = 3;</code>
      * @return int
@@ -140,8 +123,7 @@ class GrpcGoLiveAndCloseWithProgressResponse extends \Google\Protobuf\Internal\M
     }
 
     /**
-     * Progress of the go-live operation, 0-100. Monotonically increasing across messages; the final message
-     * in the stream always carries 100.
+     * The progress of the go live operation in percents.
      *
      * Generated from protobuf field <code>int32 progressInPercent = 3;</code>
      * @param int $var

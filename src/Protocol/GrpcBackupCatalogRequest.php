@@ -9,15 +9,14 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Request to back up a catalog and stream the backup file to the client.
+ * Response to a catalog backup request.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcBackupCatalogRequest</code>
  */
 class GrpcBackupCatalogRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The moment in time to back up the catalog's state to. If unset, defaults to the current moment
-     * (subject to being overridden by `catalogVersion`, see below).
+     * The moment in time to which the catalog should be backed up. Might be null for current time.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime pastMoment = 1;</code>
      */
@@ -30,9 +29,8 @@ class GrpcBackupCatalogRequest extends \Google\Protobuf\Internal\Message
      */
     protected $includingWAL = false;
     /**
-     * Precise catalog version to create the backup for. If unset, defaults to the latest version - or, when
-     * `pastMoment` is set, the version resolved from `pastMoment`. When this field is set, `pastMoment` is
-     * ignored regardless of whether it is also set.
+     * precise catalog version to create backup for, or null to create backup for the latest version,
+     * when set not null, the pastMoment parameter is ignored
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value catalogVersion = 3;</code>
      */
@@ -45,15 +43,13 @@ class GrpcBackupCatalogRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $pastMoment
-     *           The moment in time to back up the catalog's state to. If unset, defaults to the current moment
-     *           (subject to being overridden by `catalogVersion`, see below).
+     *           The moment in time to which the catalog should be backed up. Might be null for current time.
      *     @type bool $includingWAL
      *           True, if the WAL should be included in the backup. Use false if you want to restore catalog in exact state as
      *           it was at the pastMoment.
      *     @type \Google\Protobuf\Int64Value $catalogVersion
-     *           Precise catalog version to create the backup for. If unset, defaults to the latest version - or, when
-     *           `pastMoment` is set, the version resolved from `pastMoment`. When this field is set, `pastMoment` is
-     *           ignored regardless of whether it is also set.
+     *           precise catalog version to create backup for, or null to create backup for the latest version,
+     *           when set not null, the pastMoment parameter is ignored
      * }
      */
     public function __construct($data = NULL) {
@@ -62,8 +58,7 @@ class GrpcBackupCatalogRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The moment in time to back up the catalog's state to. If unset, defaults to the current moment
-     * (subject to being overridden by `catalogVersion`, see below).
+     * The moment in time to which the catalog should be backed up. Might be null for current time.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime pastMoment = 1;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime|null
@@ -84,8 +79,7 @@ class GrpcBackupCatalogRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The moment in time to back up the catalog's state to. If unset, defaults to the current moment
-     * (subject to being overridden by `catalogVersion`, see below).
+     * The moment in time to which the catalog should be backed up. Might be null for current time.
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcOffsetDateTime pastMoment = 1;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcOffsetDateTime $var
@@ -128,9 +122,8 @@ class GrpcBackupCatalogRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Precise catalog version to create the backup for. If unset, defaults to the latest version - or, when
-     * `pastMoment` is set, the version resolved from `pastMoment`. When this field is set, `pastMoment` is
-     * ignored regardless of whether it is also set.
+     * precise catalog version to create backup for, or null to create backup for the latest version,
+     * when set not null, the pastMoment parameter is ignored
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value catalogVersion = 3;</code>
      * @return \Google\Protobuf\Int64Value|null
@@ -153,9 +146,8 @@ class GrpcBackupCatalogRequest extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getCatalogVersion()</code>
 
-     * Precise catalog version to create the backup for. If unset, defaults to the latest version - or, when
-     * `pastMoment` is set, the version resolved from `pastMoment`. When this field is set, `pastMoment` is
-     * ignored regardless of whether it is also set.
+     * precise catalog version to create backup for, or null to create backup for the latest version,
+     * when set not null, the pastMoment parameter is ignored
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value catalogVersion = 3;</code>
      * @return int|string|null
@@ -166,9 +158,8 @@ class GrpcBackupCatalogRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Precise catalog version to create the backup for. If unset, defaults to the latest version - or, when
-     * `pastMoment` is set, the version resolved from `pastMoment`. When this field is set, `pastMoment` is
-     * ignored regardless of whether it is also set.
+     * precise catalog version to create backup for, or null to create backup for the latest version,
+     * when set not null, the pastMoment parameter is ignored
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value catalogVersion = 3;</code>
      * @param \Google\Protobuf\Int64Value $var
@@ -185,9 +176,8 @@ class GrpcBackupCatalogRequest extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int64Value object.
 
-     * Precise catalog version to create the backup for. If unset, defaults to the latest version - or, when
-     * `pastMoment` is set, the version resolved from `pastMoment`. When this field is set, `pastMoment` is
-     * ignored regardless of whether it is also set.
+     * precise catalog version to create backup for, or null to create backup for the latest version,
+     * when set not null, the pastMoment parameter is ignored
      *
      * Generated from protobuf field <code>.google.protobuf.Int64Value catalogVersion = 3;</code>
      * @param int|string|null $var

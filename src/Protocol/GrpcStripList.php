@@ -9,23 +9,20 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Strip/offset-based pagination descriptor for a `GrpcDataChunk` - the alternative to `GrpcPaginatedList`
- * used when the query's `require` block specifies a `strip()` requirement instead of `page()`.
+ * Structure that represents a strip within a data chunk.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcStripList</code>
  */
 class GrpcStripList extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Maximum number of records returned in this strip.
+     * The size of the strip.
      *
      * Generated from protobuf field <code>int32 limit = 1;</code>
      */
     protected $limit = 0;
     /**
-     * Number of records skipped from the beginning of the result set before this strip starts. 0-indexed:
-     * an offset of 0 starts at the very first record - unlike `GrpcPaginatedList.pageNumber`, this is not a
-     * page number.
+     * The offset of the strip - count of records from the beginning to skip.
      *
      * Generated from protobuf field <code>int32 offset = 2;</code>
      */
@@ -38,11 +35,9 @@ class GrpcStripList extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type int $limit
-     *           Maximum number of records returned in this strip.
+     *           The size of the strip.
      *     @type int $offset
-     *           Number of records skipped from the beginning of the result set before this strip starts. 0-indexed:
-     *           an offset of 0 starts at the very first record - unlike `GrpcPaginatedList.pageNumber`, this is not a
-     *           page number.
+     *           The offset of the strip - count of records from the beginning to skip.
      * }
      */
     public function __construct($data = NULL) {
@@ -51,7 +46,7 @@ class GrpcStripList extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Maximum number of records returned in this strip.
+     * The size of the strip.
      *
      * Generated from protobuf field <code>int32 limit = 1;</code>
      * @return int
@@ -62,7 +57,7 @@ class GrpcStripList extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Maximum number of records returned in this strip.
+     * The size of the strip.
      *
      * Generated from protobuf field <code>int32 limit = 1;</code>
      * @param int $var
@@ -77,9 +72,7 @@ class GrpcStripList extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Number of records skipped from the beginning of the result set before this strip starts. 0-indexed:
-     * an offset of 0 starts at the very first record - unlike `GrpcPaginatedList.pageNumber`, this is not a
-     * page number.
+     * The offset of the strip - count of records from the beginning to skip.
      *
      * Generated from protobuf field <code>int32 offset = 2;</code>
      * @return int
@@ -90,9 +83,7 @@ class GrpcStripList extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Number of records skipped from the beginning of the result set before this strip starts. 0-indexed:
-     * an offset of 0 starts at the very first record - unlike `GrpcPaginatedList.pageNumber`, this is not a
-     * page number.
+     * The offset of the strip - count of records from the beginning to skip.
      *
      * Generated from protobuf field <code>int32 offset = 2;</code>
      * @param int $var

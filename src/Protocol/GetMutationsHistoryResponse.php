@@ -9,16 +9,14 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Response to GetMutationsHistory / GetMutationsHistoryForward request. The server sends one such message
- * per mutation - each carries exactly one `changeCapture` entry, not a batch (see the RPC's streaming
- * semantics).
+ * Response to GetMutationsHistory request.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GetMutationsHistoryResponse</code>
  */
 class GetMutationsHistoryResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The single mutation delivered by this stream message.
+     * The list of mutations that match the criteria
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeCatalogCapture changeCapture = 1;</code>
      */
@@ -31,7 +29,7 @@ class GetMutationsHistoryResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcChangeCatalogCapture>|\Google\Protobuf\Internal\RepeatedField $changeCapture
-     *           The single mutation delivered by this stream message.
+     *           The list of mutations that match the criteria
      * }
      */
     public function __construct($data = NULL) {
@@ -40,7 +38,7 @@ class GetMutationsHistoryResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The single mutation delivered by this stream message.
+     * The list of mutations that match the criteria
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeCatalogCapture changeCapture = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -51,7 +49,7 @@ class GetMutationsHistoryResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The single mutation delivered by this stream message.
+     * The list of mutations that match the criteria
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcChangeCatalogCapture changeCapture = 1;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcChangeCatalogCapture>|\Google\Protobuf\Internal\RepeatedField $var

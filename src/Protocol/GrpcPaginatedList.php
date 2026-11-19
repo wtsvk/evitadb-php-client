@@ -9,34 +9,26 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Page-based pagination descriptor for a `GrpcDataChunk`, reporting the page actually returned. The
- * desired page is requested via the query's `page()` require constraint, not a field on this response
- * structure - see `io.evitadb.api.query.require.Page` for the full contract. `pageNumber` is 1-indexed
- * (page 1 is the first page) - see `io.evitadb.dataType.PaginatedList#getPageNumber`. A requested page
- * number of 0 or less is rejected by the server; a requested page number beyond `lastPageNumber` is not
- * rejected - the engine returns the first page instead, so `pageNumber` here can differ from what was
- * requested.
+ * Structure that represents a pagination within a data chunk.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcPaginatedList</code>
  */
 class GrpcPaginatedList extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Number of records requested per page, echoed back from the query's `page()` require constraint.
-     * Zero is valid and yields an empty page while `totalRecordCount`/`lastPageNumber` are still reported.
+     * The size of the page.
      *
      * Generated from protobuf field <code>int32 pageSize = 1;</code>
      */
     protected $pageSize = 0;
     /**
-     * The page actually returned (1-indexed) - see the message-level comment for how this can differ from
-     * the requested page number.
+     * The number of the page.
      *
      * Generated from protobuf field <code>int32 pageNumber = 2;</code>
      */
     protected $pageNumber = 0;
     /**
-     * The number of the last available page, given `pageSize` and the total record count.
+     * The number of the last page.
      *
      * Generated from protobuf field <code>int32 lastPageNumber = 3;</code>
      */
@@ -49,13 +41,11 @@ class GrpcPaginatedList extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type int $pageSize
-     *           Number of records requested per page, echoed back from the query's `page()` require constraint.
-     *           Zero is valid and yields an empty page while `totalRecordCount`/`lastPageNumber` are still reported.
+     *           The size of the page.
      *     @type int $pageNumber
-     *           The page actually returned (1-indexed) - see the message-level comment for how this can differ from
-     *           the requested page number.
+     *           The number of the page.
      *     @type int $lastPageNumber
-     *           The number of the last available page, given `pageSize` and the total record count.
+     *           The number of the last page.
      * }
      */
     public function __construct($data = NULL) {
@@ -64,8 +54,7 @@ class GrpcPaginatedList extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Number of records requested per page, echoed back from the query's `page()` require constraint.
-     * Zero is valid and yields an empty page while `totalRecordCount`/`lastPageNumber` are still reported.
+     * The size of the page.
      *
      * Generated from protobuf field <code>int32 pageSize = 1;</code>
      * @return int
@@ -76,8 +65,7 @@ class GrpcPaginatedList extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Number of records requested per page, echoed back from the query's `page()` require constraint.
-     * Zero is valid and yields an empty page while `totalRecordCount`/`lastPageNumber` are still reported.
+     * The size of the page.
      *
      * Generated from protobuf field <code>int32 pageSize = 1;</code>
      * @param int $var
@@ -92,8 +80,7 @@ class GrpcPaginatedList extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The page actually returned (1-indexed) - see the message-level comment for how this can differ from
-     * the requested page number.
+     * The number of the page.
      *
      * Generated from protobuf field <code>int32 pageNumber = 2;</code>
      * @return int
@@ -104,8 +91,7 @@ class GrpcPaginatedList extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The page actually returned (1-indexed) - see the message-level comment for how this can differ from
-     * the requested page number.
+     * The number of the page.
      *
      * Generated from protobuf field <code>int32 pageNumber = 2;</code>
      * @param int $var
@@ -120,7 +106,7 @@ class GrpcPaginatedList extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The number of the last available page, given `pageSize` and the total record count.
+     * The number of the last page.
      *
      * Generated from protobuf field <code>int32 lastPageNumber = 3;</code>
      * @return int
@@ -131,7 +117,7 @@ class GrpcPaginatedList extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The number of the last available page, given `pageSize` and the total record count.
+     * The number of the last page.
      *
      * Generated from protobuf field <code>int32 lastPageNumber = 3;</code>
      * @param int $var

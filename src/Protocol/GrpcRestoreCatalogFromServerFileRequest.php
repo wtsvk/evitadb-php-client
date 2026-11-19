@@ -9,24 +9,21 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Request to restore a catalog from a backup file that already exists on the server (e.g. produced
- * by a prior backup task, or a previous restore upload) - in contrast to
- * `GrpcRestoreCatalogRequest` and `GrpcRestoreCatalogUnaryRequest`, which upload a new backup file
- * as part of the call.
+ * Request to restore a catalog.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcRestoreCatalogFromServerFileRequest</code>
  */
 class GrpcRestoreCatalogFromServerFileRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Name of the target catalog into which the backup will be restored.
-     * Must not clash with the name of any existing catalog.
+     * Name of the catalog where the backup will be restored
+     * The name must not clash with any of existing catalogs
      *
      * Generated from protobuf field <code>string catalogName = 1;</code>
      */
     protected $catalogName = '';
     /**
-     * Identification of the backup file already stored on the server that should be restored.
+     * The identification of the file on the server that should be restored
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid fileId = 2;</code>
      */
@@ -39,10 +36,10 @@ class GrpcRestoreCatalogFromServerFileRequest extends \Google\Protobuf\Internal\
      *     Optional. Data for populating the Message object.
      *
      *     @type string $catalogName
-     *           Name of the target catalog into which the backup will be restored.
-     *           Must not clash with the name of any existing catalog.
+     *           Name of the catalog where the backup will be restored
+     *           The name must not clash with any of existing catalogs
      *     @type \Wtsvk\EvitaDbClient\Protocol\GrpcUuid $fileId
-     *           Identification of the backup file already stored on the server that should be restored.
+     *           The identification of the file on the server that should be restored
      * }
      */
     public function __construct($data = NULL) {
@@ -51,8 +48,8 @@ class GrpcRestoreCatalogFromServerFileRequest extends \Google\Protobuf\Internal\
     }
 
     /**
-     * Name of the target catalog into which the backup will be restored.
-     * Must not clash with the name of any existing catalog.
+     * Name of the catalog where the backup will be restored
+     * The name must not clash with any of existing catalogs
      *
      * Generated from protobuf field <code>string catalogName = 1;</code>
      * @return string
@@ -63,8 +60,8 @@ class GrpcRestoreCatalogFromServerFileRequest extends \Google\Protobuf\Internal\
     }
 
     /**
-     * Name of the target catalog into which the backup will be restored.
-     * Must not clash with the name of any existing catalog.
+     * Name of the catalog where the backup will be restored
+     * The name must not clash with any of existing catalogs
      *
      * Generated from protobuf field <code>string catalogName = 1;</code>
      * @param string $var
@@ -79,7 +76,7 @@ class GrpcRestoreCatalogFromServerFileRequest extends \Google\Protobuf\Internal\
     }
 
     /**
-     * Identification of the backup file already stored on the server that should be restored.
+     * The identification of the file on the server that should be restored
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid fileId = 2;</code>
      * @return \Wtsvk\EvitaDbClient\Protocol\GrpcUuid|null
@@ -100,7 +97,7 @@ class GrpcRestoreCatalogFromServerFileRequest extends \Google\Protobuf\Internal\
     }
 
     /**
-     * Identification of the backup file already stored on the server that should be restored.
+     * The identification of the file on the server that should be restored
      *
      * Generated from protobuf field <code>.io.evitadb.externalApi.grpc.generated.GrpcUuid fileId = 2;</code>
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcUuid $var

@@ -9,24 +9,20 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Structure for representing Predecessor objects, used to express a manually maintained ordering
- * of sibling entities/references by pointing each one at the primary key of the item that precedes
- * it.
+ * Structure for representing Predecessor objects.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcPredecessor</code>
  */
 class GrpcPredecessor extends \Google\Protobuf\Internal\Message
 {
     /**
-     * If `true`, this is the first item in the ordering (no predecessor) and `predecessorId` is not
-     * set. If `false`, this item has a predecessor and `predecessorId` must be set.
+     * true if predecessor is a head, false otherwise
      *
      * Generated from protobuf field <code>bool head = 1;</code>
      */
     protected $head = false;
     /**
-     * The primary key of the entity/reference that precedes this one in the ordering. Unset when
-     * `head` is `true`; must be set when `head` is `false`.
+     * Value that supports storing a Predecessor.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value predecessorId = 2;</code>
      */
@@ -39,11 +35,9 @@ class GrpcPredecessor extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type bool $head
-     *           If `true`, this is the first item in the ordering (no predecessor) and `predecessorId` is not
-     *           set. If `false`, this item has a predecessor and `predecessorId` must be set.
+     *           true if predecessor is a head, false otherwise
      *     @type \Google\Protobuf\Int32Value $predecessorId
-     *           The primary key of the entity/reference that precedes this one in the ordering. Unset when
-     *           `head` is `true`; must be set when `head` is `false`.
+     *           Value that supports storing a Predecessor.
      * }
      */
     public function __construct($data = NULL) {
@@ -52,8 +46,7 @@ class GrpcPredecessor extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * If `true`, this is the first item in the ordering (no predecessor) and `predecessorId` is not
-     * set. If `false`, this item has a predecessor and `predecessorId` must be set.
+     * true if predecessor is a head, false otherwise
      *
      * Generated from protobuf field <code>bool head = 1;</code>
      * @return bool
@@ -64,8 +57,7 @@ class GrpcPredecessor extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * If `true`, this is the first item in the ordering (no predecessor) and `predecessorId` is not
-     * set. If `false`, this item has a predecessor and `predecessorId` must be set.
+     * true if predecessor is a head, false otherwise
      *
      * Generated from protobuf field <code>bool head = 1;</code>
      * @param bool $var
@@ -80,8 +72,7 @@ class GrpcPredecessor extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The primary key of the entity/reference that precedes this one in the ordering. Unset when
-     * `head` is `true`; must be set when `head` is `false`.
+     * Value that supports storing a Predecessor.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value predecessorId = 2;</code>
      * @return \Google\Protobuf\Int32Value|null
@@ -104,8 +95,7 @@ class GrpcPredecessor extends \Google\Protobuf\Internal\Message
     /**
      * Returns the unboxed value from <code>getPredecessorId()</code>
 
-     * The primary key of the entity/reference that precedes this one in the ordering. Unset when
-     * `head` is `true`; must be set when `head` is `false`.
+     * Value that supports storing a Predecessor.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value predecessorId = 2;</code>
      * @return int|null
@@ -116,8 +106,7 @@ class GrpcPredecessor extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The primary key of the entity/reference that precedes this one in the ordering. Unset when
-     * `head` is `true`; must be set when `head` is `false`.
+     * Value that supports storing a Predecessor.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value predecessorId = 2;</code>
      * @param \Google\Protobuf\Int32Value $var
@@ -134,8 +123,7 @@ class GrpcPredecessor extends \Google\Protobuf\Internal\Message
     /**
      * Sets the field by wrapping a primitive type in a Google\Protobuf\Int32Value object.
 
-     * The primary key of the entity/reference that precedes this one in the ordering. Unset when
-     * `head` is `true`; must be set when `head` is `false`.
+     * Value that supports storing a Predecessor.
      *
      * Generated from protobuf field <code>.google.protobuf.Int32Value predecessorId = 2;</code>
      * @param int|null $var

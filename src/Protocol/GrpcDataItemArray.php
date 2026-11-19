@@ -9,14 +9,14 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Structure that holds an array-typed node of a complex associated data value's tree.
+ * Structure that holds a array of values stored inside array of the complex object.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcDataItemArray</code>
  */
 class GrpcDataItemArray extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The ordered child nodes of this array node, in their original order.
+     * The stored array of values.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcDataItem children = 1;</code>
      */
@@ -29,7 +29,7 @@ class GrpcDataItemArray extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type array<\Wtsvk\EvitaDbClient\Protocol\GrpcDataItem>|\Google\Protobuf\Internal\RepeatedField $children
-     *           The ordered child nodes of this array node, in their original order.
+     *           The stored array of values.
      * }
      */
     public function __construct($data = NULL) {
@@ -38,7 +38,7 @@ class GrpcDataItemArray extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The ordered child nodes of this array node, in their original order.
+     * The stored array of values.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcDataItem children = 1;</code>
      * @return \Google\Protobuf\Internal\RepeatedField
@@ -49,7 +49,7 @@ class GrpcDataItemArray extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The ordered child nodes of this array node, in their original order.
+     * The stored array of values.
      *
      * Generated from protobuf field <code>repeated .io.evitadb.externalApi.grpc.generated.GrpcDataItem children = 1;</code>
      * @param array<\Wtsvk\EvitaDbClient\Protocol\GrpcDataItem>|\Google\Protobuf\Internal\RepeatedField $var

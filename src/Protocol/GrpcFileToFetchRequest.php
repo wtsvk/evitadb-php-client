@@ -9,7 +9,7 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Request to get a single file available for fetching, by its id.
+ * Request to list task statuses in paginated form.
  *
  * Generated from protobuf message <code>io.evitadb.externalApi.grpc.generated.GrpcFileToFetchRequest</code>
  */

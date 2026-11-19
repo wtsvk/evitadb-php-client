@@ -7,9 +7,6 @@ namespace Wtsvk\EvitaDbClient\Protocol\GrpcEvitaAssociatedDataDataType;
 use UnexpectedValueException;
 
 /**
- * Enumerates the value types evitaDB supports for associated data (both scalar and array variants) - a subset
- * of the general query data types plus `ComplexDataObject` for arbitrary nested structures.
- *
  * Protobuf type <code>io.evitadb.externalApi.grpc.generated.GrpcEvitaAssociatedDataDataType.GrpcEvitaDataType</code>
  */
 class GrpcEvitaDataType

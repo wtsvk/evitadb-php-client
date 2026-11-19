@@ -16,14 +16,12 @@ use Google\Protobuf\Internal\GPBUtil;
 class GrpcUuid extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The most significant 64 bits of the UUID, as returned by `UUID#getMostSignificantBits()`.
+     * Value that supports storing a UUID.
      *
      * Generated from protobuf field <code>int64 mostSignificantBits = 1;</code>
      */
     protected $mostSignificantBits = 0;
     /**
-     * The least significant 64 bits of the UUID, as returned by `UUID#getLeastSignificantBits()`.
-     *
      * Generated from protobuf field <code>int64 leastSignificantBits = 2;</code>
      */
     protected $leastSignificantBits = 0;
@@ -35,9 +33,8 @@ class GrpcUuid extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type int|string $mostSignificantBits
-     *           The most significant 64 bits of the UUID, as returned by `UUID#getMostSignificantBits()`.
+     *           Value that supports storing a UUID.
      *     @type int|string $leastSignificantBits
-     *           The least significant 64 bits of the UUID, as returned by `UUID#getLeastSignificantBits()`.
      * }
      */
     public function __construct($data = NULL) {
@@ -46,7 +43,7 @@ class GrpcUuid extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The most significant 64 bits of the UUID, as returned by `UUID#getMostSignificantBits()`.
+     * Value that supports storing a UUID.
      *
      * Generated from protobuf field <code>int64 mostSignificantBits = 1;</code>
      * @return int|string
@@ -57,7 +54,7 @@ class GrpcUuid extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The most significant 64 bits of the UUID, as returned by `UUID#getMostSignificantBits()`.
+     * Value that supports storing a UUID.
      *
      * Generated from protobuf field <code>int64 mostSignificantBits = 1;</code>
      * @param int|string $var
@@ -72,8 +69,6 @@ class GrpcUuid extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The least significant 64 bits of the UUID, as returned by `UUID#getLeastSignificantBits()`.
-     *
      * Generated from protobuf field <code>int64 leastSignificantBits = 2;</code>
      * @return int|string
      */
@@ -83,8 +78,6 @@ class GrpcUuid extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The least significant 64 bits of the UUID, as returned by `UUID#getLeastSignificantBits()`.
-     *
      * Generated from protobuf field <code>int64 leastSignificantBits = 2;</code>
      * @param int|string $var
      * @return $this

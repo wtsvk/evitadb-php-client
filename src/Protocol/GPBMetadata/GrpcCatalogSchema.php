@@ -19,8 +19,8 @@ class GrpcCatalogSchema
         \GPBMetadata\Google\Protobuf\Wrappers::initOnce();
         $pool->internalAddGeneratedFile(
             '
-À
-GrpcCatalogSchema.proto%io.evitadb.externalApi.grpc.generatedGrpcEvitaDataTypes.protogoogle/protobuf/wrappers.proto"¿
+ú
+GrpcCatalogSchema.proto%io.evitadb.externalApi.grpc.generatedGrpcEvitaDataTypes.protogoogle/protobuf/wrappers.proto"ä
 GrpcCatalogSchema
 name (	
 version (1
@@ -28,11 +28,10 @@ class GrpcCatalogSchema
 catalogEvolutionMode (2?.io.evitadb.externalApi.grpc.generated.GrpcCatalogEvolutionMode\\
 
 attributes (2H.io.evitadb.externalApi.grpc.generated.GrpcCatalogSchema.AttributesEntryK
-nameVariant (26.io.evitadb.externalApi.grpc.generated.GrpcNameVariantY
-conflictResolution (2=.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutions
+nameVariant (26.io.evitadb.externalApi.grpc.generated.GrpcNameVariants
 AttributesEntry
 key (	O
-value (2@.io.evitadb.externalApi.grpc.generated.GrpcGlobalAttributeSchema:8"¡	
+value (2@.io.evitadb.externalApi.grpc.generated.GrpcGlobalAttributeSchema:8"¶
 GrpcGlobalAttributeSchema
 name (	1
 description (2.google.protobuf.StringValue7
@@ -53,8 +52,7 @@ filterable (B
 uniqueInScopes (2H.io.evitadb.externalApi.grpc.generated.GrpcScopedAttributeUniquenessTypeR
 filterableInScopes (26.io.evitadb.externalApi.grpc.generated.GrpcEntityScopeP
 sortableInScopes (26.io.evitadb.externalApi.grpc.generated.GrpcEntityScopen
-uniqueGloballyInScopes (2N.io.evitadb.externalApi.grpc.generated.GrpcScopedGlobalAttributeUniquenessTypei
-conflictResolutionOverride (2E.io.evitadb.externalApi.grpc.generated.GrpcConflictResolutionOverrideBVPªEvitaDBÊWtsvk\\EvitaDbClient\\Protocolâ(Wtsvk\\EvitaDbClient\\Protocol\\GPBMetadatabproto3'
+uniqueGloballyInScopes (2N.io.evitadb.externalApi.grpc.generated.GrpcScopedGlobalAttributeUniquenessTypeBVPªEvitaDBÊWtsvk\\EvitaDbClient\\Protocolâ(Wtsvk\\EvitaDbClient\\Protocol\\GPBMetadatabproto3'
         , true);
 
         static::$is_initialized = true;

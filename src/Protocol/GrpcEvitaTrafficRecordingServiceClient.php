@@ -4,9 +4,6 @@
 namespace Wtsvk\EvitaDbClient\Protocol;
 
 /**
- * This service contains RPCs that could be called by gRPC clients on evitaDB's catalog by usage of a before created
- * session. Main purpose of this service is to provide a way to query and manage recorded traffic (queries, mutations,
- * session lifecycle events) captured for diagnostics.
  */
 class GrpcEvitaTrafficRecordingServiceClient extends \Grpc\BaseStub {
 
@@ -101,8 +98,7 @@ class GrpcEvitaTrafficRecordingServiceClient extends \Grpc\BaseStub {
     }
 
     /**
-     * Procedure that starts the traffic recording for the given criteria and settings. Fails if a recording is
-     * already in progress - only one recording may run at a time.
+     * Procedure that starts the traffic recording for the given criteria and settings
      * @param \Wtsvk\EvitaDbClient\Protocol\GrpcStartTrafficRecordingRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
@@ -126,22 +122,6 @@ class GrpcEvitaTrafficRecordingServiceClient extends \Grpc\BaseStub {
     public function StopTrafficRecording(\Wtsvk\EvitaDbClient\Protocol\GrpcStopTrafficRecordingRequest $argument,
       $metadata = [], $options = []) {
         return $this->_simpleRequest('/io.evitadb.externalApi.grpc.generated.GrpcEvitaTrafficRecordingService/StopTrafficRecording',
-        $argument,
-        ['\Wtsvk\EvitaDbClient\Protocol\GetTrafficRecordingStatusResponse', 'decode'],
-        $metadata, $options);
-    }
-
-    /**
-     * Procedure that exports a consistent, on-demand snapshot of the currently buffered traffic recording window
-     * to a downloadable zip archive - not gated by any running recording task.
-     * @param \Wtsvk\EvitaDbClient\Protocol\GrpcExportTrafficRecordingRequest $argument input argument
-     * @param array $metadata metadata
-     * @param array $options call options
-     * @return \Grpc\UnaryCall
-     */
-    public function ExportTrafficRecording(\Wtsvk\EvitaDbClient\Protocol\GrpcExportTrafficRecordingRequest $argument,
-      $metadata = [], $options = []) {
-        return $this->_simpleRequest('/io.evitadb.externalApi.grpc.generated.GrpcEvitaTrafficRecordingService/ExportTrafficRecording',
         $argument,
         ['\Wtsvk\EvitaDbClient\Protocol\GetTrafficRecordingStatusResponse', 'decode'],
         $metadata, $options);
