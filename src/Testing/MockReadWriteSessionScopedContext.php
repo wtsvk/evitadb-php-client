@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Wtsvk\EvitaDbClient\Testing;
 
-use Webmozart\Assert\Assert;
 use Wtsvk\EvitaDbClient\EntityFetch;
 use Wtsvk\EvitaDbClient\Exception\EvitaDbEntityNotFoundException;
 use Wtsvk\EvitaDbClient\Exception\EvitaDbStatusException;
@@ -53,24 +52,21 @@ final readonly class MockReadWriteSessionScopedContext implements WriteTransacti
     {
         $response = $this->upsert($upsertMutation);
 
-        if ($response->hasEntityReference()) {
-            $ref = $response->getEntityReference();
-            Assert::notNull($ref);
+        $ref = $response->getEntityReference();
 
+        if ($ref !== null) {
             return $ref->getPrimaryKey();
         }
 
-        if ($response->hasEntity()) {
-            $entity = $response->getEntity();
-            Assert::notNull($entity);
+        $entity = $response->getEntity();
 
+        if ($entity !== null) {
             return $entity->getPrimaryKey();
         }
 
-        if ($response->hasEntityReferenceWithAssignedPrimaryKeys()) {
-            $refKeys = $response->getEntityReferenceWithAssignedPrimaryKeys();
-            Assert::notNull($refKeys);
+        $refKeys = $response->getEntityReferenceWithAssignedPrimaryKeys();
 
+        if ($refKeys !== null) {
             return $refKeys->getPrimaryKey();
         }
 

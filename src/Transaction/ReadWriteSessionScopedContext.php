@@ -69,24 +69,21 @@ final readonly class ReadWriteSessionScopedContext implements WriteTransactionCo
     {
         $response = $this->upsert($upsertMutation);
 
-        if ($response->hasEntityReference()) {
-            $ref = $response->getEntityReference();
-            Assert::notNull($ref);
+        $ref = $response->getEntityReference();
 
+        if ($ref !== null) {
             return $ref->getPrimaryKey();
         }
 
-        if ($response->hasEntity()) {
-            $entity = $response->getEntity();
-            Assert::notNull($entity);
+        $entity = $response->getEntity();
 
+        if ($entity !== null) {
             return $entity->getPrimaryKey();
         }
 
-        if ($response->hasEntityReferenceWithAssignedPrimaryKeys()) {
-            $refKeys = $response->getEntityReferenceWithAssignedPrimaryKeys();
-            Assert::notNull($refKeys);
+        $refKeys = $response->getEntityReferenceWithAssignedPrimaryKeys();
 
+        if ($refKeys !== null) {
             return $refKeys->getPrimaryKey();
         }
 
@@ -154,7 +151,10 @@ final readonly class ReadWriteSessionScopedContext implements WriteTransactionCo
         // entityReference; a missing target leaves both fields unset. If a
         // future refactor starts setting `require`, the `entity` branch would
         // fire on success and this check still holds.
-        if (! $response->hasEntityReference() && ! $response->hasEntity()) {
+        if (
+            $response->getEntityReference() === null
+            && $response->getEntity() === null
+        ) {
             throw new EvitaDbEntityNotFoundException(
                 message: sprintf(
                     'Entity %s pk=%d not found in catalog %s',
