@@ -21,9 +21,18 @@ jobs:
 
       - name: Get latest stable EvitaDB version
         id: latest
+        # Docker Hub lists tags by push date, not by version: a backport on an older
+        # release line (e.g. 2026.1.20 pushed minutes after 2026.2.22) would otherwise
+        # look like the "latest" and produce a downgrade PR. Pick the highest version
+        # instead, and include the current one so the result can never be lower than it.
         run: |
-          VERSION=$(curl -sL "https://hub.docker.com/v2/repositories/evitadb/evitadb/tags?page_size=50" \
-            | jq -r '[.results[] | select(.name | test("^[0-9]+\\.[0-9]+\\.[0-9]+$"))] | .[0].name')
+          CURRENT=$(jq -r '.extra["evitadb-version"]' composer.json)
+          VERSION=$(curl -sL "https://hub.docker.com/v2/repositories/evitadb/evitadb/tags?page_size=100" \
+            | jq -r --arg current "$CURRENT" '
+                [.results[].name, $current | select(test("^[0-9]+\\.[0-9]+\\.[0-9]+$"))]
+                | sort_by(split(".") | map(tonumber))
+                | last
+              ')
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "Latest: $VERSION"
 
